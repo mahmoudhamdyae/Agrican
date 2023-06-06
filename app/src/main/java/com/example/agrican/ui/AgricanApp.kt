@@ -1,0 +1,46 @@
+package com.example.agrican.ui
+
+import androidx.compose.runtime.Composable
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.agrican.ui.screens.onboarding.OnboardingDestination
+import com.example.agrican.ui.screens.onboarding.OnboardingScreen
+import com.example.agrican.ui.screens.welcome.WelcomeDestination
+import com.example.agrican.ui.screens.welcome.WelcomeScreen
+
+@Composable
+fun AgricanApp() {
+
+    val navController = rememberNavController()
+
+    val openScreen: (String) -> Unit = { route -> navController.navigate(route) { launchSingleTop = true } }
+    val openAndClear: (String) -> Unit = { route ->
+        navController.navigate(route) {
+            launchSingleTop = true
+            popUpTo(0) { inclusive = true }
+        }
+    }
+    val openAndPopUp: (String, String) -> Unit = { route, popUp ->
+        navController.navigate(route) {
+            launchSingleTop = true
+            popUpTo(popUp) { inclusive = true }
+        }
+    }
+    val navigateUp = { navController.popBackStack() }
+
+    NavHost(navController = navController, startDestination = WelcomeDestination.route) {
+
+        composable(route = WelcomeDestination.route) {
+            WelcomeScreen(
+                openAndClear = openAndClear
+            )
+        }
+
+        composable(route = OnboardingDestination.route) {
+            OnboardingScreen(
+                openAndClear = openAndClear
+            )
+        }
+    }
+}
