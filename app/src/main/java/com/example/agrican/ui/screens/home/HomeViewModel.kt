@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.agrican.data.repository.PreferencesRepository
 import com.example.agrican.ui.screens.auth.login.LoginDestination
 import com.example.agrican.ui.screens.onboarding.OnboardingDestination
+import com.example.agrican.ui.screens.welcome.WelcomeDestination
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.Flow
@@ -24,7 +25,7 @@ class HomeViewModel @Inject constructor(
             viewModelScope.launch {
                 isFirstTime.collect {
                     if (it) {
-                        navigate(OnboardingDestination.route)
+                        navigate(WelcomeDestination.route)
                         this.cancel()
                     } else {
                         navigate(LoginDestination.route)
