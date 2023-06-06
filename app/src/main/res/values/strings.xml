@@ -3,7 +3,27 @@
 
     <!-- Onboarding Screen -->
     <string name="onboarding_text_1">مساعدك الذكى بين يديك</string>
-    <string name="onboarding_text_2">اداؤة محاصيلك بكفاءة باستخدام الذكاء الاصطناعى</string>
+    <string name="onboarding_text_2">ادارة محاصيلك بكفاءة باستخدام الذكاء الاصطناعى</string>
     <string name="onboarding_text_3">مع أجريكان أرضك فى أمان</string>
     <string name="onboarding_button">التالى</string>
+
+    <!-- Auth -->
+    <string name="email_error">Please insert a valid email.</string>
+    <string name="empty_password_error">Password cannot be empty.</string>
+    <string name="password_length_error">Your password should have at least six digits.</string>
+    <string name="password_error">Your password should include one digit, one lower case letter and one upper case letter.</string>
+    <string name="farms">مزارع</string>
+    <string name="farm">مزرعة</string>
+    <string name="engineer">مهندس</string>
+    <!-- Login Screen -->
+    <string name="user_name_text_field">إسم المستخدم</string>
+    <string name="password_text_field">كلمة المرور</string>
+    <string name="forgot_password_text">هل نسيت كلمة المرور؟</string>
+    <string name="click_here">إضغط هنا</string>
+    <string name="login_button">تسجيل الدخول</string>
+    <string name="new_user_text">مستخدم جديد لأجريكان؟</string>
+    <string name="signup_button">إنشاء حساب</string>
+    <!-- Signup Screen -->
+    <string name="user_name_error">Please insert a valid name.</string>
+    <string name="password_match_error">Passwords do not match.</string>
 </resources>

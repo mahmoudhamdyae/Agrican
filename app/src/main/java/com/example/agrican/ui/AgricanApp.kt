@@ -6,6 +6,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.agrican.ui.screens.auth.login.LoginDestination
 import com.example.agrican.ui.screens.auth.login.LoginScreen
+import com.example.agrican.ui.screens.auth.signup.SignupDestination
+import com.example.agrican.ui.screens.auth.signup.SignupScreen
+import com.example.agrican.ui.screens.home.HomeDestination
+import com.example.agrican.ui.screens.home.HomeScreen
 import com.example.agrican.ui.screens.onboarding.OnboardingDestination
 import com.example.agrican.ui.screens.onboarding.OnboardingScreen
 import com.example.agrican.ui.screens.welcome.WelcomeDestination
@@ -29,24 +33,34 @@ fun AgricanApp() {
             popUpTo(popUp) { inclusive = true }
         }
     }
-    val navigateUp = { navController.popBackStack() }
+    val navigateUp: () -> Unit = { navController.popBackStack() }
 
-    NavHost(navController = navController, startDestination = WelcomeDestination.route) {
+    NavHost(navController = navController, startDestination = LoginDestination.route) {
 
         composable(route = WelcomeDestination.route) {
-            WelcomeScreen(
-                openAndClear = openAndClear
-            )
+            WelcomeScreen(openAndClear = openAndClear)
         }
 
         composable(route = OnboardingDestination.route) {
-            OnboardingScreen(
+            OnboardingScreen(openAndClear = openAndClear)
+        }
+
+        composable(route = LoginDestination.route) {
+            LoginScreen(
+                openScreen = openScreen,
                 openAndClear = openAndClear
             )
         }
 
-        composable(route = LoginDestination.route) {
-            LoginScreen()
+        composable(route = SignupDestination.route) {
+            SignupScreen(
+                openAndClear = openAndClear,
+                navigateUp = navigateUp
+            )
+        }
+
+        composable(route = HomeDestination.route) {
+            HomeScreen()
         }
     }
 }
