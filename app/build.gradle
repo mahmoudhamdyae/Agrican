@@ -78,6 +78,9 @@ dependencies {
 
     // Pager
     implementation 'com.google.accompanist:accompanist-pager:0.24.13-rc'
+
+    // Data Store
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
 }
 
 // Allow references to generated code

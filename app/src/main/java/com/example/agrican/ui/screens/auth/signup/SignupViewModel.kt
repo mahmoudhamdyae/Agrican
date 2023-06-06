@@ -31,45 +31,48 @@ class SignupViewModel @Inject constructor(
             is AuthFormEvent.UserNameChanged -> {
                 state = state.copy(userName = event.userName)
             }
-            is AuthFormEvent.EmailChanged -> {
-                state = state.copy(email = event.email)
-            }
             is AuthFormEvent.PasswordChanged -> {
                 state = state.copy(password = event.password)
             }
             is AuthFormEvent.RepeatedPasswordChanged -> {
                 state = state.copy(repeatedPassword = event.repeatedPassword)
             }
+            is AuthFormEvent.PhoneNumberChanged -> {
+                state = state.copy(phoneNumber = event.phoneNumber)
+            }
+            is AuthFormEvent.EmailChanged -> {
+                state = state.copy(email = event.email)
+            }
             is AuthFormEvent.Submit -> {
                 submitData()
-            }
-            else -> {
-                throw Exception("Unknown event")
             }
         }
     }
 
     private fun submitData() {
         val userNameResult = useCase.validateUserName(state.userName)
-        val emailResult = useCase.validateEmail(state.email)
         val passwordResult = useCase.validatePassword(state.password)
         val repeatedPasswordResult = useCase.validateRepeatedPassword(
             state.password, state.repeatedPassword
         )
+        val phoneNumberResult = useCase.validatePhoneNumber(state.phoneNumber)
+        val emailResult = useCase.validateEmail(state.email)
 
         val hasError = listOf(
             userNameResult,
-            emailResult,
             passwordResult,
-            repeatedPasswordResult
+            repeatedPasswordResult,
+            phoneNumberResult,
+            emailResult
         ).any { !it.successful }
 
         if (hasError) {
             state = state.copy(
                 userNameError = userNameResult.errorMessage,
-                emailError = emailResult.errorMessage,
                 passwordError = passwordResult.errorMessage,
                 repeatedPasswordError = repeatedPasswordResult.errorMessage,
+                phoneNumberError = phoneNumberResult.errorMessage,
+                emailError = emailResult.errorMessage,
             )
             return
         }
@@ -78,9 +81,24 @@ class SignupViewModel @Inject constructor(
         }
     }
 
+    fun clearState() {
+        state = state.copy(
+            userNameError = null,
+            passwordError = null,
+            repeatedPasswordError = null,
+            phoneNumberError = null,
+            emailError = null,
+        )
+    }
+
     fun onSignUpClick(navigate: (String) -> Unit) {
         viewModelScope.launch {
-            // todo: signup
+            useCase.signupUseCase(
+                userName = state.userName,
+                password = state.password,
+                phoneNumber = state.phoneNumber,
+                email = state.email
+            )
             navigate(HomeDestination.route)
         }
     }

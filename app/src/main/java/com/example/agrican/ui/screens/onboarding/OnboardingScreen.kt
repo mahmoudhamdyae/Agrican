@@ -11,13 +11,13 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -30,9 +30,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.agrican.R
+import com.example.agrican.ui.components.Background
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.screens.auth.login.LoginDestination
 import com.example.agrican.ui.theme.spacing
@@ -71,28 +73,14 @@ fun OnboardingScreen(
     val scope = rememberCoroutineScope()
     val pageState = rememberPagerState()
 
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier.background(MaterialTheme.colorScheme.primary)
-    ) {
-        Box(
-            modifier = Modifier
-                .weight(4f)
-                .clip(
-                    RoundedCornerShape(
-                        bottomStart = MaterialTheme.spacing.extraLarge,
-                        bottomEnd = MaterialTheme.spacing.extraLarge
-                    )
-                )
-        ) {
+    Background(body1 = {
+        Box(modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState())) {
             HorizontalPager(
                 count = items.size,
                 state = pageState,
-                modifier = Modifier.background(Color.White)
+                modifier = Modifier.fillMaxSize().background(Color.White)
             ) { page ->
-                OnBoardingItem(
-                    item = items[page],
-                )
+                OnBoardingItem(item = items[page])
             }
             Indicators(
                 size = OnBoardingItem.getData().size,
@@ -102,7 +90,7 @@ fun OnboardingScreen(
                     .align(Alignment.BottomCenter)
             )
         }
-        Spacer(modifier = Modifier.weight(1f))
+    }, body2 = {
         Button(
             onClick = {
                 if (pageState.currentPage == items.size - 1) {
@@ -121,8 +109,7 @@ fun OnboardingScreen(
                 modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
             )
         }
-        Spacer(modifier = Modifier.weight(1f))
-    }
+    }, modifier = modifier)
 }
 
 @Composable
@@ -133,7 +120,7 @@ fun OnBoardingItem(
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
-        modifier = modifier.fillMaxSize()
+        modifier = modifier
     ) {
         Image(
             painter = painterResource(id = item.image),
@@ -141,6 +128,7 @@ fun OnBoardingItem(
         )
         Text(
             text = stringResource(id = item.text),
+            textAlign = TextAlign.Center
         )
     }
 }

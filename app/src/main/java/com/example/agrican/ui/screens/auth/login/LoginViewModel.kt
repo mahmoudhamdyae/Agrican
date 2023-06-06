@@ -64,10 +64,26 @@ class LoginViewModel @Inject constructor(
         }
     }
 
+    fun clearState() {
+        state = state.copy(
+            userNameError = null,
+            passwordError = null,
+        )
+    }
+
     fun onSignInClick(navigate: (String) -> Unit) {
         viewModelScope.launch {
-            // todo: login
+            useCase.loginUseCase(
+                userName = state.userName,
+                password = state.password
+            )
             navigate(HomeDestination.route)
+        }
+    }
+
+    fun onForgotPassword() {
+        viewModelScope.launch {
+            useCase.forgotPassword()
         }
     }
 }

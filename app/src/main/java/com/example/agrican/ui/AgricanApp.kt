@@ -60,7 +60,7 @@ fun AgricanApp() {
         }
 
         composable(route = HomeDestination.route) {
-            HomeScreen()
+            HomeScreen(openAndClear = openAndClear)
         }
     }
 }

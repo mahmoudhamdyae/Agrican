@@ -6,6 +6,8 @@ import java.util.regex.Pattern
 private const val MIN_PASS_LENGTH = 6
 private const val PASS_PATTERN = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{4,}$"
 
+val phoneNumberRegex = "-?[0-9]+(\\.[0-9]+)?".toRegex()
+
 private val emailRegex =
     ("[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
             "\\@" +
@@ -17,10 +19,6 @@ private val emailRegex =
 
 fun String.isValidUserName(): Boolean {
     return this.isNotBlank()
-}
-
-fun String.isValidEmail(): Boolean {
-    return this.isNotBlank() && emailRegex.matches(this)
 }
 
 fun String.passwordErrorMessage(): Int? {
@@ -37,4 +35,12 @@ fun String.passwordErrorMessage(): Int? {
 
 fun String.passwordMatches(repeated: String): Boolean {
     return this == repeated
+}
+
+fun String.isValidPhoneNumber(): Boolean {
+    return this.isNotBlank() && phoneNumberRegex.matches(this)
+}
+
+fun String.isValidEmail(): Boolean {
+    return this.isNotBlank() && emailRegex.matches(this)
 }
