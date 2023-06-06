@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Agrican</string>
+
+    <!-- Onboarding Screen -->
+    <string name="onboarding_text_1">مساعدك الذكى بين يديك</string>
+    <string name="onboarding_text_2">اداؤة محاصيلك بكفاءة باستخدام الذكاء الاصطناعى</string>
+    <string name="onboarding_text_3">مع أجريكان أرضك فى أمان</string>
+    <string name="onboarding_button">التالى</string>
 </resources>

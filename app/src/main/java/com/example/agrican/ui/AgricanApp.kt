@@ -4,6 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.agrican.ui.screens.auth.login.LoginDestination
+import com.example.agrican.ui.screens.auth.login.LoginScreen
 import com.example.agrican.ui.screens.onboarding.OnboardingDestination
 import com.example.agrican.ui.screens.onboarding.OnboardingScreen
 import com.example.agrican.ui.screens.welcome.WelcomeDestination
@@ -41,6 +43,10 @@ fun AgricanApp() {
             OnboardingScreen(
                 openAndClear = openAndClear
             )
+        }
+
+        composable(route = LoginDestination.route) {
+            LoginScreen()
         }
     }
 }
