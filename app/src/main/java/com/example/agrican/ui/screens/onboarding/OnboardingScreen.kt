@@ -78,7 +78,7 @@ fun OnboardingScreen(
             HorizontalPager(
                 count = items.size,
                 state = pageState,
-                modifier = Modifier.fillMaxSize().background(Color.White)
+                modifier = Modifier.fillMaxSize()
             ) { page ->
                 OnBoardingItem(item = items[page])
             }

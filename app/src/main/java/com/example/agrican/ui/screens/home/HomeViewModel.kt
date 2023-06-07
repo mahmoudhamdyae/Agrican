@@ -17,8 +17,7 @@ class HomeViewModel @Inject constructor(
     preferencesRepository: PreferencesRepository,
 ): ViewModel() {
 
-    private val isFirstTime: Flow<Boolean> =
-        preferencesRepository.isFirstTime
+    private val isFirstTime: Flow<Boolean> = preferencesRepository.isFirstTime
 
     fun initialize(navigate: (String) -> Unit) {
 //        if (no user) {

@@ -34,6 +34,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.agrican.R
@@ -130,6 +131,7 @@ fun LoginScreenContent(
                 Text(text = stringResource(id = R.string.forgot_password_text))
                 Text(
                     text = stringResource(id = R.string.click_here),
+                    textDecoration = TextDecoration.Underline,
                     color = Color.Blue,
                     modifier = Modifier.clickable { onForgotPassword() }
                 )

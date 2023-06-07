@@ -13,7 +13,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import com.example.agrican.ui.theme.spacing
 
 @Composable
@@ -38,7 +37,7 @@ fun Background(
                         bottomEnd = MaterialTheme.spacing.extraLarge
                     )
                 )
-                .background(Color.White)
+                .background(MaterialTheme.colorScheme.background)
                 .fillMaxWidth()
                 .padding(MaterialTheme.spacing.large)
         ) {

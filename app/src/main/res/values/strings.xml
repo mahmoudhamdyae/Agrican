@@ -35,4 +35,9 @@
     <string name="repeat_password_text_field">تأكيد كلمة المرور</string>
     <string name="phone_number_text_field">رقم الهاتف المحمول</string>
     <string name="email_text_field">البريد الإلكترونى</string>
+
+    <!-- Home Screen -->
+    <string name="navigation_main">الرئيسية</string>
+    <string name="navigation_profile">الملف الشخصى</string>
+    <string name="navigation_agrican_services">خدمات اجريكان</string>
 </resources>
