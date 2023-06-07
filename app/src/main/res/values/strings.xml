@@ -40,4 +40,15 @@
     <string name="navigation_main">الرئيسية</string>
     <string name="navigation_profile">الملف الشخصى</string>
     <string name="navigation_agrican_services">خدمات اجريكان</string>
+
+    <!-- Main Screen -->
+    <string name="weather">الطقس</string>
+    <string name="last_news">أخر الأخبار</string>
+    <string name="last_offers">أحدث العروض</string>
+    <string name="problem_images">صور المشكلة</string>
+    <string name="problem_images_description">تمكنك صور المشكلة من اكتشاف الامراض الخاصة بالنبات عن طريقة اضافة صورة او التقاط صورة</string>
+    <string name="fertilizers_calculator">حاسبة الأسمدة</string>
+    <string name="fertilizers_calculator_description">يمكنك حساب كمية الاسمدة اللازمة</string>
+    <string name="ask_expert">إسال خبير</string>
+    <string name="ask_expert_description">يمكنك التواصل مع خبير زراعى مباشرة</string>
 </resources>
