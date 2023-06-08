@@ -6,6 +6,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.agrican.ui.screens.default_age.DefaultAgeScreen
 import com.example.agrican.ui.screens.default_age.DefaultAgesDestination
+import com.example.agrican.ui.screens.diseases.DiseaseDestination
+import com.example.agrican.ui.screens.diseases.DiseaseScreen
 import com.example.agrican.ui.screens.diseases.DiseasesDestination
 import com.example.agrican.ui.screens.diseases.DiseasesScreen
 import com.example.agrican.ui.screens.join_as_expert.JoinAsExpertDestination
@@ -71,7 +73,11 @@ fun AgricanServicesGraph(
         }
 
         composable(route = DiseasesDestination.route) {
-            DiseasesScreen()
+            DiseasesScreen(navigateUp = navigateUp, openScreen = openScreen)
+        }
+
+        composable(route = DiseaseDestination.route) {
+            DiseaseScreen(navigateUp = navigateUp)
         }
 
         composable(route = PestsDestination.route) {
