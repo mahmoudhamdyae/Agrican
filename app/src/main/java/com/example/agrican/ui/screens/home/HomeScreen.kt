@@ -51,9 +51,11 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.agrican.R
 import com.example.agrican.ui.navigation.NavigationDestination
-import com.example.agrican.ui.screens.home.agricanservices.AgricanServicesScreen
+import com.example.agrican.ui.screens.home.agricanservices.AgricanServicesGraph
 import com.example.agrican.ui.screens.home.main.MainScreen
 import com.example.agrican.ui.screens.home.profile.ProfileScreen
+import com.example.agrican.ui.theme.gray
+import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.spacing
 
 object HomeDestination: NavigationDestination {
@@ -103,6 +105,8 @@ fun HomeScreenContent(
         ),
     )
 
+    var topBarTitle by rememberSaveable { mutableStateOf(R.string.navigation_agrican_services) }
+
     Scaffold(
         modifier = modifier,
         topBar = {
@@ -112,7 +116,7 @@ fun HomeScreenContent(
                         Icon(painter = painterResource(id = R.drawable.ic_visibility_on),
                             contentDescription = null)
                     } else {
-                        Text(text = stringResource(id = R.string.navigation_agrican_services))
+                        Text(text = stringResource(id = topBarTitle))
                     }
                 }
             )
@@ -135,7 +139,7 @@ fun HomeScreenContent(
                 when (selectedItem) {
                     0 -> { MainScreen() }
                     1 -> { ProfileScreen() }
-                    2 -> { AgricanServicesScreen() }
+                    2 -> { AgricanServicesGraph(setTopBarTitle = { topBarTitle = it }) }
                 }
             }
         }
@@ -185,7 +189,7 @@ fun BottomNavigationBar(
                 Icon(
                     painter = painterResource(id = bottomNavItems[1].icon),
                     contentDescription = null,
-                    tint = if (selectedItem == 1) MaterialTheme.colorScheme.primary else Color.Gray
+                    tint = if (selectedItem == 1) greenDark else gray
                 )
             }
         }
@@ -205,14 +209,14 @@ fun BottomNavigationBar(
                     BottomNavigationItem(
                         text = bottomNavItems[0].name,
                         icon = bottomNavItems[0].icon,
-                        color = if (selectedItem == 0) MaterialTheme.colorScheme.primary else Color.Gray,
+                        color = if (selectedItem == 0) greenDark else gray,
                         modifier = Modifier.clickable { setSelectedItem(0) }
                     )
                     Column {
                         Spacer(modifier = Modifier.weight(1f))
                         Text(
                             text = stringResource(id = bottomNavItems[1].name),
-                            color = if (selectedItem == 1) MaterialTheme.colorScheme.primary else Color.Gray,
+                            color = if (selectedItem == 1) greenDark else gray,
                             modifier = Modifier
                                 .clickable { setSelectedItem(1) }
                                 .padding(start = MaterialTheme.spacing.large)
@@ -221,7 +225,7 @@ fun BottomNavigationBar(
                     BottomNavigationItem(
                         text = bottomNavItems[2].name,
                         icon = bottomNavItems[2].icon,
-                        color = if (selectedItem == 2) MaterialTheme.colorScheme.primary else Color.Gray,
+                        color = if (selectedItem == 2) greenDark else gray,
                         modifier = Modifier.clickable { setSelectedItem(2) }
                     )
                 }
@@ -269,22 +273,83 @@ class NavigationBarCustomShape(private val cornerRadius: Float) : Shape {
     private fun drawTicketPath(size: Size, cornerRadius: Float): Path {
         return Path().apply {
             reset()
-            lineTo(x = size.width / 2 - cornerRadius, y = 0f)
+//            lineTo(x = size.width / 2 - cornerRadius, y = 0f)
+//            arcTo(
+//                rect = Rect(
+//                    left = size.width / 2 - cornerRadius,
+//                    top = -cornerRadius,
+//                    right = size.width / 2 + cornerRadius,
+//                    bottom = cornerRadius
+//                ),
+//                startAngleDegrees = 180.0f,
+//                sweepAngleDegrees = -180.0f,
+//                forceMoveTo = false
+//            )
+//            lineTo(x = size.width, y = 0f)
+//            lineTo(x = size.width, y = size.height)
+//            lineTo(x = 0f, y = size.height)
+//            lineTo(x = 0f, y = 0f)
+
+
+            val r2 = 16f
+            val r1 = cornerRadius
+            val w = size.width
+
+
+
+
+
+            lineTo(x = w / 2 - r1 - r2, y = 0f)
             arcTo(
                 rect = Rect(
-                    left = size.width / 2 - cornerRadius,
-                    top = -cornerRadius,
-                    right = size.width / 2 + cornerRadius,
-                    bottom = cornerRadius
+                    left = w / 2 - r1 - 2 * r2,
+                    top = 0f,
+                    right = w / 2 - r1,
+                    bottom = 2 * r2
+                ),
+                startAngleDegrees = 180.0f,
+                sweepAngleDegrees = 180.0f,
+                forceMoveTo = false
+            )
+            arcTo(
+                rect = Rect(
+                    left = w / 2 - r1,
+                    top = -r1,
+                    right = w / 2 + r1,
+                    bottom = r1
                 ),
                 startAngleDegrees = 180.0f,
                 sweepAngleDegrees = -180.0f,
+                forceMoveTo = false
+            )
+            arcTo(
+                rect = Rect(
+                    left = w / 2 + r1,
+                    top = 0f,
+                    right = w / 2 + r1 + 2 * r2,
+                    bottom = 2 * r2
+                ),
+                startAngleDegrees = 180.0f,
+                sweepAngleDegrees = 90.0f,
                 forceMoveTo = false
             )
             lineTo(x = size.width, y = 0f)
             lineTo(x = size.width, y = size.height)
             lineTo(x = 0f, y = size.height)
             lineTo(x = 0f, y = 0f)
+
+
+
+
+
+
+
+
+
+
+
+
+            close()
         }
     }
 }

@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.spacing
 
 @Composable
@@ -25,7 +26,7 @@ fun Background(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.primary)
+            .background(greenLight)
     ) {
         Box(
             contentAlignment = Alignment.TopCenter,

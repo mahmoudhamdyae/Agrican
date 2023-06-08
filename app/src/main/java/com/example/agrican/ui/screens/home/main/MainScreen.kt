@@ -15,8 +15,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -34,6 +36,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.agrican.R
 import com.example.agrican.domain.model.Weather
+import com.example.agrican.ui.theme.greenDark
+import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.spacing
 
 @Composable
@@ -58,7 +62,10 @@ fun MainScreenContent(
             horizontalArrangement = Arrangement.SpaceEvenly,
             modifier = Modifier.fillMaxWidth()
         ) {
-            Button(onClick = { /*TODO*/ }) {
+            Button(
+                onClick = { /*TODO*/ },
+                colors = ButtonDefaults.buttonColors(containerColor = greenDark),
+            ) {
                 Text(
                     text = stringResource(id = R.string.last_news),
                     modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
@@ -67,6 +74,7 @@ fun MainScreenContent(
             OutlinedButton(onClick = { /*TODO*/ }) {
                 Text(
                     text = stringResource(id = R.string.last_offers),
+                    color = greenDark,
                     modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
                 )
             }
@@ -81,7 +89,9 @@ fun MainScreenContent(
             onItemClick = {
                           // todo: Problem Images
             },
-            modifier = Modifier.padding(MaterialTheme.spacing.small).fillMaxWidth()
+            modifier = Modifier
+                .padding(MaterialTheme.spacing.small)
+                .fillMaxWidth()
         )
 
         Row {
@@ -92,7 +102,9 @@ fun MainScreenContent(
                 onItemClick = {
                     // todo: Fertilizers Calculator
                 },
-                modifier = Modifier.padding(MaterialTheme.spacing.small).weight(1f)
+                modifier = Modifier
+                    .padding(MaterialTheme.spacing.small)
+                    .weight(1f)
             )
 
             BottomCard(
@@ -102,7 +114,9 @@ fun MainScreenContent(
                 onItemClick = {
                     // todo: Ask Expert
                 },
-                modifier = Modifier.padding(MaterialTheme.spacing.small).weight(1f)
+                modifier = Modifier
+                    .padding(MaterialTheme.spacing.small)
+                    .weight(1f)
             )
         }
     }
@@ -123,7 +137,7 @@ fun WeatherBox(
             Column {
                 Text(
                     text = "الطقس",
-                    color = MaterialTheme.colorScheme.primary
+                    color = greenDark
                 )
                 Text(text = "جودة الهواء")
                 Text(text = "الرياح")
@@ -148,18 +162,18 @@ fun WeatherBox(
                 ) {
                     Text(
                         text = "مشمس",
-                        color = MaterialTheme.colorScheme.primary,
+                        color = greenDark,
                         modifier = Modifier.padding(MaterialTheme.spacing.extraSmall)
                     )
                     Text(
                         text = "31°",
-                        color = MaterialTheme.colorScheme.primary,
+                        color = greenDark,
                         modifier = Modifier.padding(MaterialTheme.spacing.extraSmall)
                     )
                     Icon(
-                        painter = painterResource(id = R.drawable.ic_visibility_on),
+                        painter = painterResource(id = R.drawable.ic_sunny),
                         contentDescription = null,
-                        tint = MaterialTheme.colorScheme.primary,
+                        tint = greenDark,
                         modifier = Modifier.padding(MaterialTheme.spacing.extraSmall)
                     )
                 }
@@ -178,7 +192,7 @@ fun LatestNewsList(
                 .fillMaxWidth()
                 .align(Alignment.Center)
                 .height(85.dp)
-                .background(MaterialTheme.colorScheme.primary)
+                .background(greenDark)
         )
         LazyRow {
             items(9) {
@@ -188,6 +202,40 @@ fun LatestNewsList(
                         .size(100.dp)
                 )
             }
+        }
+
+        Surface(
+            shadowElevation = MaterialTheme.spacing.small,
+            shape = CircleShape,
+            modifier = Modifier
+                .padding(start = MaterialTheme.spacing.medium)
+                .align(Alignment.CenterStart)
+                .clickable {
+                }
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.baseline_arrow_back_ios_new_24),
+                contentDescription = null,
+                tint = greenLight,
+                modifier = Modifier.padding(MaterialTheme.spacing.small)
+            )
+        }
+
+        Surface(
+            shadowElevation = MaterialTheme.spacing.small,
+            shape = CircleShape,
+            modifier = Modifier
+                .padding(end = MaterialTheme.spacing.medium)
+                .align(Alignment.CenterEnd)
+                .clickable {
+                }
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.baseline_arrow_forward_ios_24),
+                contentDescription = null,
+                tint = greenLight,
+                modifier = Modifier.padding(MaterialTheme.spacing.small)
+            )
         }
     }
 }
@@ -238,13 +286,13 @@ fun BottomCard(
             Row {
                 Text(
                     text = stringResource(id = title),
-                    color = MaterialTheme.colorScheme.primary
+                    color = greenDark
                 )
                 Spacer(modifier = Modifier.weight(1f))
                 Icon(
                     painter = painterResource(id = icon),
                     contentDescription = null,
-                    tint = MaterialTheme.colorScheme.primary
+                    tint = greenDark
                 )
             }
             Text(text = stringResource(id = description))
@@ -255,6 +303,6 @@ fun BottomCard(
 
 @Preview(showBackground = true)
 @Composable
-fun WeatherPreview() {
+fun MainScreenContentPreview() {
     MainScreenContent()
 }

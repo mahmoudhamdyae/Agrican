@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.FilterChipDefaults
@@ -30,6 +31,8 @@ import androidx.core.os.LocaleListCompat
 import com.example.agrican.R
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.screens.onboarding.OnboardingDestination
+import com.example.agrican.ui.theme.greenDark
+import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.spacing
 
 object WelcomeDestination: NavigationDestination {
@@ -75,6 +78,7 @@ fun WelcomeScreen(
                         Text(
                             text = "English",
                             textAlign = TextAlign.Center,
+                            color = greenLight,
                             modifier = Modifier.fillMaxWidth()
                         )
                     },
@@ -91,6 +95,7 @@ fun WelcomeScreen(
                         Text(
                             text = "العربية",
                             textAlign = TextAlign.Center,
+                            color = greenLight,
                             modifier = Modifier.fillMaxWidth()
                         )
                     },
@@ -112,7 +117,9 @@ fun WelcomeScreen(
                         openAndClear(OnboardingDestination.route)
                               },
                     enabled = isEnglish != null,
-                    modifier = Modifier.padding(MaterialTheme.spacing.medium)
+                    colors= ButtonDefaults.buttonColors(containerColor = greenDark),
+                    modifier = Modifier
+                        .padding(MaterialTheme.spacing.medium)
                 ) {
                     Text(text = "متابعة")
                 }

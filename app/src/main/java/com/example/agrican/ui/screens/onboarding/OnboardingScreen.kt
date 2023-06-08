@@ -37,6 +37,9 @@ import com.example.agrican.R
 import com.example.agrican.ui.components.Background
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.screens.auth.login.LoginDestination
+import com.example.agrican.ui.theme.gray
+import com.example.agrican.ui.theme.greenDark
+import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.spacing
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
@@ -105,7 +108,7 @@ fun OnboardingScreen(
         ) {
             Text(
                 text = stringResource(id = R.string.onboarding_button),
-                color = MaterialTheme.colorScheme.primary,
+                color = greenLight,
                 modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
             )
         }
@@ -163,7 +166,7 @@ fun Indicator(isSelected: Boolean) {
             .width(width.value)
             .clip(CircleShape)
             .background(
-                color = if (isSelected) MaterialTheme.colorScheme.primary else Color(0XFFF8E2E7)
+                color = if (isSelected) greenDark else gray
             )
     )
 }

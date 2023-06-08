@@ -23,7 +23,9 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.unit.dp
 import com.example.agrican.R
+import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.spacing
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -40,11 +42,15 @@ fun UserNameField(
         value = value,
         onValueChange = { onNewValue(it) },
         isError = userNameError != null,
-        placeholder = { Text(stringResource(R.string.user_name_text_field)) },
+        placeholder = { Text(
+            text = stringResource(R.string.user_name_text_field),
+            color = gray,
+        ) },
         leadingIcon = {
             Icon(
                 imageVector = Icons.Default.Person,
-                contentDescription = stringResource(id = R.string.user_name_text_field)
+                contentDescription = stringResource(id = R.string.user_name_text_field),
+                tint = gray
             )
         },
         keyboardOptions = KeyboardOptions(
@@ -55,6 +61,10 @@ fun UserNameField(
             onNext = { focusManager.moveFocus(FocusDirection.Down) }
         ),
         shape = RoundedCornerShape(MaterialTheme.spacing.medium),
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            unfocusedBorderColor = gray,
+            textColor = gray
+        ),
         modifier = modifier.padding(MaterialTheme.spacing.small)
     )
     if (userNameError != null) {
@@ -113,11 +123,18 @@ private fun PasswordField(
         value = value,
         onValueChange = { onNewValue(it) },
         isError = passwordError != null,
-        placeholder = { Text(text = stringResource(placeholder)) },
-        leadingIcon = { Icon(imageVector = Icons.Default.Lock, contentDescription = "Lock") },
+        placeholder = { Text(
+            text = stringResource(placeholder),
+            color = gray,
+        ) },
+        leadingIcon = { Icon(
+            imageVector = Icons.Default.Lock,
+            contentDescription = "Lock",
+            tint = gray
+        ) },
         trailingIcon = {
             IconButton(onClick = { isVisible = !isVisible }) {
-                Icon(painter = icon, contentDescription = "Visibility")
+                Icon(painter = icon, contentDescription = "Visibility", tint = gray)
             }
         },
         keyboardOptions = KeyboardOptions(
@@ -130,6 +147,10 @@ private fun PasswordField(
         ),
         visualTransformation = visualTransformation,
         shape = RoundedCornerShape(MaterialTheme.spacing.medium),
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            unfocusedBorderColor = gray,
+            textColor = gray
+        ),
         modifier = modifier.padding(MaterialTheme.spacing.small)
     )
     if (passwordError != null) {
@@ -155,11 +176,15 @@ fun PhoneNumberField(
         value = value,
         onValueChange = { onNewValue(it) },
         isError = phoneNumberError != null,
-        placeholder = { Text(stringResource(R.string.phone_number_text_field)) },
+        placeholder = { Text(
+            text = stringResource(R.string.phone_number_text_field),
+            color = gray,
+        ) },
         leadingIcon = {
             Icon(
                 imageVector = Icons.Default.Person,
-                contentDescription = stringResource(id = R.string.phone_number_text_field)
+                contentDescription = stringResource(id = R.string.phone_number_text_field),
+                tint = gray
             )
         },
         keyboardOptions = KeyboardOptions(
@@ -167,9 +192,13 @@ fun PhoneNumberField(
             imeAction = ImeAction.Next
         ),
         keyboardActions = KeyboardActions(
-            onDone = { focusManager.moveFocus(FocusDirection.Down) }
+            onNext = { focusManager.moveFocus(FocusDirection.Down) }
         ),
         shape = RoundedCornerShape(MaterialTheme.spacing.medium),
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            unfocusedBorderColor = gray,
+            textColor = gray
+        ),
         modifier = modifier.padding(MaterialTheme.spacing.small)
     )
     if (phoneNumberError != null) {
@@ -195,11 +224,15 @@ fun EmailField(
         value = value,
         onValueChange = { onNewValue(it) },
         isError = emailError != null,
-        placeholder = { Text(stringResource(R.string.email_text_field)) },
+        placeholder = { Text(
+            text = stringResource(R.string.email_text_field),
+            color = gray,
+        ) },
         leadingIcon = {
             Icon(
                 imageVector = Icons.Default.Person,
-                contentDescription = stringResource(id = R.string.email_text_field)
+                contentDescription = stringResource(id = R.string.email_text_field),
+                tint = gray
             )
         },
         keyboardOptions = KeyboardOptions(
@@ -210,6 +243,10 @@ fun EmailField(
             onDone = { focusManager.clearFocus() }
         ),
         shape = RoundedCornerShape(MaterialTheme.spacing.medium),
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            unfocusedBorderColor = gray,
+            textColor = gray
+        ),
         modifier = modifier.padding(MaterialTheme.spacing.small)
     )
     if (emailError != null) {
@@ -219,4 +256,68 @@ fun EmailField(
             modifier = modifier
         )
     }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun OrderField(
+    value: String,
+    onNewValue: (String) -> Unit,
+    hint: Int,
+    focusManager: FocusManager,
+    modifier: Modifier = Modifier,
+    imeAction: ImeAction = ImeAction.Next
+) {
+    OutlinedTextField(
+        singleLine = true,
+        value = value,
+        onValueChange = onNewValue,
+        placeholder = { Text(
+            text = stringResource(hint),
+            color = gray,
+            modifier = Modifier.padding(start = 100.dp)
+        ) },
+        keyboardOptions = KeyboardOptions(
+            keyboardType = KeyboardType.Text,
+            imeAction = imeAction
+        ),
+        keyboardActions = KeyboardActions(
+            onNext = { focusManager.moveFocus(FocusDirection.Down) },
+            onDone = { focusManager.clearFocus() }
+        ),
+        shape = RoundedCornerShape(MaterialTheme.spacing.medium),
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            unfocusedBorderColor = gray,
+            textColor = gray
+        ),
+        modifier = modifier
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun NotesField(
+    value: String,
+    onNewValue: (String) -> Unit,
+    focusManager: FocusManager,
+    modifier: Modifier = Modifier,
+) {
+    OutlinedTextField(
+        value = value,
+        onValueChange = onNewValue,
+        placeholder = { },
+        keyboardOptions = KeyboardOptions(
+            keyboardType = KeyboardType.Text,
+            imeAction = ImeAction.Done
+        ),
+        keyboardActions = KeyboardActions(
+            onDone = { focusManager.clearFocus() }
+        ),
+        shape = RoundedCornerShape(MaterialTheme.spacing.small),
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            unfocusedBorderColor = gray,
+            textColor = gray
+        ),
+        modifier = modifier
+    )
 }

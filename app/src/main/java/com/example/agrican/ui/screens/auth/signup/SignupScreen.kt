@@ -1,7 +1,9 @@
 package com.example.agrican.ui.screens.auth.signup
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -9,9 +11,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -26,12 +27,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.agrican.R
 import com.example.agrican.ui.components.Background
@@ -44,6 +48,8 @@ import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.screens.auth.AuthFormEvent
 import com.example.agrican.ui.screens.auth.AuthFormState
 import com.example.agrican.ui.screens.auth.ValidationEvent
+import com.example.agrican.ui.theme.gray
+import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.spacing
 
 object SignupDestination: NavigationDestination {
@@ -92,32 +98,45 @@ fun SignupScreenContent(
     var accountType: String? by rememberSaveable {
         mutableStateOf(null)
     }
-    Background(body1 = {
-        if (accountType == null) {
-            AccountType(
-                setAccountType = { accountType = it },
-                modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState())
-            )
-        } else {
-            Signup(
-                state = state,
-                onEvent = onEvent,
-                accountType = accountType!!,
-                modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState())
+
+    Box(modifier = modifier) {
+
+        Background(body1 = {
+            if (accountType == null) {
+                AccountType(
+                    setAccountType = { accountType = it },
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .verticalScroll(rememberScrollState())
+                )
+            } else {
+                Signup(
+                    state = state,
+                    onEvent = onEvent,
+                    accountType = accountType!!,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .verticalScroll(rememberScrollState())
+                )
+            }
+        })
+
+        IconButton(onClick = {
+            clearState()
+            if (accountType == null) navigateUp()
+            else accountType = null
+        }, modifier = Modifier
+            .padding(MaterialTheme.spacing.medium)
+            .clip(CircleShape)
+            .background(greenDark)
+            .align(Alignment.TopEnd)
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.baseline_arrow_back_ios_new_24),
+                contentDescription = null,
+                tint = Color.White
             )
         }
-    }, modifier = modifier)
-
-    IconButton(onClick = {
-        clearState()
-        if (accountType == null) navigateUp()
-        else accountType = null
-    }, modifier = Modifier
-        .padding(MaterialTheme.spacing.medium)
-        .clip(CircleShape)
-        .background(MaterialTheme.colorScheme.primary)
-    ) {
-        Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null)
     }
 }
 
@@ -132,10 +151,19 @@ fun AccountType(
         modifier = modifier.fillMaxSize()
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally,) {
-            OutlinedButton(onClick = {  }) {
-                Text(text = stringResource(id = R.string.create_new_user))
+            OutlinedButton(
+                onClick = {  },
+                border = BorderStroke(1.dp, gray)
+            ) {
+                Text(
+                    text = stringResource(id = R.string.create_new_user),
+                    color = greenDark
+                )
             }
-            Text(text = stringResource(id = R.string.choose_user_account))
+            Text(
+                text = stringResource(id = R.string.choose_user_account),
+                color = greenDark
+            )
         }
 
         Column {
@@ -170,7 +198,10 @@ fun AccountTypeItem(
         modifier = modifier.padding(MaterialTheme.spacing.medium)
     ) {
         val context = LocalContext.current
-        Button(onClick = { setAccountType(context.getString(accountType)) }) {
+        Button(
+            onClick = { setAccountType(context.getString(accountType)) },
+            colors = ButtonDefaults.buttonColors(containerColor = greenDark),
+        ) {
             Text(
                 text = stringResource(id = accountType),
                 modifier = Modifier.padding(horizontal = MaterialTheme.spacing.small)
@@ -179,6 +210,7 @@ fun AccountTypeItem(
         Text(
             text = stringResource(id = accountTypeDescription),
             textAlign = TextAlign.Center,
+            color = greenDark,
             modifier = Modifier.padding(horizontal = MaterialTheme.spacing.large)
         )
     }
@@ -198,7 +230,10 @@ fun Signup(
         verticalArrangement = Arrangement.Center,
         modifier = modifier
     ) {
-        Button(onClick = {  }) {
+        Button(
+            onClick = {  },
+            colors = ButtonDefaults.buttonColors(containerColor = greenDark),
+        ) {
             Text(
                 text = accountType,
                 modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
@@ -248,6 +283,7 @@ fun Signup(
 
         Button(
             onClick = { onEvent(AuthFormEvent.Submit) },
+            colors = ButtonDefaults.buttonColors(containerColor = greenDark),
             modifier = Modifier.padding(MaterialTheme.spacing.medium)
         ) {
             Text(

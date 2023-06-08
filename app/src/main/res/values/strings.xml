@@ -3,7 +3,7 @@
 
     <!-- Onboarding Screen -->
     <string name="onboarding_text_1">مساعدك الذكى بين يديك</string>
-    <string name="onboarding_text_2">ادارة محاصيلك بكفاءة باستخدام الذكاء الاصطناعى</string>
+    <string name="onboarding_text_2">إدارة محاصيلك بكفاءة باستخدام الذكاء الاصطناعى</string>
     <string name="onboarding_text_3">مع أجريكان أرضك فى أمان</string>
     <string name="onboarding_button">التالى</string>
 
@@ -18,12 +18,12 @@
     <string name="farm_description">يمكنك اختيار عمل حساب كمستخدة مزرعة من التمتع بالخصائص العديدة</string>
     <string name="engineer">مهندس</string>
     <string name="engineer_description">يمكنك اختيار عمل حساب كمهندس من التمتع بالخصائص العديدة</string>
-    <string name="user_name_text_field">إسم المستخدم</string>
+    <string name="user_name_text_field">اسم المستخدم</string>
     <string name="password_text_field">كلمة المرور</string>
     <string name="signup_button">إنشاء حساب</string>
     <!-- Login Screen -->
     <string name="forgot_password_text">هل نسيت كلمة المرور؟</string>
-    <string name="click_here">إضغط هنا</string>
+    <string name="click_here">اضغط هنا</string>
     <string name="login_button">تسجيل الدخول</string>
     <string name="new_user_text">مستخدم جديد لأجريكان؟</string>
     <!-- Signup Screen -->
@@ -43,12 +43,59 @@
 
     <!-- Main Screen -->
     <string name="weather">الطقس</string>
-    <string name="last_news">أخر الأخبار</string>
+    <string name="last_news">آخر الأخبار</string>
     <string name="last_offers">أحدث العروض</string>
     <string name="problem_images">صور المشكلة</string>
-    <string name="problem_images_description">تمكنك صور المشكلة من اكتشاف الامراض الخاصة بالنبات عن طريقة اضافة صورة او التقاط صورة</string>
+    <string name="problem_images_description">تمكنك صور المشكلة من اكتشاف الأمراض الخاصة بالنبات عن طريقة إضافة صورة أو التقاط صورة</string>
     <string name="fertilizers_calculator">حاسبة الأسمدة</string>
-    <string name="fertilizers_calculator_description">يمكنك حساب كمية الاسمدة اللازمة</string>
-    <string name="ask_expert">إسال خبير</string>
+    <string name="fertilizers_calculator_description">يمكنك حساب كمية الأسمدة اللازمة</string>
+    <string name="ask_expert">اسال خبير</string>
     <string name="ask_expert_description">يمكنك التواصل مع خبير زراعى مباشرة</string>
+
+    <!-- Agrican Services Screen -->
+    <string name="default_age">العمر الافتراضى للمحصول</string>
+    <string name="order">اطلب منتجك</string>
+    <string name="disease">الأمراض النباتية</string>
+    <string name="pests">الآفات</string>
+    <string name="treatment">العلاج</string>
+    <string name="join_as_expert">انضم كخبير زراعى</string>
+    
+    <!-- Default Age Screen -->
+    <string name="harvest_date">موعد الحصاد</string>
+    <string name="crop_choose">اختار المحصول</string>
+    <string name="crop_quality">جودة المحصول الحالية</string>
+    <string name="quality_very_good">جيد جداً</string>
+    <string name="quality_good">جيد</string>
+    <string name="quality_average">متوسط</string>
+    <string name="quality_below_average">أقل من متوسط</string>
+    <string name="get_results">اعرف النتيجة</string>
+    <string name="default_age_title">العمر الافتراضى للنبات</string>
+    <string name="danger_degree">مستوى الخطر</string>
+    <string name="danger_description_one">باقى حوالى 21 يوم حتى تلف المحصول بالكامل</string>
+    <string name="danger_description_two">الأفضل لك جمع المحصول خلال 6 أيام و استخدامه</string>
+    <string name="day">يوم</string>
+    <string name="month">شهر</string>
+    <string name="year">سنة</string>
+
+    <!-- Order Screen -->
+    <string name="order_status">اعرف حالة طلبك</string>
+    <string name="new_order">طلب منتج جديد</string>
+    
+    <!-- New Order -->
+    <string name="product_kind">نوع المنتج</string>
+    <string name="insecticide">مبيد حشرى</string>
+    <string name="product_name">اسم المنتج</string>
+    <string name="insecticide_name">اسم المبيد الحشرى</string>
+    <string name="quantity">الكمية</string>
+    <string name="kilogram">كيلوجرام</string>
+    <string name="receiving_address">عنوان الاستلام</string>
+    <string name="place">المنطقة</string>
+    <string name="city">المدينة</string>
+    <string name="governorate">المحافظة</string>
+    <string name="notes">ملاحظات</string>
+    <string name="order_button">اطلب</string>
+    
+    <!-- Order Status -->
+    <string name="empty_orders">لا يوجد عروض حتى الآن</string>
+    <string name="confirm_order">تأكيد الطلب</string>
 </resources>

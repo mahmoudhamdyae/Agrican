@@ -35,7 +35,7 @@ fun AgricanApp() {
     }
     val navigateUp: () -> Unit = { navController.popBackStack() }
 
-    NavHost(navController = navController, startDestination = HomeDestination.route) {
+    NavHost(navController = navController, startDestination = WelcomeDestination.route) {
 
         composable(route = WelcomeDestination.route) {
             WelcomeScreen(openAndClear = openAndClear)
@@ -60,7 +60,9 @@ fun AgricanApp() {
         }
 
         composable(route = HomeDestination.route) {
-            HomeScreen(openAndClear = openAndClear)
+            HomeScreen(
+                openAndClear = openAndClear,
+            )
         }
     }
 }
