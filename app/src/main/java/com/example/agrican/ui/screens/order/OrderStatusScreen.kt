@@ -34,13 +34,19 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.agrican.R
+import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.spacing
 
+object OrderStatusDestination: NavigationDestination {
+    override val route: String = "order_status"
+    override val titleRes: Int = R.string.order_status_title
+}
+
 @Composable
-fun OrderStatus(
+fun OrderStatusScreen(
     navigateUp: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -179,7 +185,7 @@ fun OrdersListItem(
 @Preview(showBackground = true)
 @Composable
 fun OrderStatusPreview() {
-    OrderStatus(navigateUp = { })
+    OrderStatusScreen(navigateUp = { })
 }
 
 @Preview(showBackground = true)

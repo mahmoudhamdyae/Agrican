@@ -78,6 +78,7 @@
     <string name="year">سنة</string>
 
     <!-- Order Screen -->
+    <string name="order_status_title">اطلب منتجك</string>
     <string name="order_status">اعرف حالة طلبك</string>
     <string name="new_order">طلب منتج جديد</string>
     
@@ -98,4 +99,23 @@
     <!-- Order Status -->
     <string name="empty_orders">لا يوجد عروض حتى الآن</string>
     <string name="confirm_order">تأكيد الطلب</string>
+
+    <!-- Treatment Screen -->
+    <string name="choose_crop">اختار المحصول المصاب</string>
+    <string name="continue_button">المتابعة</string>
+    <string name="selected_crop">المحصول المحدد</string>
+    <string name="configure">تعديل</string>
+    <string name="choose_disease_type">اختار نوع المرض</string>
+    <string name="insects">الحشرات</string>
+    <string name="show_treatment_button">اعرض العلاج</string>
+    <string name="know_more">اعرف المزيد</string>
+
+    <!-- Join As Expert Screen -->
+    <string name="join_as_expert_label">إذا كنت ترغب فى الانضمام إلى فريق عمل أجريكان كخبير متخصص كل ما عليك فعله هو ملئ البيانات الآتية و سيتم التواصل معك فى أقرب وقت</string>
+    <string name="full_name">الاسم بالكامل</string>
+    <string name="e_mail">البريد الإلكترونى</string>
+    <string name="phone_number">رقم الهاتف</string>
+    <string name="image_of_certificate">صورة من شهادة التخرج أو شهادة خبرة</string>
+    <string name="add_image">إضافة صورة</string>
+    <string name="send">إرسال</string>
 </resources>

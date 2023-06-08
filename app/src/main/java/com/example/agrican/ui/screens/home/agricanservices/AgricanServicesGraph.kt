@@ -10,8 +10,12 @@ import com.example.agrican.ui.screens.diseases.DiseasesDestination
 import com.example.agrican.ui.screens.diseases.DiseasesScreen
 import com.example.agrican.ui.screens.join_as_expert.JoinAsExpertDestination
 import com.example.agrican.ui.screens.join_as_expert.JoinAsExpertScreen
+import com.example.agrican.ui.screens.order.OrderConfirmDestination
+import com.example.agrican.ui.screens.order.OrderConfirmScreen
 import com.example.agrican.ui.screens.order.OrderDestination
 import com.example.agrican.ui.screens.order.OrderScreen
+import com.example.agrican.ui.screens.order.OrderStatusDestination
+import com.example.agrican.ui.screens.order.OrderStatusScreen
 import com.example.agrican.ui.screens.pests.PestsDestination
 import com.example.agrican.ui.screens.pests.PestsScreen
 import com.example.agrican.ui.screens.treatment.TreatmentDestination
@@ -52,7 +56,18 @@ fun AgricanServicesGraph(
         }
 
         composable(route = OrderDestination.route) {
-            OrderScreen(navigateUp = navigateUp)
+            OrderScreen(
+                openScreen = openScreen,
+                navigateUp = navigateUp
+            )
+        }
+
+        composable(route = OrderStatusDestination.route) {
+            OrderStatusScreen(navigateUp = navigateUp)
+        }
+
+        composable(route = OrderConfirmDestination.route) {
+            OrderConfirmScreen(navigateUp = navigateUp)
         }
 
         composable(route = DiseasesDestination.route) {
@@ -64,7 +79,7 @@ fun AgricanServicesGraph(
         }
 
         composable(route = TreatmentDestination.route) {
-            TreatmentScreen()
+            TreatmentScreen(navigateUp = navigateUp)
         }
 
         composable(route = JoinAsExpertDestination.route) {

@@ -39,68 +39,65 @@ object OrderDestination: NavigationDestination {
 
 @Composable
 fun OrderScreen(
+    openScreen: (String) -> Unit,
     navigateUp: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    var isNewOrder: Boolean? by rememberSaveable { mutableStateOf(null) }
+    var showNewOrder: Boolean by rememberSaveable { mutableStateOf(false) }
 
-    if (isNewOrder != false) {
-        Column(modifier = modifier.fillMaxSize()) {
-            Box {
-                Button(
-                    onClick = { isNewOrder = false },
-                    colors = ButtonDefaults.buttonColors(containerColor = greenLight),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clip(RoundedCornerShape(MaterialTheme.spacing.extraSmall))
-                        .padding(MaterialTheme.spacing.small)
-                ) {
-                    Text(
-                        text = stringResource(id = R.string.order_status),
-                        modifier = Modifier.padding(MaterialTheme.spacing.medium)
-                    )
-                }
-
-                IconButton(
-                    onClick = { navigateUp() },
-                    modifier = Modifier
-                        .padding(MaterialTheme.spacing.medium)
-                        .clip(CircleShape)
-                        .background(greenDark)
-                        .align(Alignment.CenterEnd)
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.baseline_arrow_back_ios_new_24),
-                        contentDescription = null,
-                        tint = Color.White
-                    )
-                }
-            }
-
+    Column(modifier = modifier.fillMaxSize()) {
+        Box {
             Button(
-                onClick = { isNewOrder = true },
-                colors = ButtonDefaults.buttonColors(containerColor = greenDark),
+                onClick = { openScreen(OrderStatusDestination.route) },
+                colors = ButtonDefaults.buttonColors(containerColor = greenLight),
                 modifier = Modifier
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(MaterialTheme.spacing.extraSmall))
                     .padding(MaterialTheme.spacing.small)
             ) {
                 Text(
-                    text = stringResource(id = R.string.new_order),
+                    text = stringResource(id = R.string.order_status),
                     modifier = Modifier.padding(MaterialTheme.spacing.medium)
                 )
             }
-            if (isNewOrder == true) {
-                NewOrder()
+
+            IconButton(
+                onClick = { navigateUp() },
+                modifier = Modifier
+                    .padding(MaterialTheme.spacing.medium)
+                    .clip(CircleShape)
+                    .background(greenDark)
+                    .align(Alignment.CenterEnd)
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.baseline_arrow_back_ios_new_24),
+                    contentDescription = null,
+                    tint = Color.White
+                )
             }
         }
-    } else {
-        OrderStatus(navigateUp = navigateUp)
+
+        Button(
+            onClick = { showNewOrder = true },
+            colors = ButtonDefaults.buttonColors(containerColor = greenDark),
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(MaterialTheme.spacing.extraSmall))
+                .padding(MaterialTheme.spacing.small)
+        ) {
+            Text(
+                text = stringResource(id = R.string.new_order),
+                modifier = Modifier.padding(MaterialTheme.spacing.medium)
+            )
+        }
+        if (showNewOrder) {
+            NewOrder()
+        }
     }
 }
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun OrderScreenPreview() {
-    OrderScreen(navigateUp = { })
+    OrderScreen(openScreen = { }, navigateUp = { })
 }
