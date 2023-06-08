@@ -1,9 +1,12 @@
 package com.example.agrican.ui.screens.treatment
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -42,7 +45,7 @@ fun SelectedCropScreen(
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
-        modifier = modifier
+        modifier = modifier.fillMaxWidth()
     ) {
         Text(
             text = stringResource(id = R.string.selected_crop),
@@ -125,7 +128,7 @@ fun TreatmentList(
 ) {
     LazyColumn(modifier = modifier) {
         items(3) {
-            TreatmentListItem()
+            TreatmentListItem(modifier = Modifier.padding(MaterialTheme.spacing.small))
         }
     }
 }
@@ -134,6 +137,45 @@ fun TreatmentList(
 fun TreatmentListItem(
     modifier: Modifier = Modifier
 ) {
+    Surface(
+        shadowElevation = MaterialTheme.spacing.medium,
+        shape = RoundedCornerShape(MaterialTheme.spacing.medium),
+        modifier = modifier
+    ) {
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.ic_sunny),
+                contentDescription = null,
+                modifier = Modifier.weight(1f)
+            )
+            Column(
+                verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
+                modifier = Modifier.weight(3f).padding(MaterialTheme.spacing.small)
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = "علاج 1",
+                        color = greenDark
+                    )
+                    Spacer(modifier = Modifier.weight(1f))
+                    Button(
+                        onClick = { /*TODO*/ },
+                        colors = ButtonDefaults.buttonColors(containerColor = greenDark),
+                    ) {
+                        Text(text = stringResource(id = R.string.know_more))
+                    }
+                }
+
+                Text(text = "هذه هى الكمية المطلوبة بناء و يتم تسميد الأرض باستخدام المنتجات المخصصة لذلك هذه هى الكمية المطلوبة بناء و يتم تسميد الأرض باستخدام المنتجات المخصصة لذلك")
+            }
+        }
+    }
 }
 
 @Preview(showBackground = true)
