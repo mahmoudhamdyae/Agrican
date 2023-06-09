@@ -1,4 +1,4 @@
-package com.example.agrican.ui.screens.diseases
+package com.example.agrican.ui.screens.home.agricanservices.diseases
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable

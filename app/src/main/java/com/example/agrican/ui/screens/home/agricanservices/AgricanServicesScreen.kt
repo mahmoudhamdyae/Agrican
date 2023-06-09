@@ -23,12 +23,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.agrican.R
 import com.example.agrican.ui.navigation.NavigationDestination
-import com.example.agrican.ui.screens.default_age.DefaultAgesDestination
-import com.example.agrican.ui.screens.diseases.DiseasesDestination
-import com.example.agrican.ui.screens.join_as_expert.JoinAsExpertDestination
-import com.example.agrican.ui.screens.order.OrderDestination
-import com.example.agrican.ui.screens.pests.PestsDestination
-import com.example.agrican.ui.screens.treatment.TreatmentDestination
+import com.example.agrican.ui.screens.home.agricanservices.default_age.DefaultAgesDestination
+import com.example.agrican.ui.screens.home.agricanservices.diseases.DiseasesDestination
+import com.example.agrican.ui.screens.home.agricanservices.join_as_expert.JoinAsExpertDestination
+import com.example.agrican.ui.screens.home.agricanservices.order.OrderDestination
+import com.example.agrican.ui.screens.home.agricanservices.pests.PestsDestination
+import com.example.agrican.ui.screens.home.agricanservices.treatment.TreatmentDestination
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.spacing
@@ -41,15 +41,12 @@ object AgricanServicesDestination: NavigationDestination {
 @Composable
 fun AgricanServicesScreen(
     openScreen: (String) -> Unit,
-    setTopBarTitle: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier.verticalScroll(rememberScrollState())) {
         Box {
             Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(greenLight)
+                modifier = Modifier.fillMaxWidth().background(greenLight)
             )
             Row {
                 Card(
@@ -58,10 +55,7 @@ fun AgricanServicesScreen(
                     modifier = Modifier
                         .weight(1.5f)
                         .padding(MaterialTheme.spacing.medium)
-                        .clickable {
-                            openScreen(DefaultAgesDestination.route)
-                            setTopBarTitle(DefaultAgesDestination.titleRes)
-                        },
+                        .clickable { openScreen(DefaultAgesDestination.route) },
                     isPrimaryMain = true
                 )
                 Card(
@@ -70,10 +64,7 @@ fun AgricanServicesScreen(
                     modifier = Modifier
                         .weight(1f)
                         .padding(MaterialTheme.spacing.medium)
-                        .clickable {
-                            openScreen(OrderDestination.route)
-                            setTopBarTitle(OrderDestination.titleRes)
-                                   },
+                        .clickable { openScreen(OrderDestination.route) },
                     isPrimaryMain = true
                 )
             }
@@ -88,10 +79,7 @@ fun AgricanServicesScreen(
                         modifier = Modifier
                             .weight(1f)
                             .padding(MaterialTheme.spacing.medium)
-                            .clickable {
-                                openScreen(DiseasesDestination.route)
-                                setTopBarTitle(DiseasesDestination.titleRes)
-                            }
+                            .clickable { openScreen(DiseasesDestination.route) }
                     )
                     Card(
                         title = R.string.pests,
@@ -99,10 +87,7 @@ fun AgricanServicesScreen(
                         modifier = Modifier
                             .weight(1.5f)
                             .padding(MaterialTheme.spacing.medium)
-                            .clickable {
-                                openScreen(PestsDestination.route)
-                                setTopBarTitle(PestsDestination.titleRes)
-                            }
+                            .clickable { openScreen(PestsDestination.route) }
                     )
                 }
                 Box {
@@ -116,10 +101,7 @@ fun AgricanServicesScreen(
                         description = R.string.problem_images_description,
                         modifier = Modifier
                             .padding(MaterialTheme.spacing.medium)
-                            .clickable {
-                                openScreen(TreatmentDestination.route)
-                                setTopBarTitle(TreatmentDestination.titleRes)
-                            }
+                            .clickable { openScreen(TreatmentDestination.route) }
                     )
                 }
             }
@@ -130,10 +112,7 @@ fun AgricanServicesScreen(
             description = R.string.problem_images_description,
             modifier = Modifier
                 .padding(MaterialTheme.spacing.medium)
-                .clickable {
-                    openScreen(JoinAsExpertDestination.route)
-                    setTopBarTitle(JoinAsExpertDestination.titleRes)
-                }
+                .clickable { openScreen(JoinAsExpertDestination.route) }
         )
     }
 }
@@ -186,5 +165,5 @@ fun Card(
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun AgricanServiceScreenPreview() {
-    AgricanServicesScreen(openScreen = { }, setTopBarTitle = { })
+    AgricanServicesScreen(openScreen = { })
 }

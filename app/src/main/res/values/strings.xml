@@ -52,6 +52,13 @@
     <string name="ask_expert">اسال خبير</string>
     <string name="ask_expert_description">يمكنك التواصل مع خبير زراعى مباشرة</string>
 
+    <!-- Problem Images Screen -->
+
+    <!-- Fertilizers Calculator Screen -->
+
+    <!-- Ask Expert Screen-->
+
+
     <!-- Agrican Services Screen -->
     <string name="default_age">العمر الافتراضى للمحصول</string>
     <string name="order">اطلب منتجك</string>

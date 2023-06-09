@@ -1,4 +1,4 @@
-package com.example.agrican.ui.screens.treatment
+package com.example.agrican.ui.screens.home.agricanservices.treatment
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement

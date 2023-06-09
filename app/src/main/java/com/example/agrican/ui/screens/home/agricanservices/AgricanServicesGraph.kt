@@ -7,28 +7,28 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.agrican.ui.screens.default_age.DefaultAgeScreen
-import com.example.agrican.ui.screens.default_age.DefaultAgesDestination
-import com.example.agrican.ui.screens.diseases.DiseaseDestination
-import com.example.agrican.ui.screens.diseases.DiseaseScreen
-import com.example.agrican.ui.screens.diseases.DiseasesDestination
-import com.example.agrican.ui.screens.diseases.DiseasesScreen
-import com.example.agrican.ui.screens.join_as_expert.JoinAsExpertDestination
-import com.example.agrican.ui.screens.join_as_expert.JoinAsExpertScreen
-import com.example.agrican.ui.screens.order.OrderConfirmDestination
-import com.example.agrican.ui.screens.order.OrderConfirmScreen
-import com.example.agrican.ui.screens.order.OrderDestination
-import com.example.agrican.ui.screens.order.OrderScreen
-import com.example.agrican.ui.screens.order.OrderStatusDestination
-import com.example.agrican.ui.screens.order.OrderStatusScreen
-import com.example.agrican.ui.screens.pests.PestDestination
-import com.example.agrican.ui.screens.pests.PestScreen
-import com.example.agrican.ui.screens.pests.PestsDestination
-import com.example.agrican.ui.screens.pests.PestsScreen
-import com.example.agrican.ui.screens.treatment.SelectedCropDestination
-import com.example.agrican.ui.screens.treatment.SelectedCropScreen
-import com.example.agrican.ui.screens.treatment.TreatmentDestination
-import com.example.agrican.ui.screens.treatment.TreatmentScreen
+import com.example.agrican.ui.screens.home.agricanservices.default_age.DefaultAgeScreen
+import com.example.agrican.ui.screens.home.agricanservices.default_age.DefaultAgesDestination
+import com.example.agrican.ui.screens.home.agricanservices.diseases.DiseaseDestination
+import com.example.agrican.ui.screens.home.agricanservices.diseases.DiseaseScreen
+import com.example.agrican.ui.screens.home.agricanservices.diseases.DiseasesDestination
+import com.example.agrican.ui.screens.home.agricanservices.diseases.DiseasesScreen
+import com.example.agrican.ui.screens.home.agricanservices.join_as_expert.JoinAsExpertDestination
+import com.example.agrican.ui.screens.home.agricanservices.join_as_expert.JoinAsExpertScreen
+import com.example.agrican.ui.screens.home.agricanservices.order.OrderConfirmDestination
+import com.example.agrican.ui.screens.home.agricanservices.order.OrderConfirmScreen
+import com.example.agrican.ui.screens.home.agricanservices.order.OrderDestination
+import com.example.agrican.ui.screens.home.agricanservices.order.OrderScreen
+import com.example.agrican.ui.screens.home.agricanservices.order.OrderStatusDestination
+import com.example.agrican.ui.screens.home.agricanservices.order.OrderStatusScreen
+import com.example.agrican.ui.screens.home.agricanservices.pests.PestDestination
+import com.example.agrican.ui.screens.home.agricanservices.pests.PestScreen
+import com.example.agrican.ui.screens.home.agricanservices.pests.PestsDestination
+import com.example.agrican.ui.screens.home.agricanservices.pests.PestsScreen
+import com.example.agrican.ui.screens.home.agricanservices.treatment.SelectedCropDestination
+import com.example.agrican.ui.screens.home.agricanservices.treatment.SelectedCropScreen
+import com.example.agrican.ui.screens.home.agricanservices.treatment.TreatmentDestination
+import com.example.agrican.ui.screens.home.agricanservices.treatment.TreatmentScreen
 
 @Composable
 fun AgricanServicesGraph(
@@ -58,14 +58,13 @@ fun AgricanServicesGraph(
     ) {
 
         composable(route = AgricanServicesDestination.route) {
-            AgricanServicesScreen(
-                openScreen = openScreen,
-                setTopBarTitle = setTopBarTitle
-            )
+            AgricanServicesScreen(openScreen = openScreen)
+            setTopBarTitle(AgricanServicesDestination.titleRes)
         }
 
         composable(route = DefaultAgesDestination.route) {
             DefaultAgeScreen()
+            setTopBarTitle(DefaultAgesDestination.titleRes)
         }
 
         composable(route = OrderDestination.route) {
@@ -73,6 +72,7 @@ fun AgricanServicesGraph(
                 openScreen = openScreen,
                 navigateUp = navigateUp
             )
+            setTopBarTitle(OrderDestination.titleRes)
         }
 
         composable(route = OrderStatusDestination.route) {
@@ -85,6 +85,7 @@ fun AgricanServicesGraph(
 
         composable(route = DiseasesDestination.route) {
             DiseasesScreen(navigateUp = navigateUp, openScreen = openScreen)
+            setTopBarTitle(DiseasesDestination.titleRes)
         }
 
         composable(route = DiseaseDestination.route) {
@@ -93,6 +94,7 @@ fun AgricanServicesGraph(
 
         composable(route = PestsDestination.route) {
             PestsScreen(navigateUp = navigateUp, openScreen = openScreen)
+            setTopBarTitle(PestsDestination.titleRes)
         }
 
         composable(route = PestDestination.route) {
@@ -101,6 +103,7 @@ fun AgricanServicesGraph(
 
         composable(route = TreatmentDestination.route) {
             TreatmentScreen(navigateUp = navigateUp, openScreen = openScreen)
+            setTopBarTitle(TreatmentDestination.titleRes)
         }
 
         composable(route = SelectedCropDestination.route) {
@@ -109,6 +112,7 @@ fun AgricanServicesGraph(
 
         composable(route = JoinAsExpertDestination.route) {
             JoinAsExpertScreen()
+            setTopBarTitle(JoinAsExpertDestination.titleRes)
         }
     }
 }

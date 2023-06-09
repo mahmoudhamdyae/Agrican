@@ -1,4 +1,4 @@
-package com.example.agrican.ui.screens.pests
+package com.example.agrican.ui.screens.home.agricanservices.pests
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image

@@ -1,4 +1,4 @@
-package com.example.agrican.ui.screens.pests
+package com.example.agrican.ui.screens.home.agricanservices.pests
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -6,7 +6,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.agrican.R
 import com.example.agrican.ui.components.BackButton
 import com.example.agrican.ui.navigation.NavigationDestination
-import com.example.agrican.ui.screens.diseases.DiseasesScreenContent
+import com.example.agrican.ui.screens.home.agricanservices.diseases.DiseasesScreenContent
 
 object PestsDestination: NavigationDestination {
     override val route: String = "pests"

@@ -50,7 +50,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.agrican.R
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.screens.home.agricanservices.AgricanServicesGraph
-import com.example.agrican.ui.screens.home.main.MainScreen
+import com.example.agrican.ui.screens.home.main.MainGraph
 import com.example.agrican.ui.screens.home.profile.ProfileScreen
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
@@ -104,13 +104,14 @@ fun HomeScreenContent(
     )
 
     var topBarTitle by rememberSaveable { mutableStateOf(R.string.navigation_agrican_services) }
+    var topBarIcon by rememberSaveable { mutableStateOf(false) }
 
     Scaffold(
         modifier = modifier,
         topBar = {
             TopBar(
                 title = {
-                    if (selectedItem == 0) {
+                    if (topBarIcon) {
                         Icon(painter = painterResource(id = R.drawable.ic_visibility_on),
                             contentDescription = null)
                     } else {
@@ -133,9 +134,18 @@ fun HomeScreenContent(
             top = contentPadding.calculateTopPadding(), bottom = 0.dp
         )) {
             when (selectedItem) {
-                0 -> { MainScreen(modifier = Modifier.padding(bottom = 75.dp)) }
-                1 -> { ProfileScreen(modifier = Modifier.padding(bottom = 75.dp)) }
-                2 -> { AgricanServicesGraph(setTopBarTitle = { topBarTitle = it }) }
+                0 -> { MainGraph(
+                    setTopBarTitle = { topBarTitle = it },
+                    setTopBarIcon = { topBarIcon = it }
+                ) }
+                1 -> {
+                    topBarIcon = false
+                    ProfileScreen(modifier = Modifier.padding(bottom = 75.dp))
+                }
+                2 -> {
+                    AgricanServicesGraph(setTopBarTitle = { topBarTitle = it })
+                    topBarIcon = false
+                }
             }
         }
     }

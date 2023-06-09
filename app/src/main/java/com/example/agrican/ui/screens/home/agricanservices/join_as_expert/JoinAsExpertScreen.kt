@@ -1,4 +1,4 @@
-package com.example.agrican.ui.screens.join_as_expert
+package com.example.agrican.ui.screens.home.agricanservices.join_as_expert
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background

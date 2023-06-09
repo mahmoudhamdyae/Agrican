@@ -38,19 +38,30 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.agrican.R
 import com.example.agrican.domain.model.Weather
+import com.example.agrican.ui.navigation.NavigationDestination
+import com.example.agrican.ui.screens.home.main.ask_expert.AskExpertDestination
+import com.example.agrican.ui.screens.home.main.fertilizers_calculator.FertilizersCalculatorDestination
+import com.example.agrican.ui.screens.home.main.problem_images.ProblemImagesDestination
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.spacing
 
+object MainDestination: NavigationDestination {
+    override val route: String = "main"
+    override val titleRes: Int = R.string.default_age_title
+}
+
 @Composable
 fun MainScreen(
+    openScreen: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    MainScreenContent(modifier = modifier)
+    MainScreenContent(openScreen = openScreen, modifier = modifier)
 }
 
 @Composable
 fun MainScreenContent(
+    openScreen: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier.verticalScroll(rememberScrollState())) {
@@ -88,12 +99,9 @@ fun MainScreenContent(
             title = R.string.problem_images,
             description = R.string.problem_images_description,
             icon = R.drawable.ic_visibility_on,
-            onItemClick = {
-                          // todo: Problem Images
-            },
-            modifier = Modifier
-                .padding(MaterialTheme.spacing.small)
-                .fillMaxWidth()
+            onItemClick = { openScreen(ProblemImagesDestination.route) },
+            modifier = Modifier.padding(MaterialTheme.spacing.small).fillMaxWidth()
+
         )
 
         Row {
@@ -101,24 +109,16 @@ fun MainScreenContent(
                 title = R.string.fertilizers_calculator,
                 description = R.string.fertilizers_calculator_description,
                 icon = R.drawable.ic_visibility_on,
-                onItemClick = {
-                    // todo: Fertilizers Calculator
-                },
-                modifier = Modifier
-                    .padding(MaterialTheme.spacing.small)
-                    .weight(1f)
+                onItemClick = { openScreen(FertilizersCalculatorDestination.route) },
+                modifier = Modifier.padding(MaterialTheme.spacing.small).weight(1f)
             )
 
             BottomCard(
                 title = R.string.ask_expert,
                 description = R.string.ask_expert_description,
                 icon = R.drawable.ic_visibility_on,
-                onItemClick = {
-                    // todo: Ask Expert
-                },
-                modifier = Modifier
-                    .padding(MaterialTheme.spacing.small)
-                    .weight(1f)
+                onItemClick = { openScreen(AskExpertDestination.route) },
+                modifier = Modifier.padding(MaterialTheme.spacing.small).weight(1f)
             )
         }
     }
@@ -306,5 +306,5 @@ fun BottomCard(
 @Preview(showBackground = true)
 @Composable
 fun MainScreenContentPreview() {
-    MainScreenContent()
+    MainScreenContent(openScreen = { })
 }
