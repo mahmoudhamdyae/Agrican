@@ -20,8 +20,6 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuDefaults
-import androidx.compose.material3.FilterChip
-import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -44,6 +42,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.agrican.R
+import com.example.agrican.ui.components.Chip
 import com.example.agrican.ui.components.CropsList
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.gray
@@ -148,23 +147,20 @@ fun DefaultAgeScreen(
             color = greenLight
         )
 
-        Row {
-            var selected by rememberSaveable { mutableStateOf(0) }
-
-            val qualities = listOf(
-                R.string.quality_very_good,
-                R.string.quality_good,
-                R.string.quality_average,
-                R.string.quality_below_average
-            )
-            LazyRow {
-                items(qualities.size) {
-                    QualityChips(
-                        text = qualities[it],
-                        selected = it == selected,
-                        onSelect = { selected = it }
-                    )
-                }
+        var selected by rememberSaveable { mutableStateOf(0) }
+        val qualities = listOf(
+            R.string.quality_very_good,
+            R.string.quality_good,
+            R.string.quality_average,
+            R.string.quality_below_average
+        )
+        LazyRow {
+            items(qualities.size) {
+                Chip(
+                    text = qualities[it],
+                    selected = it == selected,
+                    onSelect = { selected = it }
+                )
             }
         }
 
@@ -203,31 +199,6 @@ fun DefaultAgeScreen(
             Text(text = stringResource(id = R.string.danger_description_two))
         }
     }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun QualityChips(
-    text: Int,
-    selected: Boolean,
-    onSelect: () -> Unit,
-    modifier: Modifier = Modifier
-) {
-    FilterChip(
-        selected = selected,
-        onClick = onSelect,
-        colors = FilterChipDefaults.elevatedFilterChipColors(
-            selectedContainerColor = greenLight,
-            selectedLabelColor = Color.White
-        ),
-        label = {
-            Text(
-                text = stringResource(id = text),
-            )
-        },
-        shape = RoundedCornerShape(MaterialTheme.spacing.large),
-        modifier = modifier.padding(MaterialTheme.spacing.small)
-    )
 }
 
 @Composable

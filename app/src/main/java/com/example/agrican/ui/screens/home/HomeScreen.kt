@@ -105,20 +105,23 @@ fun HomeScreenContent(
 
     var topBarTitle by rememberSaveable { mutableStateOf(R.string.navigation_agrican_services) }
     var topBarIcon by rememberSaveable { mutableStateOf(false) }
+    var isTopBarShown by rememberSaveable { mutableStateOf(false) }
 
     Scaffold(
         modifier = modifier,
         topBar = {
-            TopBar(
-                title = {
-                    if (topBarIcon) {
-                        Icon(painter = painterResource(id = R.drawable.ic_visibility_on),
-                            contentDescription = null)
-                    } else {
-                        Text(text = stringResource(id = topBarTitle))
+            if (isTopBarShown) {
+                TopBar(
+                    title = {
+                        if (topBarIcon) {
+                            Icon(painter = painterResource(id = R.drawable.ic_visibility_on),
+                                contentDescription = null)
+                        } else {
+                            Text(text = stringResource(id = topBarTitle))
+                        }
                     }
-                }
-            )
+                )
+            }
         },
         bottomBar = {
             BottomNavigationBar(
@@ -134,17 +137,22 @@ fun HomeScreenContent(
             top = contentPadding.calculateTopPadding(), bottom = 0.dp
         )) {
             when (selectedItem) {
-                0 -> { MainGraph(
-                    setTopBarTitle = { topBarTitle = it },
-                    setTopBarIcon = { topBarIcon = it }
-                ) }
+                0 -> {
+                    MainGraph(
+                        setTopBarTitle = { topBarTitle = it },
+                        setTopBarIcon = { topBarIcon = it }
+                    )
+                    isTopBarShown = true
+                }
                 1 -> {
                     topBarIcon = false
+                    isTopBarShown = false
                     ProfileScreen(modifier = Modifier.padding(bottom = 75.dp))
                 }
                 2 -> {
                     AgricanServicesGraph(setTopBarTitle = { topBarTitle = it })
                     topBarIcon = false
+                    isTopBarShown = true
                 }
             }
         }

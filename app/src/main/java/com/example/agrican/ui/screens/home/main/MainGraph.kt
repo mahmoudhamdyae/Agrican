@@ -9,10 +9,14 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.agrican.ui.screens.home.main.ask_expert.AskExpertDestination
 import com.example.agrican.ui.screens.home.main.ask_expert.AskExpertScreen
+import com.example.agrican.ui.screens.home.main.ask_expert.ChatDestination
+import com.example.agrican.ui.screens.home.main.ask_expert.ChatScreen
 import com.example.agrican.ui.screens.home.main.fertilizers_calculator.FertilizersCalculatorDestination
 import com.example.agrican.ui.screens.home.main.fertilizers_calculator.FertilizersCalculatorScreen
 import com.example.agrican.ui.screens.home.main.problem_images.ProblemImagesDestination
 import com.example.agrican.ui.screens.home.main.problem_images.ProblemImagesScreen
+import com.example.agrican.ui.screens.home.main.weather.WeatherDestination
+import com.example.agrican.ui.screens.home.main.weather.WeatherScreen
 
 @Composable
 fun MainGraph(
@@ -60,9 +64,21 @@ fun MainGraph(
         }
 
         composable(route = AskExpertDestination.route) {
-            AskExpertScreen()
+            AskExpertScreen(openAndPopUp = openAndPopUp, navigateUp = navigateUp)
             setTopBarIcon(false)
             setTopBarTitle(AskExpertDestination.titleRes)
+        }
+
+        composable(route = ChatDestination.route) {
+            ChatScreen(navigateUp = navigateUp)
+            setTopBarIcon(false)
+            setTopBarTitle(ChatDestination.titleRes)
+        }
+
+        composable(route = WeatherDestination.route) {
+            WeatherScreen()
+            setTopBarIcon(false)
+            setTopBarTitle(WeatherDestination.titleRes)
         }
     }
 }

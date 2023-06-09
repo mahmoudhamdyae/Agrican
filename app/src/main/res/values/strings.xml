@@ -53,11 +53,34 @@
     <string name="ask_expert_description">يمكنك التواصل مع خبير زراعى مباشرة</string>
 
     <!-- Problem Images Screen -->
+    <string name="choose_plant_type">للحصول على نتائج أدق برجاء تحديد نوع النبات</string>
+    <string name="choose_problem_image_way">اختار طريقة إرسال صور المشكلة</string>
+    <string name="from_camera">التقط صورة</string>
+    <string name="from_gallery">اختار من المعرض</string>
+    <string name="start_searching">ابدأ البحث</string>
+    <string name="advices_label">نصائح التشخيص</string>
+    <string name="advices">يمكنك التقاط صورة واحدة للنبات المتضرر و للحصول على نتائج أفضل يرجى التقاط 3 صور واضحة للمشكلة\n\nاقترب من المحصول و تأكد أن آفة المحصول موجودة داخل الإطار\n\nتأكد من أن الكاميرا تركز بشكل صحيح على آفة المحصول\n\nتأكد من أن المحصول مرئى بوضوح وأنه ليس مظلما جدا أو ساطعا جدا</string>
 
     <!-- Fertilizers Calculator Screen -->
+    <string name="choose_crop_label">اختار المحصول</string>
+    <string name="measuring_unit">وحدة القياس</string>
+    <string name="land_size">حجم الأرض</string>
+    <string name="acre">فدان</string>
+    <string name="hectare">هكتار</string>
+    <string name="calculate_fertilizer">احسب كمية الأسمدة</string>
 
     <!-- Ask Expert Screen-->
+    <string name="ask_expert_text_one">أهلا بك فى مساعدك الزراعى الذكى</string>
+    <string name="ask_expert_text_two">برجاء الانتظار سيتم بدأ المحادثة خلال وقت قصير</string>
 
+    <!-- Chat Screen -->
+    <string name="finish_chat">إنهاء المحادثة</string>
+    
+    <!-- Weather Screen -->
+    <string name="air_quality">جودة الهواء</string>
+    <string name="wind">الرياح</string>
+    <string name="gusts_of_wind">هبات الرياح</string>
+    <string name="air_information_button">معلومات عن الجو اليوم</string>
 
     <!-- Agrican Services Screen -->
     <string name="default_age">العمر الافتراضى للمحصول</string>

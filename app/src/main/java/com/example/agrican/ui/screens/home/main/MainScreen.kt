@@ -42,6 +42,7 @@ import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.screens.home.main.ask_expert.AskExpertDestination
 import com.example.agrican.ui.screens.home.main.fertilizers_calculator.FertilizersCalculatorDestination
 import com.example.agrican.ui.screens.home.main.problem_images.ProblemImagesDestination
+import com.example.agrican.ui.screens.home.main.weather.WeatherDestination
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.spacing
@@ -70,6 +71,7 @@ fun MainScreenContent(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(MaterialTheme.spacing.large)
+                .clickable { openScreen(WeatherDestination.route) }
         )
         Row(
             horizontalArrangement = Arrangement.SpaceEvenly,
