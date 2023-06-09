@@ -1,6 +1,9 @@
 package com.example.agrican.ui.screens.home.agricanservices
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -18,8 +21,12 @@ import com.example.agrican.ui.screens.order.OrderDestination
 import com.example.agrican.ui.screens.order.OrderScreen
 import com.example.agrican.ui.screens.order.OrderStatusDestination
 import com.example.agrican.ui.screens.order.OrderStatusScreen
+import com.example.agrican.ui.screens.pests.PestDestination
+import com.example.agrican.ui.screens.pests.PestScreen
 import com.example.agrican.ui.screens.pests.PestsDestination
 import com.example.agrican.ui.screens.pests.PestsScreen
+import com.example.agrican.ui.screens.treatment.SelectedCropDestination
+import com.example.agrican.ui.screens.treatment.SelectedCropScreen
 import com.example.agrican.ui.screens.treatment.TreatmentDestination
 import com.example.agrican.ui.screens.treatment.TreatmentScreen
 
@@ -44,7 +51,11 @@ fun AgricanServicesGraph(
     }
     val navigateUp: () -> Unit = { navController.popBackStack() }
 
-    NavHost(navController = navController, startDestination = AgricanServicesDestination.route) {
+    NavHost(
+        navController = navController,
+        startDestination = AgricanServicesDestination.route,
+        modifier = Modifier.padding(bottom = 75.dp)
+    ) {
 
         composable(route = AgricanServicesDestination.route) {
             AgricanServicesScreen(
@@ -81,11 +92,19 @@ fun AgricanServicesGraph(
         }
 
         composable(route = PestsDestination.route) {
-            PestsScreen()
+            PestsScreen(navigateUp = navigateUp, openScreen = openScreen)
+        }
+
+        composable(route = PestDestination.route) {
+            PestScreen(navigateUp = navigateUp)
         }
 
         composable(route = TreatmentDestination.route) {
-            TreatmentScreen(navigateUp = navigateUp)
+            TreatmentScreen(navigateUp = navigateUp, openScreen = openScreen)
+        }
+
+        composable(route = SelectedCropDestination.route) {
+            SelectedCropScreen()
         }
 
         composable(route = JoinAsExpertDestination.route) {

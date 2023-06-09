@@ -13,9 +13,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Notifications
@@ -130,17 +128,14 @@ fun HomeScreenContent(
             )
         }
     ) { contentPadding ->
-        Column(
-            modifier = Modifier
-                .verticalScroll(rememberScrollState())
-                .padding(contentPadding)
-        ) {
-            Box(modifier = modifier.fillMaxSize()) {
-                when (selectedItem) {
-                    0 -> { MainScreen() }
-                    1 -> { ProfileScreen() }
-                    2 -> { AgricanServicesGraph(setTopBarTitle = { topBarTitle = it }) }
-                }
+
+        Box(modifier = modifier.fillMaxSize().padding(
+            top = contentPadding.calculateTopPadding(), bottom = 0.dp
+        )) {
+            when (selectedItem) {
+                0 -> { MainScreen(modifier = Modifier.padding(bottom = 75.dp)) }
+                1 -> { ProfileScreen(modifier = Modifier.padding(bottom = 75.dp)) }
+                2 -> { AgricanServicesGraph(setTopBarTitle = { topBarTitle = it }) }
             }
         }
     }

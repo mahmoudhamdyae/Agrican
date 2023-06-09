@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -32,8 +31,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.agrican.R
 import com.example.agrican.ui.components.DropDown
+import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.spacing
+
+object SelectedCropDestination: NavigationDestination {
+    override val route: String = "selected_crop"
+    override val titleRes: Int = R.string.treatment
+}
 
 @Composable
 fun SelectedCropScreen(
@@ -117,7 +122,7 @@ fun CropImage(
         Icon(
             painter = painterResource(id = R.drawable.ic_visibility_on),
             contentDescription = null,
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxWidth()
         )
     }
 }
@@ -153,7 +158,9 @@ fun TreatmentListItem(
             )
             Column(
                 verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
-                modifier = Modifier.weight(3f).padding(MaterialTheme.spacing.small)
+                modifier = Modifier
+                    .weight(3f)
+                    .padding(MaterialTheme.spacing.small)
             ) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,

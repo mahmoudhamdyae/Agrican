@@ -11,8 +11,10 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -59,7 +61,11 @@ object DefaultAgesDestination: NavigationDestination {
 fun DefaultAgeScreen(
     modifier: Modifier = Modifier
 ) {
-    Column(modifier = modifier.padding(MaterialTheme.spacing.medium)) {
+    Column(
+        modifier = modifier
+            .padding(MaterialTheme.spacing.medium)
+            .verticalScroll(rememberScrollState())
+    ) {
         Text(
             text = stringResource(id = R.string.harvest_date),
             color = greenLight

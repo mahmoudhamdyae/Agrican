@@ -1,17 +1,12 @@
 package com.example.agrican.ui.screens.order
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -19,14 +14,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.agrican.R
+import com.example.agrican.ui.components.BackButton
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
@@ -45,8 +38,8 @@ fun OrderScreen(
 ) {
     var showNewOrder: Boolean by rememberSaveable { mutableStateOf(false) }
 
-    Column(modifier = modifier.fillMaxSize()) {
-        Box {
+    BackButton(navigateUp = navigateUp) {
+        Column(modifier = modifier.fillMaxSize()) {
             Button(
                 onClick = { openScreen(OrderStatusDestination.route) },
                 colors = ButtonDefaults.buttonColors(containerColor = greenLight),
@@ -61,37 +54,22 @@ fun OrderScreen(
                 )
             }
 
-            IconButton(
-                onClick = { navigateUp() },
+            Button(
+                onClick = { showNewOrder = true },
+                colors = ButtonDefaults.buttonColors(containerColor = greenDark),
                 modifier = Modifier
-                    .padding(MaterialTheme.spacing.medium)
-                    .clip(CircleShape)
-                    .background(greenDark)
-                    .align(Alignment.CenterEnd)
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(MaterialTheme.spacing.extraSmall))
+                    .padding(MaterialTheme.spacing.small)
             ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.baseline_arrow_back_ios_new_24),
-                    contentDescription = null,
-                    tint = Color.White
+                Text(
+                    text = stringResource(id = R.string.new_order),
+                    modifier = Modifier.padding(MaterialTheme.spacing.medium)
                 )
             }
-        }
-
-        Button(
-            onClick = { showNewOrder = true },
-            colors = ButtonDefaults.buttonColors(containerColor = greenDark),
-            modifier = Modifier
-                .fillMaxWidth()
-                .clip(RoundedCornerShape(MaterialTheme.spacing.extraSmall))
-                .padding(MaterialTheme.spacing.small)
-        ) {
-            Text(
-                text = stringResource(id = R.string.new_order),
-                modifier = Modifier.padding(MaterialTheme.spacing.medium)
-            )
-        }
-        if (showNewOrder) {
-            NewOrder()
+            if (showNewOrder) {
+                NewOrder()
+            }
         }
     }
 }

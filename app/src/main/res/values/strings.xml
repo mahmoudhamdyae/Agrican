@@ -126,4 +126,15 @@
     <string name="reasons">الأسباب المحتملة</string>
     <string name="effect_on_plants">التأثير على النباتات</string>
     <string name="cure">العلاج و الوقاية</string>
+    
+    <!-- Pests -->
+    <string name="search_for_another_pest">ابحث عن آفة أخرى</string>
+    <string name="scientific_name">الاسم العلمى</string>
+    <string name="category">التصنيف</string>
+    <string name="main_host">مضيف رئيسى</string>
+    <string name="life_cycle">دورة الحياة</string>
+    <string name="damages">الأضرار</string>
+    <string name="signs_and_symptoms">العلامات و الأعراض</string>
+    <string name="injury_season">موسم الإصابة</string>
+    <string name="control_timing">توقيت المكافحة</string>
 </resources>
