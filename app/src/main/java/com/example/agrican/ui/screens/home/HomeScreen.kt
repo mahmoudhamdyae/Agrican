@@ -105,12 +105,13 @@ fun HomeScreenContent(
 
     var topBarTitle by rememberSaveable { mutableStateOf(R.string.navigation_agrican_services) }
     var topBarIcon by rememberSaveable { mutableStateOf(false) }
-    var isTopBarShown by rememberSaveable { mutableStateOf(false) }
+    var shouldShowTopBar by rememberSaveable { mutableStateOf(true) }
+    var shouldShowBottomBar by rememberSaveable { mutableStateOf(true) }
 
     Scaffold(
         modifier = modifier,
         topBar = {
-            if (isTopBarShown) {
+            if (shouldShowTopBar) {
                 TopBar(
                     title = {
                         if (topBarIcon) {
@@ -124,12 +125,14 @@ fun HomeScreenContent(
             }
         },
         bottomBar = {
-            BottomNavigationBar(
-                selectedItem = selectedItem,
-                setSelectedItem = { selectedItem = it },
-                bottomNavItems = bottomNavItems,
-                modifier = Modifier.fillMaxWidth()
-            )
+            if (shouldShowBottomBar) {
+                BottomNavigationBar(
+                    selectedItem = selectedItem,
+                    setSelectedItem = { selectedItem = it },
+                    bottomNavItems = bottomNavItems,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
         }
     ) { contentPadding ->
 
@@ -138,21 +141,23 @@ fun HomeScreenContent(
         )) {
             when (selectedItem) {
                 0 -> {
+                    shouldShowTopBar = true
                     MainGraph(
                         setTopBarTitle = { topBarTitle = it },
-                        setTopBarIcon = { topBarIcon = it }
+                        setTopBarIcon = { topBarIcon = it },
+                        showTopBar = { shouldShowTopBar = it },
+                        showBottomBar = { shouldShowBottomBar = it }
                     )
-                    isTopBarShown = true
                 }
                 1 -> {
                     topBarIcon = false
-                    isTopBarShown = false
+                    shouldShowTopBar = false
                     ProfileScreen(modifier = Modifier.padding(bottom = 75.dp))
                 }
                 2 -> {
                     AgricanServicesGraph(setTopBarTitle = { topBarTitle = it })
                     topBarIcon = false
-                    isTopBarShown = true
+                    shouldShowTopBar = true
                 }
             }
         }
