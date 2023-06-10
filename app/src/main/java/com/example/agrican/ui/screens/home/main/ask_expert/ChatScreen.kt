@@ -64,7 +64,7 @@ fun ChatScreen(
 ) {
 
     // todo: get from viewmodel
-    val chat = Chat(id = "1", messages = listOf(
+    val chat = Chat(chatId = "1", messages = listOf(
         Message("text1", "1", "1"),
         Message("text2", "2", "2")
     ))
@@ -326,7 +326,7 @@ fun ChatButton(
 @Preview(showBackground = true)
 @Composable
 fun ChatScreenPreview() {
-    val chat = Chat(id = "1", messages = listOf(
+    val chat = Chat(chatId = "1", messages = listOf(
         Message("أهلا بيك معاك .. من أجريكان أقدر أساعد حضرتك إزاى؟", "1", "1"),
         Message("أهلا بيك معاك .. من أجريكان أقدر أساعد حضرتك إزاى؟", "1", "2"),
         Message("أهلا بيك معاك .. من أجريكان أقدر أساعد حضرتك إزاى؟", "1", "3"),

@@ -169,7 +169,7 @@ fun AccountType(
         Column {
             AccountTypeItem(
                 setAccountType = setAccountType,
-                accountType = R.string.farms,
+                accountType = R.string.farmer,
                 accountTypeDescription = R.string.farms_description
             )
             AccountTypeItem(

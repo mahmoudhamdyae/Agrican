@@ -51,7 +51,7 @@ import com.example.agrican.R
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.screens.home.agricanservices.AgricanServicesGraph
 import com.example.agrican.ui.screens.home.main.MainGraph
-import com.example.agrican.ui.screens.home.profile.ProfileScreen
+import com.example.agrican.ui.screens.home.profile.ProfileGraph
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.spacing
@@ -150,13 +150,14 @@ fun HomeScreenContent(
                     )
                 }
                 1 -> {
-                    topBarIcon = false
                     shouldShowTopBar = false
-                    ProfileScreen(modifier = Modifier.padding(bottom = 75.dp))
+                    ProfileGraph(
+                        setTopBarTitle = { topBarTitle = it },
+                        showTopBar = { shouldShowTopBar = it },
+                    )
                 }
                 2 -> {
                     AgricanServicesGraph(setTopBarTitle = { topBarTitle = it })
-                    topBarIcon = false
                     shouldShowTopBar = true
                 }
             }

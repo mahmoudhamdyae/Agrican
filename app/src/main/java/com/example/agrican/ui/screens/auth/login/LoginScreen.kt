@@ -136,7 +136,7 @@ fun LoginScreenContent(
                 Spacer(modifier = Modifier.weight(1f))
 
                 DropDown(availabilityOptions = arrayOf(
-                    R.string.farms,
+                    R.string.farmer,
                     R.string.farm,
                     R.string.engineer,
                 ), isGray = true, modifier = Modifier.weight(1f))
