@@ -1,9 +1,8 @@
 package com.example.agrican.ui.screens.home.agricanservices.order
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -12,12 +11,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -26,17 +23,16 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.agrican.R
 import com.example.agrican.ui.components.DropDown
+import com.example.agrican.ui.components.LabelItem
+import com.example.agrican.ui.components.LabelWithTextField
 import com.example.agrican.ui.components.NotesField
-import com.example.agrican.ui.components.OrderField
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.spacing
 
@@ -59,23 +55,16 @@ fun NewOrder(
             .padding(MaterialTheme.spacing.small)
             .verticalScroll(rememberScrollState())
     ) {
-        Row(modifier = Modifier.fillMaxWidth()) {
-            LabelItem(
-                text = R.string.product_kind,
-                modifier = Modifier.height(60.dp)
-            )
+        Row(modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Max)) {
+            LabelItem(text = R.string.product_kind)
             Spacer(modifier = Modifier.weight(1f))
             DropDown(availabilityOptions = arrayOf(
                 R.string.insecticide
-            ), modifier = Modifier
-                .height(60.dp)
-                .width(130.dp)
-                .height(60.dp)
-            )
+            ), modifier = Modifier.width(130.dp).fillMaxHeight())
             Spacer(modifier = Modifier.weight(1f))
         }
 
-        FieldWithItem(
+        LabelWithTextField(
             value = productName,
             onNewValue = { productName = it },
             hint = R.string.insecticide_name,
@@ -83,23 +72,25 @@ fun NewOrder(
             focusManager = focusManager,
         )
 
-        Box {
-            FieldWithItem(
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.height(IntrinsicSize.Max)
+        ) {
+            LabelWithTextField(
                 value = quantity,
                 onNewValue = { quantity = it },
                 hint = R.string.quantity,
                 label = R.string.quantity,
                 focusManager = focusManager,
+                modifier = Modifier.weight(1f)
             )
             Spacer(modifier = Modifier.width(MaterialTheme.spacing.small))
             DropDown(availabilityOptions = arrayOf(
                 R.string.kilogram
-            ), modifier = Modifier
-                .align(Alignment.CenterEnd)
-                .width(130.dp))
+            ), modifier = Modifier.width(130.dp).fillMaxHeight())
         }
 
-        FieldWithItem(
+        LabelWithTextField(
             value = receivingAddress,
             onNewValue = { receivingAddress = it },
             hint = R.string.receiving_address,
@@ -113,22 +104,17 @@ fun NewOrder(
         ) {
             DropDown(availabilityOptions = arrayOf(
                 R.string.place
-            ), modifier = Modifier
-                .width(130.dp)
-                .height(60.dp))
+            ), modifier = Modifier.weight(1f)
+            )
             DropDown(availabilityOptions = arrayOf(
                 R.string.city
-            ), modifier = Modifier
-                .width(130.dp)
-                .height(60.dp))
+            ), modifier = Modifier.weight(1f))
             DropDown(availabilityOptions = arrayOf(
                 R.string.governorate
-            ), modifier = Modifier
-                .width(130.dp)
-                .height(60.dp))
+            ), modifier = Modifier.weight(1f))
         }
 
-        LabelItem(text = R.string.notes, modifier = Modifier.height(60.dp))
+        LabelItem(text = R.string.notes)
         NotesField(
             value = notes,
             onNewValue = { notes = it },
@@ -147,60 +133,6 @@ fun NewOrder(
             Text(
                 text = stringResource(id = R.string.order_button),
                 modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
-            )
-        }
-    }
-}
-
-@Composable
-fun FieldWithItem(
-    value: String,
-    onNewValue: (String) -> Unit,
-    hint: Int,
-    label: Int,
-    focusManager: FocusManager,
-    modifier: Modifier = Modifier,
-    imeAction: ImeAction = ImeAction.Next
-) {
-    Box(
-        modifier = modifier.height(60.dp)
-    ) {
-        OrderField(
-            value = value,
-            onNewValue = onNewValue,
-            hint = hint,
-            focusManager = focusManager,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = 100.dp),
-            imeAction = imeAction
-        )
-        LabelItem(text = label)
-    }
-}
-
-@Composable
-fun LabelItem(
-    text: Int,
-    modifier: Modifier = Modifier
-) {
-    Surface(
-        shape = RoundedCornerShape(MaterialTheme.spacing.medium),
-        border = BorderStroke(1.dp, greenDark),
-        modifier = modifier
-            .width(130.dp)
-            .fillMaxHeight()
-    ) {
-        Box(contentAlignment = Alignment.Center) {
-            Text(
-                text = stringResource(id = text),
-                textAlign = TextAlign.Center,
-                color = greenDark,
-                modifier = Modifier
-                    .padding(
-                        horizontal = MaterialTheme.spacing.medium,
-                        vertical = MaterialTheme.spacing.small
-                    )
             )
         }
     }

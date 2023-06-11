@@ -154,6 +154,7 @@ fun HomeScreenContent(
                     ProfileGraph(
                         setTopBarTitle = { topBarTitle = it },
                         showTopBar = { shouldShowTopBar = it },
+                        showBottomBar = { shouldShowBottomBar = it },
                     )
                 }
                 2 -> {

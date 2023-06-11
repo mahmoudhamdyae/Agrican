@@ -57,17 +57,17 @@ fun MainGraph(
         modifier = Modifier.padding(bottom = if (shouldShowBottomPadding) 75.dp else 0.dp)
     ) {
         composable(route = MainDestination.route) {
-            MainScreen(openScreen = openScreen)
             setTopBarIcon(true)
+            MainScreen(openScreen = openScreen)
         }
 
         composable(route = ProblemImagesDestination.route) {
             showTopBar(true)
             showBottomBar(true)
             shouldShowBottomPadding = true
-            ProblemImagesScreen(navigateUp = navigateUp, openScreen = openScreen)
             setTopBarIcon(false)
             setTopBarTitle(ProblemImagesDestination.titleRes)
+            ProblemImagesScreen(navigateUp = navigateUp, openScreen = openScreen)
         }
 
         composable(route = CameraDestination.route) {
@@ -78,27 +78,27 @@ fun MainGraph(
         }
 
         composable(route = FertilizersCalculatorDestination.route) {
-            FertilizersCalculatorScreen()
             setTopBarIcon(false)
             setTopBarTitle(FertilizersCalculatorDestination.titleRes)
+            FertilizersCalculatorScreen()
         }
 
         composable(route = AskExpertDestination.route) {
-            AskExpertScreen(openAndPopUp = openAndPopUp, navigateUp = navigateUp)
             setTopBarIcon(false)
             setTopBarTitle(AskExpertDestination.titleRes)
+            AskExpertScreen(openAndPopUp = openAndPopUp, navigateUp = navigateUp)
         }
 
         composable(route = ChatDestination.route) {
-            ChatScreen(navigateUp = navigateUp)
             setTopBarIcon(false)
             setTopBarTitle(ChatDestination.titleRes)
+            ChatScreen(navigateUp = navigateUp)
         }
 
         composable(route = WeatherDestination.route) {
-            WeatherScreen()
             setTopBarIcon(false)
             setTopBarTitle(WeatherDestination.titleRes)
+            WeatherScreen()
         }
     }
 }

@@ -24,6 +24,7 @@ import com.example.agrican.ui.screens.home.profile.observe_crop.ObserveCropScree
 fun ProfileGraph(
     setTopBarTitle: (Int) -> Unit,
     showTopBar: (Boolean) -> Unit,
+    showBottomBar: (Boolean) -> Unit,
 ) {
 
     val navController = rememberNavController()
@@ -50,35 +51,42 @@ fun ProfileGraph(
     ) {
         composable(route = ProfileDestination.route) {
             showTopBar(false)
+            showBottomBar(true)
             ProfileScreen(openScreen = openScreen)
         }
 
         composable(route = AddFarmDestination.route) {
+            showBottomBar(false)
             AddFarmScreen(navigateUp = navigateUp)
         }
 
         composable(route = AddCropDestination.route) {
+            showBottomBar(false)
             AddCropScreen(navigateUp = navigateUp)
         }
 
 
         composable(route = ObserveCropDestination.route) {
+            showBottomBar(false)
             ObserveCropScreen(navigateUp = navigateUp, openScreen = openScreen)
         }
 
         composable(route = AddTaskDestination.route) {
+            showBottomBar(false)
             AddTaskScreen(navigateUp = navigateUp)
         }
 
         composable(route = EngineerMapDestination.route) {
             setTopBarTitle(EngineerMapDestination.titleRes)
             showTopBar(true)
+            showBottomBar(true)
             EngineerMapScreen()
         }
 
         composable(route = CostDestination.route) {
             setTopBarTitle(CostDestination.titleRes)
             showTopBar(true)
+            showBottomBar(true)
             CostScreen()
         }
     }

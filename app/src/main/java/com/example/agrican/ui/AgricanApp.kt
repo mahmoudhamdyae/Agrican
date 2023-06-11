@@ -46,23 +46,15 @@ fun AgricanApp() {
         }
 
         composable(route = LoginDestination.route) {
-            LoginScreen(
-                openScreen = openScreen,
-                openAndClear = openAndClear
-            )
+            LoginScreen(openScreen = openScreen, openAndClear = openAndClear)
         }
 
         composable(route = SignupDestination.route) {
-            SignupScreen(
-                openAndClear = openAndClear,
-                navigateUp = navigateUp
-            )
+            SignupScreen(openAndClear = openAndClear, navigateUp = navigateUp)
         }
 
         composable(route = HomeDestination.route) {
-            HomeScreen(
-                openAndClear = openAndClear,
-            )
+            HomeScreen(openAndClear = openAndClear,)
         }
     }
 }

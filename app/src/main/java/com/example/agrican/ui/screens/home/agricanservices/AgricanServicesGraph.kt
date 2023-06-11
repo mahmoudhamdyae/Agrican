@@ -58,21 +58,18 @@ fun AgricanServicesGraph(
     ) {
 
         composable(route = AgricanServicesDestination.route) {
-            AgricanServicesScreen(openScreen = openScreen)
             setTopBarTitle(AgricanServicesDestination.titleRes)
+            AgricanServicesScreen(openScreen = openScreen)
         }
 
         composable(route = DefaultAgesDestination.route) {
-            DefaultAgeScreen()
             setTopBarTitle(DefaultAgesDestination.titleRes)
+            DefaultAgeScreen()
         }
 
         composable(route = OrderDestination.route) {
-            OrderScreen(
-                openScreen = openScreen,
-                navigateUp = navigateUp
-            )
             setTopBarTitle(OrderDestination.titleRes)
+            OrderScreen(openScreen = openScreen, navigateUp = navigateUp)
         }
 
         composable(route = OrderStatusDestination.route) {
@@ -84,8 +81,8 @@ fun AgricanServicesGraph(
         }
 
         composable(route = DiseasesDestination.route) {
-            DiseasesScreen(navigateUp = navigateUp, openScreen = openScreen)
             setTopBarTitle(DiseasesDestination.titleRes)
+            DiseasesScreen(navigateUp = navigateUp, openScreen = openScreen)
         }
 
         composable(route = DiseaseDestination.route) {
@@ -93,8 +90,8 @@ fun AgricanServicesGraph(
         }
 
         composable(route = PestsDestination.route) {
-            PestsScreen(navigateUp = navigateUp, openScreen = openScreen)
             setTopBarTitle(PestsDestination.titleRes)
+            PestsScreen(navigateUp = navigateUp, openScreen = openScreen)
         }
 
         composable(route = PestDestination.route) {
@@ -102,8 +99,8 @@ fun AgricanServicesGraph(
         }
 
         composable(route = TreatmentDestination.route) {
-            TreatmentScreen(navigateUp = navigateUp, openScreen = openScreen)
             setTopBarTitle(TreatmentDestination.titleRes)
+            TreatmentScreen(navigateUp = navigateUp, openScreen = openScreen)
         }
 
         composable(route = SelectedCropDestination.route) {
@@ -111,8 +108,8 @@ fun AgricanServicesGraph(
         }
 
         composable(route = JoinAsExpertDestination.route) {
-            JoinAsExpertScreen()
             setTopBarTitle(JoinAsExpertDestination.titleRes)
+            JoinAsExpertScreen()
         }
     }
 }

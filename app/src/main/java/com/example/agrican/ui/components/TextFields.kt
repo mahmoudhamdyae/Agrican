@@ -1,8 +1,14 @@
 package com.example.agrican.ui.components
 
 import androidx.annotation.StringRes
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -14,9 +20,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.focus.FocusManager
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
@@ -258,39 +267,50 @@ fun EmailField(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun OrderField(
+fun SimpleTextField(
     value: String,
     onNewValue: (String) -> Unit,
-    hint: Int,
-    focusManager: FocusManager,
+    placeHolder: @Composable () -> Unit,
     modifier: Modifier = Modifier,
+    borderColor: Color = gray,
+    focusManager: FocusManager? = null,
     imeAction: ImeAction = ImeAction.Next
 ) {
-    OutlinedTextField(
+    BasicTextField(
         singleLine = true,
         value = value,
         onValueChange = onNewValue,
-        placeholder = { Text(
-            text = stringResource(hint),
-            color = gray,
-            modifier = Modifier.padding(start = 100.dp)
-        ) },
+        decorationBox = { innerTextField ->
+
+            if (value.isEmpty()) {
+                placeHolder()
+            }
+
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight()
+                    .padding(10.dp),
+            contentAlignment = Alignment.Center
+            ) {
+                innerTextField()
+            }
+                        },
         keyboardOptions = KeyboardOptions(
             keyboardType = KeyboardType.Text,
             imeAction = imeAction
         ),
         keyboardActions = KeyboardActions(
-            onNext = { focusManager.moveFocus(FocusDirection.Down) },
-            onDone = { focusManager.clearFocus() }
-        ),
-        shape = RoundedCornerShape(MaterialTheme.spacing.medium),
-        colors = TextFieldDefaults.outlinedTextFieldColors(
-            unfocusedBorderColor = gray,
-            textColor = gray
+            onNext = { focusManager?.moveFocus(FocusDirection.Down) },
+            onDone = { focusManager?.clearFocus() }
         ),
         modifier = modifier
+            .border(
+                border = BorderStroke(1.dp, borderColor),
+                shape = RoundedCornerShape(MaterialTheme.spacing.medium)
+            )
     )
 }
 

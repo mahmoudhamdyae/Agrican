@@ -182,4 +182,39 @@
     <string name="observe_crop">متابعة المحصول</string>
     <string name="add_task">إضافة مهمة</string>
 
+    <!-- Add Farm Screen -->
+    <string name="farm_name">اسم المزرعة</string>
+    <string name="size">المساحة</string>
+    <string name="square_kilometer">كيلومتر مربع</string>
+    <string name="harvest_season">موسم الحصاد</string>
+    <string name="crops_type">نوع المحاصيل</string>
+
+    <!-- Add Crop Screen -->
+    <string name="agri_history">تاريخ الزراعة</string>
+    <string name="add_crop_button">إضافة المحصول</string>
+
+    <!-- Observe Crop -->
+    <string name="add_task_description">يمكنك مراعاة النبات من خلال إضافة المهام</string>
+    <string name="tasks">المهام</string>
+    <string name="watering_crop">رى المحصول</string>
+    <string name="composting">التسميد</string>
+    
+    <!-- Add Task Screen -->
+    <string name="task_name">اسم المهمة</string>
+    <string name="task_dates_label">اختار مواعيد المهمة</string>
+    <string name="add_task_button">إضافة المهمة</string>
+    
+    <!-- Engineer Map Screen -->
+    <string name="choose_farm">اختار المزرعة</string>
+    <string name="choose_farm_size">حدد أبعاد الأرض</string>
+    
+    <!-- Cost Screen -->
+    <string name="services">الخدمات</string>
+    <string name="cost_in_month">المبلغ/شهريا</string>
+    <string name="discount_code">كود الخصم</string>
+    <string name="insurance">التأمين</string>
+    <string name="crop_manager">مدير مهام المحاصيل</string>
+    <string name="sum">الإجمالى</string>
+    <string name="pound">جنيهاً</string>
+    <string name="add_code">أضف كود</string>
 </resources>

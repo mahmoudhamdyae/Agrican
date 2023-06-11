@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -147,13 +148,13 @@ fun UserHeaderAndItems(
             Column(modifier = Modifier.height(IntrinsicSize.Min)) {
                 UserHeader(user = user, openScreen = openScreen)
 
-                Row(modifier = Modifier.fillMaxWidth()) {
+                Row(modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Max)) {
                     if (user.userType != UserType.FARMER) {
                         AddItem(
                             title = R.string.add_farm,
                             description = R.string.add_farm_description,
                             onIconClick = { openScreen(AddFarmDestination.route) },
-                            modifier = Modifier.weight(1f)
+                            modifier = Modifier.weight(1f).fillMaxHeight()
                         )
                     }
 
@@ -161,7 +162,7 @@ fun UserHeaderAndItems(
                         title = R.string.add_crop,
                         description = R.string.add_crop_description,
                         onIconClick = { openScreen(AddCropDestination.route) },
-                        modifier = Modifier.weight(1f)
+                        modifier = Modifier.weight(1f).fillMaxHeight()
                     )
                 }
 
@@ -223,10 +224,7 @@ fun UserHeader(
             Spacer(modifier = Modifier.weight(1f))
 
             Column(modifier = Modifier.width(IntrinsicSize.Max)) {
-                OutlinedButton(
-                    onClick = { /*TODO*/ },
-                    modifier = Modifier.fillMaxWidth()
-                ) {
+                OutlinedButton(onClick = { /*TODO*/ },) {
                     Text(
                         text = stringResource(id = R.string.modify_data),
                         color = greenLight
@@ -352,7 +350,7 @@ fun CropsListItem(
             Spacer(modifier = Modifier.weight(1f))
 
             Column(horizontalAlignment = Alignment.End) {
-                IconButton(onClick = onClick) {
+                IconButton(onClick =  { /*TODO*/ } ) {
                     Icon(
                         imageVector = Icons.Default.Close,
                         contentDescription = null,
@@ -362,7 +360,7 @@ fun CropsListItem(
                 }
 
                 Button(
-                    onClick = { /*TODO*/ },
+                    onClick = onClick,
                     colors = ButtonDefaults.buttonColors(containerColor = greenDark),
                 ) {
                     Text(text = stringResource(id = R.string.observe_crop))

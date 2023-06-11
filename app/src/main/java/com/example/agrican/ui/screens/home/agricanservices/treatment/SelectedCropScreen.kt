@@ -3,6 +3,7 @@ package com.example.agrican.ui.screens.home.agricanservices.treatment
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -59,11 +60,11 @@ fun SelectedCropScreen(
 
         Row(horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)) {
             CropImage()
-            Column {
+            Column(modifier = Modifier.width(IntrinsicSize.Max)) {
                 Surface(
                     shape = RoundedCornerShape(MaterialTheme.spacing.large),
                     shadowElevation = MaterialTheme.spacing.large,
-                    modifier = Modifier.width(108.dp)
+                    modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(
                         text = "الأرز",
@@ -79,6 +80,7 @@ fun SelectedCropScreen(
                 Button(
                     onClick = { /*TODO*/ },
                     colors = ButtonDefaults.buttonColors(containerColor = greenDark),
+                    modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(
                         text = stringResource(id = R.string.configure),

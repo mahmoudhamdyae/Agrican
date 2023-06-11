@@ -4,8 +4,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -48,12 +51,13 @@ fun AgricanServicesScreen(
             Box(
                 modifier = Modifier.fillMaxWidth().background(greenLight)
             )
-            Row {
+            Row(modifier = Modifier.height(IntrinsicSize.Max)) {
                 Card(
                     title = R.string.default_age,
                     description = R.string.problem_images_description,
                     modifier = Modifier
                         .weight(1.5f)
+                        .fillMaxHeight()
                         .padding(MaterialTheme.spacing.medium)
                         .clickable { openScreen(DefaultAgesDestination.route) },
                     isPrimaryMain = true
@@ -72,7 +76,7 @@ fun AgricanServicesScreen(
 
         Box(modifier = Modifier.background(greenLight)) {
             Column(modifier = Modifier) {
-                Row {
+                Row(modifier = Modifier.height(IntrinsicSize.Max)) {
                     Card(
                         title = R.string.disease,
                         description = R.string.problem_images_description,
@@ -86,14 +90,16 @@ fun AgricanServicesScreen(
                         description = R.string.problem_images_description,
                         modifier = Modifier
                             .weight(1.5f)
+                            .fillMaxHeight()
                             .padding(MaterialTheme.spacing.medium)
                             .clickable { openScreen(PestsDestination.route) }
                     )
                 }
-                Box {
+                Box(modifier = Modifier.height(IntrinsicSize.Max)) {
                     Box(
                         modifier = Modifier
-                            .fillMaxWidth()
+                            .fillMaxSize()
+                            .padding(vertical = MaterialTheme.spacing.large)
                             .background(greenDark)
                     )
                     Card(
