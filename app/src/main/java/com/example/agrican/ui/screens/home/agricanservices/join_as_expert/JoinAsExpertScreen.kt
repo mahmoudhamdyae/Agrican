@@ -1,5 +1,8 @@
 package com.example.agrican.ui.screens.home.agricanservices.join_as_expert
 
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -27,9 +30,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -43,6 +43,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.greenDark
@@ -54,15 +56,28 @@ object JoinAsExpertDestination: NavigationDestination {
     override val titleRes: Int = R.string.join_as_expert
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun JoinAsExpertScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: JoinAsExpertViewModel = hiltViewModel()
 ) {
 
-    var fullName by rememberSaveable { mutableStateOf("") }
-    var email by rememberSaveable { mutableStateOf("") }
-    var phoneNumber by rememberSaveable { mutableStateOf("") }
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    JoinAsExpertScreenContent(uiState = uiState, onSendClick = viewModel::send, modifier = modifier)
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun JoinAsExpertScreenContent(
+    uiState: JoinAsExpertUiState,
+    onSendClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val imagePicker =
+        rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+            if (uri != null) { uiState.image = uri }
+        }
 
     val focusManager = LocalFocusManager.current
 
@@ -117,8 +132,8 @@ fun JoinAsExpertScreen(
 
         Text(text = stringResource(id = R.string.full_name))
         OutlinedTextField(
-            value = fullName,
-            onValueChange = { fullName = it },
+            value = uiState.userName,
+            onValueChange = { uiState.userName = it },
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Text,
                 imeAction = ImeAction.Next
@@ -136,8 +151,8 @@ fun JoinAsExpertScreen(
 
         Text(text = stringResource(id = R.string.e_mail))
         OutlinedTextField(
-            value = email,
-            onValueChange = { email = it },
+            value = uiState.email,
+            onValueChange = { uiState.email = it },
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Email,
                 imeAction = ImeAction.Next
@@ -155,8 +170,8 @@ fun JoinAsExpertScreen(
 
         Text(text = stringResource(id = R.string.phone_number))
         OutlinedTextField(
-            value = phoneNumber,
-            onValueChange = { phoneNumber = it },
+            value = uiState.phoneNumber,
+            onValueChange = { uiState.phoneNumber = it },
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Number,
                 imeAction = ImeAction.Done
@@ -179,7 +194,12 @@ fun JoinAsExpertScreen(
             modifier = Modifier.fillMaxWidth()
         ) {
             OutlinedButton(
-                onClick = { /*TODO*/ },
+                onClick = {
+                    imagePicker.launch(
+                        PickVisualMediaRequest(
+                            mediaType = ActivityResultContracts.PickVisualMedia.ImageOnly)
+                    )
+                },
                 border = BorderStroke(1.dp, greenLight)
             ) {
                 Row(
@@ -199,7 +219,7 @@ fun JoinAsExpertScreen(
                 }
             }
             Button(
-                onClick = { /*TODO*/ },
+                onClick = onSendClick,
                 colors = ButtonDefaults.buttonColors(containerColor = greenDark),
                 modifier = Modifier.padding(MaterialTheme.spacing.large)
             ) {
@@ -215,5 +235,5 @@ fun JoinAsExpertScreen(
 @Preview(showBackground = true)
 @Composable
 fun JoinAsExpertScreenPreview() {
-    JoinAsExpertScreen()
+    JoinAsExpertScreenContent(uiState = JoinAsExpertUiState(), onSendClick = { })
 }

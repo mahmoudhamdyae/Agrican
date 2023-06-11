@@ -5,7 +5,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.agrican.domain.usecase.BaseUseCase
+import com.example.agrican.domain.model.UserType
+import com.example.agrican.domain.use_case.BaseUseCase
 import com.example.agrican.ui.screens.auth.AuthFormEvent
 import com.example.agrican.ui.screens.auth.AuthFormState
 import com.example.agrican.ui.screens.auth.ValidationEvent
@@ -22,9 +23,14 @@ class LoginViewModel @Inject constructor(
 ): ViewModel() {
 
     var state by mutableStateOf(AuthFormState())
+    var accountType = mutableStateOf(UserType.ENGINEER)
 
     private val validationEventChannel = Channel<ValidationEvent>()
     val validationEvents = validationEventChannel.receiveAsFlow()
+
+    fun setAccountType(accountType: UserType) {
+        this.accountType.value = accountType
+    }
 
     fun onEvent(event: AuthFormEvent) {
         when (event) {
@@ -83,7 +89,7 @@ class LoginViewModel @Inject constructor(
 
     fun onForgotPassword() {
         viewModelScope.launch {
-            useCase.forgotPassword()
+            useCase.forgotPasswordUseCase()
         }
     }
 }

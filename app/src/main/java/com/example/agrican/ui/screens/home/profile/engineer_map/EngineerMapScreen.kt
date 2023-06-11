@@ -35,7 +35,7 @@ fun EngineerMapScreen(
     ) {
         DropDown(availabilityOptions = arrayOf(
             R.string.choose_farm
-        ))
+        ), onSelect = { /*TODO*/ })
 
         Text(
             text = stringResource(id = R.string.choose_farm_size),

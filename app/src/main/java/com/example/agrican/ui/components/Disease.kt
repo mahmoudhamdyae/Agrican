@@ -33,6 +33,7 @@ fun DiseaseHeader(
     image: Int,
     diseaseName: String,
     buttonText: Int,
+    onButtonClick: ()-> Unit,
     modifier: Modifier = Modifier
 ) {
     Surface(
@@ -61,7 +62,7 @@ fun DiseaseHeader(
                     modifier = Modifier.weight(1f)
                 )
                 Button(
-                    onClick = { /*TODO*/ },
+                    onClick = onButtonClick,
                     colors = ButtonDefaults.buttonColors(containerColor = Color.White),
                     modifier = Modifier.weight(1f)
                 ) {

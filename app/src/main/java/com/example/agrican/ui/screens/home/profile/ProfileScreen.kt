@@ -33,6 +33,7 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -43,7 +44,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
+import com.example.agrican.domain.model.Crop
+import com.example.agrican.domain.model.Farm
 import com.example.agrican.domain.model.User
 import com.example.agrican.domain.model.UserType
 import com.example.agrican.ui.navigation.NavigationDestination
@@ -64,18 +69,13 @@ object ProfileDestination: NavigationDestination {
 @Composable
 fun ProfileScreen(
     openScreen: (String) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: ProfileViewModel = hiltViewModel()
 ) {
-    val currentUser = User(
-        userName = "مستخدم جديد",
-        phoneNumber = "",
-        email = "",
-        userType = UserType.ENGINEER,
-        image = "",
-        userId = "1"
-    )
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
     ProfileScreenContent(
-        user = currentUser,
+        uiState = uiState,
         openScreen = openScreen,
         modifier = modifier
     )
@@ -83,17 +83,17 @@ fun ProfileScreen(
 
 @Composable
 fun ProfileScreenContent(
-    user: User,
+    uiState: ProfileUiState,
     openScreen: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(modifier = modifier) {
 
         item {
-            UserHeaderAndItems(user = user, openScreen = openScreen)
+            UserHeaderAndItems(user = uiState.currentUser, openScreen = openScreen)
         }
 
-        if (user.userType != UserType.FARMER) {
+        if (uiState.currentUser.userType != UserType.FARMER) {
             item {
                 Text(
                     text = stringResource(id = R.string.farms_label),
@@ -107,7 +107,7 @@ fun ProfileScreenContent(
                     .fillMaxWidth()
                     .padding(horizontal = MaterialTheme.spacing.large))
             }
-            item { FarmsList() }
+            item { FarmsList(farms = uiState.farms) }
         }
 
         item {
@@ -123,7 +123,7 @@ fun ProfileScreenContent(
                 .padding(horizontal = MaterialTheme.spacing.large))
         }
 
-        cropsList(openScreen = openScreen)
+        cropsList(crops = uiState.crops, openScreen = openScreen)
     }
 }
 
@@ -148,13 +148,17 @@ fun UserHeaderAndItems(
             Column(modifier = Modifier.height(IntrinsicSize.Min)) {
                 UserHeader(user = user, openScreen = openScreen)
 
-                Row(modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Max)) {
+                Row(modifier = Modifier
+                    .fillMaxWidth()
+                    .height(IntrinsicSize.Max)) {
                     if (user.userType != UserType.FARMER) {
                         AddItem(
                             title = R.string.add_farm,
                             description = R.string.add_farm_description,
                             onIconClick = { openScreen(AddFarmDestination.route) },
-                            modifier = Modifier.weight(1f).fillMaxHeight()
+                            modifier = Modifier
+                                .weight(1f)
+                                .fillMaxHeight()
                         )
                     }
 
@@ -162,7 +166,9 @@ fun UserHeaderAndItems(
                         title = R.string.add_crop,
                         description = R.string.add_crop_description,
                         onIconClick = { openScreen(AddCropDestination.route) },
-                        modifier = Modifier.weight(1f).fillMaxHeight()
+                        modifier = Modifier
+                            .weight(1f)
+                            .fillMaxHeight()
                     )
                 }
 
@@ -293,18 +299,19 @@ fun AddItem(
 
 @Composable
 fun FarmsList(
+    farms: List<Farm>,
     modifier: Modifier = Modifier
 ) {
     LazyRow(modifier = modifier) {
-        items(10) {
-            FarmsListItem(farmName = "المزرعة الأولى")
+        items(farms.size) {
+            FarmsListItem(farm = farms[it])
         }
     }
 }
 
 @Composable
 fun FarmsListItem(
-    farmName: String,
+    farm: Farm,
     modifier: Modifier = Modifier
 ) {
 
@@ -317,21 +324,22 @@ fun FarmsListItem(
             modifier = Modifier.size(50.dp)
         ) {
         }
-        Text(text = farmName, textAlign = TextAlign.Center)
+        Text(text = farm.name, textAlign = TextAlign.Center)
     }
 }
 
 fun LazyListScope.cropsList(
+    crops: List<Crop>,
     openScreen: (String) -> Unit
 ) {
-    items(2) {
-        CropsListItem(cropName = "نبات الصبار", onClick = { openScreen(ObserveCropDestination.route) })
+    items(crops.size) {
+        CropsListItem(crop = crops[it], onClick = { openScreen(ObserveCropDestination.route) })
     }
 }
 
 @Composable
 fun CropsListItem(
-    cropName: String,
+    crop: Crop,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -345,7 +353,7 @@ fun CropsListItem(
                 .fillMaxWidth()
                 .padding(MaterialTheme.spacing.small)
         ) {
-            Text(text = cropName, color = Color.White)
+            Text(text = crop.name, color = Color.White)
 
             Spacer(modifier = Modifier.weight(1f))
 
@@ -373,26 +381,45 @@ fun CropsListItem(
 @Preview(showBackground = true, name = "Farm Users")
 @Composable
 fun ProfileScreenFarmPreview() {
-    ProfileScreenContent(user = fakeUser.copy(userType = UserType.FARM), openScreen = { })
+    ProfileScreenContent(uiState = fakeUiState.copy(currentUser = fakeUiState.currentUser.copy(userType = UserType.FARM)), openScreen = { })
 }
 
 @Preview(showBackground = true, name = "Farmer Users")
 @Composable
 fun ProfileScreenFarmerPreview() {
-    ProfileScreenContent(user = fakeUser.copy(userType = UserType.FARMER), openScreen = { })
+    ProfileScreenContent(uiState = fakeUiState.copy(currentUser = fakeUiState.currentUser.copy(userType = UserType.FARMER)), openScreen = { })
 }
 
 @Preview(showBackground = true, showSystemUi = true, name = "Engineer Users")
 @Composable
 fun ProfileScreenEngineerPreview() {
-    ProfileScreenContent(user = fakeUser, openScreen = { })
+    ProfileScreenContent(uiState = fakeUiState, openScreen = { })
 }
 
-val fakeUser = User(
-    userName = "مستخدم جديد",
-    phoneNumber = "",
-    email = "",
-    userType = UserType.ENGINEER,
-    image = "",
-    userId = "1"
+val fakeUiState = ProfileUiState(
+    currentUser = User(
+        userName = "مستخدم جديد",
+        phoneNumber = "",
+        email = "",
+        userType = UserType.ENGINEER,
+        image = "",
+        userId = "1"
+    ),
+    farms = listOf(
+        Farm(name = "المزرعة الأولى"),
+        Farm(name = "المزرعة الثانية"),
+        Farm(name = "المزرعة الثالثة"),
+        Farm(name = "المزرعة الرابعة"),
+        Farm(name = "المزرعة الخامسة"),
+        Farm(name = "المزرعة السادسة"),
+        Farm(name = "المزرعة السابعة"),
+    ),
+    crops = listOf(
+        Crop(name = "الأرز"),
+        Crop(name = "نبات الصبار"),
+        Crop(name = "نبات الياسمين"),
+        Crop(name = "الأرز"),
+        Crop(name = "الأرز"),
+        Crop(name = "الأرز"),
+    )
 )

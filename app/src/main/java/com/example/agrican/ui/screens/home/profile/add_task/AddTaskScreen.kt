@@ -15,14 +15,13 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
 import com.example.agrican.ui.components.Days
 import com.example.agrican.ui.components.DropDown
@@ -41,21 +40,24 @@ object AddTaskDestination: NavigationDestination {
 @Composable
 fun AddTaskScreen(
     navigateUp: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: AddTaskViewModel = hiltViewModel()
 ) {
 
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
     ProfileHeader(navigateUp = navigateUp, headerText = AddFarmDestination.titleRes) {
-        AddTaskScreenContent(modifier = modifier)
+        AddTaskScreenContent(uiState = uiState, addTask = viewModel::addTask, modifier = modifier)
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddTaskScreenContent(
+    uiState: AddTaskUiState,
+    addTask: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    var taskName by rememberSaveable { mutableStateOf("") }
-
     Column(modifier = modifier.padding(MaterialTheme.spacing.medium)) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -67,8 +69,8 @@ fun AddTaskScreenContent(
             )
 
             OutlinedTextField(
-                value = taskName,
-                onValueChange = { taskName = it },
+                value = uiState.taskName,
+                onValueChange = { uiState.taskName = it },
                 placeholder = { Text(text = stringResource(id = R.string.task_name))},
                 shape = RoundedCornerShape(MaterialTheme.spacing.medium),
                 colors = TextFieldDefaults.outlinedTextFieldColors(
@@ -80,7 +82,10 @@ fun AddTaskScreenContent(
 
             DropDown(availabilityOptions = arrayOf(
                 R.string.add_task
-            ), modifier = Modifier.width(130.dp))
+            ),
+                onSelect = { /*TODO*/ },
+                modifier = Modifier.width(130.dp)
+            )
         }
         
         Text(
@@ -92,7 +97,7 @@ fun AddTaskScreenContent(
         Days(selectedDays = listOf(9, 12, 25), onDayAdded = { /*TODO*/ })
         
         Button(
-            onClick = { /*TODO*/ },
+            onClick = addTask,
             colors = ButtonDefaults.buttonColors(containerColor = greenDark),
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
@@ -106,5 +111,5 @@ fun AddTaskScreenContent(
 @Preview(showBackground = true)
 @Composable
 fun AddTaskScreenPreview() {
-    AddTaskScreenContent()
+    AddTaskScreenContent(uiState = AddTaskUiState(), addTask = { })
 }

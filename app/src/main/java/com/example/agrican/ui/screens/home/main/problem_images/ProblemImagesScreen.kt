@@ -37,9 +37,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.agrican.R
+import com.example.agrican.domain.model.Crop
 import com.example.agrican.ui.components.BackButton
 import com.example.agrican.ui.components.CropsList
 import com.example.agrican.ui.navigation.NavigationDestination
@@ -58,21 +60,16 @@ fun ProblemImagesScreen(
     modifier: Modifier = Modifier,
     viewModel: ProblemImagesViewModel = hiltViewModel()
 ) {
-
-    var hasImage by rememberSaveable { mutableStateOf(false) }
-    var imageUri1: Uri? by rememberSaveable { mutableStateOf(null) }
-    var imageUri2: Uri? by rememberSaveable { mutableStateOf(null) }
-    var imageUri3: Uri? by rememberSaveable { mutableStateOf(null) }
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     var currentImage: Int by rememberSaveable { mutableStateOf(0) }
 
     val imagePicker =
         rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
             if (uri != null) {
-                hasImage = true
                 when (currentImage) {
-                    0 -> { imageUri1 = uri }
-                    1 -> { imageUri2 = uri }
-                    2 -> { imageUri3 = uri }
+                    0 -> { uiState.image1 = uri }
+                    1 -> { uiState.image2 = uri }
+                    2 -> { uiState.image3 = uri }
                     else  -> {}
                 }
                 currentImage++
@@ -81,10 +78,8 @@ fun ProblemImagesScreen(
 
     BackButton(navigateUp = navigateUp) {
         ProblemImageScreenContent(
+            uiState = uiState,
             currentImage = currentImage,
-            imageUri1 = imageUri1,
-            imageUri2 = imageUri2,
-            imageUri3 = imageUri3,
             launchImagePicker = {
                 imagePicker.launch(
                     PickVisualMediaRequest(
@@ -100,10 +95,8 @@ fun ProblemImagesScreen(
 
 @Composable
 fun ProblemImageScreenContent(
+    uiState: ProblemImagesUiState,
     currentImage: Int,
-    imageUri1: Uri?,
-    imageUri2: Uri?,
-    imageUri3: Uri?,
     launchImagePicker: () -> Unit,
     onSearch: () -> Unit,
     openScreen: (String) -> Unit,
@@ -122,7 +115,7 @@ fun ProblemImageScreenContent(
             text = stringResource(id = R.string.choose_plant_type),
             color = greenDark
         )
-        CropsList()
+        CropsList(crops = uiState.crops, setSelectedCrop = { uiState.selectedCrop = it })
         Text(
             text = stringResource(id = R.string.choose_problem_image_way),
             color = greenDark
@@ -160,9 +153,9 @@ fun ProblemImageScreenContent(
                     textAlign = TextAlign.Center,
                 )
             }
-            ImageView(image = imageUri1)
-            ImageView(image = imageUri2)
-            ImageView(image = imageUri3)
+            ImageView(image = uiState.image1)
+            ImageView(image = uiState.image2)
+            ImageView(image = uiState.image3)
 
         }
 
@@ -230,11 +223,17 @@ fun ImageView(
 @Preview(showBackground = true)
 @Composable
 fun ProblemImageScreenPreview() {
+    val crops = listOf(
+        Crop(name = "الأرز"),
+        Crop(name = "الأرز"),
+        Crop(name = "الأرز"),
+        Crop(name = "الأرز"),
+        Crop(name = "الأرز"),
+        Crop(name = "الأرز"),
+    )
     ProblemImageScreenContent(
+        uiState = ProblemImagesUiState(),
         currentImage = 0,
-        imageUri1 = null,
-        imageUri2 = null,
-        imageUri3 = null,
         launchImagePicker = { },
         openScreen = { },
         onSearch = { }

@@ -34,6 +34,7 @@ import com.example.agrican.ui.theme.spacing
 @Composable
 fun DropDown(
     availabilityOptions: Array<Int>,
+    onSelect: (Int) -> Unit,
     modifier: Modifier = Modifier,
     isGray: Boolean = false,
 ) {
@@ -74,14 +75,15 @@ fun DropDown(
             expanded = expanded,
             onDismissRequest = { expanded = false }
         ) {
-            availabilityOptions.forEach { selectionOptions ->
+            availabilityOptions.forEach { selectionOption ->
                 DropdownMenuItem(
                     text = { Text(
-                        text = stringResource(id = selectionOptions),
+                        text = stringResource(id = selectionOption),
                         color = if (isGray) gray else Color.Black
                         ) },
                     onClick = {
-                        selectedAvailabilityOption = selectionOptions
+                        onSelect(selectionOption)
+                        selectedAvailabilityOption = selectionOption
                         expanded = false
                     }
                 )
@@ -93,5 +95,5 @@ fun DropDown(
 @Preview(showBackground = true)
 @Composable
 fun DropDownPreview() {
-    DropDown(availabilityOptions = arrayOf(R.string.place), modifier = Modifier.fillMaxWidth())
+    DropDown(availabilityOptions = arrayOf(R.string.place), onSelect = { }, modifier = Modifier.fillMaxWidth())
 }

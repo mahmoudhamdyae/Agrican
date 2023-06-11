@@ -21,9 +21,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -37,7 +34,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
+import com.example.agrican.domain.model.UserType
 import com.example.agrican.ui.components.Background
 import com.example.agrican.ui.components.EmailField
 import com.example.agrican.ui.components.PasswordField
@@ -68,17 +67,21 @@ fun SignupScreen(
     val state = viewModel.state
     val context = LocalContext.current
 
+    val accountType by viewModel.accountType.collectAsStateWithLifecycle()
+
     LaunchedEffect(key1 = context) {
         viewModel.validationEvents.collect { event ->
             when (event) {
                 is ValidationEvent.Success -> {
-                    viewModel.onSignUpClick(openAndClear)
+                    viewModel.onSignUpClick(accountType!!, openAndClear)
                 }
             }
         }
     }
 
     SignupScreenContent(
+        accountType = accountType,
+        setAccountType = viewModel::setAccountType,
         state = state,
         clearState = viewModel::clearState,
         onEvent = viewModel::onEvent,
@@ -89,22 +92,20 @@ fun SignupScreen(
 
 @Composable
 fun SignupScreenContent(
+    accountType: UserType?,
+    setAccountType: (UserType?) -> Unit,
     state: AuthFormState,
     clearState: () -> Unit,
     onEvent: (AuthFormEvent) -> Unit,
     navigateUp: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    var accountType: String? by rememberSaveable {
-        mutableStateOf(null)
-    }
-
     Box(modifier = modifier) {
 
         Background(body1 = {
             if (accountType == null) {
                 AccountType(
-                    setAccountType = { accountType = it },
+                    setAccountType = setAccountType,
                     modifier = Modifier
                         .fillMaxSize()
                         .verticalScroll(rememberScrollState())
@@ -113,7 +114,7 @@ fun SignupScreenContent(
                 Signup(
                     state = state,
                     onEvent = onEvent,
-                    accountType = accountType!!,
+                    accountType = accountType,
                     modifier = Modifier
                         .fillMaxSize()
                         .verticalScroll(rememberScrollState())
@@ -124,7 +125,7 @@ fun SignupScreenContent(
         IconButton(onClick = {
             clearState()
             if (accountType == null) navigateUp()
-            else accountType = null
+            else setAccountType(null)
         }, modifier = Modifier
             .padding(MaterialTheme.spacing.medium)
             .clip(CircleShape)
@@ -142,7 +143,7 @@ fun SignupScreenContent(
 
 @Composable
 fun AccountType(
-    setAccountType: (String) -> Unit,
+    setAccountType: (UserType) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -169,17 +170,17 @@ fun AccountType(
         Column {
             AccountTypeItem(
                 setAccountType = setAccountType,
-                accountType = R.string.farmer,
+                accountType = UserType.FARMER,
                 accountTypeDescription = R.string.farms_description
             )
             AccountTypeItem(
                 setAccountType = setAccountType,
-                accountType = R.string.farm,
+                accountType = UserType.FARM,
                 accountTypeDescription = R.string.farm_description
             )
             AccountTypeItem(
                 setAccountType = setAccountType,
-                accountType = R.string.engineer,
+                accountType = UserType.ENGINEER,
                 accountTypeDescription = R.string.engineer_description
             )
         }
@@ -188,8 +189,8 @@ fun AccountType(
 
 @Composable
 fun AccountTypeItem(
-    setAccountType: (String) -> Unit,
-    accountType: Int,
+    setAccountType: (UserType) -> Unit,
+    accountType: UserType,
     accountTypeDescription: Int,
     modifier: Modifier = Modifier
 ) {
@@ -199,11 +200,11 @@ fun AccountTypeItem(
     ) {
         val context = LocalContext.current
         Button(
-            onClick = { setAccountType(context.getString(accountType)) },
+            onClick = { setAccountType(accountType) },
             colors = ButtonDefaults.buttonColors(containerColor = greenDark),
         ) {
             Text(
-                text = stringResource(id = accountType),
+                text = stringResource(id = accountType.title),
                 modifier = Modifier.padding(horizontal = MaterialTheme.spacing.small)
             )
         }
@@ -220,7 +221,7 @@ fun AccountTypeItem(
 fun Signup(
     state: AuthFormState,
     onEvent: (AuthFormEvent) -> Unit,
-    accountType: String,
+    accountType: UserType,
     modifier: Modifier = Modifier
 ) {
     val focusManager = LocalFocusManager.current
@@ -235,7 +236,7 @@ fun Signup(
             colors = ButtonDefaults.buttonColors(containerColor = greenDark),
         ) {
             Text(
-                text = accountType,
+                text = stringResource(id = accountType.title),
                 modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
             )
         }
@@ -298,6 +299,8 @@ fun Signup(
 @Composable
 fun SignupScreenPreview() {
     SignupScreenContent(
+        accountType = null,
+        setAccountType = { },
         state = AuthFormState(),
         clearState = { },
         onEvent = { },
@@ -311,6 +314,6 @@ fun SignupPreview() {
     Signup(
         state = AuthFormState(),
         onEvent = { },
-        accountType = "مزارع"
+        accountType = UserType.FARMER
     )
 }

@@ -58,6 +58,8 @@ fun MainGraph(
     ) {
         composable(route = MainDestination.route) {
             setTopBarIcon(true)
+            shouldShowBottomPadding = true
+            showBottomBar(true)
             MainScreen(openScreen = openScreen)
         }
 
@@ -84,14 +86,17 @@ fun MainGraph(
         }
 
         composable(route = AskExpertDestination.route) {
-            setTopBarIcon(false)
-            setTopBarTitle(AskExpertDestination.titleRes)
+            showTopBar(false)
+            showBottomBar(false)
             AskExpertScreen(openAndPopUp = openAndPopUp, navigateUp = navigateUp)
         }
 
         composable(route = ChatDestination.route) {
             setTopBarIcon(false)
             setTopBarTitle(ChatDestination.titleRes)
+            showTopBar(true)
+            showBottomBar(false)
+            shouldShowBottomPadding = false
             ChatScreen(navigateUp = navigateUp)
         }
 

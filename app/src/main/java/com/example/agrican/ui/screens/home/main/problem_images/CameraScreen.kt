@@ -52,8 +52,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import com.example.agrican.R
 import com.example.agrican.ui.navigation.NavigationDestination
@@ -126,9 +128,11 @@ fun CameraView(
     outputDirectory: File,
     executor: Executor?,
     navigateUp: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: ProblemImagesViewModel = hiltViewModel(),
 ) {
-    var uri : Uri? by rememberSaveable { mutableStateOf(null) }
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    var currentImage: Int by rememberSaveable { mutableStateOf(0) }
 
     val lensFacing = CameraSelector.LENS_FACING_BACK
     val context = LocalContext.current
@@ -175,9 +179,9 @@ fun CameraView(
                     .padding(MaterialTheme.spacing.medium)
                     .align(Alignment.BottomCenter)
             ) {
-                ImageCaptured(image = uri)
-                ImageCaptured(image = uri)
-                ImageCaptured(image = uri)
+                ImageCaptured(image = uiState.image1)
+                ImageCaptured(image = uiState.image2)
+                ImageCaptured(image = uiState.image3)
             }
         }
 
@@ -198,12 +202,22 @@ fun CameraView(
 
             IconButton(
                 onClick = {
-                    takePhoto(
-                        imageCapture = imageCapture,
-                        outputDirectory = outputDirectory,
-                        executor = executor,
-                        onImageCaptured = { uri = it },
-                    )
+                    if (currentImage != 3) {
+                        takePhoto(
+                            imageCapture = imageCapture,
+                            outputDirectory = outputDirectory,
+                            executor = executor,
+                            onImageCaptured = {
+                                when (currentImage) {
+                                    0 -> { uiState.image1 = it }
+                                    1 -> { uiState.image2 = it }
+                                    2 -> { uiState.image3 = it }
+                                    else  -> {}
+                                }
+                                currentImage++
+                            },
+                        )
+                    }
                 }
             ) {
                 Icon(

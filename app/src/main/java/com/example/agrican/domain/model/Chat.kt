@@ -1,6 +1,6 @@
 package com.example.agrican.domain.model
 
 data class Chat(
-    val messages: List<Message>,
-    val chatId: String,
+    val messages: List<Message> = emptyList(),
+    val chatId: String = "",
 )

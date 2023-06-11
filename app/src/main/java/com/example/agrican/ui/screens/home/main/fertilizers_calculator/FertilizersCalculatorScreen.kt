@@ -30,6 +30,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
 import com.example.agrican.ui.components.Chip
 import com.example.agrican.ui.components.CropsList
@@ -46,6 +48,17 @@ object FertilizersCalculatorDestination: NavigationDestination {
 
 @Composable
 fun FertilizersCalculatorScreen(
+    modifier: Modifier = Modifier,
+    viewModel: FertilizersCalculatorViewModel = hiltViewModel()
+) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    FertilizersCalculatorScreenContent(uiState = uiState, modifier = modifier)
+}
+
+@Composable
+fun FertilizersCalculatorScreenContent(
+    uiState: FertilizersCalculatorUiState,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -60,7 +73,7 @@ fun FertilizersCalculatorScreen(
                 top = MaterialTheme.spacing.medium
             )
         )
-        CropsList()
+        CropsList(crops = uiState.crops, setSelectedCrop = { uiState.selectedCrop = it } )
         Text(
             text = stringResource(id = R.string.measuring_unit),
             color = greenDark,
@@ -235,5 +248,5 @@ fun LandSize(
 @Preview(showBackground = true)
 @Composable
 fun FertilizersCalculatorScreenPreview() {
-    FertilizersCalculatorScreen()
+    FertilizersCalculatorScreenContent(uiState = FertilizersCalculatorUiState())
 }

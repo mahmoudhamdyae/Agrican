@@ -21,6 +21,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.agrican.R
 import com.example.agrican.ui.components.BackButton
 import com.example.agrican.ui.navigation.NavigationDestination
+import com.example.agrican.ui.screens.home.agricanservices.order.new_order.NewOrderScreen
+import com.example.agrican.ui.screens.home.agricanservices.order.order_status.OrderStatusDestination
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.spacing
@@ -68,7 +70,7 @@ fun OrderScreen(
                 )
             }
             if (showNewOrder) {
-                NewOrder()
+                NewOrderScreen()
             }
         }
     }

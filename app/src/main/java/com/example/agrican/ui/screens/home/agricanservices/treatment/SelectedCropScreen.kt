@@ -25,12 +25,16 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
+import com.example.agrican.domain.model.Treatment
 import com.example.agrican.ui.components.DropDown
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.greenDark
@@ -43,9 +47,20 @@ object SelectedCropDestination: NavigationDestination {
 
 @Composable
 fun SelectedCropScreen(
+    modifier: Modifier = Modifier,
+    viewModel: TreatmentViewModel = hiltViewModel()
+) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    SelectedCropScreenContent(uiState = uiState, getTreatments = viewModel::getTreatments, modifier = modifier)
+}
+
+@Composable
+fun SelectedCropScreenContent(
+    uiState: TreatmentUiState,
+    getTreatments: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-
     var isTreatmentShown by rememberSaveable { mutableStateOf(false) }
 
     Column(
@@ -95,19 +110,23 @@ fun SelectedCropScreen(
             color = greenDark
         )
 
+        val context = LocalContext.current
         DropDown(availabilityOptions = arrayOf(
             R.string.insects
-        ))
+        ), onSelect = { uiState.diseaseType = context.getString(it) })
 
         Button(
-            onClick = { isTreatmentShown = true },
+            onClick = {
+                getTreatments()
+                isTreatmentShown = true
+                      },
             colors = ButtonDefaults.buttonColors(containerColor = greenDark),
         ) {
             Text(text = stringResource(id = R.string.show_treatment_button))
         }
 
         if (isTreatmentShown) {
-            TreatmentList()
+            TreatmentList(uiState.treatments)
         }
     }
 }
@@ -131,17 +150,22 @@ fun CropImage(
 
 @Composable
 fun TreatmentList(
+    treatments: List<Treatment>,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(modifier = modifier) {
-        items(3) {
-            TreatmentListItem(modifier = Modifier.padding(MaterialTheme.spacing.small))
+        items(treatments.size) {
+            TreatmentListItem(
+                treatment = treatments[it],
+                modifier = Modifier.padding(MaterialTheme.spacing.small)
+            )
         }
     }
 }
 
 @Composable
 fun TreatmentListItem(
+    treatment: Treatment,
     modifier: Modifier = Modifier
 ) {
     Surface(
@@ -169,7 +193,7 @@ fun TreatmentListItem(
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(
-                        text = "علاج 1",
+                        text = treatment.name,
                         color = greenDark
                     )
                     Spacer(modifier = Modifier.weight(1f))
@@ -181,7 +205,7 @@ fun TreatmentListItem(
                     }
                 }
 
-                Text(text = "هذه هى الكمية المطلوبة بناء و يتم تسميد الأرض باستخدام المنتجات المخصصة لذلك هذه هى الكمية المطلوبة بناء و يتم تسميد الأرض باستخدام المنتجات المخصصة لذلك")
+                Text(text = treatment.description)
             }
         }
     }
@@ -190,11 +214,11 @@ fun TreatmentListItem(
 @Preview(showBackground = true)
 @Composable
 fun SelectedCropScreenPreview() {
-    SelectedCropScreen()
+    SelectedCropScreenContent(uiState = TreatmentUiState(), getTreatments = { })
 }
 
 @Preview(showBackground = true)
 @Composable
 fun TreatmentListPreview() {
-    TreatmentList()
+    TreatmentList(treatments = listOf())
 }

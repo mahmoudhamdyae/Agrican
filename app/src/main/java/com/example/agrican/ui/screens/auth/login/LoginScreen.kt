@@ -31,6 +31,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.agrican.R
+import com.example.agrican.domain.model.UserType
 import com.example.agrican.ui.components.Background
 import com.example.agrican.ui.components.DropDown
 import com.example.agrican.ui.components.PasswordField
@@ -70,6 +71,7 @@ fun LoginScreen(
     }
 
     LoginScreenContent(
+        changeAccountType = viewModel::setAccountType,
         state = state,
         clearState = viewModel::clearState,
         onEvent = viewModel::onEvent,
@@ -81,6 +83,7 @@ fun LoginScreen(
 
 @Composable
 fun LoginScreenContent(
+    changeAccountType: (UserType) -> Unit,
     state: AuthFormState,
     clearState: () -> Unit,
     onEvent: (AuthFormEvent) -> Unit,
@@ -139,7 +142,17 @@ fun LoginScreenContent(
                     R.string.farmer,
                     R.string.farm,
                     R.string.engineer,
-                ), isGray = true, modifier = Modifier.weight(1f))
+                ),
+                    isGray = true,
+                    onSelect = {
+                        when (it) {
+                            R.string.engineer -> { changeAccountType(UserType.ENGINEER) }
+                            R.string.farm -> { changeAccountType(UserType.FARM) }
+                            else -> { changeAccountType(UserType.FARMER) }
+                        }
+                               },
+                    modifier = Modifier.weight(1f)
+                )
             }
 
             Button(
@@ -175,6 +188,7 @@ fun LoginScreenContent(
 @Composable
 fun LoginScreenPreview() {
     LoginScreenContent(
+        changeAccountType = { },
         state = AuthFormState(),
         clearState = { },
         onEvent = { },

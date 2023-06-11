@@ -19,8 +19,8 @@ import com.example.agrican.ui.screens.home.agricanservices.order.OrderConfirmDes
 import com.example.agrican.ui.screens.home.agricanservices.order.OrderConfirmScreen
 import com.example.agrican.ui.screens.home.agricanservices.order.OrderDestination
 import com.example.agrican.ui.screens.home.agricanservices.order.OrderScreen
-import com.example.agrican.ui.screens.home.agricanservices.order.OrderStatusDestination
-import com.example.agrican.ui.screens.home.agricanservices.order.OrderStatusScreen
+import com.example.agrican.ui.screens.home.agricanservices.order.order_status.OrderStatusDestination
+import com.example.agrican.ui.screens.home.agricanservices.order.order_status.OrderStatusScreen
 import com.example.agrican.ui.screens.home.agricanservices.pests.PestDestination
 import com.example.agrican.ui.screens.home.agricanservices.pests.PestScreen
 import com.example.agrican.ui.screens.home.agricanservices.pests.PestsDestination
@@ -85,7 +85,10 @@ fun AgricanServicesGraph(
             DiseasesScreen(navigateUp = navigateUp, openScreen = openScreen)
         }
 
-        composable(route = DiseaseDestination.route) {
+        composable(
+            route = DiseaseDestination.routeWithArgs,
+            arguments = DiseaseDestination.arguments
+        ) {
             DiseaseScreen(navigateUp = navigateUp)
         }
 
@@ -94,7 +97,10 @@ fun AgricanServicesGraph(
             PestsScreen(navigateUp = navigateUp, openScreen = openScreen)
         }
 
-        composable(route = PestDestination.route) {
+        composable(
+            route = PestDestination.routeWithArgs,
+            arguments = PestDestination.arguments
+        ) {
             PestScreen(navigateUp = navigateUp)
         }
 

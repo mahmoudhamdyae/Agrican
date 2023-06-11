@@ -101,8 +101,6 @@
     <string name="get_results">اعرف النتيجة</string>
     <string name="default_age_title">العمر الافتراضى للنبات</string>
     <string name="danger_degree">مستوى الخطر</string>
-    <string name="danger_description_one">باقى حوالى 21 يوم حتى تلف المحصول بالكامل</string>
-    <string name="danger_description_two">الأفضل لك جمع المحصول خلال 6 أيام و استخدامه</string>
     <string name="day">يوم</string>
     <string name="month">شهر</string>
     <string name="year">سنة</string>

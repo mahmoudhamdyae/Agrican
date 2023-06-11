@@ -15,17 +15,16 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
 import com.example.agrican.ui.components.DropDown
 import com.example.agrican.ui.components.LabelItem
@@ -46,21 +45,21 @@ fun AddFarmScreen(
     modifier: Modifier = Modifier,
     viewModel: AddFarmViewModel = hiltViewModel()
 ) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
     ProfileHeader(navigateUp = navigateUp, headerText = AddFarmDestination.titleRes) {
-        AddFarmScreenContent(addFarm = viewModel::addFarm, modifier = modifier)
+        AddFarmScreenContent(uiState = uiState, addFarm = viewModel::addFarm, modifier = modifier)
     }
 }
 
 @Composable
 fun AddFarmScreenContent(
+    uiState: AddFarmUiState,
     addFarm: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    var farmName by rememberSaveable { mutableStateOf("") }
-    var farmSize by rememberSaveable { mutableStateOf("") }
-    var cropsType by rememberSaveable { mutableStateOf("") }
-
     val focusManager = LocalFocusManager.current
+    val context = LocalContext.current
 
     Column(
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
@@ -68,8 +67,8 @@ fun AddFarmScreenContent(
         modifier = modifier.padding(MaterialTheme.spacing.medium)
     ) {
         LabelWithTextField(
-            value = farmName,
-            onNewValue = { farmName = it },
+            value = uiState.farmName,
+            onNewValue = { uiState.farmName = it },
             hint = R.string.farm_name,
             label = R.string.farm_name,
             focusManager = focusManager
@@ -80,8 +79,8 @@ fun AddFarmScreenContent(
             modifier = Modifier.height(IntrinsicSize.Max)
         ) {
             LabelWithTextField(
-                value = farmSize,
-                onNewValue = { farmSize = it },
+                value = uiState.farmSize,
+                onNewValue = { uiState.farmSize = it },
                 hint = R.string.size,
                 label = R.string.size,
                 focusManager = focusManager,
@@ -90,7 +89,10 @@ fun AddFarmScreenContent(
             Spacer(modifier = Modifier.width(MaterialTheme.spacing.small))
             DropDown(availabilityOptions = arrayOf(
                 R.string.square_kilometer
-            ), modifier = Modifier.width(130.dp).fillMaxHeight())
+            ),
+                onSelect = { uiState.sizeUnit = context.getString(it) },
+                modifier = Modifier.width(130.dp).fillMaxHeight()
+            )
         }
 
         Row(
@@ -102,18 +104,27 @@ fun AddFarmScreenContent(
 
             DropDown(availabilityOptions = arrayOf(
                 R.string.day
-            ), modifier = Modifier.weight(1f).fillMaxHeight())
+            ),
+                onSelect = { uiState.day = context.getString(it) },
+                modifier = Modifier.weight(1f).fillMaxHeight()
+            )
             DropDown(availabilityOptions = arrayOf(
                 R.string.month
-            ), modifier = Modifier.weight(1f).fillMaxHeight())
+            ),
+                onSelect = { uiState.month = context.getString(it) },
+                modifier = Modifier.weight(1f).fillMaxHeight()
+            )
             DropDown(availabilityOptions = arrayOf(
                 R.string.year
-            ), modifier = Modifier.weight(1f).fillMaxHeight())
+            ),
+                onSelect = { uiState.year = context.getString(it) },
+                modifier = Modifier.weight(1f).fillMaxHeight()
+            )
         }
 
         LabelWithTextField(
-            value = cropsType,
-            onNewValue = { cropsType = it },
+            value = uiState.cropsType,
+            onNewValue = { uiState.cropsType = it },
             hint = R.string.crops_type,
             label = R.string.crops_type,
             focusManager = focusManager,
@@ -132,5 +143,5 @@ fun AddFarmScreenContent(
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun AddFarmScreenPreview() {
-    AddFarmScreenContent(addFarm = { })
+    AddFarmScreenContent(uiState = AddFarmUiState(), addFarm = { })
 }

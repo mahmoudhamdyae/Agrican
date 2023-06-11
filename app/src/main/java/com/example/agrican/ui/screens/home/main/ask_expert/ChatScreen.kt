@@ -41,6 +41,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
 import com.example.agrican.domain.model.Chat
 import com.example.agrican.domain.model.Message
@@ -62,13 +63,9 @@ fun ChatScreen(
     modifier: Modifier = Modifier,
     viewModel: ChatViewModel = hiltViewModel()
 ) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    // todo: get from viewmodel
-    val chat = Chat(chatId = "1", messages = listOf(
-        Message("text1", "1", "1"),
-        Message("text2", "2", "2")
-    ))
-
+    // todo: UserId
     val userId = "2"
 
     val scope = rememberCoroutineScope()
@@ -77,7 +74,7 @@ fun ChatScreen(
     ChatScreenContent(
         navigateUp = navigateUp,
         userId = userId,
-        chat = chat,
+        chat = uiState.chat,
         sendMessage = {
             viewModel.sendMessage(it)
             scope.launch {
@@ -98,11 +95,9 @@ fun ChatScreenContent(
     modifier: Modifier = Modifier,
     scrollState: LazyListState = rememberLazyListState()
 ) {
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(MaterialTheme.spacing.small)
-    ) {
+    Column(modifier = modifier
+        .fillMaxSize()
+        .padding(MaterialTheme.spacing.small)) {
         Button(
             onClick = { navigateUp() },
             shape = RoundedCornerShape(MaterialTheme.spacing.medium),

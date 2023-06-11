@@ -5,13 +5,16 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.agrican.domain.usecase.BaseUseCase
+import com.example.agrican.domain.model.UserType
+import com.example.agrican.domain.use_case.BaseUseCase
 import com.example.agrican.ui.screens.auth.AuthFormEvent
 import com.example.agrican.ui.screens.auth.AuthFormState
 import com.example.agrican.ui.screens.auth.ValidationEvent
 import com.example.agrican.ui.screens.home.HomeDestination
-import kotlinx.coroutines.channels.Channel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -23,8 +26,15 @@ class SignupViewModel @Inject constructor(
 
     var state by mutableStateOf(AuthFormState())
 
+    private var _accountType = MutableStateFlow<UserType?>(null)
+    val accountType = _accountType.asStateFlow()
+
     private val validationEventChannel = Channel<ValidationEvent>()
     val validationEvents = validationEventChannel.receiveAsFlow()
+
+    fun setAccountType(accountType: UserType?) {
+        _accountType.value = accountType
+    }
 
     fun onEvent(event: AuthFormEvent) {
         when (event) {
@@ -91,13 +101,14 @@ class SignupViewModel @Inject constructor(
         )
     }
 
-    fun onSignUpClick(navigate: (String) -> Unit) {
+    fun onSignUpClick(accountType: UserType, navigate: (String) -> Unit) {
         viewModelScope.launch {
             useCase.signupUseCase(
                 userName = state.userName,
                 password = state.password,
                 phoneNumber = state.phoneNumber,
-                email = state.email
+                email = state.email,
+                accountType = accountType
             )
             navigate(HomeDestination.route)
         }

@@ -13,7 +13,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
@@ -21,22 +21,26 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
+import com.example.agrican.domain.model.News
 import com.example.agrican.domain.model.Weather
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.screens.home.main.ask_expert.AskExpertDestination
@@ -55,19 +59,29 @@ object MainDestination: NavigationDestination {
 @Composable
 fun MainScreen(
     openScreen: (String) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: MainViewModel = hiltViewModel()
 ) {
-    MainScreenContent(openScreen = openScreen, modifier = modifier)
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    MainScreenContent(
+        weather = uiState.weather,
+        news = uiState.news,
+        openScreen = openScreen,
+        modifier = modifier
+    )
 }
 
 @Composable
 fun MainScreenContent(
+    weather: Weather,
+    news: List<News>,
     openScreen: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier.verticalScroll(rememberScrollState())) {
         WeatherBox(
-            weather = Weather(),
+            weather = weather,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(MaterialTheme.spacing.large)
@@ -95,14 +109,16 @@ fun MainScreenContent(
             }
         }
 
-        LatestNewsList()
+        LatestNewsList(news = news)
 
         BottomCard(
             title = R.string.problem_images,
             description = R.string.problem_images_description,
             icon = R.drawable.ic_visibility_on,
             onItemClick = { openScreen(ProblemImagesDestination.route) },
-            modifier = Modifier.padding(MaterialTheme.spacing.small).fillMaxWidth()
+            modifier = Modifier
+                .padding(MaterialTheme.spacing.small)
+                .fillMaxWidth()
 
         )
 
@@ -112,7 +128,9 @@ fun MainScreenContent(
                 description = R.string.fertilizers_calculator_description,
                 icon = R.drawable.ic_visibility_on,
                 onItemClick = { openScreen(FertilizersCalculatorDestination.route) },
-                modifier = Modifier.padding(MaterialTheme.spacing.small).weight(1f)
+                modifier = Modifier
+                    .padding(MaterialTheme.spacing.small)
+                    .weight(1f)
             )
 
             BottomCard(
@@ -120,7 +138,9 @@ fun MainScreenContent(
                 description = R.string.ask_expert_description,
                 icon = R.drawable.ic_visibility_on,
                 onItemClick = { openScreen(AskExpertDestination.route) },
-                modifier = Modifier.padding(MaterialTheme.spacing.small).weight(1f)
+                modifier = Modifier
+                    .padding(MaterialTheme.spacing.small)
+                    .weight(1f)
             )
         }
     }
@@ -151,15 +171,15 @@ fun WeatherBox(
                 modifier = Modifier.padding(horizontal = MaterialTheme.spacing.small)
             ) {
                 Text(text = "")
-                Text(text = "مقبول")
-                Text(text = "جنوبية غربية 33 كم/س")
-                Text(text = "47 كم/س")
+                Text(text = weather.air)
+                Text(text = weather.wind)
+                Text(text = weather.windGusts)
             }
             Column(
                 verticalArrangement = Arrangement.SpaceBetween,
                 horizontalAlignment = Alignment.End,
             ) {
-                Text(text = "جو مناسب لرى نبات العنب")
+                Text(text = weather.firstInformation)
                 Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
@@ -188,6 +208,7 @@ fun WeatherBox(
 
 @Composable
 fun LatestNewsList(
+    news: List<News>,
     modifier: Modifier = Modifier
 ) {
     Box(modifier = modifier) {
@@ -199,11 +220,13 @@ fun LatestNewsList(
                 .background(greenDark)
         )
         LazyRow {
-            items(9) {
+            items(news.size) {
                 LatestNewsListItem(
+                    news = news[it],
                     modifier = Modifier
                         .padding(MaterialTheme.spacing.small)
-                        .size(100.dp)
+                        .height(100.dp)
+                        .width(150.dp)
                 )
             }
         }
@@ -246,15 +269,18 @@ fun LatestNewsList(
 
 @Composable
 fun LatestNewsListItem(
+    news: News,
     modifier: Modifier = Modifier
 ) {
-    Card(
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = 16.dp
-        ),
+    Surface(
+        shadowElevation = MaterialTheme.spacing.medium,
+        shape = RoundedCornerShape(MaterialTheme.spacing.medium),
         modifier = modifier
     ) {
-        Column(modifier = Modifier.fillMaxSize()) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.fillMaxSize()
+        ) {
             Image(
                 painter = painterResource(id = R.drawable.ic_visibility_on),
                 contentDescription = null,
@@ -263,9 +289,13 @@ fun LatestNewsListItem(
                     .weight(1f)
             )
             Text(
-                text = "ابتكار طرق جديدة",
+                text = news.title,
+                textAlign = TextAlign.Center,
+                overflow = TextOverflow.Ellipsis,
+                maxLines = 1,
                 modifier = Modifier
                     .fillMaxWidth()
+                    .padding(MaterialTheme.spacing.small)
                     .background(MaterialTheme.colorScheme.background)
             )
         }
@@ -308,5 +338,21 @@ fun BottomCard(
 @Preview(showBackground = true)
 @Composable
 fun MainScreenContentPreview() {
-    MainScreenContent(openScreen = { })
+    val weather = Weather(
+        air = "مقبول",
+        degree = 31.0,
+        weatherDescription = "مشمس",
+        wind = "جنوبية غربية 33 كم/س",
+        windGusts = "47 كم/س",
+        firstInformation = "جو مناسب لرى نبات العنب",
+        secondInformation = "من المتوقع حدوث عواصف شديدة غدا"
+    )
+    val news = listOf(
+        News(title = "ابتكار طرق جديدة"),
+        News(title = "ابتكار طرق جديدة"),
+        News(title = "ابتكار طرق جديدة"),
+        News(title = "ابتكار طرق جديدة"),
+        News(title = "ابتكار طرق جديدة"),
+    )
+    MainScreenContent(weather = weather, news = news, openScreen = { })
 }

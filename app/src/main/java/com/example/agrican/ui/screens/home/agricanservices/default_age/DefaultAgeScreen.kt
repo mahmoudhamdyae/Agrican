@@ -1,5 +1,6 @@
 package com.example.agrican.ui.screens.home.agricanservices.default_age
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -37,10 +38,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.LightGray
 import androidx.compose.ui.graphics.Color.Companion.Red
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
 import com.example.agrican.ui.components.Chip
 import com.example.agrican.ui.components.CropsList
@@ -55,9 +59,25 @@ object DefaultAgesDestination: NavigationDestination {
     override val titleRes: Int = R.string.default_age
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DefaultAgeScreen(
+    modifier: Modifier = Modifier,
+    viewModel: DefaultAgeViewModel = hiltViewModel()
+) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    DefaultAgeScreenContent(
+        uiState = uiState,
+        getResults = viewModel::getResults,
+        modifier = modifier
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun DefaultAgeScreenContent(
+    uiState: DefaultAgeUiState,
+    getResults: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -73,7 +93,7 @@ fun DefaultAgeScreen(
         Row(verticalAlignment = Alignment.CenterVertically) {
             IconButton(
                 onClick = {
-                          // todo: open date picker
+                    // todo: open date picker
                 },
                 modifier = Modifier
                     .clip(RoundedCornerShape(MaterialTheme.spacing.medium))
@@ -140,7 +160,7 @@ fun DefaultAgeScreen(
             color = greenLight
         )
 
-        CropsList()
+        CropsList(crops = uiState.crops, setSelectedCrop = { uiState.currentCrop = it })
 
         Text(
             text = stringResource(id = R.string.crop_quality),
@@ -154,49 +174,55 @@ fun DefaultAgeScreen(
             R.string.quality_average,
             R.string.quality_below_average
         )
+        val context = LocalContext.current
         LazyRow {
             items(qualities.size) {
                 Chip(
                     text = qualities[it],
                     selected = it == selected,
-                    onSelect = { selected = it }
+                    onSelect = {
+                        uiState.currentQuality = context.getString(qualities[it])
+                        selected = it
+                    }
                 )
             }
         }
 
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally
+        Button(
+            onClick = getResults,
+            colors = ButtonDefaults.buttonColors(containerColor = greenDark),
+            modifier = Modifier.align(Alignment.CenterHorizontally)
         ) {
-            Button(
-                onClick = { /*TODO*/ },
-                colors = ButtonDefaults.buttonColors(containerColor = greenDark),
-            ) {
-                Text(
-                    text = stringResource(id = R.string.get_results),
-                    modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
-                )
-            }
-
-            CircularProgress(
-                percent = 88f,
-                modifier = Modifier.padding(MaterialTheme.spacing.medium)
+            Text(
+                text = stringResource(id = R.string.get_results),
+                modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
             )
+        }
+        AnimatedVisibility(visible = uiState.defaultAge != null && uiState.dangerDegree != null) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
 
-            Text(text = stringResource(id = R.string.default_age_title))
-
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(text = stringResource(id = R.string.danger_degree))
-
-                Indicators(
-                    selectedItems = listOf(0, 1),
+                CircularProgress(
+                    percent = uiState.defaultAge!!,
                     modifier = Modifier.padding(MaterialTheme.spacing.medium)
                 )
 
-                Spacer(modifier = Modifier.weight(1f))
-            }
+                Text(text = stringResource(id = R.string.default_age_title))
 
-            Text(text = stringResource(id = R.string.danger_description_one))
-            Text(text = stringResource(id = R.string.danger_description_two))
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(text = stringResource(id = R.string.danger_degree))
+
+                    Indicators(
+                        selectedItems = listOf(0, 1),
+                        modifier = Modifier.padding(MaterialTheme.spacing.medium)
+                    )
+
+                    Spacer(modifier = Modifier.weight(1f))
+                }
+
+                Text(text = uiState.dangerAdvice)
+            }
         }
     }
 }
@@ -265,6 +291,6 @@ fun Indicator(isSelected: Boolean) {
 
 @Preview(showBackground = true)
 @Composable
-fun DefaultAgeScreenPreview() {
-    DefaultAgeScreen()
+fun DefaultAgeScreenContent() {
+    DefaultAgeScreenContent(uiState = DefaultAgeUiState(), getResults = { })
 }

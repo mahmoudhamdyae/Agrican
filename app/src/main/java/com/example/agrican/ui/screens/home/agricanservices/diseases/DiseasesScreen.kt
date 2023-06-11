@@ -12,13 +12,17 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
+import com.example.agrican.domain.model.Disease
 import com.example.agrican.ui.components.BackButton
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.gray
@@ -33,25 +37,15 @@ object DiseasesDestination: NavigationDestination {
 fun DiseasesScreen(
     navigateUp: () -> Unit,
     openScreen: (String) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: DiseasesViewModel= hiltViewModel()
 ) {
-    DiseasesScreenContent(
-        navigateUp = navigateUp,
-        onItemClick = { openScreen(DiseaseDestination.route) },
-        modifier = modifier
-    )
-}
+    val diseases by viewModel.diseases.collectAsStateWithLifecycle()
 
-@Composable
-fun DiseasesScreenContent(
-    navigateUp: () -> Unit,
-    onItemClick: (/*item*/) -> Unit,
-    modifier: Modifier = Modifier
-) {
     BackButton(navigateUp = navigateUp) {
         DiseaseList(
-            diseases = listOf(1, 2, 3, 4, 5, 6, 7, 8),
-            onItemClick = onItemClick,
+            diseases = diseases,
+            onItemClick = { openScreen("${DiseaseDestination.route}/$it") },
             modifier = modifier
         )
     }
@@ -59,8 +53,8 @@ fun DiseasesScreenContent(
 
 @Composable
 fun DiseaseList(
-    diseases: List<Int>,
-    onItemClick: (/*item*/) -> Unit,
+    diseases: List<Disease>,
+    onItemClick: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyVerticalGrid(
@@ -68,14 +62,15 @@ fun DiseaseList(
         modifier = modifier.padding(MaterialTheme.spacing.small)
     ) {
         items(diseases) { disease ->
-            DiseaseListItem(onItemClick = onItemClick)
+            DiseaseListItem(disease = disease, onItemClick = onItemClick)
         }
     }
 }
 
 @Composable
 fun DiseaseListItem(
-    onItemClick: (/*item*/) -> Unit,
+    disease: Disease,
+    onItemClick: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Surface(
@@ -84,14 +79,14 @@ fun DiseaseListItem(
         modifier = modifier
             .clip(RoundedCornerShape(MaterialTheme.spacing.medium))
             .clickable {
-                onItemClick(/*item*/)
+                onItemClick(disease.diseaseId)
             }
             .padding(MaterialTheme.spacing.medium)
     ) {
         Box {
             Image(painter = painterResource(id = R.drawable.ic_sunny), contentDescription = null)
             Text(
-                text = "تبقع الأوراق السيركسبورى أو (التيكا) فى الفول السودانى",
+                text = disease.title,
                 color = Color.White,
                 modifier = Modifier
                     .align(Alignment.BottomStart)
@@ -104,5 +99,5 @@ fun DiseaseListItem(
 @Preview(showBackground = true)
 @Composable
 fun DiseasesScreenPreview() {
-    DiseasesScreen(navigateUp = { }, openScreen = { })
+    DiseaseList(diseases = listOf(), onItemClick = { })
 }
