@@ -61,71 +61,78 @@ fun FertilizersCalculatorScreenContent(
     uiState: FertilizersCalculatorUiState,
     modifier: Modifier = Modifier
 ) {
-    Column(
+    var selected by rememberSaveable { mutableStateOf(0) }
+    val units = listOf(
+        R.string.acre,
+        R.string.hectare,
+    )
+
+    LazyColumn(
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
         modifier = modifier.fillMaxWidth()
     ) {
-        Text(
-            text = stringResource(id = R.string.choose_crop_label),
-            color = greenDark,
-            modifier = Modifier.padding(
-                start = MaterialTheme.spacing.medium,
-                top = MaterialTheme.spacing.medium
-            )
-        )
-        CropsList(crops = uiState.crops, setSelectedCrop = { uiState.selectedCrop = it } )
-        Text(
-            text = stringResource(id = R.string.measuring_unit),
-            color = greenDark,
-            modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
-        )
-
-        var selected by rememberSaveable { mutableStateOf(0) }
-        val units = listOf(
-            R.string.acre,
-            R.string.hectare,
-        )
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = MaterialTheme.spacing.medium)
-        ) {
-            repeat(units.size) {
-                Chip(
-                    text = units[it],
-                    selected = it == selected,
-                    onSelect = { selected = it },
-                    modifier = Modifier.weight(1f)
+        item {
+            Text(
+                text = stringResource(id = R.string.choose_crop_label),
+                color = greenDark,
+                modifier = Modifier.padding(
+                    start = MaterialTheme.spacing.medium,
+                    top = MaterialTheme.spacing.medium
                 )
-            }
+            )
+        }
+        item {
+            CropsList(crops = uiState.crops, setSelectedCrop = { uiState.selectedCrop = it } )
+        }
+        item {
+            Text(
+                text = stringResource(id = R.string.measuring_unit),
+                color = greenDark,
+                modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
+            )
         }
 
-        Text(
-            text = stringResource(id = R.string.land_size),
-            color = greenDark,
-            modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
-        )
-        LandSize(modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium))
-
-        Box(modifier = Modifier.fillMaxWidth()) {
-            Button(
-                onClick = { /*TODO*/ },
-                colors = ButtonDefaults.buttonColors(containerColor = greenDark),
-                modifier = Modifier.align(Alignment.Center)
+        item {
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = MaterialTheme.spacing.medium)
             ) {
-                Text(text = stringResource(id = R.string.calculate_fertilizer))
+                repeat(units.size) {
+                    Chip(
+                        text = units[it],
+                        selected = it == selected,
+                        onSelect = { selected = it },
+                        modifier = Modifier.weight(1f)
+                    )
+                }
             }
         }
-        FertilizerList()
-    }
-}
 
-@Composable
-fun FertilizerList(
-    modifier: Modifier = Modifier
-) {
-    LazyColumn(modifier = modifier) {
+        item {
+            Text(
+                text = stringResource(id = R.string.land_size),
+                color = greenDark,
+                modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
+            )
+        }
+        item {
+            LandSize(modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium))
+        }
+
+        item {
+            Box(modifier = Modifier.fillMaxWidth()) {
+                Button(
+                    onClick = { /*TODO*/ },
+                    colors = ButtonDefaults.buttonColors(containerColor = greenDark),
+                    modifier = Modifier.align(Alignment.Center)
+                ) {
+                    Text(text = stringResource(id = R.string.calculate_fertilizer))
+                }
+            }
+        }
+
         items(3) {
             FertilizerListItem(modifier = Modifier.padding(MaterialTheme.spacing.small))
         }

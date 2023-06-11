@@ -141,7 +141,6 @@ fun HomeScreenContent(
         )) {
             when (selectedItem) {
                 0 -> {
-                    shouldShowTopBar = true
                     MainGraph(
                         setTopBarTitle = { topBarTitle = it },
                         setTopBarIcon = { topBarIcon = it },

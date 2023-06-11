@@ -254,9 +254,11 @@ fun BottomView(
             horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.extraSmall),
             modifier = Modifier.padding(MaterialTheme.spacing.small)
         ) {
-            ChatOutlinedButton(icon = R.drawable.ic_visibility_on, onItemClick = { /*TODO*/ })
-            ChatOutlinedButton(icon = R.drawable.ic_visibility_on, onItemClick = { /*TODO*/ })
-            ChatOutlinedButton(icon = R.drawable.ic_visibility_on, onItemClick = { /*TODO*/ })
+            ChatButton(
+                icon = R.drawable.ic_visibility_on,
+                messageBody = message,
+                onItemClick = sendMessage
+            )
 
             OutlinedTextField(
                 value = message,
@@ -266,11 +268,9 @@ fun BottomView(
                 modifier = Modifier.weight(1f)
             )
 
-            ChatButton(
-                icon = R.drawable.ic_visibility_on,
-                messageBody = message,
-                onItemClick = sendMessage
-            )
+            ChatOutlinedButton(icon = R.drawable.ic_visibility_on, onItemClick = { /*TODO*/ })
+            ChatOutlinedButton(icon = R.drawable.ic_visibility_on, onItemClick = { /*TODO*/ })
+            ChatOutlinedButton(icon = R.drawable.ic_visibility_on, onItemClick = { /*TODO*/ })
         }
     }
 }
