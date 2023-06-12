@@ -19,7 +19,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
 import com.example.agrican.ui.components.CropsList
-import com.example.agrican.ui.components.DropDown
+import com.example.agrican.ui.components.BasicDropDown
 import com.example.agrican.ui.components.ProfileHeader
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.greenDark
@@ -72,19 +72,19 @@ fun AddCropScreenContent(
                 text = stringResource(id = R.string.agri_history),
                 color = greenDark
             )
-            DropDown(availabilityOptions = arrayOf(
+            BasicDropDown(availabilityOptions = arrayOf(
                 R.string.day
             ),
                 onSelect = { uiState.day = context.getString(it) },
                 modifier = Modifier.weight(1f)
             )
-            DropDown(availabilityOptions = arrayOf(
+            BasicDropDown(availabilityOptions = arrayOf(
                 R.string.month
             ),
                 onSelect = { uiState.month = context.getString(it) },
                 modifier = Modifier.weight(1f)
             )
-            DropDown(availabilityOptions = arrayOf(
+            BasicDropDown(availabilityOptions = arrayOf(
                 R.string.year
             ),
                 onSelect = { uiState.year = context.getString(it) },

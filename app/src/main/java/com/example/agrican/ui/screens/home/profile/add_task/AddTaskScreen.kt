@@ -24,7 +24,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
 import com.example.agrican.ui.components.Days
-import com.example.agrican.ui.components.DropDown
+import com.example.agrican.ui.components.BasicDropDown
 import com.example.agrican.ui.components.ProfileHeader
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.screens.home.profile.add_farm.AddFarmDestination
@@ -80,7 +80,7 @@ fun AddTaskScreenContent(
                 modifier = Modifier.weight(1f)
             )
 
-            DropDown(availabilityOptions = arrayOf(
+            BasicDropDown(availabilityOptions = arrayOf(
                 R.string.add_task
             ),
                 onSelect = { /*TODO*/ },

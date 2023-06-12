@@ -32,7 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
-import com.example.agrican.ui.components.DropDown
+import com.example.agrican.ui.components.BasicDropDown
 import com.example.agrican.ui.components.LabelItem
 import com.example.agrican.ui.components.LabelWithTextField
 import com.example.agrican.ui.components.NotesField
@@ -66,7 +66,7 @@ fun NewOrderScreen(
             .height(IntrinsicSize.Max)) {
             LabelItem(text = R.string.product_kind)
             Spacer(modifier = Modifier.weight(1f))
-            DropDown(availabilityOptions = arrayOf(
+            BasicDropDown(availabilityOptions = arrayOf(
                 R.string.insecticide
             ),
                 onSelect = { uiState.productType = context.getString(it) },
@@ -97,7 +97,7 @@ fun NewOrderScreen(
                 modifier = Modifier.weight(1f)
             )
             Spacer(modifier = Modifier.width(MaterialTheme.spacing.small))
-            DropDown(availabilityOptions = arrayOf(
+            BasicDropDown(availabilityOptions = arrayOf(
                 R.string.kilogram
             ),
                 onSelect = { uiState.quantityUnit = context.getString(it) },
@@ -116,19 +116,19 @@ fun NewOrderScreen(
         Row(
             horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
         ) {
-            DropDown(availabilityOptions = arrayOf(
+            BasicDropDown(availabilityOptions = arrayOf(
                 R.string.place
             ),
                 onSelect = { uiState.place = context.getString(it) },
                 modifier = Modifier.weight(1f)
             )
-            DropDown(availabilityOptions = arrayOf(
+            BasicDropDown(availabilityOptions = arrayOf(
                 R.string.city
             ),
                 onSelect = { uiState.city = context.getString(it) },
                 modifier = Modifier.weight(1f)
             )
-            DropDown(availabilityOptions = arrayOf(
+            BasicDropDown(availabilityOptions = arrayOf(
                 R.string.governorate
             ),
                 onSelect = { uiState.governorate = context.getString(it) },

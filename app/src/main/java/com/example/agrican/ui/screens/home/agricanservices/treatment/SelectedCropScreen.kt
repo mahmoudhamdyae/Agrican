@@ -35,7 +35,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
 import com.example.agrican.domain.model.Treatment
-import com.example.agrican.ui.components.DropDown
+import com.example.agrican.ui.components.BasicDropDown
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.spacing
@@ -111,7 +111,7 @@ fun SelectedCropScreenContent(
         )
 
         val context = LocalContext.current
-        DropDown(availabilityOptions = arrayOf(
+        BasicDropDown(availabilityOptions = arrayOf(
             R.string.insects
         ), onSelect = { uiState.diseaseType = context.getString(it) })
 

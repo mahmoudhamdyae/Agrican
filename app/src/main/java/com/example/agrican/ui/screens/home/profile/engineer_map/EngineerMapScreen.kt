@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.agrican.R
-import com.example.agrican.ui.components.DropDown
+import com.example.agrican.ui.components.BasicDropDown
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
@@ -33,7 +33,7 @@ fun EngineerMapScreen(
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
         modifier = modifier.padding(MaterialTheme.spacing.medium)
     ) {
-        DropDown(availabilityOptions = arrayOf(
+        BasicDropDown(availabilityOptions = arrayOf(
             R.string.choose_farm
         ), onSelect = { /*TODO*/ })
 

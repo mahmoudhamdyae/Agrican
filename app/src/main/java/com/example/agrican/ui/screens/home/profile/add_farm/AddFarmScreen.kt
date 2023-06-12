@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
-import com.example.agrican.ui.components.DropDown
+import com.example.agrican.ui.components.BasicDropDown
 import com.example.agrican.ui.components.LabelItem
 import com.example.agrican.ui.components.LabelWithTextField
 import com.example.agrican.ui.components.ProfileHeader
@@ -87,7 +87,7 @@ fun AddFarmScreenContent(
                 modifier = Modifier.weight(1f)
             )
             Spacer(modifier = Modifier.width(MaterialTheme.spacing.small))
-            DropDown(availabilityOptions = arrayOf(
+            BasicDropDown(availabilityOptions = arrayOf(
                 R.string.square_kilometer
             ),
                 onSelect = { uiState.sizeUnit = context.getString(it) },
@@ -102,19 +102,19 @@ fun AddFarmScreenContent(
         ) {
             LabelItem(text = R.string.harvest_season)
 
-            DropDown(availabilityOptions = arrayOf(
+            BasicDropDown(availabilityOptions = arrayOf(
                 R.string.day
             ),
                 onSelect = { uiState.day = context.getString(it) },
                 modifier = Modifier.weight(1f).fillMaxHeight()
             )
-            DropDown(availabilityOptions = arrayOf(
+            BasicDropDown(availabilityOptions = arrayOf(
                 R.string.month
             ),
                 onSelect = { uiState.month = context.getString(it) },
                 modifier = Modifier.weight(1f).fillMaxHeight()
             )
-            DropDown(availabilityOptions = arrayOf(
+            BasicDropDown(availabilityOptions = arrayOf(
                 R.string.year
             ),
                 onSelect = { uiState.year = context.getString(it) },

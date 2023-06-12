@@ -33,7 +33,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.agrican.R
 import com.example.agrican.domain.model.UserType
 import com.example.agrican.ui.components.Background
-import com.example.agrican.ui.components.DropDown
+import com.example.agrican.ui.components.BasicDropDown
 import com.example.agrican.ui.components.PasswordField
 import com.example.agrican.ui.components.UserNameField
 import com.example.agrican.ui.navigation.NavigationDestination
@@ -138,7 +138,7 @@ fun LoginScreenContent(
             Row(modifier = Modifier.fillMaxWidth()) {
                 Spacer(modifier = Modifier.weight(1f))
 
-                DropDown(availabilityOptions = arrayOf(
+                BasicDropDown(availabilityOptions = arrayOf(
                     R.string.farmer,
                     R.string.farm,
                     R.string.engineer,
