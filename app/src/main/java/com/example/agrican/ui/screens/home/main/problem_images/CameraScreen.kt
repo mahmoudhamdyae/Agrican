@@ -40,7 +40,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -52,13 +51,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import com.example.agrican.R
-import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.spacing
 import java.io.File
 import java.text.SimpleDateFormat
@@ -69,14 +65,14 @@ import java.util.concurrent.Executors
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
-object CameraDestination: NavigationDestination {
-    override val route: String = "camera"
-    override val titleRes: Int = R.string.problem_images
-}
-
 @Composable
 fun CameraScreen(
     navigateUp: () -> Unit,
+    uiState: ProblemImagesUiState,
+    updateImage1: (Uri) -> Unit,
+    updateImage2: (Uri) -> Unit,
+    updateImage3: (Uri) -> Unit,
+    addImage: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val outputDirectory: File by remember {
@@ -116,6 +112,11 @@ fun CameraScreen(
     }
 
     CameraView(
+        uiState = uiState,
+        updateImage1 = updateImage1,
+        updateImage2 = updateImage2,
+        updateImage3 = updateImage3,
+        addImage = addImage,
         outputDirectory = outputDirectory,
         executor = cameraExecutor,
         navigateUp = navigateUp,
@@ -125,15 +126,16 @@ fun CameraScreen(
 
 @Composable
 fun CameraView(
+    uiState: ProblemImagesUiState,
+    updateImage1: (Uri) -> Unit,
+    updateImage2: (Uri) -> Unit,
+    updateImage3: (Uri) -> Unit,
+    addImage: () -> Unit,
     outputDirectory: File,
     executor: Executor?,
     navigateUp: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: ProblemImagesViewModel = hiltViewModel(),
 ) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    var currentImage: Int by rememberSaveable { mutableStateOf(0) }
-
     val lensFacing = CameraSelector.LENS_FACING_BACK
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -192,7 +194,7 @@ fun CameraView(
                 .background(Color.Black)
                 .padding(vertical = MaterialTheme.spacing.large)
         ) {
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = navigateUp) {
                 Icon(
                     painter = painterResource(id = R.drawable.baseline_done_24),
                     contentDescription = null,
@@ -202,19 +204,19 @@ fun CameraView(
 
             IconButton(
                 onClick = {
-                    if (currentImage != 3) {
+                    if (uiState.currentImage != 3) {
                         takePhoto(
                             imageCapture = imageCapture,
                             outputDirectory = outputDirectory,
                             executor = executor,
                             onImageCaptured = {
-                                when (currentImage) {
-                                    0 -> { viewModel.updateUiState(image1 = it) }
-                                    1 -> { viewModel.updateUiState(image2 = it) }
-                                    2 -> { viewModel.updateUiState(image3 = it) }
+                                when (uiState.currentImage) {
+                                    0 -> { updateImage1(it) }
+                                    1 -> { updateImage2(it) }
+                                    2 -> { updateImage3(it) }
                                     else  -> {}
                                 }
-                                currentImage++
+                                addImage()
                             },
                         )
                     }

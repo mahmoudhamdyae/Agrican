@@ -9,4 +9,5 @@ data class ProblemImagesUiState(
     val image1: Uri? = null,
     val image2: Uri? = null,
     val image3: Uri? = null,
+    val currentImage: Int = 0
 )

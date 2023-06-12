@@ -19,8 +19,6 @@ import com.example.agrican.ui.screens.home.main.ask_expert.ChatDestination
 import com.example.agrican.ui.screens.home.main.ask_expert.ChatScreen
 import com.example.agrican.ui.screens.home.main.fertilizers_calculator.FertilizersCalculatorDestination
 import com.example.agrican.ui.screens.home.main.fertilizers_calculator.FertilizersCalculatorScreen
-import com.example.agrican.ui.screens.home.main.problem_images.CameraDestination
-import com.example.agrican.ui.screens.home.main.problem_images.CameraScreen
 import com.example.agrican.ui.screens.home.main.problem_images.ProblemImagesDestination
 import com.example.agrican.ui.screens.home.main.problem_images.ProblemImagesScreen
 import com.example.agrican.ui.screens.home.main.weather.WeatherDestination
@@ -72,14 +70,14 @@ fun MainGraph(
             shouldShowBottomPadding = true
             setTopBarIcon(false)
             setTopBarTitle(ProblemImagesDestination.titleRes)
-            ProblemImagesScreen(navigateUp = navigateUp, openScreen = openScreen)
-        }
-
-        composable(route = CameraDestination.route) {
-            showTopBar(false)
-            showBottomBar(false)
-            shouldShowBottomPadding = false
-            CameraScreen(navigateUp = navigateUp)
+            ProblemImagesScreen(
+                navigateUp = navigateUp,
+                openCamera = {
+                    showTopBar(false)
+                    showBottomBar(false)
+                    shouldShowBottomPadding = false
+                }
+            )
         }
 
         composable(route = FertilizersCalculatorDestination.route) {

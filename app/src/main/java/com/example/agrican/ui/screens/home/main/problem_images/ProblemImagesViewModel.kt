@@ -27,13 +27,15 @@ class ProblemImagesViewModel @Inject constructor(
         image1: Uri? = _uiState.value.image1,
         image2: Uri? = _uiState.value.image2,
         image3: Uri? = _uiState.value.image3,
-        selectedCrop: Crop = _uiState.value.selectedCrop
+        selectedCrop: Crop = _uiState.value.selectedCrop,
+        currentImage: Int = _uiState.value.currentImage
     ) {
         _uiState.value = _uiState.value.copy(
             image1 = image1,
             image2 = image2,
             image3 = image3,
-            selectedCrop = selectedCrop
+            selectedCrop = selectedCrop,
+            currentImage = currentImage
         )
     }
 

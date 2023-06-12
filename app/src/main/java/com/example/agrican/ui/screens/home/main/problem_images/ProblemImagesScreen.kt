@@ -56,39 +56,52 @@ object ProblemImagesDestination: NavigationDestination {
 @Composable
 fun ProblemImagesScreen(
     navigateUp: () -> Unit,
-    openScreen: (String) -> Unit,
+    openCamera: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: ProblemImagesViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    var currentImage: Int by rememberSaveable { mutableStateOf(0) }
+
+    var shouldShowCamera by rememberSaveable { mutableStateOf(false) }
 
     val imagePicker =
         rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
             if (uri != null) {
-                when (currentImage) {
+                when (uiState.currentImage) {
                     0 -> { viewModel.updateUiState(image1 = uri) }
                     1 -> { viewModel.updateUiState(image2 = uri) }
                     2 -> { viewModel.updateUiState(image3 = uri) }
                     else  -> {}
                 }
-                currentImage++
+                viewModel.updateUiState(currentImage = uiState.currentImage + 1)
             }
         }
 
-    BackButton(navigateUp = navigateUp) {
-        ProblemImageScreenContent(
+    if (!shouldShowCamera) {
+        BackButton(navigateUp = navigateUp) {
+            ProblemImageScreenContent(
+                uiState = uiState,
+                updateSelectedCrop = { viewModel.updateUiState(selectedCrop = it) },
+                launchImagePicker = {
+                    imagePicker.launch(
+                        PickVisualMediaRequest(
+                            mediaType = ActivityResultContracts.PickVisualMedia.ImageOnly)
+                    )
+                },
+                shouldShowCamera = { shouldShowCamera = it },
+                onSearch = viewModel::search,
+                modifier = modifier
+            )
+        }
+    } else {
+        openCamera()
+        CameraScreen(
+            navigateUp = { shouldShowCamera = false },
             uiState = uiState,
-            updateSelectedCrop = { viewModel.updateUiState(selectedCrop = it) },
-            currentImage = currentImage,
-            launchImagePicker = {
-                imagePicker.launch(
-                    PickVisualMediaRequest(
-                        mediaType = ActivityResultContracts.PickVisualMedia.ImageOnly)
-                )
-            },
-            onSearch = viewModel::search,
-            openScreen = openScreen,
+            updateImage1 = { viewModel.updateUiState(image1 = it) },
+            updateImage2 = { viewModel.updateUiState(image2 = it) },
+            updateImage3 = { viewModel.updateUiState(image3 = it) },
+            addImage = { viewModel.updateUiState(currentImage = uiState.currentImage + 1) },
             modifier = modifier
         )
     }
@@ -98,10 +111,9 @@ fun ProblemImagesScreen(
 fun ProblemImageScreenContent(
     uiState: ProblemImagesUiState,
     updateSelectedCrop: (Crop) -> Unit,
-    currentImage: Int,
     launchImagePicker: () -> Unit,
+    shouldShowCamera: (Boolean) -> Unit,
     onSearch: () -> Unit,
-    openScreen: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -127,16 +139,14 @@ fun ProblemImageScreenContent(
                 image = R.drawable.baseline_image_24,
                 text = R.string.from_gallery,
                 onItemClick = {
-                    if (currentImage != 3) launchImagePicker()
+                    if (uiState.currentImage != 3) launchImagePicker()
                 },
                 modifier = Modifier.weight(1f)
             )
             WayChoose(
                 image = R.drawable.baseline_camera_alt_24,
                 text = R.string.from_camera,
-                onItemClick = {
-                    openScreen(CameraDestination.route)
-                },
+                onItemClick = { shouldShowCamera(true) },
                 modifier = Modifier.weight(1f)
             )
         }
@@ -225,20 +235,11 @@ fun ImageView(
 @Preview(showBackground = true)
 @Composable
 fun ProblemImageScreenPreview() {
-    val crops = listOf(
-        Crop(name = "الأرز"),
-        Crop(name = "الأرز"),
-        Crop(name = "الأرز"),
-        Crop(name = "الأرز"),
-        Crop(name = "الأرز"),
-        Crop(name = "الأرز"),
-    )
     ProblemImageScreenContent(
         uiState = ProblemImagesUiState(),
         updateSelectedCrop = { },
-        currentImage = 0,
         launchImagePicker = { },
-        openScreen = { },
+        shouldShowCamera = { },
         onSearch = { }
     )
 }
