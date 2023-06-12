@@ -14,7 +14,8 @@ class SignupUseCase @Inject constructor(
         phoneNumber: String,
         email: String,
         accountType: UserType,
+        onSuccess: () -> Unit
     ) {
-//        accountService.signup(userName, email, password)
+        accountService.signup(userName, email, password, onSuccess)
     }
 }

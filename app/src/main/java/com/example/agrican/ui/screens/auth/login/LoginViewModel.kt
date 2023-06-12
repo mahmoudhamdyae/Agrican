@@ -79,15 +79,15 @@ class LoginViewModel @Inject constructor(
         launchCatching {
             useCase.loginUseCase(
                 userName = state.userName,
-                password = state.password
+                password = state.password,
+                onSuccess = { navigate(HomeDestination.route) }
             )
-            navigate(HomeDestination.route)
         }
     }
 
     fun onForgotPassword() {
         launchCatching {
-            useCase.forgotPasswordUseCase()
+            useCase.forgotPasswordUseCase(userName = state.userName) { }
         }
     }
 }

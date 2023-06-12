@@ -11,11 +11,13 @@ import javax.inject.Inject
 class AccountServiceImpl @Inject constructor(
     private val auth: AuthCategory
 ): AccountService {
-    override suspend fun login(userName: String, password: String) {
+
+    override suspend fun login(userName: String, password: String, onSuccess: () -> Unit) {
         auth.signIn(userName, password,
             { result ->
                 if (result.isSignedIn) {
                     Log.i("AuthQuickstart", "Sign in succeeded")
+                    onSuccess()
                 } else {
                     Log.i("AuthQuickstart", "Sign in not complete")
                 }
@@ -24,22 +26,31 @@ class AccountServiceImpl @Inject constructor(
         )
     }
 
-    override suspend fun signup(userName: String, email: String, password: String) {
+    override suspend fun signup(
+        userName: String,
+        email: String,
+        password: String,
+        onSuccess: () -> Unit
+    ) {
         val options = AuthSignUpOptions.builder()
             .userAttribute(AuthUserAttributeKey.email(), email)
             .build()
         auth.signUp(userName, password, options,
-            { Log.i("AuthQuickStart", "Sign up succeeded: $it") },
+            {
+                Log.i("AuthQuickStart", "Sign up succeeded: $it")
+                onSuccess()
+            },
             { Log.e("AuthQuickStart", "Sign up failed", it) }
         )
     }
 
-    override suspend fun confirmSignUp(userName: String, code: String) {
+    override suspend fun confirmSignUp(userName: String, code: String, onSuccess: () -> Unit) {
         auth.confirmSignUp(
             userName, code,
             { result ->
                 if (result.isSignUpComplete) {
                     Log.i("AuthQuickstart", "Confirm signUp succeeded")
+                    onSuccess()
                 } else {
                     Log.i("AuthQuickstart", "Confirm sign up not complete")
                 }
@@ -48,12 +59,13 @@ class AccountServiceImpl @Inject constructor(
         )
     }
 
-    override suspend fun signOut() {
+    override suspend fun signOut(onSuccess: () -> Unit) {
         auth.signOut { signOutResult ->
             when (signOutResult) {
                 is AWSCognitoAuthSignOutResult.CompleteSignOut -> {
                     // Sign Out completed fully and without errors.
                     Log.i("AuthQuickStart", "Signed out successfully")
+                    onSuccess()
                 }
 
                 is AWSCognitoAuthSignOutResult.PartialSignOut -> {
@@ -80,9 +92,12 @@ class AccountServiceImpl @Inject constructor(
         }
     }
 
-    override suspend fun resetPassword(userName: String) {
+    override suspend fun resetPassword(userName: String, onSuccess: () -> Unit) {
         auth.resetPassword(userName,
-            { Log.i("AuthQuickstart", "Password reset OK: $it") },
+            {
+                Log.i("AuthQuickstart", "Password reset OK: $it")
+                onSuccess()
+            },
             { Log.e("AuthQuickstart", "Password reset failed", it) }
         )
     }
@@ -90,10 +105,14 @@ class AccountServiceImpl @Inject constructor(
     override suspend fun confirmResetPassword(
         userName: String,
         newPassword: String,
-        confirmationCode: String
+        confirmationCode: String,
+        onSuccess: () -> Unit
     ) {
         auth.confirmResetPassword(userName, newPassword, confirmationCode,
-            { Log.i("AuthQuickstart", "New password confirmed") },
+            {
+                Log.i("AuthQuickstart", "New password confirmed")
+                onSuccess()
+            },
             { Log.e("AuthQuickstart", "Failed to confirm password reset", it) }
         )
     }

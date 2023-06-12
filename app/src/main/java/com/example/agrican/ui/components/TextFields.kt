@@ -130,6 +130,7 @@ private fun PasswordField(
     OutlinedTextField(
         value = value,
         onValueChange = { onNewValue(it) },
+        singleLine = true,
         isError = passwordError != null,
         placeholder = { Text(
             text = stringResource(placeholder),

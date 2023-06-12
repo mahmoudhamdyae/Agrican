@@ -2,13 +2,13 @@ package com.example.agrican.domain.repository
 
 interface AccountService {
 
-    suspend fun login(userName: String, password: String)
-    suspend fun signup(userName: String, email: String, password: String)
-    suspend fun confirmSignUp(userName: String, code: String)
-    suspend fun signOut()
+    suspend fun login(userName: String, password: String, onSuccess: () -> Unit)
+    suspend fun signup(userName: String, email: String, password: String, onSuccess: () -> Unit)
+    suspend fun confirmSignUp(userName: String, code: String, onSuccess: () -> Unit)
+    suspend fun signOut(onSuccess: () -> Unit)
 
-    suspend fun resetPassword(userName: String)
-    suspend fun confirmResetPassword(userName: String, newPassword: String, confirmationCode: String)
+    suspend fun resetPassword(userName: String, onSuccess: () -> Unit)
+    suspend fun confirmResetPassword(userName: String, newPassword: String, confirmationCode: String, onSuccess: () -> Unit)
 
     suspend fun getCurrentUser(navigateToSignIn: () -> Unit)
 }

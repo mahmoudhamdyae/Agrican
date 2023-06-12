@@ -107,8 +107,7 @@ class SignupViewModel @Inject constructor(
                 phoneNumber = state.phoneNumber,
                 email = state.email,
                 accountType = accountType
-            )
-            navigate(HomeDestination.route)
+            ) { navigate(HomeDestination.route) }
         }
     }
 }

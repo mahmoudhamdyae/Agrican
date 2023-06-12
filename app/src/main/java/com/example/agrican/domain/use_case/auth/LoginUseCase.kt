@@ -7,7 +7,11 @@ class LoginUseCase @Inject constructor(
     private val accountService: AccountService
 ) {
 
-    suspend operator fun invoke(userName: String, password: String) {
-//        accountService.login(userName, password)
+    suspend operator fun invoke(
+        userName: String,
+        password: String,
+        onSuccess: () -> Unit
+    ) {
+        accountService.login(userName, password, onSuccess)
     }
 }
