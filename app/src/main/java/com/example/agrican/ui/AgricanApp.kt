@@ -1,60 +1,87 @@
 package com.example.agrican.ui
 
+import android.content.res.Resources
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Snackbar
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ReadOnlyComposable
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.agrican.ui.screens.auth.login.LoginDestination
-import com.example.agrican.ui.screens.auth.login.LoginScreen
-import com.example.agrican.ui.screens.auth.signup.SignupDestination
-import com.example.agrican.ui.screens.auth.signup.SignupScreen
+import com.example.agrican.common.snackbar.SnackBarManager
+import com.example.agrican.ui.navigation.agricanAppGraph
 import com.example.agrican.ui.screens.home.HomeDestination
-import com.example.agrican.ui.screens.home.HomeScreen
-import com.example.agrican.ui.screens.onboarding.OnboardingDestination
-import com.example.agrican.ui.screens.onboarding.OnboardingScreen
-import com.example.agrican.ui.screens.welcome.WelcomeDestination
-import com.example.agrican.ui.screens.welcome.WelcomeScreen
+import com.google.accompanist.pager.ExperimentalPagerApi
+import kotlinx.coroutines.CoroutineScope
 
 @Composable
 fun AgricanApp() {
 
-    val navController = rememberNavController()
+    val snackBarHostState = remember { SnackbarHostState() }
+    val appState = rememberAppState(snackBarHostState = snackBarHostState)
 
-    val openScreen: (String) -> Unit = { route -> navController.navigate(route) { launchSingleTop = true } }
-    val openAndClear: (String) -> Unit = { route ->
-        navController.navigate(route) {
-            launchSingleTop = true
-            popUpTo(0) { inclusive = true }
+    AgricanAppContent(
+        snackBarHostState = snackBarHostState,
+        appState = appState
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalPagerApi::class)
+@Composable
+private fun AgricanAppContent(
+    snackBarHostState: SnackbarHostState,
+    appState: AgricanAppState,
+    modifier: Modifier = Modifier,
+) {
+    Scaffold(
+        snackbarHost = {
+            SnackbarHost(
+                hostState = snackBarHostState,
+                modifier = Modifier.padding(8.dp),
+                snackbar = { snackBarData ->
+                    Snackbar(snackBarData, contentColor = MaterialTheme.colorScheme.onPrimary)
+                }
+            )
+        },
+    ) { innerPadding ->
+        NavHost(
+            navController = appState.navController,
+            startDestination = HomeDestination.route,
+            modifier = modifier.padding(innerPadding)
+        ) {
+            agricanAppGraph(
+                appState = appState,
+            )
         }
     }
-    val openAndPopUp: (String, String) -> Unit = { route, popUp ->
-        navController.navigate(route) {
-            launchSingleTop = true
-            popUpTo(popUp) { inclusive = true }
-        }
+}
+
+@Composable
+fun rememberAppState(
+    snackBarHostState: SnackbarHostState = remember { SnackbarHostState() },
+    navController: NavHostController = rememberNavController(),
+    snackBarManager: SnackBarManager = SnackBarManager,
+    resources: Resources = resources(),
+    coroutineScope: CoroutineScope = rememberCoroutineScope(),
+) =
+    remember(snackBarHostState, navController, snackBarManager, resources, coroutineScope) {
+        AgricanAppState(snackBarHostState, navController, snackBarManager, resources, coroutineScope)
     }
-    val navigateUp: () -> Unit = { navController.popBackStack() }
 
-    NavHost(navController = navController, startDestination = HomeDestination.route) {
-
-        composable(route = WelcomeDestination.route) {
-            WelcomeScreen(openAndClear = openAndClear)
-        }
-
-        composable(route = OnboardingDestination.route) {
-            OnboardingScreen(openAndClear = openAndClear)
-        }
-
-        composable(route = LoginDestination.route) {
-            LoginScreen(openScreen = openScreen, openAndClear = openAndClear)
-        }
-
-        composable(route = SignupDestination.route) {
-            SignupScreen(openAndClear = openAndClear, navigateUp = navigateUp)
-        }
-
-        composable(route = HomeDestination.route) {
-            HomeScreen(openAndClear = openAndClear,)
-        }
-    }
+@Composable
+@ReadOnlyComposable
+fun resources(): Resources {
+    LocalConfiguration.current
+    return LocalContext.current.resources
 }

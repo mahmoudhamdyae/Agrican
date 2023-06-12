@@ -1,4 +1,4 @@
-package com.example.agrican.ui.screens.home.profile
+package com.example.agrican.ui.navigation
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -7,6 +7,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.agrican.ui.screens.home.profile.ProfileDestination
+import com.example.agrican.ui.screens.home.profile.ProfileScreen
 import com.example.agrican.ui.screens.home.profile.add_crop.AddCropDestination
 import com.example.agrican.ui.screens.home.profile.add_crop.AddCropScreen
 import com.example.agrican.ui.screens.home.profile.add_farm.AddFarmDestination

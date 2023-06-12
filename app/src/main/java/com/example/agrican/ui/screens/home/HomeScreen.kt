@@ -48,10 +48,10 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.agrican.R
+import com.example.agrican.ui.navigation.AgricanServicesGraph
+import com.example.agrican.ui.navigation.MainGraph
 import com.example.agrican.ui.navigation.NavigationDestination
-import com.example.agrican.ui.screens.home.agricanservices.AgricanServicesGraph
-import com.example.agrican.ui.screens.home.main.MainGraph
-import com.example.agrican.ui.screens.home.profile.ProfileGraph
+import com.example.agrican.ui.navigation.ProfileGraph
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.spacing

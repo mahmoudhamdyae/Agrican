@@ -1,24 +1,22 @@
 package com.example.agrican.ui.screens.home.profile.add_farm
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.agrican.domain.use_case.BaseUseCase
+import com.example.agrican.ui.screens.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class AddFarmViewModel @Inject constructor(
     private val useCase: BaseUseCase
-): ViewModel() {
+): BaseViewModel() {
 
     private var _uiState = MutableStateFlow(AddFarmUiState())
     val uiState = _uiState.asStateFlow()
 
     fun addFarm() {
-        viewModelScope.launch {
+        launchCatching {
             useCase.addFarmUseCase(
                 farmName = _uiState.value.farmName,
                 farmSize = _uiState.value.farmSize,

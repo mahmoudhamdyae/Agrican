@@ -3,10 +3,9 @@ package com.example.agrican.ui.screens.auth.signup
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.agrican.domain.model.UserType
 import com.example.agrican.domain.use_case.BaseUseCase
+import com.example.agrican.ui.screens.BaseViewModel
 import com.example.agrican.ui.screens.auth.AuthFormEvent
 import com.example.agrican.ui.screens.auth.AuthFormState
 import com.example.agrican.ui.screens.auth.ValidationEvent
@@ -16,13 +15,12 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SignupViewModel @Inject constructor(
     private val useCase: BaseUseCase,
-): ViewModel() {
+): BaseViewModel() {
 
     var state by mutableStateOf(AuthFormState())
 
@@ -86,7 +84,7 @@ class SignupViewModel @Inject constructor(
             )
             return
         }
-        viewModelScope.launch {
+        launchCatching {
             validationEventChannel.send(ValidationEvent.Success)
         }
     }
@@ -102,7 +100,7 @@ class SignupViewModel @Inject constructor(
     }
 
     fun onSignUpClick(accountType: UserType, navigate: (String) -> Unit) {
-        viewModelScope.launch {
+        launchCatching {
             useCase.signupUseCase(
                 userName = state.userName,
                 password = state.password,

@@ -3,10 +3,9 @@ package com.example.agrican.ui.screens.auth.login
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.agrican.domain.model.UserType
 import com.example.agrican.domain.use_case.BaseUseCase
+import com.example.agrican.ui.screens.BaseViewModel
 import com.example.agrican.ui.screens.auth.AuthFormEvent
 import com.example.agrican.ui.screens.auth.AuthFormState
 import com.example.agrican.ui.screens.auth.ValidationEvent
@@ -14,13 +13,12 @@ import com.example.agrican.ui.screens.home.HomeDestination
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val useCase: BaseUseCase,
-): ViewModel() {
+): BaseViewModel() {
 
     var state by mutableStateOf(AuthFormState())
     var accountType = mutableStateOf(UserType.ENGINEER)
@@ -65,7 +63,7 @@ class LoginViewModel @Inject constructor(
             )
             return
         }
-        viewModelScope.launch {
+        launchCatching {
             validationEventChannel.send(ValidationEvent.Success)
         }
     }
@@ -78,7 +76,7 @@ class LoginViewModel @Inject constructor(
     }
 
     fun onSignInClick(navigate: (String) -> Unit) {
-        viewModelScope.launch {
+        launchCatching {
             useCase.loginUseCase(
                 userName = state.userName,
                 password = state.password
@@ -88,7 +86,7 @@ class LoginViewModel @Inject constructor(
     }
 
     fun onForgotPassword() {
-        viewModelScope.launch {
+        launchCatching {
             useCase.forgotPasswordUseCase()
         }
     }

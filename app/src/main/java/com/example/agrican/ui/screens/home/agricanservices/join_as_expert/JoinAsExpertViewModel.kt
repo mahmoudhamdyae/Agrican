@@ -1,17 +1,15 @@
 package com.example.agrican.ui.screens.home.agricanservices.join_as_expert
 
 import android.net.Uri
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.agrican.domain.use_case.BaseUseCase
+import com.example.agrican.ui.screens.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class JoinAsExpertViewModel @Inject constructor(
     private val useCase: BaseUseCase
-): ViewModel() {
+): BaseViewModel() {
 
     fun send(
         fullName: String,
@@ -20,7 +18,7 @@ class JoinAsExpertViewModel @Inject constructor(
         image: Uri,
         navigateUp: () -> Unit
     ) {
-        viewModelScope.launch {
+        launchCatching {
             useCase.joinUsUseCase(
                 userName = fullName,
                 email = email,
