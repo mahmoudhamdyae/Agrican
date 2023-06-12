@@ -1,5 +1,7 @@
 package com.example.agrican.ui.screens.home.main.problem_images
 
+import android.net.Uri
+import com.example.agrican.domain.model.Crop
 import com.example.agrican.domain.use_case.BaseUseCase
 import com.example.agrican.ui.screens.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,8 +19,22 @@ class ProblemImagesViewModel @Inject constructor(
 
     init {
         launchCatching {
-            _uiState.value.crops = useCase.getCropsUseCase()
+            _uiState.value = _uiState.value.copy(crops = useCase.getCropsUseCase())
         }
+    }
+
+    fun updateUiState(
+        image1: Uri? = _uiState.value.image1,
+        image2: Uri? = _uiState.value.image2,
+        image3: Uri? = _uiState.value.image3,
+        selectedCrop: Crop = _uiState.value.selectedCrop
+    ) {
+        _uiState.value = _uiState.value.copy(
+            image1 = image1,
+            image2 = image2,
+            image3 = image3,
+            selectedCrop = selectedCrop
+        )
     }
 
     fun search() {

@@ -194,7 +194,7 @@ fun CameraView(
         ) {
             IconButton(onClick = { /*TODO*/ }) {
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_visibility_on),
+                    painter = painterResource(id = R.drawable.baseline_done_24),
                     contentDescription = null,
                     tint = Color.White,
                 )
@@ -209,9 +209,9 @@ fun CameraView(
                             executor = executor,
                             onImageCaptured = {
                                 when (currentImage) {
-                                    0 -> { uiState.image1 = it }
-                                    1 -> { uiState.image2 = it }
-                                    2 -> { uiState.image3 = it }
+                                    0 -> { viewModel.updateUiState(image1 = it) }
+                                    1 -> { viewModel.updateUiState(image2 = it) }
+                                    2 -> { viewModel.updateUiState(image3 = it) }
                                     else  -> {}
                                 }
                                 currentImage++

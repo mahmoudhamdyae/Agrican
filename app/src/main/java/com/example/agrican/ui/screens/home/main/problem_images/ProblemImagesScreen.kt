@@ -67,9 +67,9 @@ fun ProblemImagesScreen(
         rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
             if (uri != null) {
                 when (currentImage) {
-                    0 -> { uiState.image1 = uri }
-                    1 -> { uiState.image2 = uri }
-                    2 -> { uiState.image3 = uri }
+                    0 -> { viewModel.updateUiState(image1 = uri) }
+                    1 -> { viewModel.updateUiState(image2 = uri) }
+                    2 -> { viewModel.updateUiState(image3 = uri) }
                     else  -> {}
                 }
                 currentImage++
@@ -79,6 +79,7 @@ fun ProblemImagesScreen(
     BackButton(navigateUp = navigateUp) {
         ProblemImageScreenContent(
             uiState = uiState,
+            updateSelectedCrop = { viewModel.updateUiState(selectedCrop = it) },
             currentImage = currentImage,
             launchImagePicker = {
                 imagePicker.launch(
@@ -96,6 +97,7 @@ fun ProblemImagesScreen(
 @Composable
 fun ProblemImageScreenContent(
     uiState: ProblemImagesUiState,
+    updateSelectedCrop: (Crop) -> Unit,
     currentImage: Int,
     launchImagePicker: () -> Unit,
     onSearch: () -> Unit,
@@ -115,25 +117,25 @@ fun ProblemImageScreenContent(
             text = stringResource(id = R.string.choose_plant_type),
             color = greenDark
         )
-        CropsList(crops = uiState.crops, setSelectedCrop = { uiState.selectedCrop = it })
+        CropsList(crops = uiState.crops, setSelectedCrop = { updateSelectedCrop(it) })
         Text(
             text = stringResource(id = R.string.choose_problem_image_way),
             color = greenDark
         )
         Row(modifier = Modifier.fillMaxWidth()) {
             WayChoose(
-                image = R.drawable.baseline_camera_alt_24,
-                text = R.string.from_camera,
-                onItemClick = {
-                    openScreen(CameraDestination.route)
-                },
-                modifier = Modifier.weight(1f)
-            )
-            WayChoose(
                 image = R.drawable.baseline_image_24,
                 text = R.string.from_gallery,
                 onItemClick = {
                     if (currentImage != 3) launchImagePicker()
+                },
+                modifier = Modifier.weight(1f)
+            )
+            WayChoose(
+                image = R.drawable.baseline_camera_alt_24,
+                text = R.string.from_camera,
+                onItemClick = {
+                    openScreen(CameraDestination.route)
                 },
                 modifier = Modifier.weight(1f)
             )
@@ -233,6 +235,7 @@ fun ProblemImageScreenPreview() {
     )
     ProblemImageScreenContent(
         uiState = ProblemImagesUiState(),
+        updateSelectedCrop = { },
         currentImage = 0,
         launchImagePicker = { },
         openScreen = { },
