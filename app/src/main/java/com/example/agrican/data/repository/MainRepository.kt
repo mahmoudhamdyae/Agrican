@@ -1,33 +1,94 @@
 package com.example.agrican.data.repository
 
-interface MainRepository {
+import com.example.agrican.domain.repository.MainRepository
 
-    suspend fun getWeather()
-    suspend fun getNews()
+class MainRepositoryImpl(): MainRepository {
 
-    suspend fun getDefaultAge()
-    suspend fun orderNew()
-    suspend fun getOrders()
-    suspend fun getTreatments()
-    suspend fun joinAsExpert()
-    suspend fun getDiseases()
-    suspend fun getDisease()
-    suspend fun getPests()
-    suspend fun getPest()
+    override suspend fun getWeather() {
+        TODO("Not yet implemented")
+    }
 
-    suspend fun searchProblem()
-    suspend fun calculateFertilize()
-    suspend fun getChat()
-    suspend fun sendMessage()
+    override suspend fun getNews() {
+        TODO("Not yet implemented")
+    }
 
-    suspend fun getCurrentUser()
-    suspend fun getFarms()
-    suspend fun getCrops()
-    suspend fun addFarm()
-    suspend fun addCrop()
-    suspend fun observeCrop()
-    suspend fun addTask()
-}
+    override suspend fun getDefaultAge() {
+        TODO("Not yet implemented")
+    }
 
-class MainRepositoryImpl() {
+    override suspend fun orderNew() {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getOrders() {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getTreatments() {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun joinAsExpert() {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getDiseases() {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getDisease() {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getPests() {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getPest() {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun searchProblem() {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun calculateFertilize() {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getChat() {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun sendMessage() {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getCurrentUser() {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getFarms() {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getCrops() {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun addFarm() {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun addCrop() {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun observeCrop() {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun addTask() {
+        TODO("Not yet implemented")
+    }
 }

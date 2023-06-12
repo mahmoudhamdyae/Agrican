@@ -1,8 +1,11 @@
 package com.example.agrican.domain.use_case.auth
 
 import com.example.agrican.domain.model.UserType
+import com.example.agrican.domain.repository.AccountService
+import javax.inject.Inject
 
-class SignupUseCase (
+class SignupUseCase @Inject constructor(
+    private val accountService: AccountService
 ) {
 
     suspend operator fun invoke(
@@ -12,5 +15,6 @@ class SignupUseCase (
         email: String,
         accountType: UserType,
     ) {
+        accountService.signup(userName, email, password)
     }
 }
