@@ -3,6 +3,7 @@ package com.example.agrican.ui.screens.home.profile.add_task
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -24,7 +25,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
 import com.example.agrican.ui.components.Days
-import com.example.agrican.ui.components.BasicDropDown
+import com.example.agrican.ui.components.DropDown
 import com.example.agrican.ui.components.ProfileHeader
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.screens.home.profile.add_farm.AddFarmDestination
@@ -61,7 +62,8 @@ fun AddTaskScreenContent(
     Column(modifier = modifier.padding(MaterialTheme.spacing.medium)) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
+            horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
+            modifier = Modifier.height(MaterialTheme.spacing.large)
         ) {
             Text(
                 text = stringResource(id = R.string.task_name),
@@ -80,7 +82,7 @@ fun AddTaskScreenContent(
                 modifier = Modifier.weight(1f)
             )
 
-            BasicDropDown(availabilityOptions = arrayOf(
+            DropDown(options = arrayOf(
                 R.string.add_task
             ),
                 onSelect = { /*TODO*/ },

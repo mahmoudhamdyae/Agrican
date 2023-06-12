@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -33,7 +34,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.agrican.R
 import com.example.agrican.domain.model.UserType
 import com.example.agrican.ui.components.Background
-import com.example.agrican.ui.components.BasicDropDown
+import com.example.agrican.ui.components.DropDown
 import com.example.agrican.ui.components.PasswordField
 import com.example.agrican.ui.components.UserNameField
 import com.example.agrican.ui.navigation.NavigationDestination
@@ -138,7 +139,7 @@ fun LoginScreenContent(
             Row(modifier = Modifier.fillMaxWidth()) {
                 Spacer(modifier = Modifier.weight(1f))
 
-                BasicDropDown(availabilityOptions = arrayOf(
+                DropDown(options = arrayOf(
                     R.string.farmer,
                     R.string.farm,
                     R.string.engineer,
@@ -151,7 +152,7 @@ fun LoginScreenContent(
                             else -> { changeAccountType(UserType.FARMER) }
                         }
                                },
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier.weight(1f).height(MaterialTheme.spacing.large)
                 )
             }
 

@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -35,7 +36,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
 import com.example.agrican.domain.model.Treatment
-import com.example.agrican.ui.components.BasicDropDown
+import com.example.agrican.ui.components.DropDown
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.spacing
@@ -66,7 +67,7 @@ fun SelectedCropScreenContent(
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier.width(IntrinsicSize.Min)
     ) {
         Text(
             text = stringResource(id = R.string.selected_crop),
@@ -111,9 +112,12 @@ fun SelectedCropScreenContent(
         )
 
         val context = LocalContext.current
-        BasicDropDown(availabilityOptions = arrayOf(
+        DropDown(options = arrayOf(
             R.string.insects
-        ), onSelect = { uiState.diseaseType = context.getString(it) })
+        ),
+            onSelect = { uiState.diseaseType = context.getString(it) },
+            modifier = Modifier.width(150.dp).height(MaterialTheme.spacing.large)
+        )
 
         Button(
             onClick = {
@@ -211,7 +215,7 @@ fun TreatmentListItem(
     }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun SelectedCropScreenPreview() {
     SelectedCropScreenContent(uiState = TreatmentUiState(), getTreatments = { })
