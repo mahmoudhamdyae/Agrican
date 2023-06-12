@@ -6,8 +6,10 @@ import com.amplifyframework.auth.cognito.result.AWSCognitoAuthSignOutResult
 import com.amplifyframework.auth.options.AuthSignUpOptions
 import com.amplifyframework.core.Amplify
 import com.example.agrican.domain.repository.AccountService
+import javax.inject.Inject
 
-class AccountServiceImpl: AccountService {
+class AccountServiceImpl @Inject constructor(
+): AccountService {
     override suspend fun login(userName: String, password: String) {
         Amplify.Auth.signIn(userName, password,
             { result ->

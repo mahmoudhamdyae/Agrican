@@ -1,5 +1,7 @@
 package com.example.agrican.di
 
+import com.example.agrican.domain.repository.AccountService
+import com.example.agrican.domain.repository.MainRepository
 import com.example.agrican.domain.use_case.AddCropUseCase
 import com.example.agrican.domain.use_case.AddFarmUseCase
 import com.example.agrican.domain.use_case.AddTaskUseCase
@@ -41,12 +43,15 @@ import dagger.hilt.components.SingletonComponent
 object UseCaseModule {
 
     @Provides
-    fun provideUseCase(): BaseUseCase {
+    fun provideUseCase(
+        accountService: AccountService,
+        mainRepository: MainRepository,
+    ): BaseUseCase {
         return BaseUseCase(
-            forgotPasswordUseCase = ForgotPasswordUseCase(),
-            loginUseCase = LoginUseCase(),
-            signOutUseCase = SignOutUseCase(),
-            signupUseCase = SignupUseCase(),
+            forgotPasswordUseCase = ForgotPasswordUseCase(accountService),
+            loginUseCase = LoginUseCase(accountService),
+            signOutUseCase = SignOutUseCase(accountService),
+            signupUseCase = SignupUseCase(accountService),
 
             validateEmail = ValidateEmail(),
             validatePassword = ValidatePassword(),
@@ -54,33 +59,33 @@ object UseCaseModule {
             validateRepeatedPassword = ValidateRepeatedPassword(),
             validateUserName = ValidateUserName(),
 
-            getCurrentUserUseCase = GetCurrentUserUseCase(),
+            getCurrentUserUseCase = GetCurrentUserUseCase(mainRepository),
 
-            getWeatherUseCase = GetWeatherUseCase(),
-            getNewsUseCase = GetNewsUseCase(),
-            searchUseCase = SearchUseCase(),
-            calculateFertilizersUseCase = CalculateFertilizersUseCase(),
-            addTaskUseCase = AddTaskUseCase(),
+            getWeatherUseCase = GetWeatherUseCase(mainRepository),
+            getNewsUseCase = GetNewsUseCase(mainRepository),
+            searchUseCase = SearchUseCase(mainRepository),
+            calculateFertilizersUseCase = CalculateFertilizersUseCase(mainRepository),
+            addTaskUseCase = AddTaskUseCase(mainRepository),
 
-            getChatUseCase = GetChatUseCase(),
-            sendMessageUseCase = SendMessageUseCase(),
+            getChatUseCase = GetChatUseCase(mainRepository),
+            sendMessageUseCase = SendMessageUseCase(mainRepository),
 
-            getCropsUseCase = GetCropsUseCase(),
-            addCropUseCase = AddCropUseCase(),
+            getCropsUseCase = GetCropsUseCase(mainRepository),
+            addCropUseCase = AddCropUseCase(mainRepository),
 
-            getFarmsUseCase = GetFarmsUseCase(),
-            addFarmUseCase = AddFarmUseCase(),
+            getFarmsUseCase = GetFarmsUseCase(mainRepository),
+            addFarmUseCase = AddFarmUseCase(mainRepository),
 
-            getDefaultAgeUseCase = GetDefaultAgeUseCase(),
-            getOrdersUseCase = GetOrdersUseCase(),
-            orderNewProduct = OrderNewProduct(),
-            getTreatmentsUseCase = GetTreatmentsUseCase(),
-            joinUsUseCase = JoinUsUseCase(),
+            getDefaultAgeUseCase = GetDefaultAgeUseCase(mainRepository),
+            getOrdersUseCase = GetOrdersUseCase(mainRepository),
+            orderNewProduct = OrderNewProduct(mainRepository),
+            getTreatmentsUseCase = GetTreatmentsUseCase(mainRepository),
+            joinUsUseCase = JoinUsUseCase(mainRepository),
 
-            getDisease = GetDisease(),
-            getDiseases = GetDiseases(),
-            getPest = GetPest(),
-            getPests = GetPests(),
+            getDisease = GetDisease(mainRepository),
+            getDiseases = GetDiseases(mainRepository),
+            getPest = GetPest(mainRepository),
+            getPests = GetPests(mainRepository),
         )
     }
 }

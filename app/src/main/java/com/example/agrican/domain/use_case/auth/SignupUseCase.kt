@@ -15,6 +15,6 @@ class SignupUseCase @Inject constructor(
         email: String,
         accountType: UserType,
     ) {
-        accountService.signup(userName, email, password)
+//        accountService.signup(userName, email, password)
     }
 }

@@ -1,6 +1,11 @@
 package com.example.agrican.domain.use_case
 
-class OrderNewProduct {
+import com.example.agrican.domain.repository.MainRepository
+import javax.inject.Inject
+
+class OrderNewProduct @Inject constructor(
+    private val mainRepository: MainRepository
+) {
 
     suspend operator fun invoke(
         productType: String,
@@ -13,5 +18,6 @@ class OrderNewProduct {
         governorate: String,
         notes: String,
     ) {
+        mainRepository.orderNewProduct()
     }
 }
