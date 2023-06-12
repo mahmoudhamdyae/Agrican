@@ -18,6 +18,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -25,7 +28,6 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -44,17 +46,13 @@ fun NewOrderScreen(
 ) {
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    NewOrderScreenContent(uiState = uiState, orderNewProduct = viewModel::order, modifier = modifier)
-}
-
-@Composable
-fun NewOrderScreenContent(
-    uiState: NewOrderUiState,
-    orderNewProduct: () -> Unit,
-    modifier: Modifier = Modifier,
-) {
     val focusManager = LocalFocusManager.current
     val context = LocalContext.current
+
+    var productName by rememberSaveable { mutableStateOf("") }
+    var quantity by rememberSaveable { mutableStateOf("") }
+    var receivingAddress by rememberSaveable { mutableStateOf("") }
+    var notes by rememberSaveable { mutableStateOf("") }
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -78,8 +76,8 @@ fun NewOrderScreenContent(
         }
 
         LabelWithTextField(
-            value = uiState.productName,
-            onNewValue = { uiState.productName = it },
+            value = productName,
+            onNewValue = { productName = it },
             hint = R.string.insecticide_name,
             label = R.string.product_name,
             focusManager = focusManager,
@@ -90,8 +88,8 @@ fun NewOrderScreenContent(
             modifier = Modifier.height(IntrinsicSize.Max)
         ) {
             LabelWithTextField(
-                value = uiState.quantity.toString(),
-                onNewValue = { uiState.quantity = it.toInt() },
+                value = quantity,
+                onNewValue = { quantity = it },
                 hint = R.string.quantity,
                 label = R.string.quantity,
                 focusManager = focusManager,
@@ -107,8 +105,8 @@ fun NewOrderScreenContent(
         }
 
         LabelWithTextField(
-            value = uiState.receivingAddress,
-            onNewValue = { uiState.receivingAddress = it },
+            value = receivingAddress,
+            onNewValue = { receivingAddress = it },
             hint = R.string.receiving_address,
             focusManager = focusManager,
             label = R.string.receiving_address,
@@ -140,8 +138,8 @@ fun NewOrderScreenContent(
 
         LabelItem(text = R.string.notes)
         NotesField(
-            value = uiState.notes,
-            onNewValue = { uiState.notes = it },
+            value = notes,
+            onNewValue = { notes = it },
             focusManager = focusManager,
             modifier = Modifier
                 .fillMaxWidth()
@@ -149,7 +147,7 @@ fun NewOrderScreenContent(
         )
 
         Button(
-            onClick = orderNewProduct,
+            onClick = { viewModel.order(productName, quantity, receivingAddress, notes) },
             colors = ButtonDefaults.buttonColors(
                 containerColor = greenDark
             )
@@ -160,10 +158,4 @@ fun NewOrderScreenContent(
             )
         }
     }
-}
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun NewOrderPreview() {
-    NewOrderScreenContent(uiState = NewOrderUiState(), orderNewProduct = { })
 }

@@ -17,18 +17,23 @@ class NewOrderViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(NewOrderUiState())
     val uiState = _uiState.asStateFlow()
     
-    fun order() {
+    fun order(
+        productName: String,
+        quantity: String,
+        receivingAddress: String,
+        notes: String,
+    ) {
         viewModelScope.launch { 
             useCase.orderNewProduct(
                 productType= _uiState.value.productType,
-                productName= _uiState.value.productName,
-                quantity = _uiState.value.quantity,
+                productName= productName,
+                quantity = quantity.toInt(),
                 quantityUnit = _uiState.value.quantityUnit,
-                receivingAddress= _uiState.value.receivingAddress,
+                receivingAddress= receivingAddress,
                 place= _uiState.value.place,
                 city= _uiState.value.city,
                 governorate= _uiState.value.governorate,
-                notes= _uiState.value.notes,
+                notes= notes,
             )
         }
     }
