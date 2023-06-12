@@ -1,17 +1,18 @@
 package com.example.agrican.data.repository
 
 import android.util.Log
+import com.amplifyframework.auth.AuthCategory
 import com.amplifyframework.auth.AuthUserAttributeKey
 import com.amplifyframework.auth.cognito.result.AWSCognitoAuthSignOutResult
 import com.amplifyframework.auth.options.AuthSignUpOptions
-import com.amplifyframework.core.Amplify
 import com.example.agrican.domain.repository.AccountService
 import javax.inject.Inject
 
 class AccountServiceImpl @Inject constructor(
+    private val auth: AuthCategory
 ): AccountService {
     override suspend fun login(userName: String, password: String) {
-        Amplify.Auth.signIn(userName, password,
+        auth.signIn(userName, password,
             { result ->
                 if (result.isSignedIn) {
                     Log.i("AuthQuickstart", "Sign in succeeded")
@@ -27,14 +28,28 @@ class AccountServiceImpl @Inject constructor(
         val options = AuthSignUpOptions.builder()
             .userAttribute(AuthUserAttributeKey.email(), email)
             .build()
-        Amplify.Auth.signUp(userName, password, options,
+        auth.signUp(userName, password, options,
             { Log.i("AuthQuickStart", "Sign up succeeded: $it") },
             { Log.e("AuthQuickStart", "Sign up failed", it) }
         )
     }
 
+    override suspend fun confirmSignUp(userName: String, code: String) {
+        auth.confirmSignUp(
+            userName, code,
+            { result ->
+                if (result.isSignUpComplete) {
+                    Log.i("AuthQuickstart", "Confirm signUp succeeded")
+                } else {
+                    Log.i("AuthQuickstart", "Confirm sign up not complete")
+                }
+            },
+            { Log.e("AuthQuickstart", "Failed to confirm sign up", it) }
+        )
+    }
+
     override suspend fun signOut() {
-        Amplify.Auth.signOut { signOutResult ->
+        auth.signOut { signOutResult ->
             when (signOutResult) {
                 is AWSCognitoAuthSignOutResult.CompleteSignOut -> {
                     // Sign Out completed fully and without errors.
@@ -65,11 +80,33 @@ class AccountServiceImpl @Inject constructor(
         }
     }
 
-    override suspend fun forgotPassword() {
-        TODO("Not yet implemented")
+    override suspend fun resetPassword(userName: String) {
+        auth.resetPassword(userName,
+            { Log.i("AuthQuickstart", "Password reset OK: $it") },
+            { Log.e("AuthQuickstart", "Password reset failed", it) }
+        )
     }
 
-    override suspend fun getCurrentUser() {
-        TODO("Not yet implemented")
+    override suspend fun confirmResetPassword(
+        userName: String,
+        newPassword: String,
+        confirmationCode: String
+    ) {
+        auth.confirmResetPassword(userName, newPassword, confirmationCode,
+            { Log.i("AuthQuickstart", "New password confirmed") },
+            { Log.e("AuthQuickstart", "Failed to confirm password reset", it) }
+        )
+    }
+
+    override suspend fun getCurrentUser(navigateToSignIn: () -> Unit) {
+        auth.fetchAuthSession(
+            {
+                Log.i("AmplifyQuickstart", "Auth session = $it")
+                if (!it.isSignedIn) {
+                    navigateToSignIn()
+                }
+            },
+            { error -> Log.e("AmplifyQuickstart", "Failed to fetch auth session", error) }
+        )
     }
 }

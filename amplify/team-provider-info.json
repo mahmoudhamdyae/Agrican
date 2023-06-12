@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-agrican-dev-103720-authRole",
+      "UnauthRoleArn": "arn:aws:iam::175360585410:role/amplify-agrican-dev-103720-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::175360585410:role/amplify-agrican-dev-103720-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-agrican-dev-103720-deployment",
+      "UnauthRoleName": "amplify-agrican-dev-103720-unauthRole",
+      "StackName": "amplify-agrican-dev-103720",
+      "StackId": "arn:aws:cloudformation:us-east-2:175360585410:stack/amplify-agrican-dev-103720/5b977f20-08fc-11ee-bac8-020fd384767b",
+      "AmplifyAppId": "d208a3qozgy01p"
+    },
+    "categories": {
+      "auth": {
+        "agrican97f42b84": {}
+      }
+    }
+  }
+}

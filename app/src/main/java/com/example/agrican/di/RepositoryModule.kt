@@ -9,24 +9,9 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 
-//@Module
-//@InstallIn(SingletonComponent::class)
-//object RepositoryModule {
-//
-//    @Provides
-//    fun provideAccountService(): AccountService {
-//        return AccountServiceImpl()
-//    }
-//
-//    @Provides
-//    fun provideMainRepository(): MainRepository {
-//        return MainRepositoryImpl()
-//    }
-//}
-
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class ServiceModule {
+abstract class RepositoryModule {
 
     @Binds
     abstract fun provideAccountService(impl: AccountServiceImpl): AccountService
