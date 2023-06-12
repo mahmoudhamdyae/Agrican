@@ -146,7 +146,7 @@ fun ObserveCropScreenContent(
 fun ExpandableItem(
     label: Int,
     selectedDays: List<Int>,
-    onDayAdded: () -> Unit,
+    onDayAdded: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     var visible by rememberSaveable { mutableStateOf(false) }
@@ -185,7 +185,7 @@ fun ExpandableItem(
         }
 
         AnimatedVisibility(visible = visible) {
-            Days(selectedDays = selectedDays, onDayAdded = onDayAdded)
+            Days(selectedDays = selectedDays, onDayClicked = onDayAdded)
         }
     }
 }

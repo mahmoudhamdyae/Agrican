@@ -41,7 +41,7 @@ fun BackButton(
                 .size(MaterialTheme.spacing.large)
         ) {
             Icon(
-                painter = painterResource(id = R.drawable.baseline_arrow_back_ios_new_24),
+                painter = painterResource(id = R.drawable.baseline_arrow_forward_ios_24),
                 contentDescription = null,
                 tint = Color.White
             )

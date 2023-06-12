@@ -15,9 +15,16 @@ class AddTaskViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(AddTaskUiState())
     val uiState = _uiState.asStateFlow()
 
-    fun addTask() {
+    fun flipDay(day: Int) {
+        val days = _uiState.value.days.toMutableList()
+        if (days.contains(day)) days.remove(day)
+        else days.add(day)
+        _uiState.value = _uiState.value.copy(days = days)
+    }
+
+    fun addTask(taskName: String) {
         launchCatching {
-            useCase.addTaskUseCase(taskName = _uiState.value.taskName)
+            useCase.addTaskUseCase(taskName = taskName)
         }
     }
 }

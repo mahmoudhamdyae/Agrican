@@ -4,6 +4,7 @@ plugins {
 
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
 
 android {
@@ -69,6 +70,9 @@ dependencies {
     debugImplementation 'androidx.compose.ui:ui-tooling'
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
 
+    // Splash Screen
+    implementation "androidx.core:core-splashscreen:1.0.1"
+
     // Dagger Hilt
     implementation 'com.google.dagger:hilt-android:2.45'
     kapt 'com.google.dagger:hilt-compiler:2.45'
@@ -97,6 +101,9 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     // Gson Converter
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+    // Location Services
+    implementation "com.google.android.gms:play-services-maps:18.1.0"
 
     // Google Maps for Compose
     implementation 'com.google.maps.android:maps-compose:2.11.0'

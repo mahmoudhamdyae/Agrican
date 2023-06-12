@@ -1,21 +1,22 @@
 package com.example.agrican.ui.screens.home.profile.add_task
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -27,6 +28,7 @@ import com.example.agrican.R
 import com.example.agrican.ui.components.Days
 import com.example.agrican.ui.components.DropDown
 import com.example.agrican.ui.components.ProfileHeader
+import com.example.agrican.ui.components.SimpleTextField
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.screens.home.profile.add_farm.AddFarmDestination
 import com.example.agrican.ui.theme.gray
@@ -44,41 +46,51 @@ fun AddTaskScreen(
     modifier: Modifier = Modifier,
     viewModel: AddTaskViewModel = hiltViewModel()
 ) {
-
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    var taskName by rememberSaveable { mutableStateOf("") }
 
     ProfileHeader(navigateUp = navigateUp, headerText = AddFarmDestination.titleRes) {
-        AddTaskScreenContent(uiState = uiState, addTask = viewModel::addTask, modifier = modifier)
+        AddTaskScreenContent(
+            days = uiState.days,
+            flipDay = viewModel::flipDay,
+            taskName = taskName,
+            onTaskNameChanged = { taskName = it },
+            addTask = viewModel::addTask,
+            modifier = modifier
+        )
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddTaskScreenContent(
-    uiState: AddTaskUiState,
-    addTask: () -> Unit,
+    days: List<Int>,
+    flipDay: (Int) -> Unit,
+    taskName: String,
+    onTaskNameChanged: (String) -> Unit,
+    addTask: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier.padding(MaterialTheme.spacing.medium)) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
-            modifier = Modifier.height(MaterialTheme.spacing.large)
+            modifier = Modifier.height(40.dp)
         ) {
-            Text(
-                text = stringResource(id = R.string.task_name),
-                color = greenDark
-            )
+            Text(text = stringResource(id = R.string.task_name), color = greenDark)
 
-            OutlinedTextField(
-                value = uiState.taskName,
-                onValueChange = { uiState.taskName = it },
-                placeholder = { Text(text = stringResource(id = R.string.task_name))},
-                shape = RoundedCornerShape(MaterialTheme.spacing.medium),
-                colors = TextFieldDefaults.outlinedTextFieldColors(
-                    unfocusedBorderColor = gray,
-                    textColor = gray
-                ),
+            SimpleTextField(
+                value = taskName,
+                onNewValue = onTaskNameChanged,
+                placeHolder = {
+                    Box(modifier = Modifier.fillMaxHeight()) {
+                        Text(
+                            text = stringResource(id = R.string.task_name),
+                            color = gray,
+                            modifier = Modifier
+                                .align(Alignment.CenterStart)
+                                .padding(start = MaterialTheme.spacing.small)
+                        )
+                    } },
                 modifier = Modifier.weight(1f)
             )
 
@@ -96,10 +108,10 @@ fun AddTaskScreenContent(
             modifier = Modifier.padding(vertical = MaterialTheme.spacing.medium)
         )
         
-        Days(selectedDays = listOf(9, 12, 25), onDayAdded = { /*TODO*/ })
+        Days(selectedDays = days, onDayClicked = { flipDay(it) })
         
         Button(
-            onClick = addTask,
+            onClick = { addTask(taskName) },
             colors = ButtonDefaults.buttonColors(containerColor = greenDark),
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
@@ -113,5 +125,5 @@ fun AddTaskScreenContent(
 @Preview(showBackground = true)
 @Composable
 fun AddTaskScreenPreview() {
-    AddTaskScreenContent(uiState = AddTaskUiState(), addTask = { })
+    AddTaskScreenContent(days = listOf(), flipDay = { }, taskName = "", onTaskNameChanged = { }, addTask = { })
 }

@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -28,6 +29,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -50,6 +52,7 @@ import com.example.agrican.ui.screens.home.main.weather.WeatherDestination
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.spacing
+import kotlinx.coroutines.launch
 
 object MainDestination: NavigationDestination {
     override val route: String = "main"
@@ -84,7 +87,7 @@ fun MainScreenContent(
             weather = weather,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(MaterialTheme.spacing.large)
+                .padding(MaterialTheme.spacing.medium)
                 .clickable { openScreen(WeatherDestination.route) }
         )
         Row(
@@ -157,50 +160,53 @@ fun WeatherBox(
         shape = RoundedCornerShape(MaterialTheme.spacing.medium),
         modifier = modifier
     ) {
-        Row(modifier = Modifier.padding(MaterialTheme.spacing.small)) {
-            Column {
+        Column(modifier = Modifier.padding(MaterialTheme.spacing.small)) {
+            Row(modifier = Modifier.fillMaxWidth()) {
                 Text(
                     text = "الطقس",
                     color = greenDark
                 )
-                Text(text = "جودة الهواء")
-                Text(text = "الرياح")
-                Text(text = "هبات الرياح")
-            }
-            Column(
-                modifier = Modifier.padding(horizontal = MaterialTheme.spacing.small)
-            ) {
-                Text(text = "")
-                Text(text = weather.air)
-                Text(text = weather.wind)
-                Text(text = weather.windGusts)
-            }
-            Column(
-                verticalArrangement = Arrangement.SpaceBetween,
-                horizontalAlignment = Alignment.End,
-            ) {
+                Spacer(modifier = Modifier.weight(1f))
                 Text(text = weather.firstInformation)
-                Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Text(
-                        text = "مشمس",
-                        color = greenDark,
-                        modifier = Modifier.padding(MaterialTheme.spacing.extraSmall)
-                    )
-                    Text(
-                        text = "31°",
-                        color = greenDark,
-                        modifier = Modifier.padding(MaterialTheme.spacing.extraSmall)
-                    )
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_sunny),
-                        contentDescription = null,
-                        tint = greenDark,
-                        modifier = Modifier.padding(MaterialTheme.spacing.extraSmall)
-                    )
+            }
+
+            Row {
+                Column {
+                    Text(text = "جودة الهواء")
+                    Text(text = "الرياح")
+                    Text(text = "هبات الرياح")
                 }
+                Column(
+                    modifier = Modifier.padding(horizontal = MaterialTheme.spacing.small)
+                ) {
+                    Text(text = weather.air)
+                    Text(text = weather.wind)
+                    Text(text = weather.windGusts)
+                }
+            }
+
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.align(Alignment.End)
+            ) {
+                Text(
+                    text = "مشمس",
+                    color = greenDark,
+                    modifier = Modifier.padding(MaterialTheme.spacing.extraSmall)
+                )
+                Text(
+                    text = "31°",
+                    color = greenDark,
+                    modifier = Modifier.padding(MaterialTheme.spacing.extraSmall)
+                )
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_sunny),
+                    contentDescription = null,
+                    tint = greenDark,
+                    modifier = Modifier
+                        .padding(MaterialTheme.spacing.extraSmall)
+                        .height(MaterialTheme.spacing.large)
+                )
             }
         }
     }
@@ -211,6 +217,9 @@ fun LatestNewsList(
     news: List<News>,
     modifier: Modifier = Modifier
 ) {
+    val scope = rememberCoroutineScope()
+    val scrollState = rememberLazyListState()
+
     Box(modifier = modifier) {
         Box(
             modifier = Modifier
@@ -219,7 +228,7 @@ fun LatestNewsList(
                 .height(85.dp)
                 .background(greenDark)
         )
-        LazyRow {
+        LazyRow(state = scrollState) {
             items(news.size) {
                 LatestNewsListItem(
                     news = news[it],
@@ -238,6 +247,14 @@ fun LatestNewsList(
                 .padding(start = MaterialTheme.spacing.medium)
                 .align(Alignment.CenterStart)
                 .clickable {
+                    val firstVisibleItemIndex = scrollState.firstVisibleItemIndex
+                    scope.launch {
+                        if (firstVisibleItemIndex > 2) {
+                            scrollState.animateScrollToItem(firstVisibleItemIndex - 3)
+                        } else {
+                            scrollState.animateScrollToItem(0)
+                        }
+                    }
                 }
         ) {
             Icon(
@@ -254,8 +271,7 @@ fun LatestNewsList(
             modifier = Modifier
                 .padding(end = MaterialTheme.spacing.medium)
                 .align(Alignment.CenterEnd)
-                .clickable {
-                }
+                .clickable { scope.launch { scrollState.animateScrollToItem(news.size) } }
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.baseline_arrow_forward_ios_24),
