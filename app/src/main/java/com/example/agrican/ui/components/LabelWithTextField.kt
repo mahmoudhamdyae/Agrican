@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.agrican.ui.theme.gray
@@ -28,6 +29,7 @@ fun LabelWithTextField(
     label: Int,
     focusManager: FocusManager,
     modifier: Modifier = Modifier,
+    keyboardType: KeyboardType = KeyboardType.Text,
     imeAction: ImeAction = ImeAction.Next
 ) {
     Box(
@@ -48,6 +50,7 @@ fun LabelWithTextField(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 70.dp),
+            keyboardType = keyboardType,
             imeAction = imeAction
         )
         LabelItem(text = label)

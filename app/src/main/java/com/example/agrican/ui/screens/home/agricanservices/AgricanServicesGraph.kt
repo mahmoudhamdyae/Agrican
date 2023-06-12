@@ -115,7 +115,7 @@ fun AgricanServicesGraph(
 
         composable(route = JoinAsExpertDestination.route) {
             setTopBarTitle(JoinAsExpertDestination.titleRes)
-            JoinAsExpertScreen()
+            JoinAsExpertScreen(navigateUp = navigateUp)
         }
     }
 }

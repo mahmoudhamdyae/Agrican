@@ -59,6 +59,7 @@ fun MainGraph(
         composable(route = MainDestination.route) {
             setTopBarIcon(true)
             shouldShowBottomPadding = true
+            showTopBar(true)
             showBottomBar(true)
             MainScreen(openScreen = openScreen)
         }

@@ -21,7 +21,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.focus.FocusManager
@@ -267,7 +266,6 @@ fun EmailField(
     }
 }
 
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun SimpleTextField(
     value: String,
@@ -276,6 +274,7 @@ fun SimpleTextField(
     modifier: Modifier = Modifier,
     borderColor: Color = gray,
     focusManager: FocusManager? = null,
+    keyboardType: KeyboardType = KeyboardType.Text,
     imeAction: ImeAction = ImeAction.Next
 ) {
     BasicTextField(
@@ -299,7 +298,7 @@ fun SimpleTextField(
             }
                         },
         keyboardOptions = KeyboardOptions(
-            keyboardType = KeyboardType.Text,
+            keyboardType = keyboardType,
             imeAction = imeAction
         ),
         keyboardActions = KeyboardActions(
