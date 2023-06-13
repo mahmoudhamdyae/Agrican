@@ -31,6 +31,9 @@ android {
         }
     }
     compileOptions {
+        // Flag to enable support for the new language APIs
+        coreLibraryDesugaringEnabled true
+
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -112,6 +115,10 @@ dependencies {
     // AWS
     implementation 'com.amplifyframework:core-kotlin:2.8.4'
     implementation 'com.amplifyframework:aws-auth-cognito:2.8.4'
+
+    // Date Time
+    implementation "io.github.vanpra.compose-material-dialogs:datetime:0.9.0"
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.3'
 }
 
 // Allow references to generated code

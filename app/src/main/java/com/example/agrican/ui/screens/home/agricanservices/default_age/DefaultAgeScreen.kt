@@ -1,5 +1,6 @@
 package com.example.agrican.ui.screens.home.agricanservices.default_age
 
+import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
@@ -28,8 +29,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ProgressIndicatorDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -55,6 +58,12 @@ import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.spacing
+import com.vanpra.composematerialdialogs.MaterialDialog
+import com.vanpra.composematerialdialogs.datetime.date.DatePickerDefaults
+import com.vanpra.composematerialdialogs.datetime.date.datepicker
+import com.vanpra.composematerialdialogs.rememberMaterialDialogState
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 object DefaultAgesDestination: NavigationDestination {
     override val route: String = "default_age"
@@ -91,6 +100,39 @@ fun DefaultAgeScreenContent(
     getResults: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    var pickedDate by remember { mutableStateOf(LocalDate.now()) }
+    val formattedDate by remember {
+        derivedStateOf {
+            DateTimeFormatter
+                .ofPattern("MMM dd yyyy")
+                .format(pickedDate)
+        }
+    }
+
+    val dateDialogState = rememberMaterialDialogState()
+
+    val context = LocalContext.current
+    MaterialDialog(
+        dialogState = dateDialogState,
+        buttons = {
+            positiveButton("Ok") {
+                Toast.makeText(context, pickedDate.toString(), Toast.LENGTH_SHORT).show()
+            }
+            negativeButton("Cancel")
+        }
+    ) {
+        datepicker(
+            initialDate = LocalDate.now(),
+            title = "Pick a date",
+            colors = DatePickerDefaults.colors(
+                headerBackgroundColor = greenDark,
+                dateActiveBackgroundColor = greenLight
+            )
+        ) { date ->
+            pickedDate = date
+        }
+    }
+
     Column(
         modifier = modifier.verticalScroll(rememberScrollState())
     ) {
@@ -103,7 +145,7 @@ fun DefaultAgeScreenContent(
         Row(verticalAlignment = Alignment.CenterVertically) {
             IconButton(
                 onClick = {
-                    // todo: open date picker
+                    dateDialogState.show()
                 },
                 modifier = Modifier
                     .padding(MaterialTheme.spacing.small)
@@ -229,6 +271,7 @@ fun DefaultAgeScreenContent(
         }
     }
 }
+
 
 @Composable
 fun CircularProgress(
