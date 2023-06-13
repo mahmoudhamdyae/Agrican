@@ -20,7 +20,7 @@ class JoinAsExpertViewModel @Inject constructor(
     ) {
         launchCatching {
             useCase.joinUsUseCase(
-                userName = fullName,
+                fullName = fullName,
                 email = email,
                 phoneNumber = phoneNumber,
                 image = image

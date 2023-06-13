@@ -1,5 +1,6 @@
 package com.example.agrican.domain.use_case
 
+import com.example.agrican.domain.model.Task
 import com.example.agrican.domain.repository.MainRepository
 import javax.inject.Inject
 
@@ -8,6 +9,7 @@ class AddTaskUseCase @Inject constructor(
 ) {
 
     suspend operator fun invoke(taskName: String) {
-        mainRepository.addTask()
+        val task = Task(taskName = taskName)
+        mainRepository.addTask(task)
     }
 }

@@ -9,6 +9,8 @@ class GetPests @Inject constructor(
 ) {
 
     suspend operator fun invoke(): List<Pest> {
+//        return mainRepository.getPests()
+
         return listOf(
             Pest(
                 title = "تبقع الأوراق السيركسبورى أو (التيكا) فى الفول السودانى"

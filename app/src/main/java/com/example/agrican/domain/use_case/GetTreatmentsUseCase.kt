@@ -17,6 +17,8 @@ class GetTreatmentsUseCase @Inject constructor(
             else -> { DiseaseType.INSECTS }
         }
 
+//        return mainRepository.getTreatments()
+
         return listOf(
             Treatment(
                 name = "علاج 1",

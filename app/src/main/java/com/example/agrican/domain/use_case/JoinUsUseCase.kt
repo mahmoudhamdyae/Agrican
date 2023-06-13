@@ -9,12 +9,17 @@ class JoinUsUseCase @Inject constructor(
 ) {
 
     suspend operator fun invoke(
-        userName: String,
+        fullName: String,
         email: String,
         phoneNumber: String,
         image: Uri
     ) {
 
-        mainRepository.joinAsExpert()
+        mainRepository.joinAsExpert(
+            fullName = fullName,
+            email = email,
+            phoneNumber = phoneNumber,
+            image = image
+        )
     }
 }

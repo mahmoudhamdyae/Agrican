@@ -1,6 +1,7 @@
 package com.example.agrican.domain.model
 
 import com.example.agrican.R
+import java.util.UUID
 
 data class User(
     val userName: String = "",
@@ -8,7 +9,7 @@ data class User(
     val email: String = "",
     val userType: UserType = UserType.ENGINEER,
     val image: String = "",
-    val userId: String = ""
+    val userId: String = UUID.randomUUID().toString()
 )
 
 enum class UserType(val title: Int) {

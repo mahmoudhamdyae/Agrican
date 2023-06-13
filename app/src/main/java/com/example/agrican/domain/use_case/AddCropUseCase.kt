@@ -14,6 +14,6 @@ class AddCropUseCase @Inject constructor(
         month: Int,
         year: Int
     ) {
-        mainRepository.addCrop()
+        mainRepository.addCrop(crop)
     }
 }

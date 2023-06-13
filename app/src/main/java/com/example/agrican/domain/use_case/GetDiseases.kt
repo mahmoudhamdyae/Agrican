@@ -9,6 +9,8 @@ class GetDiseases @Inject constructor(
 ) {
 
     suspend operator fun invoke(): List<Disease> {
+//        return mainRepository.getDiseases()
+
         return listOf(
             Disease(
                 title = "تبقع الأوراق السيركسبورى أو (التيكا) فى الفول السودانى"

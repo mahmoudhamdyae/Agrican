@@ -1,6 +1,7 @@
 package com.example.agrican.domain.use_case
 
 import com.example.agrican.common.enums.SizeUnit
+import com.example.agrican.domain.model.Farm
 import com.example.agrican.domain.repository.MainRepository
 import javax.inject.Inject
 
@@ -18,11 +19,13 @@ class AddFarmUseCase @Inject constructor(
         cropsType: String
     ) {
 
+        val farm = Farm(name = farmName)
+
         val unit = when(sizeUnit) {
             SizeUnit.SQUARE_KILOMETER.title -> { SizeUnit.SQUARE_KILOMETER.name }
             else -> { SizeUnit.SQUARE_KILOMETER.name }
         }
 
-        mainRepository.addFarm()
+        mainRepository.addFarm(farm)
     }
 }

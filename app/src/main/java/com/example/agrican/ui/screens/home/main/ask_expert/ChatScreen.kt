@@ -3,6 +3,7 @@ package com.example.agrican.ui.screens.home.main.ask_expert
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,6 +15,10 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.CameraAlt
+import androidx.compose.material.icons.outlined.Link
+import androidx.compose.material.icons.outlined.RecordVoiceOver
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -36,6 +41,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -45,6 +51,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
 import com.example.agrican.domain.model.Chat
 import com.example.agrican.domain.model.Message
+import com.example.agrican.domain.model.MessageType
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
@@ -75,8 +82,8 @@ fun ChatScreen(
         navigateUp = navigateUp,
         userId = userId,
         chat = uiState.chat,
-        sendMessage = {
-            viewModel.sendMessage(it)
+        sendMessage = { messageBody, messageType ->
+            viewModel.sendMessage(messageBody, messageType)
             scope.launch {
                 scrollState.animateScrollToItem(0)
             }
@@ -91,7 +98,7 @@ fun ChatScreenContent(
     navigateUp: () -> Unit,
     userId: String,
     chat: Chat,
-    sendMessage: (String) -> Unit,
+    sendMessage: (String, MessageType) -> Unit,
     modifier: Modifier = Modifier,
     scrollState: LazyListState = rememberLazyListState()
 ) {
@@ -222,25 +229,17 @@ fun TextMessage(
 fun UserImage(
     modifier: Modifier = Modifier
 ) {
-    IconButton(
-        onClick = { },
-        colors = IconButtonDefaults.iconButtonColors(containerColor = greenLight),
+    Box(
         modifier = modifier
             .clip(CircleShape)
-            .background(greenLight)
-    ) {
-        Icon(
-            painter = painterResource(id = R.drawable.ic_visibility_on),
-            contentDescription = null,
-            tint = Color.White,
-        )
-    }
+            .background(greenDark)
+    )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BottomView(
-    sendMessage: (String) -> Unit,
+    sendMessage: (String, MessageType) -> Unit,
     modifier: Modifier = Modifier
 ) {
     var message by rememberSaveable { mutableStateOf("") }
@@ -268,16 +267,25 @@ fun BottomView(
                 modifier = Modifier.weight(1f)
             )
 
-            ChatOutlinedButton(icon = R.drawable.ic_visibility_on, onItemClick = { /*TODO*/ })
-            ChatOutlinedButton(icon = R.drawable.ic_visibility_on, onItemClick = { /*TODO*/ })
-            ChatOutlinedButton(icon = R.drawable.ic_visibility_on, onItemClick = { /*TODO*/ })
+            ChatOutlinedButton(icon = Icons.Outlined.RecordVoiceOver, onItemClick = { recordVoice(sendMessage) })
+            ChatOutlinedButton(icon = Icons.Outlined.Link, onItemClick = { addDocument(sendMessage) })
+            ChatOutlinedButton(icon = Icons.Outlined.CameraAlt, onItemClick = { takePhoto(sendMessage) })
         }
     }
 }
 
+fun recordVoice(sendMessage: (String, MessageType) -> Unit) {
+}
+
+fun addDocument(sendMessage: (String, MessageType) -> Unit) {
+}
+
+fun takePhoto(sendMessage: (String, MessageType) -> Unit) {
+}
+
 @Composable
 fun ChatOutlinedButton(
-    icon: Int,
+    icon: ImageVector,
     onItemClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -288,7 +296,7 @@ fun ChatOutlinedButton(
     ) {
         IconButton(onClick = onItemClick) {
             Icon(
-                painter = painterResource(id = icon),
+                imageVector = icon,
                 contentDescription = null,
                 tint = greenLight
             )
@@ -300,11 +308,11 @@ fun ChatOutlinedButton(
 fun ChatButton(
     icon: Int,
     messageBody: String,
-    onItemClick: (String) -> Unit,
+    onItemClick: (String, MessageType) -> Unit,
     modifier: Modifier = Modifier
 ) {
     IconButton(
-        onClick = { onItemClick(messageBody) },
+        onClick = { onItemClick(messageBody, MessageType.TEXT) },
         colors = IconButtonDefaults.iconButtonColors(containerColor = greenLight),
         modifier = modifier
             .clip(CircleShape)
@@ -322,14 +330,34 @@ fun ChatButton(
 @Composable
 fun ChatScreenPreview() {
     val chat = Chat(chatId = "1", messages = listOf(
-        Message("أهلا بيك معاك .. من أجريكان أقدر أساعد حضرتك إزاى؟", "1", "1"),
-        Message("أهلا بيك معاك .. من أجريكان أقدر أساعد حضرتك إزاى؟", "1", "2"),
-        Message("أهلا بيك معاك .. من أجريكان أقدر أساعد حضرتك إزاى؟", "1", "3"),
-        Message("text2", "2", "4"),
-        Message("أهلا بيك معاك .. من أجريكان أقدر أساعد حضرتك إزاى؟", "1", "5"),
-        Message("أهلا بيك معاك .. من أجريكان أقدر أساعد حضرتك إزاى؟", "1", "6"),
-        Message("text2", "2", "7"),
-        Message("text2", "2", "8"),
+        Message(
+            body = "أهلا بيك معاك .. من أجريكان أقدر أساعد حضرتك إزاى؟",
+            userId = "1",
+            messageId = "1"
+        ),
+        Message(
+            body = "أهلا بيك معاك .. من أجريكان أقدر أساعد حضرتك إزاى؟",
+            userId = "1",
+            messageId = "2"
+        ),
+        Message(
+            body = "أهلا بيك معاك .. من أجريكان أقدر أساعد حضرتك إزاى؟",
+            userId = "1",
+            messageId = "3"
+        ),
+        Message(body = "text2", userId = "2", messageId = "4"),
+        Message(
+            body = "أهلا بيك معاك .. من أجريكان أقدر أساعد حضرتك إزاى؟",
+            userId = "1",
+            messageId = "5"
+        ),
+        Message(
+            body = "أهلا بيك معاك .. من أجريكان أقدر أساعد حضرتك إزاى؟",
+            userId = "1",
+            messageId = "6"
+        ),
+        Message(body = "text2", userId = "2", messageId = "7"),
+        Message(body = "text2", userId = "2", messageId = "8"),
     ))
-    ChatScreenContent(userId = "2", chat = chat, sendMessage = { }, navigateUp = { })
+    ChatScreenContent(userId = "2", chat = chat, sendMessage = { _, _ -> }, navigateUp = { })
 }

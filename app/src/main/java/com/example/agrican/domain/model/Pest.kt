@@ -1,5 +1,7 @@
 package com.example.agrican.domain.model
 
+import java.util.UUID
+
 data class Pest(
     val title: String = "",
     val name: String = "",
@@ -10,5 +12,5 @@ data class Pest(
     val symptoms: List<String> = emptyList(),
     val injurySeason: String = "",
     val controlTiming: List<String> = emptyList(),
-    val pestId: String = "1234"
+    val pestId: String = UUID.randomUUID().toString()
 )

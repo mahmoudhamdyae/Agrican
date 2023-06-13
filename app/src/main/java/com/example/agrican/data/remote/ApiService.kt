@@ -1,6 +1,5 @@
-package com.example.agrican.domain.repository
+package com.example.agrican.data.remote
 
-import android.net.Uri
 import com.example.agrican.domain.model.Chat
 import com.example.agrican.domain.model.Crop
 import com.example.agrican.domain.model.Disease
@@ -15,33 +14,77 @@ import com.example.agrican.domain.model.User
 import com.example.agrican.domain.model.Weather
 import com.example.agrican.domain.use_case.GetDefaultAgeResponse
 import kotlinx.coroutines.flow.Flow
+import retrofit2.http.GET
+import retrofit2.http.POST
 
-interface MainRepository {
+interface ApiService {
 
+    @GET("")
     suspend fun getWeather(): Weather
+
+    @GET("")
     suspend fun getNews(): List<News>
 
+    @GET("")
     suspend fun getDefaultAge(): GetDefaultAgeResponse
+
+    @POST("")
     suspend fun orderNewProduct()
+
+    @GET("")
     suspend fun getOrders(): List<Order>
+
+    @GET("")
     suspend fun getTreatments(): List<Treatment>
-    suspend fun joinAsExpert(fullName: String, email: String, phoneNumber: String, image: Uri)
+
+    @POST("")
+    suspend fun joinAsExpert()
+
+    @GET("")
     suspend fun getDiseases(): List<Disease>
+
+    @GET("")
     suspend fun getDisease(diseaseId: String): Disease
+
+    @GET("")
     suspend fun getPests(): List<Pest>
+
+    @GET("")
     suspend fun getPest(pestId: String): Pest
 
+    @POST("")
     suspend fun searchProblem()
+
+    @GET("")
     suspend fun calculateFertilize()
+
+    @GET("")
     suspend fun getChat(): Flow<Chat>
+
+    @POST("")
     suspend fun sendMessage(message: Message)
 
+    @POST("")
     suspend fun getCurrentUser(): User
+
+    @POST("")
     suspend fun getFarms(): List<Farm>
+
+    @POST("")
     suspend fun getCrops(): List<Crop>
+
+    @POST("")
     suspend fun getCrop(cropId: String): Crop
+
+    @POST("")
     suspend fun addFarm(farm: Farm)
+
+    @POST("")
     suspend fun addCrop(crop: Crop)
+
+    @POST("")
     suspend fun observeCrop(): Flow<Crop>
+
+    @POST("")
     suspend fun addTask(task: Task)
 }

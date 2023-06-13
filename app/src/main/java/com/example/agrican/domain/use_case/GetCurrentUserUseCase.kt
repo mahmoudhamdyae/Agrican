@@ -10,6 +10,8 @@ class GetCurrentUserUseCase @Inject constructor(
 ) {
 
     suspend operator fun invoke(): User {
+//        return mainRepository.getCurrentUser()
+
         return User(
             userName = "مستخدم جديد",
             phoneNumber = "",

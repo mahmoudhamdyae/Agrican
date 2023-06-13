@@ -9,6 +9,8 @@ class GetNewsUseCase @Inject constructor(
 ) {
 
     suspend operator fun invoke(): List<News> {
+//        return mainRepository.getNews()
+
         return listOf(
             News(title = "ابتكار طرق جديدة"),
             News(title = "ابتكار طرق جديدة"),

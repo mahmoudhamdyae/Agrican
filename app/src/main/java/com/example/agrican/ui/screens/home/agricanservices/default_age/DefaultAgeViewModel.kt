@@ -47,9 +47,12 @@ class DefaultAgeViewModel @Inject constructor(
                 crop = _uiState.value.currentCrop,
                 currentQuality = _uiState.value.currentQuality
             )
-            _uiState.value = _uiState.value.copy(defaultAge = defaultAgeResponse.first)
-            _uiState.value = _uiState.value.copy(dangerDegree = defaultAgeResponse.second)
-            _uiState.value = _uiState.value.copy(dangerAdvice = defaultAgeResponse.third)
+
+            _uiState.value = _uiState.value.copy(
+                defaultAge = defaultAgeResponse.defaultAge,
+                dangerDegree = defaultAgeResponse.dangerDegree,
+                dangerAdvice = defaultAgeResponse.dangerAdvice
+            )
         }
     }
 }

@@ -10,6 +10,8 @@ class GetPest @Inject constructor(
 ) {
 
     suspend operator fun invoke(pestId: String): Pest {
+//        return mainRepository.getPest(pestId)
+
         return Pest(
             title = "تبقع الأوراق السيركسبورى أو (التيكا) فى الفول السودانى",
             name = "Scirpophaga inceertulas-Chilo suppressalis",

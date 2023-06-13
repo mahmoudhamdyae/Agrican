@@ -15,7 +15,7 @@ class GetDefaultAgeUseCase @Inject constructor(
         year: Int,
         crop: Crop,
         currentQuality: Int,
-    ): Triple<Float, Int, String> {
+    ): GetDefaultAgeResponse {
 
         val quality = when(currentQuality) {
             Quality.GOOD.title -> { Quality.GOOD.name }
@@ -24,6 +24,13 @@ class GetDefaultAgeUseCase @Inject constructor(
             else -> { Quality.VERY_GOOD.name }
         }
 
-        return Triple(88f, 2, "باقى حوالى 21 يوم حتى تلف المحصول بالكامل\nالأفضل لك جمع المحصول خلال 6 أيام و استخدامه")
+//        return mainRepository.getDefaultAge()
+        return GetDefaultAgeResponse(88f, 2, "باقى حوالى 21 يوم حتى تلف المحصول بالكامل\nالأفضل لك جمع المحصول خلال 6 أيام و استخدامه")
     }
 }
+
+data class GetDefaultAgeResponse(
+    val defaultAge: Float,
+    val dangerDegree: Int,
+    val dangerAdvice: String,
+)

@@ -9,6 +9,8 @@ class GetWeatherUseCase @Inject constructor(
 ) {
 
     suspend operator fun invoke(): Weather {
+//        return mainRepository.getWeather()
+
         return Weather(
             air = "مقبول",
             degree = 31.0,
