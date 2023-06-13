@@ -30,7 +30,6 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
 import com.example.agrican.common.enums.Quantity
 import com.example.agrican.ui.components.DropDown
@@ -45,8 +44,6 @@ fun NewOrderScreen(
     modifier: Modifier = Modifier,
     viewModel: NewOrderViewModel = hiltViewModel()
 ) {
-
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val focusManager = LocalFocusManager.current
     val context = LocalContext.current
 
@@ -67,7 +64,7 @@ fun NewOrderScreen(
             .height(IntrinsicSize.Max)) {
             LabelItem(text = R.string.product_kind)
             Spacer(modifier = Modifier.weight(1f))
-            DropDown(options = arrayOf(
+            DropDown(options = listOf(
                 R.string.insecticide
             ),
                 onSelect = { viewModel.updateUiState(productType = it) },
@@ -98,7 +95,7 @@ fun NewOrderScreen(
                 modifier = Modifier.weight(1f)
             )
             Spacer(modifier = Modifier.width(MaterialTheme.spacing.small))
-            DropDown(options = arrayOf(
+            DropDown(options = listOf(
                 Quantity.KILOGRAM.title
             ),
                 onSelect = { viewModel.updateUiState(quantityUnit = it) },
@@ -118,19 +115,19 @@ fun NewOrderScreen(
             horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
             modifier = Modifier.height(MaterialTheme.spacing.large)
         ) {
-            DropDown(options = arrayOf(
+            DropDown(options = listOf(
                 R.string.place
             ),
                 onSelect = { viewModel.updateUiState(place = context.getString(it)) },
                 modifier = Modifier.weight(1f)
             )
-            DropDown(options = arrayOf(
+            DropDown(options = listOf(
                 R.string.city
             ),
                 onSelect = { viewModel.updateUiState(city = context.getString(it)) },
                 modifier = Modifier.weight(1f)
             )
-            DropDown(options = arrayOf(
+            DropDown(options = listOf(
                 R.string.governorate
             ),
                 onSelect = { viewModel.updateUiState(governorate = context.getString(it)) },

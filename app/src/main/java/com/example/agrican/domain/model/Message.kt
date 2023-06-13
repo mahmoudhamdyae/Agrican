@@ -1,7 +1,12 @@
 package com.example.agrican.domain.model
 
 data class Message(
-    val body: String,
-    val userId: String,
-    val messageId: String,
+    val type: MessageType = MessageType.TEXT,
+    val body: String = "",
+    val userId: String = "",
+    val messageId: String = "",
 )
+
+enum class MessageType {
+    TEXT, IMAGE, VOICE, DOCUMENT
+}

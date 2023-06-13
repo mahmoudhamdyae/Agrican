@@ -139,7 +139,7 @@ fun LoginScreenContent(
             Row(modifier = Modifier.fillMaxWidth()) {
                 Spacer(modifier = Modifier.weight(1f))
 
-                DropDown(options = arrayOf(
+                DropDown(options = listOf(
                     R.string.farmer,
                     R.string.farm,
                     R.string.engineer,

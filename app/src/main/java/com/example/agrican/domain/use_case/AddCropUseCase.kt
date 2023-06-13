@@ -10,9 +10,9 @@ class AddCropUseCase @Inject constructor(
 
     suspend operator fun invoke(
         crop: Crop,
-        day: String,
-        month: String,
-        year: String
+        day: Int,
+        month: Int,
+        year: Int
     ) {
         mainRepository.addCrop()
     }

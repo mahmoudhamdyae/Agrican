@@ -1,6 +1,7 @@
 package com.example.agrican.ui.screens.home.agricanservices.default_age
 
-import android.widget.Toast
+import android.app.DatePickerDialog
+import android.widget.DatePicker
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
@@ -29,10 +30,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ProgressIndicatorDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -49,21 +48,17 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
 import com.example.agrican.common.enums.Quality
+import com.example.agrican.common.utils.DateUtils
 import com.example.agrican.domain.model.Crop
 import com.example.agrican.ui.components.Chip
 import com.example.agrican.ui.components.CropsList
-import com.example.agrican.ui.components.DropDown
+import com.example.agrican.ui.components.DateDropDown
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.spacing
-import com.vanpra.composematerialdialogs.MaterialDialog
-import com.vanpra.composematerialdialogs.datetime.date.DatePickerDefaults
-import com.vanpra.composematerialdialogs.datetime.date.datepicker
-import com.vanpra.composematerialdialogs.rememberMaterialDialogState
 import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 object DefaultAgesDestination: NavigationDestination {
     override val route: String = "default_age"
@@ -92,46 +87,26 @@ fun DefaultAgeScreen(
 @Composable
 fun DefaultAgeScreenContent(
     uiState: DefaultAgeUiState,
-    updateDay: (String) -> Unit,
-    updateMonth: (String) -> Unit,
-    updateYear: (String) -> Unit,
+    updateDay: (Int) -> Unit,
+    updateMonth: (Int) -> Unit,
+    updateYear: (Int) -> Unit,
     updateCurrentCrop: (Crop) -> Unit,
     updateCurrentQuality: (Int) -> Unit,
     getResults: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    var pickedDate by remember { mutableStateOf(LocalDate.now()) }
-    val formattedDate by remember {
-        derivedStateOf {
-            DateTimeFormatter
-                .ofPattern("MMM dd yyyy")
-                .format(pickedDate)
-        }
-    }
-
-    val dateDialogState = rememberMaterialDialogState()
-
     val context = LocalContext.current
-    MaterialDialog(
-        dialogState = dateDialogState,
-        buttons = {
-            positiveButton("Ok") {
-                Toast.makeText(context, pickedDate.toString(), Toast.LENGTH_SHORT).show()
-            }
-            negativeButton("Cancel")
-        }
-    ) {
-        datepicker(
-            initialDate = LocalDate.now(),
-            title = "Pick a date",
-            colors = DatePickerDefaults.colors(
-                headerBackgroundColor = greenDark,
-                dateActiveBackgroundColor = greenLight
-            )
-        ) { date ->
-            pickedDate = date
-        }
-    }
+
+    // Declaring DatePickerDialog and setting
+    // initial values as current values (present year, month and day)
+    val datePickerDialog = DatePickerDialog(
+        context,
+        { _: DatePicker, year: Int, month: Int, day: Int ->
+            updateDay(day)
+            updateMonth(month)
+            updateYear(year)
+        }, LocalDate.now().year, LocalDate.now().monthValue, LocalDate.now().dayOfMonth
+    )
 
     Column(
         modifier = modifier.verticalScroll(rememberScrollState())
@@ -145,7 +120,7 @@ fun DefaultAgeScreenContent(
         Row(verticalAlignment = Alignment.CenterVertically) {
             IconButton(
                 onClick = {
-                    dateDialogState.show()
+                    datePickerDialog.show()
                 },
                 modifier = Modifier
                     .padding(MaterialTheme.spacing.small)
@@ -167,26 +142,26 @@ fun DefaultAgeScreenContent(
                     .height(MaterialTheme.spacing.large)
                     .weight(1f)
             ) {
-                DropDown(options = arrayOf(
-                    R.string.day
-                ),
-                    onSelect = { /*TODO*/ },
+                DateDropDown(
+                    options = DateUtils().days,
+                    onSelect = { if (it != 0) updateDay(it) },
+                    selectedOption = uiState.day,
                     modifier = Modifier
                         .weight(1f)
                         .fillMaxHeight()
                 )
-                DropDown(options = arrayOf(
-                    R.string.month
-                ),
-                    onSelect = { /*TODO*/ },
+                DateDropDown(
+                    options = DateUtils().months,
+                    onSelect = { if (it != 0) updateMonth(it) },
+                    selectedOption = uiState.month,
                     modifier = Modifier
                         .weight(1f)
                         .fillMaxHeight()
                 )
-                DropDown(options = arrayOf(
-                    R.string.year
-                ),
-                    onSelect = { /*TODO*/ },
+                DateDropDown(
+                    options = DateUtils().years,
+                    onSelect = { if (it != 0) updateYear(it) },
+                    selectedOption = uiState.year,
                     modifier = Modifier
                         .weight(1f)
                         .fillMaxHeight()
@@ -216,7 +191,7 @@ fun DefaultAgeScreenContent(
             Quality.AVERAGE,
             Quality.BELOW_AVERAGE,
         )
-        val context = LocalContext.current
+
         LazyRow {
             items(qualities.size) {
                 Chip(

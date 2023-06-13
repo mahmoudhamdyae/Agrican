@@ -24,9 +24,9 @@ class AddCropViewModel @Inject constructor(
 
     fun updateUiStates(
         selectedCrop: Crop =  _uiState.value.selectedCrop,
-        day: String =  _uiState.value.day,
-        month: String =  _uiState.value.month,
-        year: String =  _uiState.value.year,
+        day: Int =  _uiState.value.day,
+        month: Int =  _uiState.value.month,
+        year: Int =  _uiState.value.year,
     ) {
         _uiState.value = _uiState.value.copy(
             selectedCrop = selectedCrop,

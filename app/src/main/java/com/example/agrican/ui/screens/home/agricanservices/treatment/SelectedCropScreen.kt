@@ -118,7 +118,7 @@ fun SelectedCropScreenContent(
             color = greenDark
         )
 
-        DropDown(options = arrayOf(
+        DropDown(options = listOf(
             DiseaseType.INSECTS.title
         ),
             onSelect = updateDiseaseType,

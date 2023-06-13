@@ -12,9 +12,9 @@ class AddFarmUseCase @Inject constructor(
         farmName: String,
         farmSize: String,
         sizeUnit: Int,
-        day: String,
-        month: String,
-        year: String,
+        day: Int,
+        month: Int,
+        year: Int,
         cropsType: String
     ) {
 

@@ -23,9 +23,9 @@ class DefaultAgeViewModel @Inject constructor(
     }
 
     fun updateUiStates(
-        day: String =  _uiState.value.day,
-        month: String =  _uiState.value.month,
-        year: String =  _uiState.value.year,
+        day: Int =  _uiState.value.day,
+        month: Int =  _uiState.value.month,
+        year: Int =  _uiState.value.year,
         currentCrop: Crop = _uiState.value.currentCrop,
         currentQuality: Int = _uiState.value.currentQuality
     ) {

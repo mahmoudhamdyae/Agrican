@@ -19,9 +19,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
+import com.example.agrican.common.utils.DateUtils
 import com.example.agrican.domain.model.Crop
 import com.example.agrican.ui.components.CropsList
-import com.example.agrican.ui.components.DropDown
+import com.example.agrican.ui.components.DateDropDown
 import com.example.agrican.ui.components.ProfileHeader
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.greenDark
@@ -58,9 +59,9 @@ fun AddCropScreen(
 fun AddCropScreenContent(
     uiState: AddCropUiState,
     updateSelectedCrop: (Crop) -> Unit,
-    updateDay: (String) -> Unit,
-    updateMonth: (String) -> Unit,
-    updateYear: (String) -> Unit,
+    updateDay: (Int) -> Unit,
+    updateMonth: (Int) -> Unit,
+    updateYear: (Int) -> Unit,
     addCrop: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -86,22 +87,22 @@ fun AddCropScreenContent(
                 text = stringResource(id = R.string.agri_history),
                 color = greenDark
             )
-            DropDown(options = arrayOf(
-                R.string.day
-            ),
-                onSelect = { updateDay(context.getString(it)) },
+            DateDropDown(
+                options = DateUtils().days,
+                onSelect = { if (it != 0) updateDay(it) },
+                selectedOption = uiState.day,
                 modifier = Modifier.weight(1f).height(MaterialTheme.spacing.large)
             )
-            DropDown(options = arrayOf(
-                R.string.month
-            ),
-                onSelect = {updateMonth(context.getString(it)) },
+            DateDropDown(
+                options = DateUtils().months,
+                onSelect = { if (it != 0) updateMonth(it) },
+                selectedOption = uiState.month,
                 modifier = Modifier.weight(1f).height(MaterialTheme.spacing.large)
             )
-            DropDown(options = arrayOf(
-                R.string.year
-            ),
-                onSelect = { updateYear(context.getString(it)) },
+            DateDropDown(
+                options = DateUtils().years,
+                onSelect = { if (it != 0) updateYear(it) },
+                selectedOption = uiState.year,
                 modifier = Modifier.weight(1f).height(MaterialTheme.spacing.large)
             )
         }

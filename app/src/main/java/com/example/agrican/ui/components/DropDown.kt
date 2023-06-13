@@ -33,14 +33,14 @@ import com.example.agrican.ui.theme.spacing
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DropDown(
-    options: Array<Int>,
+    options: List<Int>,
     onSelect: (Int) -> Unit,
     modifier: Modifier = Modifier,
     isGray: Boolean = false,
 ) {
 
     var expanded by remember { mutableStateOf(false) }
-    var selectedAvailabilityOption by remember { mutableStateOf(options[0]) }
+    var selectedOption by remember { mutableStateOf(options[0]) }
 
     ExposedDropdownMenuBox(
         expanded = expanded,
@@ -53,7 +53,7 @@ fun DropDown(
             decorationBox = {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(
-                        text = stringResource(id = selectedAvailabilityOption),
+                        text = stringResource(id = selectedOption),
                         color = if (isGray) gray else Color.Black,
                         modifier = Modifier.padding(start = MaterialTheme.spacing.small)
                     )
@@ -61,7 +61,7 @@ fun DropDown(
                     ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
                 }
             },
-            value = stringResource(id = selectedAvailabilityOption),
+            value = stringResource(id = selectedOption),
             onValueChange = { },
             modifier = Modifier
                 .menuAnchor()
@@ -83,7 +83,72 @@ fun DropDown(
                         ) },
                     onClick = {
                         onSelect(selectionOption)
-                        selectedAvailabilityOption = selectionOption
+                        selectedOption = selectionOption
+                        expanded = false
+                    }
+                )
+            }
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun DateDropDown(
+    options: List<Int>,
+    onSelect: (Int) -> Unit,
+    modifier: Modifier = Modifier,
+    selectedOption: Int = options[0]
+) {
+
+    var expanded by remember { mutableStateOf(false) }
+    var selectedOption2 by remember { mutableStateOf(selectedOption) }
+
+    ExposedDropdownMenuBox(
+        expanded = expanded,
+        onExpandedChange = { expanded = it },
+        modifier = modifier.fillMaxHeight()
+    ) {
+        BasicTextField(
+            readOnly = true,
+            singleLine = true,
+            decorationBox = {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        text = if (selectedOption2 == options[0]) stringResource(id = selectedOption2)
+                            else selectedOption2.toString(),
+                        color = Color.Black,
+                        modifier = Modifier.padding(start = MaterialTheme.spacing.small)
+                    )
+                    Spacer(modifier = Modifier.weight(1f))
+                    ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
+                }
+            },
+            value = if (selectedOption2 == options[0]) stringResource(id = selectedOption2)
+            else selectedOption2.toString(),
+            onValueChange = { },
+            modifier = Modifier
+                .menuAnchor()
+                .border(
+                    border = BorderStroke(1.dp, gray),
+                    shape = RoundedCornerShape(MaterialTheme.spacing.medium)
+                )
+                .fillMaxHeight()
+        )
+        ExposedDropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false }
+        ) {
+            options.forEach { selectionOption ->
+                DropdownMenuItem(
+                    text = { Text(
+                        text = if (selectionOption == options[0]) stringResource(id = selectionOption)
+                        else selectionOption.toString(),
+                        color = Color.Black
+                    ) },
+                    onClick = {
+                        onSelect(selectionOption)
+                        selectedOption2 = selectionOption
                         expanded = false
                     }
                 )
@@ -95,5 +160,5 @@ fun DropDown(
 @Preview(showBackground = true)
 @Composable
 fun BasicDropDownPreview() {
-    DropDown(options = arrayOf(R.string.place), onSelect = { }, modifier = Modifier.fillMaxSize())
+    DropDown(options = listOf(R.string.place), onSelect = { }, modifier = Modifier.fillMaxSize())
 }

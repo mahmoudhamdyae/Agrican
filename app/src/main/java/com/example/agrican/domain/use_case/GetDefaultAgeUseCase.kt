@@ -10,9 +10,9 @@ class GetDefaultAgeUseCase @Inject constructor(
 ) {
 
     suspend operator fun invoke(
-        day: String = "",
-        month: String = "",
-        year: String = "",
+        day: Int,
+        month: Int,
+        year: Int,
         crop: Crop,
         currentQuality: Int,
     ): Triple<Float, Int, String> {

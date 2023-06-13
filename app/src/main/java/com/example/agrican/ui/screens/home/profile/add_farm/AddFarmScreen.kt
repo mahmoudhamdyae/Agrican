@@ -27,6 +27,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
 import com.example.agrican.common.enums.SizeUnit
+import com.example.agrican.common.utils.DateUtils
+import com.example.agrican.ui.components.DateDropDown
 import com.example.agrican.ui.components.DropDown
 import com.example.agrican.ui.components.LabelItem
 import com.example.agrican.ui.components.LabelWithTextField
@@ -71,9 +73,9 @@ fun AddFarmScreenContent(
     updateFarmSize: (String) -> Unit,
     updateSizeUnit: (Int) -> Unit,
     updateCropsType: (String) -> Unit,
-    updateDay: (String) -> Unit,
-    updateMonth: (String) -> Unit,
-    updateYear: (String) -> Unit,
+    updateDay: (Int) -> Unit,
+    updateMonth: (Int) -> Unit,
+    updateYear: (Int) -> Unit,
     addFarm: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -106,7 +108,7 @@ fun AddFarmScreenContent(
                 modifier = Modifier.weight(1f)
             )
             Spacer(modifier = Modifier.width(MaterialTheme.spacing.small))
-            DropDown(options = arrayOf(
+            DropDown(options = listOf(
                 SizeUnit.SQUARE_KILOMETER.title
             ),
                 onSelect = { updateSizeUnit(it) },
@@ -123,26 +125,26 @@ fun AddFarmScreenContent(
         ) {
             LabelItem(text = R.string.harvest_season)
 
-            DropDown(options = arrayOf(
-                R.string.day
-            ),
-                onSelect = { updateDay(context.getString(it)) },
+            DateDropDown(
+                options = DateUtils().days,
+                onSelect = { if (it != 0) updateDay(it) },
+                selectedOption = uiState.day,
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxHeight()
             )
-            DropDown(options = arrayOf(
-                R.string.month
-            ),
-                onSelect = { updateMonth(context.getString(it)) },
+            DateDropDown(
+                options = DateUtils().months,
+                onSelect = { if (it != 0) updateMonth(it) },
+                selectedOption = uiState.month,
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxHeight()
             )
-            DropDown(options = arrayOf(
-                R.string.year
-            ),
-                onSelect = { updateYear(context.getString(it)) },
+            DateDropDown(
+                options = DateUtils().years,
+                onSelect = { if (it != 0) updateYear(it) },
+                selectedOption = uiState.year,
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxHeight()

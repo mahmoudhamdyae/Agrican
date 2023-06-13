@@ -39,7 +39,7 @@ fun EngineerMapScreen(
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
         modifier = modifier.padding(MaterialTheme.spacing.medium)
     ) {
-        DropDown(options = arrayOf(
+        DropDown(options = listOf(
             R.string.choose_farm
         ), onSelect = { /*TODO*/ },
             modifier = Modifier

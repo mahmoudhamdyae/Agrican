@@ -94,7 +94,7 @@ fun AddTaskScreenContent(
                 modifier = Modifier.weight(1f)
             )
 
-            DropDown(options = arrayOf(
+            DropDown(options = listOf(
                 R.string.add_task
             ),
                 onSelect = { /*TODO*/ },
