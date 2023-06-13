@@ -20,6 +20,10 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Calculate
+import androidx.compose.material.icons.filled.CameraAlt
+import androidx.compose.material.icons.filled.Person2
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -33,6 +37,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -117,7 +122,7 @@ fun MainScreenContent(
         BottomCard(
             title = R.string.problem_images,
             description = R.string.problem_images_description,
-            icon = R.drawable.ic_visibility_on,
+            icon = Icons.Default.CameraAlt,
             onItemClick = { openScreen(ProblemImagesDestination.route) },
             modifier = Modifier
                 .padding(MaterialTheme.spacing.small)
@@ -129,7 +134,7 @@ fun MainScreenContent(
             BottomCard(
                 title = R.string.fertilizers_calculator,
                 description = R.string.fertilizers_calculator_description,
-                icon = R.drawable.ic_visibility_on,
+                icon = Icons.Default.Calculate,
                 onItemClick = { openScreen(FertilizersCalculatorDestination.route) },
                 modifier = Modifier
                     .padding(MaterialTheme.spacing.small)
@@ -139,7 +144,7 @@ fun MainScreenContent(
             BottomCard(
                 title = R.string.ask_expert,
                 description = R.string.ask_expert_description,
-                icon = R.drawable.ic_visibility_on,
+                icon = Icons.Default.Person2,
                 onItemClick = { openScreen(AskExpertDestination.route) },
                 modifier = Modifier
                     .padding(MaterialTheme.spacing.small)
@@ -322,7 +327,7 @@ fun LatestNewsListItem(
 fun BottomCard(
     title: Int,
     description: Int,
-    icon: Int,
+    icon: ImageVector,
     onItemClick: () -> Unit,
     modifier: Modifier = Modifier,
     body: @Composable () -> Unit = { }
@@ -340,7 +345,7 @@ fun BottomCard(
                 )
                 Spacer(modifier = Modifier.weight(1f))
                 Icon(
-                    painter = painterResource(id = icon),
+                    imageVector = icon,
                     contentDescription = null,
                     tint = greenDark
                 )
