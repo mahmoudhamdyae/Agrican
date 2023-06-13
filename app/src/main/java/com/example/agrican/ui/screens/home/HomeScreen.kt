@@ -149,7 +149,7 @@ fun HomeScreenContent(
                     )
                 }
                 1 -> {
-                    shouldShowTopBar = false
+                    topBarIcon = false
                     ProfileGraph(
                         setTopBarTitle = { topBarTitle = it },
                         showTopBar = { shouldShowTopBar = it },
@@ -159,6 +159,7 @@ fun HomeScreenContent(
                 2 -> {
                     AgricanServicesGraph(setTopBarTitle = { topBarTitle = it })
                     shouldShowTopBar = true
+                    topBarIcon = false
                 }
             }
         }

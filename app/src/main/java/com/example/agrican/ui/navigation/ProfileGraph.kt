@@ -82,16 +82,16 @@ fun ProfileGraph(
         }
 
         composable(route = EngineerMapDestination.route) {
-            setTopBarTitle(EngineerMapDestination.titleRes)
             showTopBar(true)
             showBottomBar(true)
+            setTopBarTitle(EngineerMapDestination.titleRes)
             EngineerMapScreen()
         }
 
         composable(route = CostDestination.route) {
-            setTopBarTitle(CostDestination.titleRes)
             showTopBar(true)
             showBottomBar(true)
+            setTopBarTitle(CostDestination.titleRes)
             CostScreen()
         }
     }
