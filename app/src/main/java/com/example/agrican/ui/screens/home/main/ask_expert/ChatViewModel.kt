@@ -8,7 +8,6 @@ import com.example.agrican.ui.screens.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
 
 @HiltViewModel
@@ -22,7 +21,7 @@ class ChatViewModel @Inject constructor(
     init {
         launchCatching {
             Log.d("hahahaha1111", "")
-            useCase.getChatUseCase().collectLatest {
+            useCase.getChatUseCase().collect {
                 Log.d("hahahaha", it.toString())
                 _uiState.value = _uiState.value.copy(chat = it)
             }

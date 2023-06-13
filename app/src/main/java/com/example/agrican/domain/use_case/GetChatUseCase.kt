@@ -15,7 +15,8 @@ class GetChatUseCase @Inject constructor(
 //        return mainRepository.getChat()
 
         return flow {
-            Chat(messages = listOf(
+            emit(
+                Chat(messages = listOf(
                 Message(
                     body = "أهلا بيك معاك .. من أجريكان أقدر أساعد حضرتك إزاى؟",
                     userId = "1",
@@ -44,7 +45,7 @@ class GetChatUseCase @Inject constructor(
                 ),
                 Message(body = "text2", userId = "2", messageId = "7"),
                 Message(body = "text2", userId = "2", messageId = "8"),
-            ))
+            )))
         }
     }
 }
