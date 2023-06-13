@@ -11,6 +11,8 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
+import androidx.camera.core.ImageCapture.FLASH_MODE_OFF
+import androidx.camera.core.ImageCapture.FLASH_MODE_ON
 import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
@@ -29,6 +31,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.sharp.Lens
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -40,6 +43,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -54,6 +58,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.example.agrican.R
 import com.example.agrican.ui.theme.spacing
 import java.io.File
@@ -64,6 +69,7 @@ import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
+
 
 @Composable
 fun CameraScreen(
@@ -88,7 +94,7 @@ fun CameraScreen(
     ) { isGranted ->
         if (isGranted) {
             // Open camera
-            checkCameraHardwareAndOpenCamera(context) { }
+            checkCameraHardwareAndOpenCamera(context)
         } else {
             // Show dialog
             Toast.makeText(context, "Permission request denied", Toast.LENGTH_SHORT).show()
@@ -99,7 +105,7 @@ fun CameraScreen(
     DisposableEffect(lifecycleOwner) {
         val observer = LifecycleEventObserver { _, event ->
             if (event == Lifecycle.Event.ON_START) {
-                checkAndRequestCameraPermission(context, permission, launcher) { }
+                checkAndRequestCameraPermission(context, permission, launcher)
                 cameraExecutor = Executors.newSingleThreadExecutor()
             } else if (event == Lifecycle.Event.ON_STOP) {
                 cameraExecutor?.shutdown()
@@ -147,6 +153,8 @@ fun CameraView(
         .requireLensFacing(lensFacing)
         .build()
 
+    var flashOn by rememberSaveable { mutableStateOf(false) }
+
     LaunchedEffect(lensFacing) {
         val cameraProvider = context.getCameraProvider()
         cameraProvider.unbindAll()
@@ -166,10 +174,10 @@ fun CameraView(
 
             IconButton(
                 onClick = { navigateUp() },
-                modifier = Modifier.padding(MaterialTheme.spacing.medium)
+                modifier = Modifier.padding(MaterialTheme.spacing.medium).align(Alignment.TopEnd)
             ) {
                 Icon(
-                    painter = painterResource(id = R.drawable.baseline_arrow_back_ios_new_24),
+                    imageVector = Icons.Default.ArrowBack,
                     contentDescription = null,
                     modifier = Modifier.align(Alignment.TopStart)
                 )
@@ -207,6 +215,7 @@ fun CameraView(
                     if (uiState.currentImage != 3) {
                         takePhoto(
                             imageCapture = imageCapture,
+                            flashOn = flashOn,
                             outputDirectory = outputDirectory,
                             executor = executor,
                             onImageCaptured = {
@@ -233,9 +242,12 @@ fun CameraView(
                 )
             }
 
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = { flashOn = !flashOn }) {
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_visibility_on),
+                    painter = painterResource(id =
+                        if (flashOn) R.drawable.baseline_flash_on_24
+                        else R.drawable.baseline_flash_off_24
+                    ),
                     contentDescription = null,
                     tint = Color.White,
                 )
@@ -255,7 +267,11 @@ fun ImageCaptured(
         modifier = modifier.size(75.dp)
     ) {
         AsyncImage(
-            model = image,
+            model = ImageRequest
+                .Builder(LocalContext.current)
+                .data(data = image ?: R.drawable.gray_placeholder)
+                .build(),
+            placeholder = painterResource(id = R.drawable.loading_img),
             contentDescription = null,
             contentScale = ContentScale.FillBounds,
             modifier = modifier
@@ -266,23 +282,20 @@ fun ImageCaptured(
 fun checkAndRequestCameraPermission(
     context: Context,
     permission: String,
-    launcher: ManagedActivityResultLauncher<String, Boolean>,
-    openCamera: () -> Unit
+    launcher: ManagedActivityResultLauncher<String, Boolean>
 ) {
     val permissionCheckResult = ContextCompat.checkSelfPermission(context, permission)
     if (permissionCheckResult == PackageManager.PERMISSION_GRANTED) {
         // Open camera because permission is already granted
-        checkCameraHardwareAndOpenCamera(context, openCamera)
+        checkCameraHardwareAndOpenCamera(context)
     } else {
         // Request a permission
         launcher.launch(permission)
     }
 }
 
-private fun checkCameraHardwareAndOpenCamera(context: Context, openCamera: () -> Unit) {
-    if (checkCameraHardware(context)) {
-        openCamera()
-    } else {
+private fun checkCameraHardwareAndOpenCamera(context: Context) {
+    if (!checkCameraHardware(context)) {
         Toast.makeText(context, "No Camera", Toast.LENGTH_SHORT).show()
     }
 }
@@ -294,6 +307,7 @@ private fun checkCameraHardware(context: Context): Boolean {
 
 private fun takePhoto(
     imageCapture: ImageCapture,
+    flashOn: Boolean,
     outputDirectory: File,
     executor: Executor?,
     onImageCaptured: (Uri) -> Unit,
@@ -306,6 +320,8 @@ private fun takePhoto(
     )
 
     val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
+
+    imageCapture.flashMode = if (flashOn) FLASH_MODE_ON else FLASH_MODE_OFF
 
     imageCapture.takePicture(outputOptions, executor!!, object: ImageCapture.OnImageSavedCallback {
         override fun onError(exception: ImageCaptureException) {
