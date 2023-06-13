@@ -4,6 +4,6 @@ import com.example.agrican.domain.model.News
 import com.example.agrican.domain.model.Weather
 
 data class MainUiState(
-    var weather: Weather = Weather(),
-    var news: List<News> = emptyList()
+    val weather: Weather = Weather(),
+    val news: List<News> = emptyList()
 )

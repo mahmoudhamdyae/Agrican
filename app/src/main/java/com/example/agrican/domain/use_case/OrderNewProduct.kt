@@ -1,5 +1,7 @@
 package com.example.agrican.domain.use_case
 
+import com.example.agrican.common.enums.ProductType
+import com.example.agrican.common.enums.Quantity
 import com.example.agrican.domain.repository.MainRepository
 import javax.inject.Inject
 
@@ -8,16 +10,26 @@ class OrderNewProduct @Inject constructor(
 ) {
 
     suspend operator fun invoke(
-        productType: String,
+        productType: Int,
         productName: String,
         quantity: Int,
-        quantityUnit: String,
+        quantityUnit: Int,
         receivingAddress: String,
         place: String,
         city: String,
         governorate: String,
         notes: String,
     ) {
+        val type = when(productType) {
+            ProductType.INSECTICIDE.title -> { ProductType.INSECTICIDE.name }
+            else -> { ProductType.INSECTICIDE.name }
+        }
+
+        val unit = when(quantityUnit) {
+            Quantity.KILOGRAM.title -> { Quantity.KILOGRAM.name }
+            else -> { Quantity.KILOGRAM.name }
+        }
+
         mainRepository.orderNewProduct()
     }
 }

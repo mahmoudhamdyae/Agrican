@@ -17,7 +17,7 @@ class OrderViewModel @Inject constructor(
 
     init {
         launchCatching {
-            _uiState.value.orders = useCase.getOrdersUseCase()
+            _uiState.value = _uiState.value.copy(orders = useCase.getOrdersUseCase())
         }
     }
 }

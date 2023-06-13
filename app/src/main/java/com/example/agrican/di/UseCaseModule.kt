@@ -8,6 +8,7 @@ import com.example.agrican.domain.use_case.AddTaskUseCase
 import com.example.agrican.domain.use_case.BaseUseCase
 import com.example.agrican.domain.use_case.CalculateFertilizersUseCase
 import com.example.agrican.domain.use_case.GetChatUseCase
+import com.example.agrican.domain.use_case.GetCropUseCase
 import com.example.agrican.domain.use_case.GetCropsUseCase
 import com.example.agrican.domain.use_case.GetCurrentUserUseCase
 import com.example.agrican.domain.use_case.GetDefaultAgeUseCase
@@ -71,6 +72,7 @@ object UseCaseModule {
             sendMessageUseCase = SendMessageUseCase(mainRepository),
 
             getCropsUseCase = GetCropsUseCase(mainRepository),
+            getCropUseCase = GetCropUseCase(mainRepository),
             addCropUseCase = AddCropUseCase(mainRepository),
 
             getFarmsUseCase = GetFarmsUseCase(mainRepository),

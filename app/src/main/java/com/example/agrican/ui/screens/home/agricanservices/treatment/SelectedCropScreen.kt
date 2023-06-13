@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -26,7 +27,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
+import com.example.agrican.common.enums.DiseaseType
 import com.example.agrican.domain.model.Treatment
 import com.example.agrican.ui.components.DropDown
 import com.example.agrican.ui.navigation.NavigationDestination
@@ -53,12 +54,18 @@ fun SelectedCropScreen(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    SelectedCropScreenContent(uiState = uiState, getTreatments = viewModel::getTreatments, modifier = modifier)
+    SelectedCropScreenContent(
+        uiState = uiState,
+        updateDiseaseType = viewModel::updateDiseaseType,
+        getTreatments = viewModel::getTreatments,
+        modifier = modifier.fillMaxSize()
+    )
 }
 
 @Composable
 fun SelectedCropScreenContent(
     uiState: TreatmentUiState,
+    updateDiseaseType: (Int) -> Unit,
     getTreatments: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -67,7 +74,7 @@ fun SelectedCropScreenContent(
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
-        modifier = modifier.width(IntrinsicSize.Min)
+        modifier = modifier
     ) {
         Text(
             text = stringResource(id = R.string.selected_crop),
@@ -111,11 +118,10 @@ fun SelectedCropScreenContent(
             color = greenDark
         )
 
-        val context = LocalContext.current
         DropDown(options = arrayOf(
-            R.string.insects
+            DiseaseType.INSECTS.title
         ),
-            onSelect = { uiState.diseaseType = context.getString(it) },
+            onSelect = updateDiseaseType,
             modifier = Modifier.width(150.dp).height(MaterialTheme.spacing.large)
         )
 
@@ -218,7 +224,7 @@ fun TreatmentListItem(
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun SelectedCropScreenPreview() {
-    SelectedCropScreenContent(uiState = TreatmentUiState(), getTreatments = { })
+    SelectedCropScreenContent(uiState = TreatmentUiState(), updateDiseaseType = { }, getTreatments = { })
 }
 
 @Preview(showBackground = true)

@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
+import com.example.agrican.common.enums.Quantity
 import com.example.agrican.ui.components.DropDown
 import com.example.agrican.ui.components.LabelItem
 import com.example.agrican.ui.components.LabelWithTextField
@@ -69,7 +70,7 @@ fun NewOrderScreen(
             DropDown(options = arrayOf(
                 R.string.insecticide
             ),
-                onSelect = { uiState.productType = context.getString(it) },
+                onSelect = { viewModel.updateUiState(productType = it) },
                 modifier = Modifier.width(130.dp).fillMaxHeight()
             )
             Spacer(modifier = Modifier.weight(1f))
@@ -98,9 +99,9 @@ fun NewOrderScreen(
             )
             Spacer(modifier = Modifier.width(MaterialTheme.spacing.small))
             DropDown(options = arrayOf(
-                R.string.kilogram
+                Quantity.KILOGRAM.title
             ),
-                onSelect = { uiState.quantityUnit = context.getString(it) },
+                onSelect = { viewModel.updateUiState(quantityUnit = it) },
                 modifier = Modifier.width(130.dp).fillMaxHeight())
         }
 
@@ -114,24 +115,25 @@ fun NewOrderScreen(
         )
 
         Row(
-            horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
+            horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
+            modifier = Modifier.height(MaterialTheme.spacing.large)
         ) {
             DropDown(options = arrayOf(
                 R.string.place
             ),
-                onSelect = { uiState.place = context.getString(it) },
+                onSelect = { viewModel.updateUiState(place = context.getString(it)) },
                 modifier = Modifier.weight(1f)
             )
             DropDown(options = arrayOf(
                 R.string.city
             ),
-                onSelect = { uiState.city = context.getString(it) },
+                onSelect = { viewModel.updateUiState(city = context.getString(it)) },
                 modifier = Modifier.weight(1f)
             )
             DropDown(options = arrayOf(
                 R.string.governorate
             ),
-                onSelect = { uiState.governorate = context.getString(it) },
+                onSelect = { viewModel.updateUiState(governorate = context.getString(it)) },
                 modifier = Modifier.weight(1f)
             )
         }

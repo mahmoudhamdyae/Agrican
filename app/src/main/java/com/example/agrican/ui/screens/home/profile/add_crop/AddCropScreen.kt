@@ -19,6 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
+import com.example.agrican.domain.model.Crop
 import com.example.agrican.ui.components.CropsList
 import com.example.agrican.ui.components.DropDown
 import com.example.agrican.ui.components.ProfileHeader
@@ -41,13 +42,25 @@ fun AddCropScreen(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     ProfileHeader(navigateUp = navigateUp, headerText = AddCropDestination.titleRes) {
-        AddCropScreenContent(uiState = uiState, addCrop = viewModel::addCrop, modifier = modifier)
+        AddCropScreenContent(
+            uiState = uiState,
+            updateSelectedCrop = { viewModel.updateUiStates(selectedCrop = it) },
+            updateDay = { viewModel.updateUiStates(day = it) },
+            updateMonth = { viewModel.updateUiStates(month = it) },
+            updateYear = { viewModel.updateUiStates(year = it) },
+            addCrop = viewModel::addCrop,
+            modifier = modifier
+        )
     }
 }
 
 @Composable
 fun AddCropScreenContent(
     uiState: AddCropUiState,
+    updateSelectedCrop: (Crop) -> Unit,
+    updateDay: (String) -> Unit,
+    updateMonth: (String) -> Unit,
+    updateYear: (String) -> Unit,
     addCrop: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -61,7 +74,7 @@ fun AddCropScreenContent(
             modifier = Modifier.padding(start = MaterialTheme.spacing.medium)
         )
 
-        CropsList(crops = uiState.crops, setSelectedCrop = { uiState.selectedCrop = it })
+        CropsList(crops = uiState.crops, setSelectedCrop = updateSelectedCrop)
 
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -76,19 +89,19 @@ fun AddCropScreenContent(
             DropDown(options = arrayOf(
                 R.string.day
             ),
-                onSelect = { uiState.day = context.getString(it) },
+                onSelect = { updateDay(context.getString(it)) },
                 modifier = Modifier.weight(1f).height(MaterialTheme.spacing.large)
             )
             DropDown(options = arrayOf(
                 R.string.month
             ),
-                onSelect = { uiState.month = context.getString(it) },
+                onSelect = {updateMonth(context.getString(it)) },
                 modifier = Modifier.weight(1f).height(MaterialTheme.spacing.large)
             )
             DropDown(options = arrayOf(
                 R.string.year
             ),
-                onSelect = { uiState.year = context.getString(it) },
+                onSelect = { updateYear(context.getString(it)) },
                 modifier = Modifier.weight(1f).height(MaterialTheme.spacing.large)
             )
         }
@@ -106,5 +119,5 @@ fun AddCropScreenContent(
 @Preview(showBackground = true)
 @Composable
 fun AddCropScreenPreview() {
-    AddCropScreenContent(uiState = AddCropUiState(), addCrop = { })
+    AddCropScreenContent(uiState = AddCropUiState(), { }, { }, { }, { }, { })
 }

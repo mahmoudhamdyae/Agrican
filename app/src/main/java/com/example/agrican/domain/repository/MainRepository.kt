@@ -35,6 +35,7 @@ interface MainRepository {
     suspend fun getCurrentUser(): User
     suspend fun getFarms(): List<Farm>
     suspend fun getCrops(): List<Crop>
+    suspend fun getCrop(cropId: String): Crop
     suspend fun addFarm()
     suspend fun addCrop()
     suspend fun observeCrop(): Flow<Crop>

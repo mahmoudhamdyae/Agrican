@@ -1,5 +1,6 @@
 package com.example.agrican.ui.screens.home.profile.add_crop
 
+import com.example.agrican.domain.model.Crop
 import com.example.agrican.domain.use_case.BaseUseCase
 import com.example.agrican.ui.screens.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,8 +18,22 @@ class AddCropViewModel @Inject constructor(
 
     init {
         launchCatching {
-            _uiState.value.crops = useCase.getCropsUseCase()
+            _uiState.value = _uiState.value.copy(crops = useCase.getCropsUseCase())
         }
+    }
+
+    fun updateUiStates(
+        selectedCrop: Crop =  _uiState.value.selectedCrop,
+        day: String =  _uiState.value.day,
+        month: String =  _uiState.value.month,
+        year: String =  _uiState.value.year,
+    ) {
+        _uiState.value = _uiState.value.copy(
+            selectedCrop = selectedCrop,
+            day = day,
+            month = month,
+            year = year,
+        )
     }
 
     fun addCrop() {

@@ -33,6 +33,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
+import com.example.agrican.common.enums.MeasureUnit
+import com.example.agrican.domain.model.Crop
 import com.example.agrican.ui.components.Chip
 import com.example.agrican.ui.components.CropsList
 import com.example.agrican.ui.navigation.NavigationDestination
@@ -53,18 +55,29 @@ fun FertilizersCalculatorScreen(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    FertilizersCalculatorScreenContent(uiState = uiState, modifier = modifier)
+    FertilizersCalculatorScreenContent(
+        uiState = uiState,
+        onSelectCrop = viewModel::onSelectCrop,
+        increaseSize = viewModel::increaseSize,
+        decreaseSize = viewModel::decreaseSize,
+        calculateFertilizers = viewModel::calculateFertilizers,
+        modifier = modifier
+    )
 }
 
 @Composable
 fun FertilizersCalculatorScreenContent(
     uiState: FertilizersCalculatorUiState,
+    onSelectCrop: (Crop) -> Unit,
+    increaseSize: () -> Unit,
+    decreaseSize: () -> Unit,
+    calculateFertilizers: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     var selected by rememberSaveable { mutableStateOf(0) }
     val units = listOf(
-        R.string.acre,
-        R.string.hectare,
+        MeasureUnit.ACRE,
+        MeasureUnit.HECTARE,
     )
 
     LazyColumn(
@@ -82,7 +95,7 @@ fun FertilizersCalculatorScreenContent(
             )
         }
         item {
-            CropsList(crops = uiState.crops, setSelectedCrop = { uiState.selectedCrop = it } )
+            CropsList(crops = uiState.crops, setSelectedCrop = onSelectCrop)
         }
         item {
             Text(
@@ -101,7 +114,7 @@ fun FertilizersCalculatorScreenContent(
             ) {
                 repeat(units.size) {
                     Chip(
-                        text = units[it],
+                        text = units[it].title,
                         selected = it == selected,
                         onSelect = { selected = it },
                         modifier = Modifier.weight(1f)
@@ -118,13 +131,18 @@ fun FertilizersCalculatorScreenContent(
             )
         }
         item {
-            LandSize(modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium))
+            LandSize(
+                size = uiState.landSize,
+                increaseSize = increaseSize,
+                decreaseSize = decreaseSize,
+                modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
+            )
         }
 
         item {
             Box(modifier = Modifier.fillMaxWidth()) {
                 Button(
-                    onClick = { /*TODO*/ },
+                    onClick = calculateFertilizers,
                     colors = ButtonDefaults.buttonColors(containerColor = greenDark),
                     modifier = Modifier.align(Alignment.Center)
                 ) {
@@ -196,6 +214,9 @@ fun FertilizerListItem(
 
 @Composable
 fun LandSize(
+    size: Int,
+    increaseSize: () -> Unit,
+    decreaseSize: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Surface(
@@ -207,7 +228,7 @@ fun LandSize(
     ) {
         Row {
             Button(
-                onClick = { /*TODO*/ },
+                onClick = decreaseSize,
                 colors = ButtonDefaults.buttonColors(containerColor = greenLight),
             ) {
                 Text(text = "-")
@@ -234,7 +255,7 @@ fun LandSize(
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Text(
-                            text = "500000",
+                            text = size.toString(),
                             color = greenLight,
                             modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
                         )
@@ -243,7 +264,7 @@ fun LandSize(
             }
 
             Button(
-                onClick = { /*TODO*/ },
+                onClick = increaseSize,
                 colors = ButtonDefaults.buttonColors(containerColor = greenLight),
             ) {
                 Text(text = "+")
@@ -255,5 +276,5 @@ fun LandSize(
 @Preview(showBackground = true)
 @Composable
 fun FertilizersCalculatorScreenPreview() {
-    FertilizersCalculatorScreenContent(uiState = FertilizersCalculatorUiState())
+    FertilizersCalculatorScreenContent(uiState = FertilizersCalculatorUiState(), { }, { }, { }, { })
 }

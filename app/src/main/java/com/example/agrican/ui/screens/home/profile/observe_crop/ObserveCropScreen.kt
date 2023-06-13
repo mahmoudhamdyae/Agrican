@@ -34,7 +34,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
 import com.example.agrican.R
+import com.example.agrican.domain.model.Crop
 import com.example.agrican.ui.components.Days
 import com.example.agrican.ui.components.ProfileHeader
 import com.example.agrican.ui.navigation.NavigationDestination
@@ -47,22 +52,31 @@ import com.example.agrican.ui.theme.spacing
 object ObserveCropDestination: NavigationDestination {
     override val route: String = "observe_crop"
     override val titleRes: Int = R.string.observe_crop
+    const val cropIdArg = "crop_id"
+    val routeWithArgs = "$route/{$cropIdArg}"
+    val arguments = listOf(
+        navArgument(cropIdArg) { type = NavType.StringType },
+    )
 }
 
 @Composable
 fun ObserveCropScreen(
     navigateUp: () -> Unit,
     openScreen: (String) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: ObserveCropViewModel = hiltViewModel()
 ) {
 
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
     ProfileHeader(navigateUp = navigateUp, headerText = AddFarmDestination.titleRes) {
-        ObserveCropScreenContent(openScreen = openScreen, modifier = modifier)
+        ObserveCropScreenContent(crop = uiState.crop, openScreen = openScreen, modifier = modifier)
     }
 }
 
 @Composable
 fun ObserveCropScreenContent(
+    crop: Crop,
     openScreen: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -78,7 +92,7 @@ fun ObserveCropScreenContent(
             modifier = Modifier.fillMaxWidth()
         ) {
             Column(modifier = Modifier.padding(MaterialTheme.spacing.small)) {
-                Text(text = "نبات الصبار", color = Color.White)
+                Text(text = crop.name, color = Color.White)
 
                 Row(modifier = Modifier.align(Alignment.End)) {
                     Text(
@@ -86,7 +100,7 @@ fun ObserveCropScreenContent(
                         color = Color.White,
                         modifier = Modifier.padding(end = MaterialTheme.spacing.small)
                     )
-                    Text(text = "30/05/2023", color = Color.White)
+                    Text(text = crop.date, color = Color.White)
                 }
             }
         }
@@ -193,5 +207,5 @@ fun ExpandableItem(
 @Preview(showBackground = true)
 @Composable
 fun ObserveCropScreenPreview() {
-    ObserveCropScreenContent(openScreen = { })
+    ObserveCropScreenContent(crop = Crop(), openScreen = { })
 }

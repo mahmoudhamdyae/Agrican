@@ -34,6 +34,7 @@ data class BaseUseCase (
     val sendMessageUseCase: SendMessageUseCase,
 
     val getCropsUseCase: GetCropsUseCase,
+    val getCropUseCase: GetCropUseCase,
     val addCropUseCase: AddCropUseCase,
 
     val getFarmsUseCase: GetFarmsUseCase,

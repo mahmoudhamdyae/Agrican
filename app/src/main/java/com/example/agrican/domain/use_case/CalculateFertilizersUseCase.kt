@@ -1,6 +1,6 @@
 package com.example.agrican.domain.use_case
 
-import com.example.agrican.R
+import com.example.agrican.common.enums.MeasureUnit
 import com.example.agrican.domain.model.Crop
 import com.example.agrican.domain.repository.MainRepository
 import javax.inject.Inject
@@ -14,7 +14,9 @@ class CalculateFertilizersUseCase @Inject constructor(
         measuringUnit: Int,
         landSize: Int,
     ) {
-        val measuringUnitString = if (measuringUnit == R.string.hectare) "hectare" else "acre"
+        val measuringUnitString =
+            if (measuringUnit == MeasureUnit.HECTARE.title) MeasureUnit.HECTARE.name
+            else MeasureUnit.ACRE.name
 
         mainRepository.calculateFertilize()
     }

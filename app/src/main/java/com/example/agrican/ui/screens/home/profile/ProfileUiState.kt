@@ -5,7 +5,7 @@ import com.example.agrican.domain.model.Farm
 import com.example.agrican.domain.model.User
 
 data class ProfileUiState(
-    var currentUser: User = User(),
-    var farms: List<Farm> = emptyList(),
-    var crops: List<Crop> = emptyList()
+    val currentUser: User = User(),
+    val farms: List<Farm> = emptyList(),
+    val crops: List<Crop> = emptyList()
 )

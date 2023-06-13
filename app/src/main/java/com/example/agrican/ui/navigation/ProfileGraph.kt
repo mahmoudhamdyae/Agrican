@@ -68,7 +68,10 @@ fun ProfileGraph(
         }
 
 
-        composable(route = ObserveCropDestination.route) {
+        composable(
+            route = ObserveCropDestination.routeWithArgs,
+            arguments = ObserveCropDestination.arguments
+        ) {
             showBottomBar(false)
             ObserveCropScreen(navigateUp = navigateUp, openScreen = openScreen)
         }

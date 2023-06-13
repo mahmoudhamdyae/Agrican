@@ -3,12 +3,13 @@ package com.example.agrican.ui.screens.home.agricanservices.default_age
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
@@ -16,15 +17,14 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.CalendarMonth
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.ProgressIndicatorDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -39,15 +39,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.LightGray
 import androidx.compose.ui.graphics.Color.Companion.Red
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
+import com.example.agrican.common.enums.Quality
+import com.example.agrican.domain.model.Crop
 import com.example.agrican.ui.components.Chip
 import com.example.agrican.ui.components.CropsList
+import com.example.agrican.ui.components.DropDown
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
@@ -68,26 +70,34 @@ fun DefaultAgeScreen(
 
     DefaultAgeScreenContent(
         uiState = uiState,
+        updateDay = { viewModel.updateUiStates(day = it) },
+        updateMonth = { viewModel.updateUiStates(month = it) },
+        updateYear = { viewModel.updateUiStates(year = it) },
+        updateCurrentCrop = { viewModel.updateUiStates(currentCrop = it) },
+        updateCurrentQuality = { viewModel.updateUiStates(currentQuality = it) },
         getResults = viewModel::getResults,
         modifier = modifier
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DefaultAgeScreenContent(
     uiState: DefaultAgeUiState,
+    updateDay: (String) -> Unit,
+    updateMonth: (String) -> Unit,
+    updateYear: (String) -> Unit,
+    updateCurrentCrop: (Crop) -> Unit,
+    updateCurrentQuality: (Int) -> Unit,
     getResults: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = modifier
-            .padding(MaterialTheme.spacing.medium)
-            .verticalScroll(rememberScrollState())
+        modifier = modifier.verticalScroll(rememberScrollState())
     ) {
         Text(
             text = stringResource(id = R.string.harvest_date),
-            color = greenLight
+            color = greenLight,
+            modifier = Modifier.padding(MaterialTheme.spacing.small)
         )
 
         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -96,92 +106,82 @@ fun DefaultAgeScreenContent(
                     // todo: open date picker
                 },
                 modifier = Modifier
+                    .padding(MaterialTheme.spacing.small)
                     .clip(RoundedCornerShape(MaterialTheme.spacing.medium))
                     .background(greenLight)
             ) {
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_visibility_on),
+                    imageVector = Icons.Outlined.CalendarMonth,
                     contentDescription = null,
                     tint = Color.White
                 )
             }
 
-            OutlinedTextField(
-                readOnly = true,
-                value = stringResource(id = R.string.day),
-                onValueChange = { },
-                trailingIcon = {
-                    ExposedDropdownMenuDefaults.TrailingIcon(expanded = false)
-                },
-                shape = RoundedCornerShape(MaterialTheme.spacing.medium),
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
                 modifier = Modifier
-                    .padding(MaterialTheme.spacing.small)
+                    .padding(end = MaterialTheme.spacing.medium)
+                    .height(MaterialTheme.spacing.large)
                     .weight(1f)
-                    .clickable {
-                        // todo: open date picker
-                    }
-            )
-
-            OutlinedTextField(
-                readOnly = true,
-                value = stringResource(id = R.string.month),
-                onValueChange = { },
-                trailingIcon = {
-                    ExposedDropdownMenuDefaults.TrailingIcon(expanded = false)
-                },
-                shape = RoundedCornerShape(MaterialTheme.spacing.medium),
-                modifier = Modifier
-                    .padding(MaterialTheme.spacing.small)
-                    .weight(1f)
-                    .clickable {
-                        // todo: open date picker
-                    }
-            )
-
-            OutlinedTextField(
-                readOnly = true,
-                value = stringResource(id = R.string.year),
-                onValueChange = { },
-                trailingIcon = {
-                    ExposedDropdownMenuDefaults.TrailingIcon(expanded = false)
-                },
-                shape = RoundedCornerShape(MaterialTheme.spacing.medium),
-                modifier = Modifier
-                    .padding(MaterialTheme.spacing.small)
-                    .weight(1f)
-                    .clickable {
-                        // todo: open date picker
-                    }
-            )
+            ) {
+                DropDown(options = arrayOf(
+                    R.string.day
+                ),
+                    onSelect = { /*TODO*/ },
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxHeight()
+                )
+                DropDown(options = arrayOf(
+                    R.string.month
+                ),
+                    onSelect = { /*TODO*/ },
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxHeight()
+                )
+                DropDown(options = arrayOf(
+                    R.string.year
+                ),
+                    onSelect = { /*TODO*/ },
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxHeight()
+                )
+            }
         }
+
 
         Text(
             text = stringResource(id = R.string.crop_choose),
-            color = greenLight
+            color = greenLight,
+            modifier = Modifier.padding(MaterialTheme.spacing.small)
         )
 
-        CropsList(crops = uiState.crops, setSelectedCrop = { uiState.currentCrop = it })
+        CropsList(crops = uiState.crops, setSelectedCrop = { updateCurrentCrop(it) })
 
         Text(
             text = stringResource(id = R.string.crop_quality),
-            color = greenLight
+            color = greenLight,
+            modifier = Modifier.padding(MaterialTheme.spacing.small)
         )
 
         var selected by rememberSaveable { mutableStateOf(0) }
         val qualities = listOf(
-            R.string.quality_very_good,
-            R.string.quality_good,
-            R.string.quality_average,
-            R.string.quality_below_average
+            Quality.VERY_GOOD,
+            Quality.GOOD,
+            Quality.AVERAGE,
+            Quality.BELOW_AVERAGE,
         )
         val context = LocalContext.current
         LazyRow {
             items(qualities.size) {
                 Chip(
-                    text = qualities[it],
+                    text = qualities[it].title,
                     selected = it == selected,
                     onSelect = {
-                        uiState.currentQuality = context.getString(qualities[it])
+                        updateCurrentQuality(it)
                         selected = it
                     }
                 )
@@ -211,7 +211,10 @@ fun DefaultAgeScreenContent(
                 Text(text = stringResource(id = R.string.default_age_title))
 
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(text = stringResource(id = R.string.danger_degree))
+                    Text(
+                        text = stringResource(id = R.string.danger_degree),
+                        modifier = Modifier.padding(MaterialTheme.spacing.small)
+                    )
 
                     Indicators(
                         selectedItems = listOf(0, 1),
@@ -292,5 +295,5 @@ fun Indicator(isSelected: Boolean) {
 @Preview(showBackground = true)
 @Composable
 fun DefaultAgeScreenContent() {
-    DefaultAgeScreenContent(uiState = DefaultAgeUiState(), getResults = { })
+    DefaultAgeScreenContent(uiState = DefaultAgeUiState(), { }, { }, { }, { }, { }, { })
 }

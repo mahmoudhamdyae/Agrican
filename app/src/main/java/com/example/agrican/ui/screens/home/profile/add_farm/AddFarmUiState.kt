@@ -1,11 +1,13 @@
 package com.example.agrican.ui.screens.home.profile.add_farm
 
+import com.example.agrican.common.enums.SizeUnit
+
 data class AddFarmUiState(
-    var farmName: String = "",
-    var farmSize: String = "",
-    var sizeUnit: String = "",
-    var cropsType: String = "",
-    var day: String = "",
-    var month: String = "",
-    var year: String = "",
+    val farmName: String = "",
+    val farmSize: String = "",
+    val sizeUnit: Int = SizeUnit.SQUARE_KILOMETER.title,
+    val cropsType: String = "",
+    val day: String = "",
+    val month: String = "",
+    val year: String = "",
 )

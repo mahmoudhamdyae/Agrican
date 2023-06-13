@@ -21,8 +21,10 @@ class MainViewModel @Inject constructor(
 
     private fun getWeather() {
         launchCatching {
-            _uiState.value.weather = useCase.getWeatherUseCase()
-            _uiState.value.news = useCase.getNewsUseCase()
+            _uiState.value = _uiState.value.copy(
+                weather = useCase.getWeatherUseCase(),
+                news = useCase.getNewsUseCase()
+            )
         }
     }
 }

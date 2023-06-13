@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
+import com.example.agrican.common.enums.SizeUnit
 import com.example.agrican.ui.components.DropDown
 import com.example.agrican.ui.components.LabelItem
 import com.example.agrican.ui.components.LabelWithTextField
@@ -48,13 +49,31 @@ fun AddFarmScreen(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     ProfileHeader(navigateUp = navigateUp, headerText = AddFarmDestination.titleRes) {
-        AddFarmScreenContent(uiState = uiState, addFarm = viewModel::addFarm, modifier = modifier)
+        AddFarmScreenContent(
+            uiState = uiState,
+            updateFarmName = { viewModel.updateUiStates(farmName = it) },
+            updateFarmSize = { viewModel.updateUiStates(farmSize = it) },
+            updateSizeUnit = { viewModel.updateUiStates(sizeUnit = it) },
+            updateCropsType = { viewModel.updateUiStates(cropsType = it) },
+            updateDay = { viewModel.updateUiStates(day = it) },
+            updateMonth = { viewModel.updateUiStates(month = it) },
+            updateYear = { viewModel.updateUiStates(year = it) },
+            addFarm = viewModel::addFarm,
+            modifier = modifier
+        )
     }
 }
 
 @Composable
 fun AddFarmScreenContent(
     uiState: AddFarmUiState,
+    updateFarmName: (String) -> Unit,
+    updateFarmSize: (String) -> Unit,
+    updateSizeUnit: (Int) -> Unit,
+    updateCropsType: (String) -> Unit,
+    updateDay: (String) -> Unit,
+    updateMonth: (String) -> Unit,
+    updateYear: (String) -> Unit,
     addFarm: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -68,7 +87,7 @@ fun AddFarmScreenContent(
     ) {
         LabelWithTextField(
             value = uiState.farmName,
-            onNewValue = { uiState.farmName = it },
+            onNewValue = updateFarmName,
             hint = R.string.farm_name,
             label = R.string.farm_name,
             focusManager = focusManager
@@ -80,7 +99,7 @@ fun AddFarmScreenContent(
         ) {
             LabelWithTextField(
                 value = uiState.farmSize,
-                onNewValue = { uiState.farmSize = it },
+                onNewValue = updateFarmSize,
                 hint = R.string.size,
                 label = R.string.size,
                 focusManager = focusManager,
@@ -88,10 +107,12 @@ fun AddFarmScreenContent(
             )
             Spacer(modifier = Modifier.width(MaterialTheme.spacing.small))
             DropDown(options = arrayOf(
-                R.string.square_kilometer
+                SizeUnit.SQUARE_KILOMETER.title
             ),
-                onSelect = { uiState.sizeUnit = context.getString(it) },
-                modifier = Modifier.width(130.dp).fillMaxHeight()
+                onSelect = { updateSizeUnit(it) },
+                modifier = Modifier
+                    .width(130.dp)
+                    .fillMaxHeight()
             )
         }
 
@@ -105,26 +126,32 @@ fun AddFarmScreenContent(
             DropDown(options = arrayOf(
                 R.string.day
             ),
-                onSelect = { uiState.day = context.getString(it) },
-                modifier = Modifier.weight(1f).fillMaxHeight()
+                onSelect = { updateDay(context.getString(it)) },
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxHeight()
             )
             DropDown(options = arrayOf(
                 R.string.month
             ),
-                onSelect = { uiState.month = context.getString(it) },
-                modifier = Modifier.weight(1f).fillMaxHeight()
+                onSelect = { updateMonth(context.getString(it)) },
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxHeight()
             )
             DropDown(options = arrayOf(
                 R.string.year
             ),
-                onSelect = { uiState.year = context.getString(it) },
-                modifier = Modifier.weight(1f).fillMaxHeight()
+                onSelect = { updateYear(context.getString(it)) },
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxHeight()
             )
         }
 
         LabelWithTextField(
             value = uiState.cropsType,
-            onNewValue = { uiState.cropsType = it },
+            onNewValue = updateCropsType,
             hint = R.string.crops_type,
             label = R.string.crops_type,
             focusManager = focusManager,
@@ -143,5 +170,5 @@ fun AddFarmScreenContent(
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun AddFarmScreenPreview() {
-    AddFarmScreenContent(uiState = AddFarmUiState(), addFarm = { })
+    AddFarmScreenContent(uiState = AddFarmUiState(), { }, { }, { }, { }, { }, { }, { }, { })
 }

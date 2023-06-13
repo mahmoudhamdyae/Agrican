@@ -90,6 +90,10 @@ class MainRepositoryImpl @Inject constructor(
         TODO("Not yet implemented")
     }
 
+    override suspend fun getCrop(cropId: String): Crop {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun addFarm() {
         TODO("Not yet implemented")
     }

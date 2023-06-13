@@ -14,6 +14,22 @@ class NewOrderViewModel @Inject constructor(
     
     private val _uiState = MutableStateFlow(NewOrderUiState())
     val uiState = _uiState.asStateFlow()
+
+    fun updateUiState(
+        productType: Int = _uiState.value.productType,
+        quantityUnit: Int = _uiState.value.quantityUnit,
+        place: String = _uiState.value.place,
+        city: String = _uiState.value.city,
+        governorate: String = _uiState.value.governorate
+    ) {
+        _uiState.value = _uiState.value.copy(
+            productType = productType,
+            quantityUnit = quantityUnit,
+            place = place,
+            city = city,
+            governorate = governorate
+        )
+    }
     
     fun order(
         productName: String,

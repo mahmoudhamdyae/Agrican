@@ -333,14 +333,14 @@ fun LazyListScope.cropsList(
     openScreen: (String) -> Unit
 ) {
     items(crops.size) {
-        CropsListItem(crop = crops[it], onClick = { openScreen(ObserveCropDestination.route) })
+        CropsListItem(crop = crops[it], onClick = { openScreen("${ObserveCropDestination.route}/$it") })
     }
 }
 
 @Composable
 fun CropsListItem(
     crop: Crop,
-    onClick: () -> Unit,
+    onClick: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Surface(
@@ -353,7 +353,10 @@ fun CropsListItem(
                 .fillMaxWidth()
                 .padding(MaterialTheme.spacing.small)
         ) {
-            Text(text = crop.name, color = Color.White)
+            Text(
+                text = crop.name, color = Color.White,
+                modifier = Modifier.padding(MaterialTheme.spacing.small)
+            )
 
             Spacer(modifier = Modifier.weight(1f))
 
@@ -368,7 +371,7 @@ fun CropsListItem(
                 }
 
                 Button(
-                    onClick = onClick,
+                    onClick = { onClick(crop.cropId) },
                     colors = ButtonDefaults.buttonColors(containerColor = greenDark),
                 ) {
                     Text(text = stringResource(id = R.string.observe_crop))

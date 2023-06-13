@@ -14,6 +14,26 @@ class AddFarmViewModel @Inject constructor(
 
     private var _uiState = MutableStateFlow(AddFarmUiState())
     val uiState = _uiState.asStateFlow()
+    
+    fun updateUiStates(
+        farmName: String =  _uiState.value.farmName,
+        farmSize: String =  _uiState.value.farmSize,
+        sizeUnit: Int =  _uiState.value.sizeUnit,
+        cropsType: String =  _uiState.value.cropsType,
+        day: String =  _uiState.value.day,
+        month: String =  _uiState.value.month,
+        year: String =  _uiState.value.year,
+    ) {
+        _uiState.value = _uiState.value.copy(
+            farmName = farmName,
+            farmSize = farmSize,
+            sizeUnit = sizeUnit,
+            cropsType = cropsType,
+            day = day,
+            month = month,
+            year = year,
+        )
+    }
 
     fun addFarm() {
         launchCatching {

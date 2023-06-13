@@ -5,5 +5,5 @@ data class Crop(
     val date: String = "",
     val tasks: List<Task> = listOf(),
     val image: String = "",
-    val cropId: String = "",
+    val cropId: String = "1234",
 )

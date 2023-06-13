@@ -1,5 +1,6 @@
 package com.example.agrican.ui.screens.home.agricanservices.treatment
 
+import com.example.agrican.domain.model.Crop
 import com.example.agrican.domain.use_case.BaseUseCase
 import com.example.agrican.ui.screens.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,16 +18,24 @@ class TreatmentViewModel @Inject constructor(
 
     fun getCrops() {
         launchCatching {
-            _uiState.value.crops = useCase.getCropsUseCase()
+            _uiState.value = _uiState.value.copy(crops = useCase.getCropsUseCase())
         }
     }
 
     fun getTreatments() {
         launchCatching {
-            _uiState.value.treatments = useCase.getTreatmentsUseCase(
+            _uiState.value = _uiState.value.copy(treatments = useCase.getTreatmentsUseCase(
                 crop = _uiState.value.selectedCrop,
                 diseaseType = _uiState.value.diseaseType
-            )
+            ))
         }
+    }
+
+    fun onSelectCrop(crop: Crop) {
+        _uiState.value = _uiState.value.copy(selectedCrop = crop)
+    }
+
+    fun updateDiseaseType(diseaseType: Int) {
+        _uiState.value = _uiState.value.copy(diseaseType = diseaseType)
     }
 }

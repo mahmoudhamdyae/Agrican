@@ -17,7 +17,7 @@ class ChatViewModel @Inject constructor(
 
     init {
         launchCatching {
-            _uiState.value.chat = useCase.getChatUseCase()
+            _uiState.value = _uiState.value.copy(chat = useCase.getChatUseCase())
         }
     }
 

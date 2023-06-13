@@ -17,9 +17,11 @@ class ProfileViewModel @Inject constructor(
 
     init {
         launchCatching {
-            _uiState.value.currentUser = useCase.getCurrentUserUseCase()
-            _uiState.value.crops = useCase.getCropsUseCase()
-            _uiState.value.farms = useCase.getFarmsUseCase()
+            _uiState.value = _uiState.value.copy(
+                currentUser = useCase.getCurrentUserUseCase(),
+                crops = useCase.getCropsUseCase(),
+                farms = useCase.getFarmsUseCase()
+            )
         }
     }
 }

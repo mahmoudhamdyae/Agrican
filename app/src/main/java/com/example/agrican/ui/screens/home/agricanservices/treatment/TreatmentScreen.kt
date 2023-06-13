@@ -18,6 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
+import com.example.agrican.domain.model.Crop
 import com.example.agrican.ui.components.BackButton
 import com.example.agrican.ui.components.CropsList
 import com.example.agrican.ui.navigation.NavigationDestination
@@ -44,36 +45,42 @@ fun TreatmentScreen(
     }
 
     BackButton(navigateUp = navigateUp) {
-        TreatmentScreenContent(uiState = uiState, openScreen = openScreen, modifier = modifier)
+        TreatmentScreenContent(
+            uiState = uiState,
+            onSelectCrop = viewModel::onSelectCrop,
+            openScreen = openScreen,
+            modifier = modifier
+        )
     }
 }
 
 @Composable
 fun TreatmentScreenContent(
     uiState: TreatmentUiState,
+    onSelectCrop: (Crop) -> Unit,
     openScreen: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
         modifier = modifier
     ) {
         Text(
             text = stringResource(id = R.string.choose_crop),
             color = greenLight,
-            modifier = Modifier.padding(start = MaterialTheme.spacing.extraLarge)
+            modifier = Modifier.padding(start = MaterialTheme.spacing.medium)
         )
 
         CropsList(
             crops = uiState.crops,
-            setSelectedCrop = { uiState.selectedCrop = it },
+            setSelectedCrop = onSelectCrop,
             modifier = Modifier.background(greenLight)
         )
 
         Button(
             onClick = { openScreen(SelectedCropDestination.route) },
             colors = ButtonDefaults.buttonColors(containerColor = greenDark),
+            modifier = Modifier.align(Alignment.CenterHorizontally)
         ) {
             Text(
                 text = stringResource(id = R.string.continue_button),
@@ -86,5 +93,5 @@ fun TreatmentScreenContent(
 @Preview(showBackground = true)
 @Composable
 fun TreatmentScreenPreview() {
-    TreatmentScreenContent(uiState = TreatmentUiState(), openScreen = { })
+    TreatmentScreenContent(uiState = TreatmentUiState(), onSelectCrop = { }, openScreen = { })
 }

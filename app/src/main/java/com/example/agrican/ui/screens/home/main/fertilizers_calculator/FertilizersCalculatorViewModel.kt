@@ -1,5 +1,6 @@
 package com.example.agrican.ui.screens.home.main.fertilizers_calculator
 
+import com.example.agrican.domain.model.Crop
 import com.example.agrican.domain.use_case.BaseUseCase
 import com.example.agrican.ui.screens.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,8 +18,24 @@ class FertilizersCalculatorViewModel @Inject constructor(
 
     init {
         launchCatching {
-            _uiState.value.crops = useCase.getCropsUseCase()
+            _uiState.value = _uiState.value.copy(crops = useCase.getCropsUseCase())
         }
+    }
+
+    fun onSelectCrop(crop: Crop) {
+        _uiState.value = _uiState.value.copy(selectedCrop = crop)
+    }
+
+    fun onMeasureUnitSelect(measuringUnit: Int) {
+        _uiState.value = _uiState.value.copy(measuringUnit = measuringUnit)
+    }
+
+    fun decreaseSize() {
+        _uiState.value = _uiState.value.copy(landSize = _uiState.value.landSize - 1)
+    }
+
+    fun increaseSize() {
+        _uiState.value = _uiState.value.copy(landSize = _uiState.value.landSize + 1)
     }
 
     fun calculateFertilizers() {
