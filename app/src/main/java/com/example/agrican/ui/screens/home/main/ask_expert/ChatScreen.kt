@@ -301,9 +301,10 @@ fun VoiceMessage(
     audioFile: File,
     modifier: Modifier = Modifier
 ) {
-    var playing by rememberSaveable { mutableStateOf(false) }
+    val context = LocalContext.current
 
-    val mContext = LocalContext.current
+    var playing by rememberSaveable { mutableStateOf(false) }
+    val player by lazy { AndroidAudioPlayer(context) }
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -315,10 +316,10 @@ fun VoiceMessage(
 
         IconButton(onClick = {
             playing = !playing
+            player.playFile(audioFile)
         }) {
             Icon(
-                imageVector = if (playing) Icons.Default.Pause else Icons.Default.PlayArrow
-                ,
+                imageVector = if (playing) Icons.Default.Pause else Icons.Default.PlayArrow,
                 contentDescription = null
             )
         }
@@ -375,7 +376,6 @@ fun BottomView(
 
     // Voice Recorder Variables
     val recorder by lazy { AndroidAudioRecorder(context) }
-    val player by lazy { AndroidAudioPlayer(context) }
     var audioFile: File? = null
     var recording by rememberSaveable { mutableStateOf(false) }
 
