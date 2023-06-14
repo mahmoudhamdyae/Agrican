@@ -50,7 +50,7 @@
     <string name="problem_images_description">تمكنك صور المشكلة من اكتشاف الأمراض الخاصة بالنبات عن طريقة إضافة صورة أو التقاط صورة</string>
     <string name="fertilizers_calculator">حاسبة الأسمدة</string>
     <string name="fertilizers_calculator_description">يمكنك حساب كمية الأسمدة اللازمة</string>
-    <string name="ask_expert">اسال خبير</string>
+    <string name="ask_expert">اسأل خبير</string>
     <string name="ask_expert_description">يمكنك التواصل مع خبير زراعى مباشرة</string>
 
     <!-- Problem Images Screen -->

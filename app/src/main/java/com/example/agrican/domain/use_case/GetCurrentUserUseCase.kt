@@ -17,7 +17,7 @@ class GetCurrentUserUseCase @Inject constructor(
             userName = "Test Account",
             phoneNumber = "+86(8)9135210487",
             email = "claudette09@exa.com",
-            userId = "1"
+            userId = "2"
         )
     }
 }

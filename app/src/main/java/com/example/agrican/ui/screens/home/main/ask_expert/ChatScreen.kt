@@ -4,7 +4,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
-import android.net.Uri
+import android.media.MediaPlayer
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
@@ -15,16 +15,20 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Pause
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.outlined.CameraAlt
 import androidx.compose.material.icons.outlined.Link
 import androidx.compose.material.icons.outlined.RecordVoiceOver
@@ -51,6 +55,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -60,11 +65,14 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import coil.compose.AsyncImage
 import com.example.agrican.R
 import com.example.agrican.domain.model.Chat
 import com.example.agrican.domain.model.Message
 import com.example.agrican.domain.model.MessageType
 import com.example.agrican.ui.navigation.NavigationDestination
+import com.example.agrican.ui.screens.home.main.ask_expert.playback.AndroidAudioPlayer
+import com.example.agrican.ui.screens.home.main.ask_expert.record.AndroidAudioRecorder
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
@@ -88,11 +96,11 @@ fun ChatScreen(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    // todo: UserId
-    val userId = "2"
+    val userId = uiState.currentUser.userId
 
     val scope = rememberCoroutineScope()
-    val scrollState = rememberLazyListState()
+    val scrollState =
+        rememberLazyListState(initialFirstVisibleItemIndex = uiState.chat.messages.size - 1)
 
     ChatScreenContent(
         navigateUp = navigateUp,
@@ -104,8 +112,8 @@ fun ChatScreen(
                 scrollState.animateScrollToItem(uiState.chat.messages.size - 1)
             }
         },
-        sendImage = { uri, messageType ->
-            viewModel.sendMessage(image = uri, messageType = messageType)
+        sendFile = { file ->
+            viewModel.sendMessage(file = file, messageType = MessageType.IMAGE)
             scope.launch {
                 scrollState.animateScrollToItem(uiState.chat.messages.size - 1)
             }
@@ -121,7 +129,7 @@ fun ChatScreenContent(
     userId: String,
     chat: Chat,
     sendMessage: (String, MessageType) -> Unit,
-    sendImage: (Uri, MessageType) -> Unit,
+    sendFile: (File?) -> Unit,
     modifier: Modifier = Modifier,
     scrollState: LazyListState = rememberLazyListState()
 ) {
@@ -149,7 +157,7 @@ fun ChatScreenContent(
 
         BottomView(
             sendMessage = sendMessage,
-            sendImage = sendImage,
+            sendFile = sendFile,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(MaterialTheme.spacing.small)
@@ -188,43 +196,43 @@ fun MessageItem(
         modifier = modifier.padding(MaterialTheme.spacing.small)
     ) {
         if (isUserMe) {
-            TextMessage(
+            MessageItemContent(
                 message = message,
                 isUserMe = true,
                 modifier = Modifier
-                    .padding(start = 16.dp)
+//                    .padding(start = 16.dp)
                     .weight(1f)
             )
         }
         if (!isUserMe) {
-            UserImage(
-                modifier = Modifier
-                    .padding(horizontal = 16.dp)
-                    .size(42.dp)
-                    .align(Alignment.Top)
-            )
-            TextMessage(
+            MessageItemContent(
                 message = message,
                 isUserMe = false,
                 modifier = Modifier
-                    .padding(end = 16.dp)
+//                    .padding(end = 16.dp)
                     .weight(1f)
+            )
+            UserImage(
+                modifier = Modifier
+                    .padding(horizontal = MaterialTheme.spacing.small)
+                    .size(42.dp)
+                    .align(Alignment.Top)
             )
         }
     }
 }
 
 @Composable
-fun TextMessage(
+fun MessageItemContent(
     message: Message,
     isUserMe: Boolean,
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier) {
-        val chatModifier = if (isUserMe)  Modifier.align(Alignment.End) else Modifier
+        val chatModifier = if (!isUserMe)  Modifier.align(Alignment.End) else Modifier
 
         Column(modifier = chatModifier) {
-            val chatBubbleShape = if (isUserMe) RoundedCornerShape(
+            val chatBubbleShape = if (!isUserMe) RoundedCornerShape(
                 topStart = 20.dp,
                 topEnd = 4.dp,
                 bottomEnd = 20.dp,
@@ -237,14 +245,82 @@ fun TextMessage(
             )
             Surface(
                 color = gray,
-                shape = chatBubbleShape
+                shape = chatBubbleShape,
             ) {
-                Text(
-                    text = message.body,
-                    style = MaterialTheme.typography.bodyLarge.copy(color = LocalContentColor.current),
-                    modifier = Modifier.padding(16.dp),
-                )
+                when(message.type) {
+                    MessageType.TEXT -> {
+                        TextMessage(
+                            messageBody = message.body,
+                            modifier = Modifier.padding(MaterialTheme.spacing.medium)
+                        )
+                    }
+                    MessageType.IMAGE -> { ImageMessage(image = message.file!!) }
+                    MessageType.VOICE -> {
+                        VoiceMessage(
+                            audioFile = message.file!!,
+                            modifier = Modifier.padding(MaterialTheme.spacing.medium)
+                        )
+                    }
+                }
             }
+        }
+    }
+}
+
+@Composable
+fun TextMessage(
+    messageBody: String,
+    modifier: Modifier = Modifier
+) {
+    Text(
+        text = messageBody,
+        style = MaterialTheme.typography.bodyLarge.copy(color = LocalContentColor.current),
+        modifier = modifier,
+    )
+}
+
+@Composable
+fun ImageMessage(
+    image: File,
+    modifier: Modifier = Modifier
+) {
+    AsyncImage(
+        model = image,
+        contentDescription = null,
+        placeholder = painterResource(id = R.drawable.loading_img),
+        error =  painterResource(id = R.drawable.ic_broken_image),
+        contentScale = ContentScale.FillBounds,
+        modifier = modifier
+    )
+}
+
+@Composable
+fun VoiceMessage(
+    audioFile: File,
+    modifier: Modifier = Modifier
+) {
+    var playing by rememberSaveable { mutableStateOf(false) }
+
+    val mContext = LocalContext.current
+    val mediaPlayer = MediaPlayer.create(mContext, R.raw.record_audio)
+
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = modifier
+    ) {
+        Text(text = "01:30")
+
+        Spacer(modifier = Modifier.width(MaterialTheme.spacing.extraLarge))
+
+        IconButton(onClick = {
+            playing = !playing
+            mediaPlayer.start()
+        }) {
+            Icon(
+                imageVector = if (playing) Icons.Default.Pause else Icons.Default.PlayArrow
+                ,
+                contentDescription = null
+            )
         }
     }
 }
@@ -264,37 +340,44 @@ fun UserImage(
 @Composable
 fun BottomView(
     sendMessage: (String, MessageType) -> Unit,
-    sendImage: (Uri, MessageType) -> Unit,
+    sendFile: (File?) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
 
     var message by rememberSaveable { mutableStateOf("") }
 
+    // Camera Variables
     val file = context.createImageFile()
-    val cameraUri = FileProvider.getUriForFile(
+    val uri = FileProvider.getUriForFile(
         Objects.requireNonNull(context),
         "com.example.agrican" + ".provider", file
     )
-    val cameraLauncher =
-        rememberLauncherForActivityResult(ActivityResultContracts.TakePicture()) {
-            sendImage(cameraUri, MessageType.IMAGE)
-        }
+    val cameraLauncher = rememberLauncherForActivityResult(ActivityResultContracts.TakePicture()) {
+        uri.path?.let { path -> sendFile(File(path)) }
+    }
     val permissionLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) {
         if (it) {
             Toast.makeText(context, "Permission Granted", Toast.LENGTH_SHORT).show()
-            cameraLauncher.launch(cameraUri)
+            cameraLauncher.launch(uri)
         } else {
             Toast.makeText(context, "Permission Denied", Toast.LENGTH_SHORT).show()
         }
     }
 
+    // Image Launcher
     val imagePicker =
-        rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-            if (uri != null) { sendImage(uri, MessageType.IMAGE) }
+        rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { imageUri ->
+            imageUri?.path?.let { path -> sendFile(File(path)) }
         }
+
+    // Voice Recorder Variables
+    val recorder by lazy { AndroidAudioRecorder(context) }
+    val player by lazy { AndroidAudioPlayer(context) }
+    var audioFile: File? = null
+    var recording by rememberSaveable { mutableStateOf(false) }
 
     Surface(
         shadowElevation = MaterialTheme.spacing.medium,
@@ -319,7 +402,23 @@ fun BottomView(
                 modifier = Modifier.weight(1f)
             )
 
-            ChatOutlinedButton(icon = Icons.Outlined.RecordVoiceOver, onItemClick = {
+            ChatOutlinedButton(
+                icon = if (recording) Icons.Outlined.RecordVoiceOver
+                    else Icons.Outlined.RecordVoiceOver,
+                onItemClick = {
+                    if (recording) {
+                        // Stop Recording
+                        recorder.stop()
+                        sendFile(audioFile)
+                        recording = false
+                    } else {
+                        // Start Recording
+                        File(context.cacheDir, "audio.mp3").also {
+                            recorder.start(it)
+                            audioFile = it
+                        }
+                        recording = true
+                    }
             })
 
             ChatOutlinedButton(icon = Icons.Outlined.Link, onItemClick = {
@@ -333,7 +432,7 @@ fun BottomView(
                 val permissionCheckResult =
                     ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA)
                 if (permissionCheckResult == PackageManager.PERMISSION_GRANTED) {
-                    cameraLauncher.launch(cameraUri)
+                    cameraLauncher.launch(uri)
                 } else {
                     // Request a permission
                     permissionLauncher.launch(Manifest.permission.CAMERA)
@@ -405,31 +504,59 @@ fun ChatScreenPreview() {
         Message(
             body = "أهلا بيك معاك .. من أجريكان أقدر أساعد حضرتك إزاى؟",
             userId = "1",
-            messageId = "1"
+            messageId = "1",
+            type = MessageType.TEXT
         ),
         Message(
             body = "أهلا بيك معاك .. من أجريكان أقدر أساعد حضرتك إزاى؟",
             userId = "1",
-            messageId = "2"
+            messageId = "2",
+            type = MessageType.TEXT
         ),
         Message(
             body = "أهلا بيك معاك .. من أجريكان أقدر أساعد حضرتك إزاى؟",
             userId = "1",
-            messageId = "3"
+            messageId = "3",
+            type = MessageType.TEXT
         ),
         Message(body = "text2", userId = "2", messageId = "4"),
         Message(
             body = "أهلا بيك معاك .. من أجريكان أقدر أساعد حضرتك إزاى؟",
             userId = "1",
-            messageId = "5"
+            messageId = "5",
+            type = MessageType.TEXT
         ),
         Message(
             body = "أهلا بيك معاك .. من أجريكان أقدر أساعد حضرتك إزاى؟",
             userId = "1",
-            messageId = "6"
+            messageId = "6",
+            type = MessageType.TEXT
         ),
-        Message(body = "text2", userId = "2", messageId = "7"),
-        Message(body = "text2", userId = "2", messageId = "8"),
+        Message(
+            body = "text2",
+            userId = "2",
+            messageId = "7",
+            type = MessageType.TEXT
+        ),
+        Message(
+            body = "text2",
+            userId = "2",
+            messageId = "8",
+            type = MessageType.TEXT
+        ),
+        Message(
+            userId = "2",
+            messageId = "9",
+            file = File("/picker/0/com.android.providers.media.photopicker/media/1000137870"),
+            type = MessageType.IMAGE
+
+        ),
+        Message(
+            userId = "2",
+            messageId = "9",
+            file = File("/picker/0/com.android.providers.media.photopicker/media/1000137870"),
+            type = MessageType.VOICE
+        )
     ))
-    ChatScreenContent(userId = "2", chat = chat, sendMessage = { _, _ -> }, sendImage = { _, _ -> }, navigateUp = { })
+    ChatScreenContent({ }, "2", chat, { _, _ -> }, { })
 }
