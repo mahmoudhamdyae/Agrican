@@ -1,6 +1,5 @@
 package com.example.agrican.data.repository
 
-import android.net.Uri
 import com.example.agrican.data.remote.ApiService
 import com.example.agrican.domain.model.Chat
 import com.example.agrican.domain.model.Crop
@@ -17,6 +16,9 @@ import com.example.agrican.domain.model.Weather
 import com.example.agrican.domain.repository.MainRepository
 import com.example.agrican.domain.use_case.GetDefaultAgeResponse
 import kotlinx.coroutines.flow.Flow
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import java.io.File
 import javax.inject.Inject
 
 class MainRepositoryImpl @Inject constructor(
@@ -55,9 +57,14 @@ class MainRepositoryImpl @Inject constructor(
         fullName: String,
         email: String,
         phoneNumber: String,
-        image: Uri
+        image: File
     ) {
-        apiService.joinAsExpert()
+        apiService.joinAsExpert(
+            fullName,
+            email,
+            phoneNumber,
+            MultipartBody.Part.createFormData("image", image.name, image.asRequestBody())
+        )
     }
 
     override suspend fun getDiseases(): List<Disease> {
@@ -76,8 +83,17 @@ class MainRepositoryImpl @Inject constructor(
         return apiService.getPest(pestId)
     }
 
-    override suspend fun searchProblem() {
-        apiService.searchProblem()
+    override suspend fun searchProblem(
+        crop: Crop,
+        image1: File,
+        image2: File,
+        image3: File,
+    ) {
+        apiService.searchProblem(
+            MultipartBody.Part.createFormData("image", image1.name, image1.asRequestBody()),
+            MultipartBody.Part.createFormData("image", image2.name, image2.asRequestBody()),
+            MultipartBody.Part.createFormData("image", image3.name, image3.asRequestBody())
+        )
     }
 
     override suspend fun calculateFertilize() {

@@ -68,11 +68,11 @@ class OrderConfirmViewModel @Inject constructor(
 
                         val requestModel = PaymentRequest(
                             _uiState.value.order.price.toString(), token.toString(),
-                            BillingData(
-                                "NA", "NA", "NA", "NA",
-                                _uiState.value.currentUser.email, _uiState.value.currentUser.userName, "NA",
-                                _uiState.value.currentUser.userName, _uiState.value.currentUser.phoneNumber, "NA", "NA",
-                                "NA", "NA"
+                            BillingData( // "NA" if empty
+                                "803", "8028", "Jask", "CR",
+                                _uiState.value.currentUser.email, _uiState.value.currentUser.userName.trim(), "42",
+                                _uiState.value.currentUser.userName.trim(), _uiState.value.currentUser.phoneNumber, "01898", "NA",
+                                "Uta", "NA"
                             ), _uiState.value.order.currency, 3600, Constant.INTEGRATION_ID_CARD,
                             "true",
                             orderId.toString()

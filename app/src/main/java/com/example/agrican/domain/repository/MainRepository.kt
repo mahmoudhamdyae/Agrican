@@ -1,6 +1,5 @@
 package com.example.agrican.domain.repository
 
-import android.net.Uri
 import com.example.agrican.domain.model.Chat
 import com.example.agrican.domain.model.Crop
 import com.example.agrican.domain.model.Disease
@@ -15,6 +14,7 @@ import com.example.agrican.domain.model.User
 import com.example.agrican.domain.model.Weather
 import com.example.agrican.domain.use_case.GetDefaultAgeResponse
 import kotlinx.coroutines.flow.Flow
+import java.io.File
 
 interface MainRepository {
 
@@ -26,13 +26,13 @@ interface MainRepository {
     suspend fun getOrders(): List<Order>
     suspend fun getOrder(orderId: String): Order
     suspend fun getTreatments(): List<Treatment>
-    suspend fun joinAsExpert(fullName: String, email: String, phoneNumber: String, image: Uri)
+    suspend fun joinAsExpert(fullName: String, email: String, phoneNumber: String, image: File)
     suspend fun getDiseases(): List<Disease>
     suspend fun getDisease(diseaseId: String): Disease
     suspend fun getPests(): List<Pest>
     suspend fun getPest(pestId: String): Pest
 
-    suspend fun searchProblem()
+    suspend fun searchProblem(crop: Crop, image1: File, image2: File, image3: File)
     suspend fun calculateFertilize()
     suspend fun getChat(): Flow<Chat>
     suspend fun sendMessage(message: Message)

@@ -142,7 +142,8 @@ fun OrderConfirmScreenContent(
                     value = expireDate,
                     onNewValue = { expireDate = it },
                     placeHolder = { },
-                    focusManager = focusManager
+                    focusManager = focusManager,
+                    imeAction = ImeAction.Done
                 )
             }
 

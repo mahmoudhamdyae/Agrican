@@ -166,7 +166,7 @@ fun OrdersListItem(
         }
 
         Button(
-            onClick = { openScreen(OrderConfirmDestination.route) },
+            onClick = { openScreen("${OrderConfirmDestination.route}/${order.orderId}") },
             colors = ButtonDefaults.buttonColors(containerColor = greenDark),
             modifier = Modifier.align(Alignment.BottomCenter)
         ) {

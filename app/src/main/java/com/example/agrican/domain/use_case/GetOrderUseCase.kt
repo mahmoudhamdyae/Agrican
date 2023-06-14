@@ -11,6 +11,6 @@ class GetOrderUseCase @Inject constructor(
     suspend operator fun invoke(orderId: String): Order {
 //        return mainRepository.getOrder(orderId)
 
-        return Order()
+        return Order(price = 100.0, currency = "EGP",)
     }
 }

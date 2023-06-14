@@ -1,5 +1,13 @@
 package com.example.agrican.ui.screens.home.main.ask_expert
 
+import android.Manifest
+import android.annotation.SuppressLint
+import android.content.Context
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -42,10 +50,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
@@ -58,6 +69,10 @@ import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.spacing
 import kotlinx.coroutines.launch
+import java.io.File
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Objects
 
 object ChatDestination: NavigationDestination {
     override val route: String = "chat"
@@ -83,9 +98,15 @@ fun ChatScreen(
         userId = userId,
         chat = uiState.chat,
         sendMessage = { messageBody, messageType ->
-            viewModel.sendMessage(messageBody, messageType)
+            viewModel.sendMessage(messageBody = messageBody, messageType = messageType)
             scope.launch {
-                scrollState.animateScrollToItem(0)
+                scrollState.animateScrollToItem(uiState.chat.messages.size - 1)
+            }
+        },
+        sendImage = { uri, messageType ->
+            viewModel.sendMessage(image = uri, messageType = messageType)
+            scope.launch {
+                scrollState.animateScrollToItem(uiState.chat.messages.size - 1)
             }
         },
         scrollState = scrollState,
@@ -99,6 +120,7 @@ fun ChatScreenContent(
     userId: String,
     chat: Chat,
     sendMessage: (String, MessageType) -> Unit,
+    sendImage: (Uri, MessageType) -> Unit,
     modifier: Modifier = Modifier,
     scrollState: LazyListState = rememberLazyListState()
 ) {
@@ -126,6 +148,7 @@ fun ChatScreenContent(
 
         BottomView(
             sendMessage = sendMessage,
+            sendImage = sendImage,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(MaterialTheme.spacing.small)
@@ -240,9 +263,38 @@ fun UserImage(
 @Composable
 fun BottomView(
     sendMessage: (String, MessageType) -> Unit,
+    sendImage: (Uri, MessageType) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val context = LocalContext.current
+
     var message by rememberSaveable { mutableStateOf("") }
+
+    var document by rememberSaveable { mutableStateOf(Uri.EMPTY) }
+
+    val openDocumentLauncher = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) {
+        document = it
+    }
+
+    val file = context.createImageFile()
+    val uri = FileProvider.getUriForFile(
+        Objects.requireNonNull(context),
+        "com.example.agrican" + ".provider", file
+    )
+    val cameraLauncher =
+        rememberLauncherForActivityResult(ActivityResultContracts.TakePicture()) {
+            sendImage(uri, MessageType.IMAGE)
+        }
+    val permissionLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) {
+        if (it) {
+            Toast.makeText(context, "Permission Granted", Toast.LENGTH_SHORT).show()
+            cameraLauncher.launch(uri)
+        } else {
+            Toast.makeText(context, "Permission Denied", Toast.LENGTH_SHORT).show()
+        }
+    }
 
     Surface(
         shadowElevation = MaterialTheme.spacing.medium,
@@ -268,8 +320,17 @@ fun BottomView(
             )
 
             ChatOutlinedButton(icon = Icons.Outlined.RecordVoiceOver, onItemClick = { recordVoice(sendMessage) })
-            ChatOutlinedButton(icon = Icons.Outlined.Link, onItemClick = { addDocument(sendMessage) })
-            ChatOutlinedButton(icon = Icons.Outlined.CameraAlt, onItemClick = { takePhoto(sendMessage) })
+            ChatOutlinedButton(icon = Icons.Outlined.Link, onItemClick = {  })
+            ChatOutlinedButton(icon = Icons.Outlined.CameraAlt, onItemClick = {
+                val permissionCheckResult =
+                    ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA)
+                if (permissionCheckResult == PackageManager.PERMISSION_GRANTED) {
+                    cameraLauncher.launch(uri)
+                } else {
+                    // Request a permission
+                    permissionLauncher.launch(Manifest.permission.CAMERA)
+                }
+            })
         }
     }
 }
@@ -281,6 +342,18 @@ fun addDocument(sendMessage: (String, MessageType) -> Unit) {
 }
 
 fun takePhoto(sendMessage: (String, MessageType) -> Unit) {
+}
+
+@SuppressLint("SimpleDateFormat")
+fun Context.createImageFile(): File {
+    // Create an image file name
+    val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+    val imageFileName = "JPEG_" + timeStamp + "_"
+    return File.createTempFile(
+        imageFileName, /* prefix */
+        ".jpg", /* suffix */
+        externalCacheDir      /* directory */
+    )
 }
 
 @Composable
@@ -359,5 +432,5 @@ fun ChatScreenPreview() {
         Message(body = "text2", userId = "2", messageId = "7"),
         Message(body = "text2", userId = "2", messageId = "8"),
     ))
-    ChatScreenContent(userId = "2", chat = chat, sendMessage = { _, _ -> }, navigateUp = { })
+    ChatScreenContent(userId = "2", chat = chat, sendMessage = { _, _ -> }, sendImage = { _, _ -> }, navigateUp = { })
 }
