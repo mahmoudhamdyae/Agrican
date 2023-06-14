@@ -35,6 +35,7 @@ import com.example.agrican.R
 import com.example.agrican.domain.model.Order
 import com.example.agrican.ui.components.BackButton
 import com.example.agrican.ui.navigation.NavigationDestination
+import com.example.agrican.ui.screens.home.agricanservices.order.confirm_order.OrderConfirmDestination
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
@@ -48,19 +49,21 @@ object OrderStatusDestination: NavigationDestination {
 @Composable
 fun OrderStatusScreen(
     navigateUp: () -> Unit,
+    openScreen: (String) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: OrderViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     BackButton(navigateUp = navigateUp) {
-        OrderStatusScreenContent(uiState = uiState, modifier = modifier)
+        OrderStatusScreenContent(uiState = uiState, openScreen = openScreen, modifier = modifier)
     }
 }
 
 @Composable
 fun OrderStatusScreenContent(
     uiState: OrderUiState,
+    openScreen: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -78,7 +81,7 @@ fun OrderStatusScreenContent(
                 .background(gray)
         )
 
-        OrdersList(orders = uiState.orders)
+        OrdersList(orders = uiState.orders, openScreen = openScreen)
     }
 }
 
@@ -100,6 +103,7 @@ fun EmptyView(
 @Composable
 fun OrdersList(
     orders: List<Order>,
+    openScreen: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     if (orders.isEmpty()) {
@@ -107,7 +111,7 @@ fun OrdersList(
     } else {
         LazyColumn(modifier = modifier) {
             items(orders.size) {
-                OrdersListItem(order = orders[it])
+                OrdersListItem(order = orders[it], openScreen = openScreen)
             }
         }
     }
@@ -116,6 +120,7 @@ fun OrdersList(
 @Composable
 fun OrdersListItem(
     order: Order,
+    openScreen: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Box(
@@ -161,7 +166,7 @@ fun OrdersListItem(
         }
 
         Button(
-            onClick = { /*TODO*/ },
+            onClick = { openScreen(OrderConfirmDestination.route) },
             colors = ButtonDefaults.buttonColors(containerColor = greenDark),
             modifier = Modifier.align(Alignment.BottomCenter)
         ) {
@@ -175,11 +180,11 @@ fun OrdersListItem(
 @Preview(showBackground = true)
 @Composable
 fun OrderStatusPreview() {
-    OrderStatusScreen(navigateUp = { })
+    OrderStatusScreen(navigateUp = { }, openScreen = { })
 }
 
 @Preview(showBackground = true)
 @Composable
 fun OrderListItemPreview() {
-    OrderStatusScreenContent(uiState = OrderUiState())
+    OrderStatusScreenContent(uiState = OrderUiState(), openScreen = {})
 }

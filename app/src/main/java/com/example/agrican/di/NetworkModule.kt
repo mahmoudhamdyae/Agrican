@@ -1,6 +1,9 @@
 package com.example.agrican.di
 
+import com.example.agrican.common.utils.Constant.BASE_URL
+import com.example.agrican.common.utils.Constant.PAYMOB_BASE_URL
 import com.example.agrican.data.remote.ApiService
+import com.example.agrican.data.remote.PaymobApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,17 +29,23 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
-        return Retrofit.Builder()
+    fun provideApiService(okHttpClient: OkHttpClient): ApiService {
+        val retrofit = Retrofit.Builder()
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl("https://www.themealdb.com/api/json/v1/1/")
+            .baseUrl(BASE_URL)
             .build()
+        return retrofit.create(ApiService::class.java)
     }
 
     @Provides
     @Singleton
-    fun provideApiService(retrofit: Retrofit): ApiService {
-        return retrofit.create(ApiService::class.java)
+    fun providePaymobApiService(okHttpClient: OkHttpClient): PaymobApiService {
+        val retrofit = Retrofit.Builder()
+            .client(okHttpClient)
+            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl(PAYMOB_BASE_URL)
+            .build()
+        return retrofit.create(PaymobApiService::class.java)
     }
 }

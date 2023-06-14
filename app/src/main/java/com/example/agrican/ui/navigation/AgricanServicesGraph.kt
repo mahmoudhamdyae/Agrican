@@ -17,10 +17,10 @@ import com.example.agrican.ui.screens.home.agricanservices.diseases.DiseasesDest
 import com.example.agrican.ui.screens.home.agricanservices.diseases.DiseasesScreen
 import com.example.agrican.ui.screens.home.agricanservices.join_as_expert.JoinAsExpertDestination
 import com.example.agrican.ui.screens.home.agricanservices.join_as_expert.JoinAsExpertScreen
-import com.example.agrican.ui.screens.home.agricanservices.order.OrderConfirmDestination
-import com.example.agrican.ui.screens.home.agricanservices.order.OrderConfirmScreen
 import com.example.agrican.ui.screens.home.agricanservices.order.OrderDestination
 import com.example.agrican.ui.screens.home.agricanservices.order.OrderScreen
+import com.example.agrican.ui.screens.home.agricanservices.order.confirm_order.OrderConfirmDestination
+import com.example.agrican.ui.screens.home.agricanservices.order.confirm_order.OrderConfirmScreen
 import com.example.agrican.ui.screens.home.agricanservices.order.order_status.OrderStatusDestination
 import com.example.agrican.ui.screens.home.agricanservices.order.order_status.OrderStatusScreen
 import com.example.agrican.ui.screens.home.agricanservices.pests.PestDestination
@@ -75,10 +75,13 @@ fun AgricanServicesGraph(
         }
 
         composable(route = OrderStatusDestination.route) {
-            OrderStatusScreen(navigateUp = navigateUp)
+            OrderStatusScreen(navigateUp = navigateUp, openScreen = openScreen)
         }
 
-        composable(route = OrderConfirmDestination.route) {
+        composable(
+            route = OrderConfirmDestination.routeWithArgs,
+            arguments = OrderConfirmDestination.arguments
+        ) {
             OrderConfirmScreen(navigateUp = navigateUp)
         }
 

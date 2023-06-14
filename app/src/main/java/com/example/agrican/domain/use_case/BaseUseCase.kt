@@ -42,6 +42,7 @@ data class BaseUseCase (
 
     val getDefaultAgeUseCase: GetDefaultAgeUseCase,
     val getOrdersUseCase: GetOrdersUseCase,
+    val getOrderUseCase: GetOrderUseCase,
     val orderNewProduct: OrderNewProduct,
     val getTreatmentsUseCase: GetTreatmentsUseCase,
     val joinUsUseCase: JoinUsUseCase,

@@ -24,6 +24,7 @@ interface MainRepository {
     suspend fun getDefaultAge(): GetDefaultAgeResponse
     suspend fun orderNewProduct()
     suspend fun getOrders(): List<Order>
+    suspend fun getOrder(orderId: String): Order
     suspend fun getTreatments(): List<Treatment>
     suspend fun joinAsExpert(fullName: String, email: String, phoneNumber: String, image: Uri)
     suspend fun getDiseases(): List<Disease>

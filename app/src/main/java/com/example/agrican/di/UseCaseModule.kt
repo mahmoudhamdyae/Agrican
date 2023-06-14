@@ -16,6 +16,7 @@ import com.example.agrican.domain.use_case.GetDisease
 import com.example.agrican.domain.use_case.GetDiseases
 import com.example.agrican.domain.use_case.GetFarmsUseCase
 import com.example.agrican.domain.use_case.GetNewsUseCase
+import com.example.agrican.domain.use_case.GetOrderUseCase
 import com.example.agrican.domain.use_case.GetOrdersUseCase
 import com.example.agrican.domain.use_case.GetPest
 import com.example.agrican.domain.use_case.GetPests
@@ -80,6 +81,7 @@ object UseCaseModule {
 
             getDefaultAgeUseCase = GetDefaultAgeUseCase(mainRepository),
             getOrdersUseCase = GetOrdersUseCase(mainRepository),
+            getOrderUseCase = GetOrderUseCase(mainRepository),
             orderNewProduct = OrderNewProduct(mainRepository),
             getTreatmentsUseCase = GetTreatmentsUseCase(mainRepository),
             joinUsUseCase = JoinUsUseCase(mainRepository),

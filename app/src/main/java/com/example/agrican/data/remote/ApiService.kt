@@ -35,6 +35,9 @@ interface ApiService {
     suspend fun getOrders(): List<Order>
 
     @GET("")
+    suspend fun getOrder(orderId: String): Order
+
+    @GET("")
     suspend fun getTreatments(): List<Treatment>
 
     @POST("")

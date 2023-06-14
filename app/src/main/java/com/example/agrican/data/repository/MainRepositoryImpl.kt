@@ -43,6 +43,10 @@ class MainRepositoryImpl @Inject constructor(
         return apiService.getOrders()
     }
 
+    override suspend fun getOrder(orderId: String): Order {
+        return apiService.getOrder(orderId)
+    }
+
     override suspend fun getTreatments(): List<Treatment> {
         return apiService.getTreatments()
     }
