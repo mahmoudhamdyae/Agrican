@@ -16,6 +16,10 @@ class SignupUseCase @Inject constructor(
         accountType: UserType,
         onSuccess: () -> Unit
     ) {
-        accountService.signup(userName, email, password, onSuccess)
+        accountService.signup(userName, email, password, phoneNumber, onSuccess)
+
+        // Get id
+
+        // save user to database
     }
 }

@@ -1,7 +1,7 @@
 package com.example.agrican.di
 
-import com.amplifyframework.auth.AuthCategory
-import com.amplifyframework.core.Amplify
+import com.amplifyframework.kotlin.auth.KotlinAuthFacade
+import com.amplifyframework.kotlin.core.Amplify
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,5 +12,5 @@ import dagger.hilt.components.SingletonComponent
 object AwsModule {
 
     @Provides
-    fun auth(): AuthCategory = Amplify.Auth
+    fun auth(): KotlinAuthFacade = Amplify.Auth
 }

@@ -1,20 +1,15 @@
 package com.example.agrican.ui.screens.auth.signup
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
@@ -23,11 +18,8 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
@@ -37,6 +29,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
 import com.example.agrican.domain.model.UserType
+import com.example.agrican.ui.components.BackButton
 import com.example.agrican.ui.components.Background
 import com.example.agrican.ui.components.EmailField
 import com.example.agrican.ui.components.PasswordField
@@ -100,9 +93,12 @@ fun SignupScreenContent(
     navigateUp: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Box(modifier = modifier) {
-
-        Background(body1 = {
+    BackButton(navigateUp = {
+        clearState()
+        if (accountType == null) navigateUp()
+        else setAccountType(null)
+    }) {
+        Background(modifier = modifier, body1 = {
             if (accountType == null) {
                 AccountType(
                     setAccountType = setAccountType,
@@ -121,23 +117,6 @@ fun SignupScreenContent(
                 )
             }
         })
-
-        IconButton(onClick = {
-            clearState()
-            if (accountType == null) navigateUp()
-            else setAccountType(null)
-        }, modifier = Modifier
-            .padding(MaterialTheme.spacing.medium)
-            .clip(CircleShape)
-            .background(greenDark)
-            .align(Alignment.TopEnd)
-        ) {
-            Icon(
-                painter = painterResource(id = R.drawable.baseline_arrow_back_ios_new_24),
-                contentDescription = null,
-                tint = Color.White
-            )
-        }
     }
 }
 

@@ -6,14 +6,13 @@ import com.example.agrican.ui.screens.BaseViewModel
 import com.example.agrican.ui.screens.auth.login.LoginDestination
 import com.example.agrican.ui.screens.welcome.WelcomeDestination
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     preferencesRepository: PreferencesRepository,
-    // todo del this
     private val accountService: AccountService
 ): BaseViewModel() {
 
@@ -22,19 +21,15 @@ class HomeViewModel @Inject constructor(
     fun initialize(navigate: (String) -> Unit) {
 
         launchCatching {
-            accountService.getCurrentUser(navigateToSignIn = {
-                launchCatching {
-                    isFirstTime.collect {
-                        if (it) {
-                            navigate(WelcomeDestination.route)
-                            this.cancel()
-                        } else {
-                            navigate(LoginDestination.route)
-                            this.cancel()
-                        }
+            isFirstTime.collectLatest {
+                if (it) {
+                    navigate(WelcomeDestination.route)
+                } else {
+                    if (!accountService.hasUser()) {
+                        navigate(LoginDestination.route)
                     }
                 }
-            })
+            }
         }
     }
 }

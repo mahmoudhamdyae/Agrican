@@ -136,7 +136,7 @@ fun LoginScreenContent(
                     modifier = Modifier.clickable { onForgotPassword() }
                 )
             }
-            Row(modifier = Modifier.fillMaxWidth()) {
+            Row(modifier = Modifier.fillMaxWidth().height(50.dp)) {
                 Spacer(modifier = Modifier.weight(1f))
 
                 DropDown(options = listOf(
@@ -152,14 +152,14 @@ fun LoginScreenContent(
                             else -> { changeAccountType(UserType.FARMER) }
                         }
                                },
-                    modifier = Modifier.weight(1f).height(MaterialTheme.spacing.large)
+                    modifier = Modifier.weight(1f).padding(vertical = MaterialTheme.spacing.small)
                 )
             }
 
             Button(
                 onClick = { onEvent(AuthFormEvent.Submit) },
                 colors = ButtonDefaults.buttonColors(containerColor = greenDark),
-                modifier = Modifier.padding(MaterialTheme.spacing.medium)
+                modifier = Modifier.padding(MaterialTheme.spacing.small)
             ) {
                 Text(text = stringResource(id = R.string.login_button))
             }
