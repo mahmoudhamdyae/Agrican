@@ -14,8 +14,13 @@ import javax.inject.Inject
 class AccountServiceImpl @Inject constructor(
     private val auth: KotlinAuthFacade
 ): AccountService {
+
     override suspend fun hasUser(): Boolean {
         return auth.fetchAuthSession().isSignedIn
+    }
+
+    override suspend fun getCurrentUserId(): String {
+        return auth.getCurrentUser().userId
     }
 
     override suspend fun login(userName: String, password: String, onSuccess: () -> Unit) {
@@ -119,10 +124,5 @@ class AccountServiceImpl @Inject constructor(
             Log.e("AuthQuickstart", "Failed to confirm password reset", error)
             SnackBarManager.showMessage(error.toSnackBarMessage())
         }
-    }
-
-    override suspend fun getCurrentUser(navigateToSignIn: () -> Unit) {
-        auth.getCurrentUser().userId
-        auth.getCurrentUser().username
     }
 }

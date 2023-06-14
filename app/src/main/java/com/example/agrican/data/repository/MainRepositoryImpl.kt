@@ -25,6 +25,14 @@ class MainRepositoryImpl @Inject constructor(
     private val apiService: ApiService
 ): MainRepository {
 
+    override suspend fun getCurrentUser(userId: String): User {
+        return apiService.getCurrentUser(userId)
+    }
+
+    override suspend fun createUser(user: User) {
+        apiService.createUser(user)
+    }
+
     override suspend fun getWeather(): Weather {
         return apiService.getWeather()
     }
@@ -106,10 +114,6 @@ class MainRepositoryImpl @Inject constructor(
 
     override suspend fun sendMessage(message: Message) {
         apiService.sendMessage(message)
-    }
-
-    override suspend fun getCurrentUser(): User {
-        return apiService.getCurrentUser()
     }
 
     override suspend fun getFarms(): List<Farm> {

@@ -53,7 +53,7 @@ object UseCaseModule {
             forgotPasswordUseCase = ForgotPasswordUseCase(accountService),
             loginUseCase = LoginUseCase(accountService),
             signOutUseCase = SignOutUseCase(accountService),
-            signupUseCase = SignupUseCase(accountService),
+            signupUseCase = SignupUseCase(accountService, mainRepository),
 
             validateEmail = ValidateEmail(),
             validatePassword = ValidatePassword(),
@@ -61,7 +61,7 @@ object UseCaseModule {
             validateRepeatedPassword = ValidateRepeatedPassword(),
             validateUserName = ValidateUserName(),
 
-            getCurrentUserUseCase = GetCurrentUserUseCase(mainRepository),
+            getCurrentUserUseCase = GetCurrentUserUseCase(accountService, mainRepository),
 
             getWeatherUseCase = GetWeatherUseCase(mainRepository),
             getNewsUseCase = GetNewsUseCase(mainRepository),

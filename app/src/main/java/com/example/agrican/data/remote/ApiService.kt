@@ -23,6 +23,12 @@ import retrofit2.http.Part
 interface ApiService {
 
     @GET("")
+    suspend fun getCurrentUser(userId: String): User
+
+    @GET("")
+    suspend fun createUser(user: User)
+
+    @GET("")
     suspend fun getWeather(): Weather
 
     @GET("")
@@ -80,9 +86,6 @@ interface ApiService {
 
     @POST("")
     suspend fun sendMessage(message: Message)
-
-    @POST("")
-    suspend fun getCurrentUser(): User
 
     @POST("")
     suspend fun getFarms(): List<Farm>

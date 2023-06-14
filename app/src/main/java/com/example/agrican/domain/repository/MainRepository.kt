@@ -18,6 +18,9 @@ import java.io.File
 
 interface MainRepository {
 
+    suspend fun getCurrentUser(userId: String): User
+    suspend fun createUser(user: User)
+
     suspend fun getWeather(): Weather
     suspend fun getNews(): List<News>
 
@@ -37,7 +40,6 @@ interface MainRepository {
     suspend fun getChat(): Flow<Chat>
     suspend fun sendMessage(message: Message)
 
-    suspend fun getCurrentUser(): User
     suspend fun getFarms(): List<Farm>
     suspend fun getCrops(): List<Crop>
     suspend fun getCrop(cropId: String): Crop
