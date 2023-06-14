@@ -2,6 +2,7 @@ package com.example.agrican.ui.screens.home.main.ask_expert
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
 import android.media.MediaPlayer
@@ -61,6 +62,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -302,7 +304,6 @@ fun VoiceMessage(
     var playing by rememberSaveable { mutableStateOf(false) }
 
     val mContext = LocalContext.current
-    val mediaPlayer = MediaPlayer.create(mContext, R.raw.record_audio)
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -314,7 +315,6 @@ fun VoiceMessage(
 
         IconButton(onClick = {
             playing = !playing
-            mediaPlayer.start()
         }) {
             Icon(
                 imageVector = if (playing) Icons.Default.Pause else Icons.Default.PlayArrow
@@ -379,6 +379,8 @@ fun BottomView(
     var audioFile: File? = null
     var recording by rememberSaveable { mutableStateOf(false) }
 
+    val mediaPlayer = MediaPlayer.create(context, R.raw.record_audio)
+
     Surface(
         shadowElevation = MaterialTheme.spacing.medium,
         shape = RoundedCornerShape(MaterialTheme.spacing.large),
@@ -407,17 +409,21 @@ fun BottomView(
                     else Icons.Outlined.RecordVoiceOver,
                 onItemClick = {
                     if (recording) {
+                        mediaPlayer.start()
                         // Stop Recording
                         recorder.stop()
-                        sendFile(audioFile)
                         recording = false
+                        sendFile(audioFile)
                     } else {
-                        // Start Recording
-                        File(context.cacheDir, "audio.mp3").also {
-                            recorder.start(it)
-                            audioFile = it
+                        if (checkRecordAudioPermission(context)) {
+                            mediaPlayer.start()
+                            // Start Recording
+                            File(context.cacheDir, "audio.mp3").also {
+                                recorder.start(it)
+                                audioFile = it
+                            }
+                            recording = true
                         }
-                        recording = true
                     }
             })
 
@@ -440,6 +446,19 @@ fun BottomView(
             })
         }
     }
+}
+
+fun checkRecordAudioPermission(context: Context): Boolean {
+    return if (ActivityCompat.checkSelfPermission(context, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) {
+        true
+    } else {
+        requestRecordAudioPermission(context)
+        false
+    }
+}
+
+fun requestRecordAudioPermission(context: Context) {
+    ActivityCompat.requestPermissions(context as Activity, arrayOf(Manifest.permission.RECORD_AUDIO), 0)
 }
 
 @SuppressLint("SimpleDateFormat")
