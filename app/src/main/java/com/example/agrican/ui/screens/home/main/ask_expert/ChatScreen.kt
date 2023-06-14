@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -270,31 +271,30 @@ fun BottomView(
 
     var message by rememberSaveable { mutableStateOf("") }
 
-    var document by rememberSaveable { mutableStateOf(Uri.EMPTY) }
-
-    val openDocumentLauncher = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) {
-        document = it
-    }
-
     val file = context.createImageFile()
-    val uri = FileProvider.getUriForFile(
+    val cameraUri = FileProvider.getUriForFile(
         Objects.requireNonNull(context),
         "com.example.agrican" + ".provider", file
     )
     val cameraLauncher =
         rememberLauncherForActivityResult(ActivityResultContracts.TakePicture()) {
-            sendImage(uri, MessageType.IMAGE)
+            sendImage(cameraUri, MessageType.IMAGE)
         }
     val permissionLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) {
         if (it) {
             Toast.makeText(context, "Permission Granted", Toast.LENGTH_SHORT).show()
-            cameraLauncher.launch(uri)
+            cameraLauncher.launch(cameraUri)
         } else {
             Toast.makeText(context, "Permission Denied", Toast.LENGTH_SHORT).show()
         }
     }
+
+    val imagePicker =
+        rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+            if (uri != null) { sendImage(uri, MessageType.IMAGE) }
+        }
 
     Surface(
         shadowElevation = MaterialTheme.spacing.medium,
@@ -319,13 +319,21 @@ fun BottomView(
                 modifier = Modifier.weight(1f)
             )
 
-            ChatOutlinedButton(icon = Icons.Outlined.RecordVoiceOver, onItemClick = { recordVoice(sendMessage) })
-            ChatOutlinedButton(icon = Icons.Outlined.Link, onItemClick = {  })
+            ChatOutlinedButton(icon = Icons.Outlined.RecordVoiceOver, onItemClick = {
+            })
+
+            ChatOutlinedButton(icon = Icons.Outlined.Link, onItemClick = {
+                imagePicker.launch(
+                    PickVisualMediaRequest(
+                        mediaType = ActivityResultContracts.PickVisualMedia.ImageOnly)
+                )
+            })
+
             ChatOutlinedButton(icon = Icons.Outlined.CameraAlt, onItemClick = {
                 val permissionCheckResult =
                     ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA)
                 if (permissionCheckResult == PackageManager.PERMISSION_GRANTED) {
-                    cameraLauncher.launch(uri)
+                    cameraLauncher.launch(cameraUri)
                 } else {
                     // Request a permission
                     permissionLauncher.launch(Manifest.permission.CAMERA)
@@ -333,15 +341,6 @@ fun BottomView(
             })
         }
     }
-}
-
-fun recordVoice(sendMessage: (String, MessageType) -> Unit) {
-}
-
-fun addDocument(sendMessage: (String, MessageType) -> Unit) {
-}
-
-fun takePhoto(sendMessage: (String, MessageType) -> Unit) {
 }
 
 @SuppressLint("SimpleDateFormat")
