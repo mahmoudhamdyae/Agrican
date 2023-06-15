@@ -1,6 +1,8 @@
 package com.example.agrican.ui.screens.home.main.problem_images
 
+import android.content.Context
 import android.net.Uri
+import com.example.agrican.common.ext.encodeImage
 import com.example.agrican.domain.model.Crop
 import com.example.agrican.domain.use_case.BaseUseCase
 import com.example.agrican.ui.screens.BaseViewModel
@@ -39,13 +41,13 @@ class ProblemImagesViewModel @Inject constructor(
         )
     }
 
-    fun search() {
+    fun search(context: Context) {
         launchCatching {
             useCase.searchUseCase(
                 crop = _uiState.value.selectedCrop,
-                image1 = _uiState.value.image1,
-                image2 = _uiState.value.image2,
-                image3 = _uiState.value.image3
+                image1 = _uiState.value.image1.encodeImage(context),
+                image2 = _uiState.value.image2.encodeImage(context),
+                image3 = _uiState.value.image3.encodeImage(context)
             )
         }
     }

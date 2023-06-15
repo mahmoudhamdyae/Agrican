@@ -1,7 +1,5 @@
 package com.example.agrican.domain.use_case
 
-import android.net.Uri
-import androidx.core.net.toFile
 import com.example.agrican.domain.repository.MainRepository
 import javax.inject.Inject
 
@@ -13,14 +11,14 @@ class JoinUsUseCase @Inject constructor(
         fullName: String,
         email: String,
         phoneNumber: String,
-        image: Uri
+        image: String?
     ) {
 
         mainRepository.joinAsExpert(
             fullName = fullName,
             email = email,
             phoneNumber = phoneNumber,
-            image = image.toFile()
+            image = image
         )
     }
 }

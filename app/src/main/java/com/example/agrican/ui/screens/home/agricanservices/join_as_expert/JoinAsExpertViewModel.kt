@@ -1,6 +1,5 @@
 package com.example.agrican.ui.screens.home.agricanservices.join_as_expert
 
-import android.net.Uri
 import com.example.agrican.domain.use_case.BaseUseCase
 import com.example.agrican.ui.screens.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,7 +14,7 @@ class JoinAsExpertViewModel @Inject constructor(
         fullName: String,
         email: String,
         phoneNumber: String,
-        image: Uri,
+        image: String?,
         navigateUp: () -> Unit
     ) {
         launchCatching {

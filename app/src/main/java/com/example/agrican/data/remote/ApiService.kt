@@ -14,11 +14,8 @@ import com.example.agrican.domain.model.User
 import com.example.agrican.domain.model.Weather
 import com.example.agrican.domain.use_case.GetDefaultAgeResponse
 import kotlinx.coroutines.flow.Flow
-import okhttp3.MultipartBody
 import retrofit2.http.GET
-import retrofit2.http.Multipart
 import retrofit2.http.POST
-import retrofit2.http.Part
 
 interface ApiService {
 
@@ -50,12 +47,11 @@ interface ApiService {
     suspend fun getTreatments(): List<Treatment>
 
     @POST("")
-    @Multipart
     suspend fun joinAsExpert(
         fullName: String,
         email: String,
         phoneNumber: String,
-        @Part image: MultipartBody.Part
+        image: String?
     )
 
     @GET("")
@@ -71,11 +67,10 @@ interface ApiService {
     suspend fun getPest(pestId: String): Pest
 
     @POST("")
-    @Multipart
     suspend fun searchProblem(
-        @Part image1: MultipartBody.Part,
-        @Part image2: MultipartBody.Part,
-        @Part image3: MultipartBody.Part,
+        image1: String?,
+        image2: String?,
+        image3: String?,
     )
 
     @GET("")

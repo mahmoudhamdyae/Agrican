@@ -1,6 +1,5 @@
 package com.example.agrican.ui.screens.home.agricanservices.join_as_expert
 
-import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -39,6 +38,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -48,6 +48,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.agrican.R
+import com.example.agrican.common.ext.encodeImage
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
@@ -65,14 +66,16 @@ fun JoinAsExpertScreen(
     modifier: Modifier = Modifier,
     viewModel: JoinAsExpertViewModel = hiltViewModel()
 ) {
+    val context = LocalContext.current
+
     var fullName by rememberSaveable { mutableStateOf("") }
     var email by rememberSaveable { mutableStateOf("") }
     var phoneNumber by rememberSaveable { mutableStateOf("") }
-    var image by rememberSaveable { mutableStateOf(Uri.EMPTY) }
+    var image: String? by rememberSaveable { mutableStateOf(null) }
 
     val imagePicker =
         rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-            if (uri != null) { image = uri }
+            image = uri.encodeImage(context)
         }
 
     val focusManager = LocalFocusManager.current

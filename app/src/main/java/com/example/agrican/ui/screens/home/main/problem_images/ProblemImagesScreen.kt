@@ -79,6 +79,8 @@ fun ProblemImagesScreen(
 
     if (!shouldShowCamera) {
         BackButton(navigateUp = navigateUp) {
+            val context = LocalContext.current
+
             ProblemImageScreenContent(
                 uiState = uiState,
                 updateSelectedCrop = { viewModel.updateUiState(selectedCrop = it) },
@@ -89,7 +91,7 @@ fun ProblemImagesScreen(
                     )
                 },
                 shouldShowCamera = { shouldShowCamera = it },
-                onSearch = viewModel::search,
+                onSearch = { viewModel.search(context) },
                 modifier = modifier
             )
         }

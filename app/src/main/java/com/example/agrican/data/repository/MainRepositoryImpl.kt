@@ -18,9 +18,6 @@ import com.example.agrican.domain.repository.MainRepository
 import com.example.agrican.domain.use_case.GetDefaultAgeResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import okhttp3.MultipartBody
-import okhttp3.RequestBody.Companion.asRequestBody
-import java.io.File
 import javax.inject.Inject
 
 class MainRepositoryImpl @Inject constructor(
@@ -67,13 +64,13 @@ class MainRepositoryImpl @Inject constructor(
         fullName: String,
         email: String,
         phoneNumber: String,
-        image: File
+        image: String?
     ) {
         apiService.joinAsExpert(
             fullName,
             email,
             phoneNumber,
-            MultipartBody.Part.createFormData("image", image.name, image.asRequestBody())
+            image
         )
     }
 
@@ -95,15 +92,11 @@ class MainRepositoryImpl @Inject constructor(
 
     override suspend fun searchProblem(
         crop: Crop,
-        image1: File,
-        image2: File,
-        image3: File,
+        image1: String?,
+        image2: String?,
+        image3: String?,
     ) {
-        apiService.searchProblem(
-            MultipartBody.Part.createFormData("image", image1.name, image1.asRequestBody()),
-            MultipartBody.Part.createFormData("image", image2.name, image2.asRequestBody()),
-            MultipartBody.Part.createFormData("image", image3.name, image3.asRequestBody())
-        )
+        apiService.searchProblem(image1, image2, image3)
     }
 
     override suspend fun calculateFertilize() {
