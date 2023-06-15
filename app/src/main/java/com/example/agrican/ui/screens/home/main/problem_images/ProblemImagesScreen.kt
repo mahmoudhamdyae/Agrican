@@ -8,6 +8,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -138,7 +139,7 @@ fun ProblemImageScreenContent(
         )
         Row(modifier = Modifier.fillMaxWidth()) {
             WayChoose(
-                image = R.drawable.baseline_image_24,
+                image = R.drawable.gallery,
                 text = R.string.from_gallery,
                 onItemClick = {
                     if (uiState.currentImage != 3) launchImagePicker()
@@ -146,7 +147,7 @@ fun ProblemImageScreenContent(
                 modifier = Modifier.weight(1f)
             )
             WayChoose(
-                image = R.drawable.baseline_camera_alt_24,
+                image = R.drawable.camera,
                 text = R.string.from_camera,
                 onItemClick = { shouldShowCamera(true) },
                 modifier = Modifier.weight(1f)
@@ -173,9 +174,15 @@ fun ProblemImageScreenContent(
 
         }
 
-        Text(
-            text = stringResource(id = R.string.advices_label),
-        )
+        Box {
+
+            Image(painter = painterResource(id = R.drawable.advices), contentDescription = null)
+
+            Text(
+                text = stringResource(id = R.string.advices_label),
+                modifier = Modifier.align(Alignment.BottomStart)
+            )
+        }
 
         Text(text = stringResource(id = R.string.advices))
     }
@@ -224,7 +231,7 @@ fun ImageView(
             .data(data = image)
             .build(),
         placeholder = painterResource(R.drawable.loading_img),
-        error = painterResource(R.drawable.baseline_image_24),
+        error = painterResource(R.drawable.ic_broken_image),
         contentDescription = null,
         contentScale = ContentScale.FillBounds,
         modifier = modifier

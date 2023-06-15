@@ -211,9 +211,8 @@ fun JoinAsExpertScreen(
                     )
 
                     Icon(
-                        painter = painterResource(id = R.drawable.baseline_camera_alt_24),
-                        contentDescription = null,
-                        tint = greenLight
+                        painter = painterResource(id = R.drawable.take_picture),
+                        contentDescription = null
                     )
                 }
             }

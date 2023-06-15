@@ -106,8 +106,9 @@ fun BottomView(
             horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.extraSmall),
             modifier = Modifier.padding(MaterialTheme.spacing.small)
         ) {
+            // Send Button
             ChatButton(
-                icon = R.drawable.ic_visibility_on,
+                icon = R.drawable.send,
                 messageBody = message,
                 onItemClick = {
                     sendMessage(it)
@@ -115,6 +116,7 @@ fun BottomView(
                 }
             )
 
+            // Message Text Field
             OutlinedTextField(
                 value = message,
                 onValueChange = { message = it },
@@ -123,9 +125,10 @@ fun BottomView(
                 modifier = Modifier.weight(1f)
             )
 
+            // Record Voice Button
             ChatOutlinedButton(
                 icon = if (recording) R.drawable.baseline_stop_24
-                else R.drawable.baseline_mic_24,
+                else R.drawable.mic,
                 onItemClick = {
                     if (recording) {
                         // Stop Recording
@@ -146,14 +149,16 @@ fun BottomView(
                     }
                 })
 
-            ChatOutlinedButton(icon = R.drawable.baseline_link_24, onItemClick = {
+            // Select Image from Galley Button
+            ChatOutlinedButton(icon = R.drawable.link, onItemClick = {
                 imagePicker.launch(
                     PickVisualMediaRequest(
                         mediaType = ActivityResultContracts.PickVisualMedia.ImageOnly)
                 )
             })
 
-            ChatOutlinedButton(icon = R.drawable.baseline_camera_alt_24, onItemClick = {
+            // Open Camera Button
+            ChatOutlinedButton(icon = R.drawable.camera_chat, onItemClick = {
                 val permissionCheckResult =
                     ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA)
                 if (permissionCheckResult == PackageManager.PERMISSION_GRANTED) {

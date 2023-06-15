@@ -52,7 +52,7 @@ fun WelcomeScreen(
     Box(modifier = modifier.fillMaxSize()) {
 
         Image(
-            painter = painterResource(id = R.drawable.ic_launcher_foreground),
+            painter = painterResource(id = R.drawable.welcome_screen_background),
             contentDescription = null,
             modifier = Modifier.align(Alignment.BottomCenter)
         )

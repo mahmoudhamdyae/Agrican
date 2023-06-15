@@ -34,5 +34,6 @@ val md_theme_light_outlineVariant = Color(0xFFC0C9C0)
 val md_theme_light_scrim = Color(0xFF000000)
 
 val greenDark = Color(0xFF379237)
-val greenLight = Color(0xFF54b435)
+val greenLight = Color(0xFF54B435)
+val greenLightOther = Color(0xFF82CD47)
 val gray = Color(0xFFc6c6c6)

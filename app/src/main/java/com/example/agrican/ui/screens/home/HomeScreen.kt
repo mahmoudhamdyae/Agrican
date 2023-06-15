@@ -14,9 +14,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -91,15 +88,15 @@ fun HomeScreenContent(
     val bottomNavItems = listOf(
         BottomNavItem(
             name = R.string.navigation_main,
-            icon = R.drawable.ic_visibility_on,
+            icon = R.drawable.main,
         ),
         BottomNavItem(
             name = R.string.navigation_profile,
-            icon = R.drawable.ic_visibility_on,
+            icon = R.drawable.default_image,
         ),
         BottomNavItem(
             name = R.string.navigation_agrican_services,
-            icon = R.drawable.ic_visibility_on,
+            icon = R.drawable.services,
         ),
     )
 
@@ -115,7 +112,7 @@ fun HomeScreenContent(
                 TopBar(
                     title = {
                         if (topBarIcon) {
-                            Icon(painter = painterResource(id = R.drawable.ic_visibility_on),
+                            Icon(painter = painterResource(id = R.drawable.logo),
                                 contentDescription = null)
                         } else {
                             Text(text = stringResource(id = topBarTitle))
@@ -136,9 +133,11 @@ fun HomeScreenContent(
         }
     ) { contentPadding ->
 
-        Box(modifier = modifier.fillMaxSize().padding(
-            top = contentPadding.calculateTopPadding(), bottom = 0.dp
-        )) {
+        Box(modifier = modifier
+            .fillMaxSize()
+            .padding(
+                top = contentPadding.calculateTopPadding(), bottom = 0.dp
+            )) {
             when (selectedItem) {
                 0 -> {
                     MainGraph(
@@ -177,11 +176,11 @@ fun TopBar(
         actions = {
             Row {
                 IconButton(onClick = { /*TODO*/ }) {
-                    Icon(imageVector = Icons.Default.Notifications, contentDescription = null)
+                    Icon(painter = painterResource(id = R.drawable.notifications), contentDescription = null)
                 }
 
                 IconButton(onClick = { /*TODO*/ }) {
-                    Icon(imageVector = Icons.Default.Menu, contentDescription = null)
+                    Icon(painter = painterResource(id = R.drawable.menu), contentDescription = null)
                 }
             }
         },

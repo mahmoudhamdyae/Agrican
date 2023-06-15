@@ -1,6 +1,5 @@
 package com.example.agrican.ui.screens.home.profile
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -57,6 +56,7 @@ import com.example.agrican.ui.screens.home.profile.add_farm.AddFarmDestination
 import com.example.agrican.ui.screens.home.profile.cost.CostDestination
 import com.example.agrican.ui.screens.home.profile.engineer_map.EngineerMapDestination
 import com.example.agrican.ui.screens.home.profile.observe_crop.ObserveCropDestination
+import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.spacing
@@ -199,14 +199,22 @@ fun UserHeader(
             modifier = modifier.padding(MaterialTheme.spacing.large)
         ) {
 
+            // Profile Image
             Surface(
                 shape = CircleShape,
-                shadowElevation = MaterialTheme.spacing.small
+                shadowElevation = MaterialTheme.spacing.small,
+                modifier = Modifier.size(90.dp).padding(MaterialTheme.spacing.small)
             ) {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_visibility_on),
+                Icon(
+                    painter = painterResource(id = R.drawable.default_image),
                     contentDescription = null,
-                    modifier = Modifier.size(75.dp)
+                    tint = gray,
+                    modifier = Modifier
+                        .padding(
+                            start = MaterialTheme.spacing.small,
+                            end = MaterialTheme.spacing.small,
+                            bottom = MaterialTheme.spacing.small
+                        )
                 )
             }
 
@@ -214,11 +222,14 @@ fun UserHeader(
                 verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
                 modifier = Modifier.padding(MaterialTheme.spacing.small)
             ) {
+                // User Name
                 Text(text = user.userName, color = greenLight)
+
                 Surface(
                     shape = RoundedCornerShape(MaterialTheme.spacing.medium),
                     color = greenDark
                 ) {
+                    // Account Type
                     Text(
                         text = stringResource(id = user.userType.title),
                         color = Color.White,

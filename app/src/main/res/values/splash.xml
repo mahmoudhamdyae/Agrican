@@ -2,7 +2,6 @@
 <resources>
     <style name="Theme.App.Starting" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">#CFBBBB</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_sunny</item>
-<!--        <item name="postSplashScreenTheme">@style/Theme.AgriCan</item>-->
+        <item name="windowSplashScreenAnimatedIcon">@drawable/splash</item>
     </style>
 </resources>

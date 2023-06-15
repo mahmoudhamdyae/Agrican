@@ -18,6 +18,7 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -30,9 +31,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.sharp.Lens
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -171,17 +169,27 @@ fun CameraView(
         Box(contentAlignment = Alignment.BottomCenter, modifier = Modifier.weight(1f)) {
             AndroidView({ previewView }, modifier = Modifier.fillMaxSize())
 
-            IconButton(
-                onClick = { navigateUp() },
-                modifier = Modifier.padding(MaterialTheme.spacing.medium).align(Alignment.TopEnd)
-            ) {
-                Icon(
-                    imageVector = Icons.Default.ArrowBack,
-                    contentDescription = null,
-                    modifier = Modifier.align(Alignment.TopStart)
-                )
+            Column {
+
+                // Back Button
+                IconButton(
+                    onClick = { navigateUp() },
+                    modifier = Modifier.padding(MaterialTheme.spacing.medium)
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.camera_back),
+                        contentDescription = null,
+                    )
+                }
             }
 
+            // Camera Border
+            Image(
+                painter = painterResource(id = R.drawable.camera_border),
+                contentDescription = null
+            )
+
+            // Images Captured
             Row(
                 horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
                 modifier = Modifier
@@ -192,8 +200,10 @@ fun CameraView(
                 ImageCaptured(image = uiState.image2)
                 ImageCaptured(image = uiState.image3)
             }
+
         }
 
+        // Bottom Icons
         Row(
             horizontalArrangement = Arrangement.SpaceAround,
             modifier = Modifier
@@ -201,14 +211,15 @@ fun CameraView(
                 .background(Color.Black)
                 .padding(vertical = MaterialTheme.spacing.large)
         ) {
+            // Navigate Back and Save Images
             IconButton(onClick = navigateUp) {
                 Icon(
-                    painter = painterResource(id = R.drawable.baseline_done_24),
-                    contentDescription = null,
-                    tint = Color.White,
+                    painter = painterResource(id = R.drawable.done),
+                    contentDescription = null
                 )
             }
 
+            // Take Picture Button
             IconButton(
                 onClick = {
                     if (uiState.currentImage != 3) {
@@ -231,9 +242,8 @@ fun CameraView(
                 }
             ) {
                 Icon(
-                    imageVector = Icons.Sharp.Lens,
+                    painter = painterResource(id = R.drawable.lens),
                     contentDescription = "Take picture",
-                    tint = Color.White,
                     modifier = Modifier
                         .size(200.dp)
                         .padding(1.dp)
@@ -241,14 +251,14 @@ fun CameraView(
                 )
             }
 
+            // Set Flash on and off
             IconButton(onClick = { flashOn = !flashOn }) {
                 Icon(
                     painter = painterResource(id =
                         if (flashOn) R.drawable.baseline_flash_on_24
-                        else R.drawable.baseline_flash_off_24
+                        else R.drawable.flash_off
                     ),
-                    contentDescription = null,
-                    tint = Color.White,
+                    contentDescription = null
                 )
             }
         }

@@ -63,7 +63,7 @@ fun WeatherScreenContent(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
-                painter = painterResource(id = R.drawable.ic_sunny),
+                painter = painterResource(id = R.drawable.sunny),
                 contentDescription = null,
                 tint = greenLight,
                 modifier = Modifier.size(MaterialTheme.spacing.extraLarge)

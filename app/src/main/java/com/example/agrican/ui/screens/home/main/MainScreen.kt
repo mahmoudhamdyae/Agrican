@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -20,10 +21,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Calculate
-import androidx.compose.material.icons.filled.CameraAlt
-import androidx.compose.material.icons.filled.Person2
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -37,7 +34,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -49,11 +45,13 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
 import com.example.agrican.domain.model.News
 import com.example.agrican.domain.model.Weather
+import com.example.agrican.ui.components.EmptyImage
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.screens.home.main.ask_expert.AskExpertDestination
 import com.example.agrican.ui.screens.home.main.fertilizers_calculator.FertilizersCalculatorDestination
 import com.example.agrican.ui.screens.home.main.problem_images.ProblemImagesDestination
 import com.example.agrican.ui.screens.home.main.weather.WeatherDestination
+import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.spacing
@@ -122,7 +120,7 @@ fun MainScreenContent(
         BottomCard(
             title = R.string.problem_images,
             description = R.string.problem_images_description,
-            icon = Icons.Default.CameraAlt,
+            icon = R.drawable.camera,
             onItemClick = { openScreen(ProblemImagesDestination.route) },
             modifier = Modifier
                 .padding(MaterialTheme.spacing.small)
@@ -134,7 +132,7 @@ fun MainScreenContent(
             BottomCard(
                 title = R.string.fertilizers_calculator,
                 description = R.string.fertilizers_calculator_description,
-                icon = Icons.Default.Calculate,
+                icon = R.drawable.calculator,
                 onItemClick = { openScreen(FertilizersCalculatorDestination.route) },
                 modifier = Modifier
                     .padding(MaterialTheme.spacing.small)
@@ -142,9 +140,9 @@ fun MainScreenContent(
             )
 
             BottomCard(
-                title = R.string.ask_expert,
+                title = R.drawable.ask_expert,
                 description = R.string.ask_expert_description,
-                icon = Icons.Default.Person2,
+                icon = R.drawable.calculator,
                 onItemClick = { openScreen(AskExpertDestination.route) },
                 modifier = Modifier
                     .padding(MaterialTheme.spacing.small)
@@ -205,7 +203,7 @@ fun WeatherBox(
                     modifier = Modifier.padding(MaterialTheme.spacing.extraSmall)
                 )
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_sunny),
+                    painter = painterResource(id = R.drawable.sunny),
                     contentDescription = null,
                     tint = greenDark,
                     modifier = Modifier
@@ -302,9 +300,7 @@ fun LatestNewsListItem(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxSize()
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.ic_visibility_on),
-                contentDescription = null,
+            EmptyImage(
                 modifier = Modifier
                     .fillMaxSize()
                     .weight(1f)
@@ -327,7 +323,7 @@ fun LatestNewsListItem(
 fun BottomCard(
     title: Int,
     description: Int,
-    icon: ImageVector,
+    icon: Int,
     onItemClick: () -> Unit,
     modifier: Modifier = Modifier,
     body: @Composable () -> Unit = { }
@@ -337,22 +333,66 @@ fun BottomCard(
         shadowElevation = MaterialTheme.spacing.medium,
         modifier = modifier.clickable { onItemClick() }
     ) {
-        Column(modifier = Modifier.padding(MaterialTheme.spacing.medium)) {
-            Row {
+        Column(
+            verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
+            modifier = Modifier.padding(MaterialTheme.spacing.medium)
+        ) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
                     text = stringResource(id = title),
                     color = greenDark
                 )
                 Spacer(modifier = Modifier.weight(1f))
                 Icon(
-                    imageVector = icon,
+                    painter = painterResource(id = icon),
                     contentDescription = null,
-                    tint = greenDark
+                    tint = greenDark,
+                    modifier = Modifier.size(24.dp)
                 )
             }
             Text(text = stringResource(id = description))
             body()
         }
+    }
+}
+
+@Composable
+fun ProblemImagesRow(
+    modifier: Modifier = Modifier
+) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
+        modifier = modifier
+            .padding(
+                vertical = MaterialTheme.spacing.medium,
+                horizontal = MaterialTheme.spacing.large
+            )
+    ) {
+        ProblemImagesRowItem()
+        Image(
+            painter = painterResource(id = R.drawable.baseline_arrow_forward_ios_24),
+            contentDescription = null
+        )
+        ProblemImagesRowItem()
+        Image(
+            painter = painterResource(id = R.drawable.baseline_arrow_forward_ios_24),
+            contentDescription = null
+        )
+        ProblemImagesRowItem()
+    }
+}
+
+@Composable
+fun ProblemImagesRowItem(
+    modifier: Modifier = Modifier
+) {
+    Surface(
+        shape = RoundedCornerShape(MaterialTheme.spacing.medium),
+        color = gray,
+        modifier = modifier.size(MaterialTheme.spacing.large)
+    ) {
+        Text(text = "ico")
     }
 }
 
