@@ -94,6 +94,7 @@ fun ProfileScreenContent(
         }
 
         if (uiState.currentUser.userType != UserType.FARMER) {
+            // Farms Label
             item {
                 Text(
                     text = stringResource(id = R.string.farms_label),
@@ -107,9 +108,12 @@ fun ProfileScreenContent(
                     .fillMaxWidth()
                     .padding(horizontal = MaterialTheme.spacing.large))
             }
+
+            // Farms List
             item { FarmsList(farms = uiState.farms) }
         }
 
+        // Crops Label
         item {
             Text(
                 text = stringResource(id = R.string.my_crops),
@@ -151,6 +155,8 @@ fun UserHeaderAndItems(
                 Row(modifier = Modifier
                     .fillMaxWidth()
                     .height(IntrinsicSize.Max)) {
+
+                    // Add Farm Surface
                     if (user.userType != UserType.FARMER) {
                         AddItem(
                             title = R.string.add_farm,
@@ -162,6 +168,7 @@ fun UserHeaderAndItems(
                         )
                     }
 
+                    // Add Crop Surface
                     AddItem(
                         title = R.string.add_crop,
                         description = R.string.add_crop_description,
@@ -172,6 +179,7 @@ fun UserHeaderAndItems(
                     )
                 }
 
+                // Engineer Map Surface
                 if (user.userType == UserType.ENGINEER) {
                     AddItem(
                         title = R.string.engineer_map,
@@ -364,6 +372,7 @@ fun CropsListItem(
                 .fillMaxWidth()
                 .padding(MaterialTheme.spacing.small)
         ) {
+            // Crop Name
             Text(
                 text = crop.name, color = Color.White,
                 modifier = Modifier.padding(MaterialTheme.spacing.small)
@@ -372,6 +381,7 @@ fun CropsListItem(
             Spacer(modifier = Modifier.weight(1f))
 
             Column(horizontalAlignment = Alignment.End) {
+                // Remove Button
                 IconButton(onClick =  { /*TODO*/ } ) {
                     Icon(
                         imageVector = Icons.Default.Close,
@@ -381,6 +391,7 @@ fun CropsListItem(
                     )
                 }
 
+                // Observe Crop Button
                 Button(
                     onClick = { onClick(crop.cropId) },
                     colors = ButtonDefaults.buttonColors(containerColor = greenDark),

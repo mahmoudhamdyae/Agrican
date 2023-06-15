@@ -89,6 +89,7 @@ fun ChatScreenContent(
     Column(modifier = modifier
         .fillMaxSize()
         .padding(MaterialTheme.spacing.small)) {
+        // Finish Chat Button
         Button(
             onClick = { navigateUp() },
             shape = RoundedCornerShape(MaterialTheme.spacing.medium),

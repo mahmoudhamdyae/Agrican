@@ -84,7 +84,10 @@ fun PestListItem(
             .padding(MaterialTheme.spacing.medium)
     ) {
         Box {
+            // Pest Image
             Image(painter = painterResource(id = R.drawable.ic_sunny), contentDescription = null)
+
+            // Pest Title
             Text(
                 text = pest.title,
                 color = Color.White,

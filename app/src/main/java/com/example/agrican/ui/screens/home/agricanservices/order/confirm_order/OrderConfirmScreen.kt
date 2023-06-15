@@ -1,6 +1,7 @@
 package com.example.agrican.ui.screens.home.agricanservices.order.confirm_order
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -101,6 +102,7 @@ fun OrderConfirmScreenContent(
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
         modifier = modifier.fillMaxWidth()
     ) {
+        // Cash
         Surface(
             shape = RoundedCornerShape(MaterialTheme.spacing.medium),
             border = BorderStroke(1.dp, gray),
@@ -112,17 +114,22 @@ fun OrderConfirmScreenContent(
             )
         }
 
+        // Visa
         Surface(
             shape = RoundedCornerShape(MaterialTheme.spacing.medium),
             border = BorderStroke(1.dp, gray),
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text(
-                text = stringResource(id = R.string.cash),
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
                 modifier = Modifier.padding(MaterialTheme.spacing.medium)
-            )
+            ) {
+                Image(painter = painterResource(id = R.drawable.visa), contentDescription = null)
+                Image(painter = painterResource(id = R.drawable.mastercard), contentDescription = null)
+            }
         }
 
+        // Personal Id
         Text(text = stringResource(id = R.string.card_id))
         SimpleTextField(
             value = cardId,
@@ -136,6 +143,7 @@ fun OrderConfirmScreenContent(
                 verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
                 modifier = Modifier.weight(1f)
             ) {
+                // Epired Date
                 Text(text = stringResource(id = R.string.expire_date))
                 SimpleTextField(
                     value = expireDate,
@@ -150,6 +158,7 @@ fun OrderConfirmScreenContent(
                 verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
                 modifier = Modifier.weight(1f)
             ) {
+                // CW/CVC
                 Text(text = stringResource(id = R.string.cvc))
                 SimpleTextField(
                     value = cvc,
@@ -161,6 +170,7 @@ fun OrderConfirmScreenContent(
             }
         }
 
+        // Confirm Order Button
         Button(onClick = { buy(OrderRequest(
             orderWay = OrderWay.CASH,
             cardId = cardId,

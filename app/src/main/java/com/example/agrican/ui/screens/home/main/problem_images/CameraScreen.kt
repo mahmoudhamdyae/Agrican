@@ -93,7 +93,6 @@ fun CameraScreen(
             // Open camera
             checkCameraHardwareAndOpenCamera(context)
         } else {
-            // Show dialog
             Toast.makeText(context, "Permission request denied", Toast.LENGTH_SHORT).show()
         }
     }

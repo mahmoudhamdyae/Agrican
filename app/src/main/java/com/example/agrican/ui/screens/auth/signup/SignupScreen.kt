@@ -147,16 +147,19 @@ fun AccountType(
         }
 
         Column {
+            // Farmer
             AccountTypeItem(
                 setAccountType = setAccountType,
                 accountType = UserType.FARMER,
                 accountTypeDescription = R.string.farms_description
             )
+            // Farm
             AccountTypeItem(
                 setAccountType = setAccountType,
                 accountType = UserType.FARM,
                 accountTypeDescription = R.string.farm_description
             )
+            // Engineer
             AccountTypeItem(
                 setAccountType = setAccountType,
                 accountType = UserType.ENGINEER,
@@ -177,7 +180,6 @@ fun AccountTypeItem(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier.padding(MaterialTheme.spacing.medium)
     ) {
-        val context = LocalContext.current
         Button(
             onClick = { setAccountType(accountType) },
             colors = ButtonDefaults.buttonColors(containerColor = greenDark),
@@ -261,6 +263,7 @@ fun Signup(
             modifier = Modifier.fillMaxWidth()
         )
 
+        // Sign Up Button
         Button(
             onClick = { onEvent(AuthFormEvent.Submit) },
             colors = ButtonDefaults.buttonColors(containerColor = greenDark),

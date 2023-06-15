@@ -59,25 +59,30 @@ fun DiseaseScreenContent(
 ) {
     Column(modifier = modifier.verticalScroll(rememberScrollState())) {
         DiseaseHeader(
-            image = R.drawable.ic_sunny,
+            image = null,
             diseaseName = disease.name,
             buttonText = R.string.search_for_another_disease,
             onButtonClick = navigateUp
         )
 
         Column(modifier = Modifier.padding(MaterialTheme.spacing.medium)) {
+            // Naming
             MainLabel(text = R.string.naming)
             DescriptionLabel(texts = listOf(disease.name))
 
+            // Description
             MainLabel(text = R.string.description)
             DescriptionLabel(texts = disease.description)
 
+            // Reasons
             MainLabel(text = R.string.reasons)
             DescriptionLabel(texts = disease.reasons)
 
+            // Effects
             MainLabel(text = R.string.effect_on_plants)
             DescriptionLabel(texts = disease.effects)
 
+            // Cure
             MainLabel(text = R.string.cure)
             DescriptionLabel(texts = disease.cure)
         }

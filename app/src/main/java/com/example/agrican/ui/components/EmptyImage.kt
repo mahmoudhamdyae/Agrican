@@ -15,13 +15,15 @@ import com.example.agrican.ui.theme.gray
 @Composable
 fun EmptyImage(
     modifier: Modifier = Modifier,
+    tint: Color = Color.White,
+    background: Color = gray
 
 ) {
-    Box(modifier = modifier.background(gray)) {
+    Box(modifier = modifier.background(background)) {
         Icon(
             painter = painterResource(id = R.drawable.empty),
             contentDescription = null,
-            tint = Color.White,
+            tint = tint,
             modifier = Modifier.align(Alignment.Center)
         )
     }

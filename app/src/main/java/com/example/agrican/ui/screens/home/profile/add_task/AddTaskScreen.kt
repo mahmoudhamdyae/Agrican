@@ -78,6 +78,7 @@ fun AddTaskScreenContent(
         ) {
             Text(text = stringResource(id = R.string.task_name), color = greenDark)
 
+            // Task Name Text Field
             SimpleTextField(
                 value = taskName,
                 onNewValue = onTaskNameChanged,
@@ -107,9 +108,10 @@ fun AddTaskScreenContent(
             color = greenDark,
             modifier = Modifier.padding(vertical = MaterialTheme.spacing.medium)
         )
-        
+
         Days(selectedDays = days, onDayClicked = { flipDay(it) })
         
+        // Add Task Button
         Button(
             onClick = { addTask(taskName) },
             colors = ButtonDefaults.buttonColors(containerColor = greenDark),

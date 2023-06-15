@@ -1,7 +1,6 @@
 package com.example.agrican.ui.screens.home.main.fertilizers_calculator
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -25,7 +24,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -37,6 +35,7 @@ import com.example.agrican.common.enums.MeasureUnit
 import com.example.agrican.domain.model.Crop
 import com.example.agrican.ui.components.Chip
 import com.example.agrican.ui.components.CropsList
+import com.example.agrican.ui.components.EmptyImage
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
@@ -84,6 +83,7 @@ fun FertilizersCalculatorScreenContent(
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
         modifier = modifier.fillMaxWidth()
     ) {
+        // Choose Crop Label
         item {
             Text(
                 text = stringResource(id = R.string.choose_crop_label),
@@ -94,9 +94,13 @@ fun FertilizersCalculatorScreenContent(
                 )
             )
         }
+
+        // Crops List
         item {
             CropsList(crops = uiState.crops, setSelectedCrop = onSelectCrop)
         }
+
+        // Measuring Unit Label
         item {
             Text(
                 text = stringResource(id = R.string.measuring_unit),
@@ -123,6 +127,7 @@ fun FertilizersCalculatorScreenContent(
             }
         }
 
+        // Land Size Label
         item {
             Text(
                 text = stringResource(id = R.string.land_size),
@@ -139,6 +144,7 @@ fun FertilizersCalculatorScreenContent(
             )
         }
 
+        // Calculate Button
         item {
             Box(modifier = Modifier.fillMaxWidth()) {
                 Button(
@@ -170,11 +176,7 @@ fun FertilizerListItem(
             horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
             modifier = Modifier.fillMaxWidth()
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.ic_sunny),
-                contentDescription = null,
-                modifier = Modifier.weight(1f)
-            )
+            EmptyImage(modifier = Modifier.weight(1f))
             Column(
                 verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
                 modifier = Modifier
@@ -198,6 +200,7 @@ fun FertilizerListItem(
 
                     Spacer(modifier = Modifier.weight(1f))
 
+                    // Know More Button
                     Button(
                         onClick = { /*TODO*/ },
                         colors = ButtonDefaults.buttonColors(containerColor = greenDark),
@@ -206,6 +209,7 @@ fun FertilizerListItem(
                     }
                 }
 
+                // Fertilizer Description
                 Text(text = "هذه هى الكمية المطلوب بنائها و يتم تسميد الأرض باستخدام المنتجات المخصصة لذلك هذه هى الكمية المطلوب بنائها و يتم تسميد الأرض باستخدام المنتجات المخصصة لذلك")
             }
         }
@@ -227,6 +231,7 @@ fun LandSize(
             .height(40.dp)
     ) {
         Row {
+            // Decrease Button
             Button(
                 onClick = decreaseSize,
                 colors = ButtonDefaults.buttonColors(containerColor = greenLight),
@@ -234,6 +239,7 @@ fun LandSize(
                 Text(text = "-")
             }
 
+            // Unit Label
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceAround,
@@ -263,6 +269,7 @@ fun LandSize(
                 }
             }
 
+            // Increase Button
             Button(
                 onClick = increaseSize,
                 colors = ButtonDefaults.buttonColors(containerColor = greenLight),

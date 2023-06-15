@@ -1,7 +1,6 @@
 package com.example.agrican.ui.screens.home.agricanservices.pests
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -20,7 +19,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -32,6 +30,7 @@ import com.example.agrican.domain.model.Pest
 import com.example.agrican.ui.components.BackButton
 import com.example.agrican.ui.components.DescriptionLabel
 import com.example.agrican.ui.components.DiseaseHeader
+import com.example.agrican.ui.components.EmptyImage
 import com.example.agrican.ui.components.MainLabel
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.gray
@@ -72,7 +71,7 @@ fun PestScreenContent(
 ) {
     Column(modifier = modifier.verticalScroll(rememberScrollState())) {
         DiseaseHeader(
-            image = R.drawable.ic_sunny,
+            image = null,
             diseaseName = "ثاقبة ساق الأرز\nRice Stem Borer",
             buttonText = R.string.search_for_another_pest,
             onButtonClick = navigateUp
@@ -80,11 +79,12 @@ fun PestScreenContent(
 
         Column(modifier = Modifier.padding(MaterialTheme.spacing.medium)) {
 
+            // Scientific Name Label
             MainLabel(text = R.string.scientific_name)
             DescriptionLabel(texts = listOf(pest.name))
 
+            // Category Label
             MainLabel(text = R.string.category)
-            // todo: Lazy List
             Row(modifier = Modifier.fillMaxWidth()) {
                 CategoryItem(
                     categoryName = "Order Lepidoptera (فراشات)",
@@ -103,8 +103,8 @@ fun PestScreenContent(
                 )
             }
 
+            // Main Label
             MainLabel(text = R.string.main_host)
-            // todo: Lazy List
             Row(modifier = Modifier.fillMaxWidth()) {
                 MainHostItem(
                     text = "نبات الأرز\nOryza sativa",
@@ -116,18 +116,23 @@ fun PestScreenContent(
                 )
             }
 
+            // Life Cycle
             MainLabel(text = R.string.life_cycle)
             DescriptionLabel(texts = pest.lifeCycle)
 
+            // Damages
             MainLabel(text = R.string.damages)
             DescriptionLabel(texts = pest.damages)
 
+            // Symptoms
             MainLabel(text = R.string.signs_and_symptoms)
             DescriptionLabel(texts = pest.symptoms)
 
+            // Injury Season
             MainLabel(text = R.string.injury_season)
             DescriptionLabel(texts = listOf(pest.injurySeason))
 
+            // Control Timing
             MainLabel(text = R.string.control_timing)
             DescriptionLabel(texts = pest.controlTiming)
         }
@@ -164,7 +169,7 @@ fun MainHostItem(
             .padding(MaterialTheme.spacing.medium)
     ) {
         Box {
-            Image(painter = painterResource(id = R.drawable.ic_sunny), contentDescription = null)
+            EmptyImage()
             Text(
                 text = text,
                 color = Color.White,

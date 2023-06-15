@@ -44,6 +44,7 @@ fun CostScreen(
     Column(
         modifier = modifier.padding(MaterialTheme.spacing.small)
     ) {
+        // Main Table Row
         Row(modifier = Modifier.padding(MaterialTheme.spacing.medium)) {
             Text(text = stringResource(id = R.string.services), modifier = Modifier.weight(1f))
             Text(text = stringResource(id = R.string.cost_in_month), modifier = Modifier.weight(1f))
@@ -52,30 +53,39 @@ fun CostScreen(
 
         Divider()
 
+        // Insurance Row
         CostRow(
             mainLabel = R.string.insurance,
             costMonthly = 00.00,
             code = insuranceCode,
             onCodeChanged = { insuranceCode = it }
         )
+
+        // Engineer Map Row
         CostRow(
             mainLabel = R.string.engineer_map,
             costMonthly = 00.00,
             code = engineerMapCode,
             onCodeChanged = { engineerMapCode = it }
         )
+
+        // Fertilizers Calculator Row
         CostRow(
             mainLabel = R.string.fertilizers_calculator,
             costMonthly = 00.00,
             code = fertilizersCalculatorCode,
             onCodeChanged = { fertilizersCalculatorCode = it }
         )
+
+        // Ask An Expert Row
         CostRow(
             mainLabel = R.string.ask_expert,
             costMonthly = 00.00,
             code = askAnExpertCode,
             onCodeChanged = { askAnExpertCode = it }
         )
+
+        // Crop Manager Row
         CostRow(
             mainLabel = R.string.crop_manager,
             costMonthly = 00.00,
@@ -85,6 +95,7 @@ fun CostScreen(
 
         Divider(modifier = Modifier.padding(MaterialTheme.spacing.medium), color = Color.Black)
 
+        // Total Sum Row
         Row(modifier = modifier.padding(MaterialTheme.spacing.medium)) {
             Text(text = stringResource(id = R.string.sum), modifier = Modifier.weight(1f))
 
@@ -109,10 +120,13 @@ fun CostRow(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
     ) {
+        // Services Text
         Text(text = stringResource(id = mainLabel), modifier = Modifier.weight(1f))
-        
+
+        // Cost in Month
         Text(text = costMonthly.toString(), modifier = Modifier.weight(1f))
 
+        // Discount Code Text Field
         SimpleTextField(
             value = code,
             onNewValue = onCodeChanged,

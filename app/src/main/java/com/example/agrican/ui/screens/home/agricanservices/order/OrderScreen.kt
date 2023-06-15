@@ -42,6 +42,7 @@ fun OrderScreen(
 
     BackButton(navigateUp = navigateUp) {
         Column(modifier = modifier.fillMaxSize()) {
+            // Order Status Button
             Button(
                 onClick = { openScreen(OrderStatusDestination.route) },
                 colors = ButtonDefaults.buttonColors(containerColor = greenLight),
@@ -56,6 +57,7 @@ fun OrderScreen(
                 )
             }
 
+            // New Order Button
             Button(
                 onClick = { showNewOrder = true },
                 colors = ButtonDefaults.buttonColors(containerColor = greenDark),

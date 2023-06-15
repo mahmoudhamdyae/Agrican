@@ -85,6 +85,7 @@ fun ObserveCropScreenContent(
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
         modifier = modifier.padding(MaterialTheme.spacing.medium)
     ) {
+        // Plant Surface
         Surface(
             shadowElevation = MaterialTheme.spacing.small,
             shape = RoundedCornerShape(MaterialTheme.spacing.medium),
@@ -104,7 +105,8 @@ fun ObserveCropScreenContent(
                 }
             }
         }
-        
+
+        // Add Task Surface
         Surface(
             shadowElevation = MaterialTheme.spacing.small,
             shape = RoundedCornerShape(MaterialTheme.spacing.medium),

@@ -59,9 +59,11 @@ fun NewOrderScreen(
             .padding(MaterialTheme.spacing.small)
             .verticalScroll(rememberScrollState())
     ) {
+        // Product Kind Row
         Row(modifier = Modifier
             .fillMaxWidth()
-            .height(IntrinsicSize.Max)) {
+            .height(IntrinsicSize.Max)
+        ) {
             LabelItem(text = R.string.product_kind)
             Spacer(modifier = Modifier.weight(1f))
             DropDown(options = listOf(
@@ -73,6 +75,7 @@ fun NewOrderScreen(
             Spacer(modifier = Modifier.weight(1f))
         }
 
+        // Product Name Row
         LabelWithTextField(
             value = productName,
             onNewValue = { productName = it },
@@ -81,6 +84,7 @@ fun NewOrderScreen(
             focusManager = focusManager,
         )
 
+        // Quantity Row
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.height(IntrinsicSize.Max)
@@ -102,6 +106,7 @@ fun NewOrderScreen(
                 modifier = Modifier.width(130.dp).fillMaxHeight())
         }
 
+        // Receiving Address Row
         LabelWithTextField(
             value = receivingAddress,
             onNewValue = { receivingAddress = it },
@@ -111,22 +116,26 @@ fun NewOrderScreen(
             imeAction = ImeAction.Done
         )
 
+        // Place Row
         Row(
             horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
             modifier = Modifier.height(MaterialTheme.spacing.large)
         ) {
+            // Place Drop Down
             DropDown(options = listOf(
                 R.string.place
             ),
                 onSelect = { viewModel.updateUiState(place = context.getString(it)) },
                 modifier = Modifier.weight(1f)
             )
+            // City Drop Down
             DropDown(options = listOf(
                 R.string.city
             ),
                 onSelect = { viewModel.updateUiState(city = context.getString(it)) },
                 modifier = Modifier.weight(1f)
             )
+            // Governorate Drop Down
             DropDown(options = listOf(
                 R.string.governorate
             ),
@@ -135,6 +144,7 @@ fun NewOrderScreen(
             )
         }
 
+        // Notes Text Field
         LabelItem(text = R.string.notes)
         NotesField(
             value = notes,
@@ -145,6 +155,7 @@ fun NewOrderScreen(
                 .height(100.dp)
         )
 
+        // Order Button
         Button(
             onClick = { viewModel.order(productName, quantity, receivingAddress, notes) },
             colors = ButtonDefaults.buttonColors(

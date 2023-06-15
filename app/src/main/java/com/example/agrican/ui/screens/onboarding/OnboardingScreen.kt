@@ -94,6 +94,7 @@ fun OnboardingScreen(
             )
         }
     }, body2 = {
+        // Next Button
         Button(
             onClick = {
                 if (pageState.currentPage == items.size - 1) {
@@ -125,10 +126,12 @@ fun OnBoardingItem(
         verticalArrangement = Arrangement.Center,
         modifier = modifier
     ) {
+        // Onboarding Image
         Image(
             painter = painterResource(id = item.image),
             contentDescription = null,
         )
+        // Onboarding Text
         Text(
             text = stringResource(id = item.text),
             textAlign = TextAlign.Center

@@ -1,7 +1,6 @@
 package com.example.agrican.ui.screens.home.agricanservices.order.order_status
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -25,7 +24,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -34,6 +32,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
 import com.example.agrican.domain.model.Order
 import com.example.agrican.ui.components.BackButton
+import com.example.agrican.ui.components.EmptyImage
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.screens.home.agricanservices.order.confirm_order.OrderConfirmDestination
 import com.example.agrican.ui.theme.gray
@@ -134,12 +133,14 @@ fun OrdersListItem(
             Row(modifier = Modifier.padding(MaterialTheme.spacing.medium)) {
                 Column(modifier = Modifier.weight(3f)) {
                     Row {
+                        // Order Name
                         Text(text = order.name)
                         Spacer(modifier = Modifier.weight(1f))
                         Surface(
                             shape = RoundedCornerShape(MaterialTheme.spacing.medium),
                             border = BorderStroke(1.dp, gray)
                         ) {
+                            // Title
                             Text(
                                 text = order.t,
                                 color = greenDark,
@@ -149,13 +150,13 @@ fun OrdersListItem(
 
                     }
 
+                    // Order Price
                     Text(text = "السعر ${order.price} جنيهاً")
+                    // Order Description
                     Text(text = order.description)
                 }
 
-                Image(
-                    painter = painterResource(id = R.drawable.ic_sunny),
-                    contentDescription = null,
+                EmptyImage(
                     modifier = Modifier
                         .clip(RoundedCornerShape(MaterialTheme.spacing.medium))
                         .width(50.dp)
@@ -165,6 +166,7 @@ fun OrdersListItem(
             }
         }
 
+        // Confirm Button
         Button(
             onClick = { openScreen("${OrderConfirmDestination.route}/${order.orderId}") },
             colors = ButtonDefaults.buttonColors(containerColor = greenDark),

@@ -102,6 +102,7 @@ fun LoginScreenContent(
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
         ) {
+            // Profile Image
             Icon(
                 painter = painterResource(id = R.drawable.default_image),
                 contentDescription = null,
@@ -145,6 +146,7 @@ fun LoginScreenContent(
             Row(modifier = Modifier.fillMaxWidth().height(50.dp)) {
                 Spacer(modifier = Modifier.weight(1f))
 
+                // Account Type Drop Down
                 DropDown(options = listOf(
                     R.string.farmer,
                     R.string.farm,
@@ -162,6 +164,7 @@ fun LoginScreenContent(
                 )
             }
 
+            // Log In Button
             Button(
                 onClick = { onEvent(AuthFormEvent.Submit) },
                 colors = ButtonDefaults.buttonColors(containerColor = greenDark),
@@ -170,6 +173,7 @@ fun LoginScreenContent(
                 Text(text = stringResource(id = R.string.login_button))
             }
 
+            // Navigate To Sign Up Screen
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
                     text = stringResource(id = R.string.new_user_text),

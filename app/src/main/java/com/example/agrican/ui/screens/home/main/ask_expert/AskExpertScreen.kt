@@ -37,7 +37,9 @@ fun AskExpertScreen(
     val scope = rememberCoroutineScope()
     LaunchedEffect(key1 = context) {
         scope.launch {
+            // Start Chat after 3 Seconds
             delay(3000)
+            // Open Chat Screen
             openAndPopUp(ChatDestination.route, AskExpertDestination.route)
         }
     }

@@ -65,6 +65,7 @@ fun TreatmentScreenContent(
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
         modifier = modifier.padding(MaterialTheme.spacing.medium)
     ) {
+        // Choose Crop
         Text(
             text = stringResource(id = R.string.choose_crop),
             color = greenLight
@@ -76,6 +77,7 @@ fun TreatmentScreenContent(
             modifier = Modifier.background(greenLight)
         )
 
+        // Continue Button
         Button(
             onClick = { openScreen(SelectedCropDestination.route) },
             colors = ButtonDefaults.buttonColors(containerColor = greenDark),

@@ -13,7 +13,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -69,6 +68,7 @@ fun AddCropScreenContent(
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
         modifier = modifier
     ) {
+        // Choose Crop Text
         Text(
             text = stringResource(id = R.string.choose_crop_label),
             color = greenDark,
@@ -77,12 +77,12 @@ fun AddCropScreenContent(
 
         CropsList(crops = uiState.crops, setSelectedCrop = updateSelectedCrop)
 
+        // Agri History
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
             modifier = Modifier.padding(MaterialTheme.spacing.small)
         ) {
-            val context = LocalContext.current
             Text(
                 text = stringResource(id = R.string.agri_history),
                 color = greenDark
@@ -107,6 +107,7 @@ fun AddCropScreenContent(
             )
         }
 
+        // Add Crop Button
         Button(
             onClick = addCrop,
             colors = ButtonDefaults.buttonColors(containerColor = greenDark),

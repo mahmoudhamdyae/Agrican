@@ -1,6 +1,5 @@
 package com.example.agrican.ui.screens.home.agricanservices.treatment
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -38,6 +37,7 @@ import com.example.agrican.R
 import com.example.agrican.common.enums.DiseaseType
 import com.example.agrican.domain.model.Treatment
 import com.example.agrican.ui.components.DropDown
+import com.example.agrican.ui.components.EmptyImage
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.spacing
@@ -71,6 +71,7 @@ fun SelectedCropScreenContent(
 ) {
     var isTreatmentShown by rememberSaveable { mutableStateOf(false) }
 
+    // Selected Crop
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
@@ -100,6 +101,7 @@ fun SelectedCropScreenContent(
                     )
                 }
 
+                // Edit Button
                 Button(
                     onClick = { /*TODO*/ },
                     colors = ButtonDefaults.buttonColors(containerColor = greenDark),
@@ -113,11 +115,13 @@ fun SelectedCropScreenContent(
             }
         }
 
+        // Choose Disease Type Label
         Text(
             text = stringResource(id = R.string.choose_disease_type),
             color = greenDark
         )
 
+        // Choose Disease Type Drop Down
         DropDown(options = listOf(
             DiseaseType.INSECTS.title
         ),
@@ -125,6 +129,7 @@ fun SelectedCropScreenContent(
             modifier = Modifier.width(150.dp).height(MaterialTheme.spacing.large)
         )
 
+        // Show Treatment Button
         Button(
             onClick = {
                 getTreatments()
@@ -187,9 +192,7 @@ fun TreatmentListItem(
             horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
             modifier = Modifier.fillMaxWidth()
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.ic_sunny),
-                contentDescription = null,
+            EmptyImage(
                 modifier = Modifier.weight(1f)
             )
             Column(
@@ -202,11 +205,13 @@ fun TreatmentListItem(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier.fillMaxWidth()
                 ) {
+                    // Treatment Name
                     Text(
                         text = treatment.name,
                         color = greenDark
                     )
                     Spacer(modifier = Modifier.weight(1f))
+                    // Know More Button
                     Button(
                         onClick = { /*TODO*/ },
                         colors = ButtonDefaults.buttonColors(containerColor = greenDark),
@@ -215,6 +220,7 @@ fun TreatmentListItem(
                     }
                 }
 
+                // Treatment Description
                 Text(text = treatment.description)
             }
         }

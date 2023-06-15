@@ -107,7 +107,7 @@ fun BottomView(
             modifier = Modifier.padding(MaterialTheme.spacing.small)
         ) {
             // Send Button
-            ChatButton(
+            SendButton(
                 icon = R.drawable.send,
                 messageBody = message,
                 onItemClick = {
@@ -134,10 +134,13 @@ fun BottomView(
                         // Stop Recording
                         recorder.stop()
                         recording = false
+                        // Start Tick Sound
                         mediaPlayer.start()
                         sendFile(audioFile)
                     } else {
+                        // Check Permission
                         if (checkRecordAudioPermission(context)) {
+                            // Start Tick Sound
                             mediaPlayer.start()
                             // Start Recording
                             File(context.cacheDir, "audio.mp3").also {
@@ -194,7 +197,7 @@ fun ChatOutlinedButton(
 }
 
 @Composable
-fun ChatButton(
+fun SendButton(
     icon: Int,
     messageBody: String,
     onItemClick: (String) -> Unit,

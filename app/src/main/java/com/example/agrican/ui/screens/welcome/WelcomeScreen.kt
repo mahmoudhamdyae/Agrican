@@ -63,6 +63,7 @@ fun WelcomeScreen(
                 .align(Alignment.Center)
                 .padding(MaterialTheme.spacing.large)
         ) {
+            // Welcome Text
             Text(text = "Welcome to Agrican")
             Text(
                 text = "أهلا بك فى أجريكان",
@@ -70,6 +71,7 @@ fun WelcomeScreen(
             )
 
             Row {
+                // English Button
                 FilterChip(
                     selected = isEnglish == true,
                     onClick = { isEnglish = true },
@@ -88,6 +90,7 @@ fun WelcomeScreen(
                         .padding(MaterialTheme.spacing.medium)
                 )
 
+                // Arabic Button
                 FilterChip(
                     selected = isEnglish == false,
                     onClick = { isEnglish = false },
@@ -106,6 +109,7 @@ fun WelcomeScreen(
                 )
             }
 
+            // Continue Button
             Row {
                 Spacer(modifier = Modifier.weight(1f))
                 Button(

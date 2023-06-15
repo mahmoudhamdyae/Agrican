@@ -90,6 +90,7 @@ fun JoinAsExpertScreen(
             ),
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
     ) {
+        // Header
         Surface(
             shadowElevation = MaterialTheme.spacing.medium,
             shape = RoundedCornerShape(
@@ -129,6 +130,7 @@ fun JoinAsExpertScreen(
             }
         }
 
+        // Full Name Text Field
         Text(text = stringResource(id = R.string.full_name))
         OutlinedTextField(
             value = fullName,
@@ -148,6 +150,7 @@ fun JoinAsExpertScreen(
             modifier = Modifier.fillMaxWidth()
         )
 
+        // Email TextField
         Text(text = stringResource(id = R.string.e_mail))
         OutlinedTextField(
             value = email,
@@ -167,6 +170,7 @@ fun JoinAsExpertScreen(
             modifier = Modifier.fillMaxWidth()
         )
 
+        // Phone Number Text Field
         Text(text = stringResource(id = R.string.phone_number))
         OutlinedTextField(
             value = phoneNumber,
@@ -186,12 +190,13 @@ fun JoinAsExpertScreen(
             modifier = Modifier.fillMaxWidth()
         )
 
+        // Image to Upload
         Text(text = stringResource(id = R.string.image_of_certificate))
-
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxWidth()
         ) {
+            // Add Image Button
             OutlinedButton(
                 onClick = {
                     imagePicker.launch(
@@ -216,6 +221,8 @@ fun JoinAsExpertScreen(
                     )
                 }
             }
+
+            // Send Information
             Button(
                 onClick = { viewModel.send(fullName, email, phoneNumber, image, navigateUp) },
                 colors = ButtonDefaults.buttonColors(containerColor = greenDark),

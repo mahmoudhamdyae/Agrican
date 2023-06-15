@@ -17,7 +17,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
@@ -80,13 +79,13 @@ fun AddFarmScreenContent(
     modifier: Modifier = Modifier
 ) {
     val focusManager = LocalFocusManager.current
-    val context = LocalContext.current
 
     Column(
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier.padding(MaterialTheme.spacing.medium)
     ) {
+        // Farm Name Text Field
         LabelWithTextField(
             value = uiState.farmName,
             onNewValue = updateFarmName,
@@ -95,6 +94,7 @@ fun AddFarmScreenContent(
             focusManager = focusManager
         )
 
+        // Size Text Field
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.height(IntrinsicSize.Max)
@@ -118,6 +118,7 @@ fun AddFarmScreenContent(
             )
         }
 
+        // Harvest Season Row
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
@@ -151,6 +152,7 @@ fun AddFarmScreenContent(
             )
         }
 
+        // Crops Type Text Field
         LabelWithTextField(
             value = uiState.cropsType,
             onNewValue = updateCropsType,
@@ -160,6 +162,7 @@ fun AddFarmScreenContent(
             imeAction = ImeAction.Done
         )
 
+        // ADd Crop Button
         Button(
             onClick = { addFarm() },
             colors = ButtonDefaults.buttonColors(containerColor = greenDark),

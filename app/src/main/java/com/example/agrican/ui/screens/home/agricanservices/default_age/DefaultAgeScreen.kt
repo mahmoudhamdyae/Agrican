@@ -110,12 +110,14 @@ fun DefaultAgeScreenContent(
     Column(
         modifier = modifier.verticalScroll(rememberScrollState())
     ) {
+        // Harvest Date Label
         Text(
             text = stringResource(id = R.string.harvest_date),
             color = greenLight,
             modifier = Modifier.padding(MaterialTheme.spacing.small)
         )
 
+        // Harvest Date
         Row(verticalAlignment = Alignment.CenterVertically) {
             IconButton(
                 onClick = {
@@ -141,6 +143,7 @@ fun DefaultAgeScreenContent(
                     .height(MaterialTheme.spacing.large)
                     .weight(1f)
             ) {
+                // Days Drop Down
                 DateDropDown(
                     options = DateUtils().days,
                     onSelect = { if (it != 0) updateDay(it) },
@@ -149,6 +152,7 @@ fun DefaultAgeScreenContent(
                         .weight(1f)
                         .fillMaxHeight()
                 )
+                // Months Drop Down
                 DateDropDown(
                     options = DateUtils().months,
                     onSelect = { if (it != 0) updateMonth(it) },
@@ -157,6 +161,7 @@ fun DefaultAgeScreenContent(
                         .weight(1f)
                         .fillMaxHeight()
                 )
+                // Years Drop Down
                 DateDropDown(
                     options = DateUtils().years,
                     onSelect = { if (it != 0) updateYear(it) },
@@ -168,7 +173,7 @@ fun DefaultAgeScreenContent(
             }
         }
 
-
+        // Choose Crop Label
         Text(
             text = stringResource(id = R.string.crop_choose),
             color = greenLight,
@@ -177,6 +182,7 @@ fun DefaultAgeScreenContent(
 
         CropsList(crops = uiState.crops, setSelectedCrop = { updateCurrentCrop(it) })
 
+        // Crop Quality Label
         Text(
             text = stringResource(id = R.string.crop_quality),
             color = greenLight,
@@ -191,6 +197,7 @@ fun DefaultAgeScreenContent(
             Quality.BELOW_AVERAGE,
         )
 
+        // Qualities Lazy Row
         LazyRow {
             items(qualities.size) {
                 Chip(
@@ -204,6 +211,7 @@ fun DefaultAgeScreenContent(
             }
         }
 
+        // Results Button
         Button(
             onClick = getResults,
             colors = ButtonDefaults.buttonColors(containerColor = greenDark),
@@ -259,12 +267,14 @@ fun CircularProgress(
     )
 
     Box(modifier = modifier) {
+        // Gray Indicator
         CircularProgressIndicator(
             progress = 1f,
             color = LightGray,
             strokeWidth = 2.8.dp,
             modifier = Modifier.size(120.dp)
         )
+        // Progress Indicator
         CircularProgressIndicator(
             progress = animatedProgress,
             modifier = Modifier
@@ -274,6 +284,7 @@ fun CircularProgress(
             strokeWidth = 2.8.dp
         )
 
+        // Progress Label
         Text(
             text = "${percent.toInt()}%",
             modifier = Modifier.Companion.align(Alignment.Center)

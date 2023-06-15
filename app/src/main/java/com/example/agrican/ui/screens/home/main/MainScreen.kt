@@ -97,6 +97,7 @@ fun MainScreenContent(
             horizontalArrangement = Arrangement.SpaceEvenly,
             modifier = Modifier.fillMaxWidth()
         ) {
+            // Latest News Button
             Button(
                 onClick = { /*TODO*/ },
                 colors = ButtonDefaults.buttonColors(containerColor = greenDark),
@@ -106,6 +107,8 @@ fun MainScreenContent(
                     modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
                 )
             }
+
+            // Latest Offers Button
             OutlinedButton(onClick = { /*TODO*/ }) {
                 Text(
                     text = stringResource(id = R.string.last_offers),
@@ -117,11 +120,13 @@ fun MainScreenContent(
 
         LatestNewsList(news = news)
 
+        // Problem Images Card
         BottomCard(
             title = R.string.problem_images,
             description = R.string.problem_images_description,
             icon = R.drawable.camera,
             onItemClick = { openScreen(ProblemImagesDestination.route) },
+            body = { ProblemImagesRow() },
             modifier = Modifier
                 .padding(MaterialTheme.spacing.small)
                 .fillMaxWidth()
@@ -129,6 +134,7 @@ fun MainScreenContent(
         )
 
         Row {
+            // Fertilizers Calculator Card
             BottomCard(
                 title = R.string.fertilizers_calculator,
                 description = R.string.fertilizers_calculator_description,
@@ -139,6 +145,7 @@ fun MainScreenContent(
                     .weight(1f)
             )
 
+            // Ask An Expert Card
             BottomCard(
                 title = R.drawable.ask_expert,
                 description = R.string.ask_expert_description,
@@ -193,12 +200,12 @@ fun WeatherBox(
                 modifier = Modifier.align(Alignment.End)
             ) {
                 Text(
-                    text = "مشمس",
+                    text = weather.air,
                     color = greenDark,
                     modifier = Modifier.padding(MaterialTheme.spacing.extraSmall)
                 )
                 Text(
-                    text = "31°",
+                    text = weather.degree.toString(),
                     color = greenDark,
                     modifier = Modifier.padding(MaterialTheme.spacing.extraSmall)
                 )
@@ -243,6 +250,7 @@ fun LatestNewsList(
             }
         }
 
+        // Go To First Button
         Surface(
             shadowElevation = MaterialTheme.spacing.small,
             shape = CircleShape,
@@ -268,6 +276,7 @@ fun LatestNewsList(
             )
         }
 
+        // Go To Last Button
         Surface(
             shadowElevation = MaterialTheme.spacing.small,
             shape = CircleShape,
@@ -305,6 +314,7 @@ fun LatestNewsListItem(
                     .fillMaxSize()
                     .weight(1f)
             )
+            // Item Title
             Text(
                 text = news.title,
                 textAlign = TextAlign.Center,
@@ -338,11 +348,13 @@ fun BottomCard(
             modifier = Modifier.padding(MaterialTheme.spacing.medium)
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
+                // Card Title
                 Text(
                     text = stringResource(id = title),
                     color = greenDark
                 )
                 Spacer(modifier = Modifier.weight(1f))
+                // Card Icon
                 Icon(
                     painter = painterResource(id = icon),
                     contentDescription = null,
@@ -350,6 +362,7 @@ fun BottomCard(
                     modifier = Modifier.size(24.dp)
                 )
             }
+            // Card Description
             Text(text = stringResource(id = description))
             body()
         }

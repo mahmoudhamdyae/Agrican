@@ -30,6 +30,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -45,8 +46,10 @@ import com.example.agrican.R
 import com.example.agrican.domain.model.Crop
 import com.example.agrican.ui.components.BackButton
 import com.example.agrican.ui.components.CropsList
+import com.example.agrican.ui.components.EmptyImage
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.greenDark
+import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.spacing
 
 object ProblemImagesDestination: NavigationDestination {
@@ -123,21 +126,21 @@ fun ProblemImageScreenContent(
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
         modifier = modifier
             .verticalScroll(rememberScrollState())
-            .padding(
-                top = MaterialTheme.spacing.large,
-                start = MaterialTheme.spacing.medium
-            )
+            .padding(top = MaterialTheme.spacing.large)
     ) {
         Text(
             text = stringResource(id = R.string.choose_plant_type),
-            color = greenDark
+            color = greenDark,
+            modifier = Modifier.padding(start = MaterialTheme.spacing.medium)
         )
         CropsList(crops = uiState.crops, setSelectedCrop = { updateSelectedCrop(it) })
         Text(
             text = stringResource(id = R.string.choose_problem_image_way),
-            color = greenDark
+            color = greenDark,
+            modifier = Modifier.padding(start = MaterialTheme.spacing.medium)
         )
         Row(modifier = Modifier.fillMaxWidth()) {
+            // Choose Image From Gallery
             WayChoose(
                 image = R.drawable.gallery,
                 text = R.string.from_gallery,
@@ -146,6 +149,7 @@ fun ProblemImageScreenContent(
                 },
                 modifier = Modifier.weight(1f)
             )
+            // Choose Image From Camera
             WayChoose(
                 image = R.drawable.camera,
                 text = R.string.from_camera,
@@ -161,7 +165,7 @@ fun ProblemImageScreenContent(
             Button(
                 onClick = onSearch,
                 colors = ButtonDefaults.buttonColors(containerColor = greenDark),
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(1f).padding(start = MaterialTheme.spacing.medium)
             ) {
                 Text(
                     text = stringResource(id = R.string.start_searching),
@@ -176,15 +180,24 @@ fun ProblemImageScreenContent(
 
         Box {
 
+            // Advices Background
             Image(painter = painterResource(id = R.drawable.advices), contentDescription = null)
 
+            // Advices Label
             Text(
                 text = stringResource(id = R.string.advices_label),
-                modifier = Modifier.align(Alignment.BottomStart)
+                color = Color.White,
+                modifier = Modifier
+                    .align(Alignment.BottomStart)
+                    .padding(MaterialTheme.spacing.medium)
             )
         }
 
-        Text(text = stringResource(id = R.string.advices))
+        // Advices
+        Text(
+            text = stringResource(id = R.string.advices),
+            modifier = Modifier.padding(start = MaterialTheme.spacing.medium)
+        )
     }
 }
 
@@ -205,13 +218,16 @@ fun WayChoose(
             }
     ) {
         Column(
+            verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.padding(vertical = MaterialTheme.spacing.large,)
         ) {
+            // Choose Icon
             Image(
                 painter = painterResource(id = image),
                 contentDescription = null,
             )
+            // Choose Text
             Text(
                 text = stringResource(id = text),
                 color = greenDark
@@ -225,20 +241,31 @@ fun ImageView(
     image: Uri?,
     modifier: Modifier = Modifier
 ) {
-    AsyncImage(
-        model = ImageRequest
-            .Builder(LocalContext.current)
-            .data(data = image)
-            .build(),
-        placeholder = painterResource(R.drawable.loading_img),
-        error = painterResource(R.drawable.ic_broken_image),
-        contentDescription = null,
-        contentScale = ContentScale.FillBounds,
-        modifier = modifier
-            .size(75.dp)
-            .padding(MaterialTheme.spacing.small)
-            .clip(RoundedCornerShape(MaterialTheme.spacing.small))
-    )
+    if (image == null) {
+        EmptyImage(
+            tint = Color.White,
+            background = greenLight,
+            modifier = modifier
+                .size(75.dp)
+                .padding(MaterialTheme.spacing.small)
+                .clip(RoundedCornerShape(MaterialTheme.spacing.small))
+        )
+    } else {
+        AsyncImage(
+            model = ImageRequest
+                .Builder(LocalContext.current)
+                .data(data = image)
+                .build(),
+            placeholder = painterResource(R.drawable.loading_img),
+            error = painterResource(R.drawable.ic_broken_image),
+            contentDescription = null,
+            contentScale = ContentScale.FillBounds,
+            modifier = modifier
+                .size(75.dp)
+                .padding(MaterialTheme.spacing.small)
+                .clip(RoundedCornerShape(MaterialTheme.spacing.small))
+        )
+    }
 }
 
 @Preview(showBackground = true)

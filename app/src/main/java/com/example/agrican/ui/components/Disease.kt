@@ -30,7 +30,7 @@ import com.example.agrican.ui.theme.spacing
 
 @Composable
 fun DiseaseHeader(
-    image: Int,
+    image: Int?,
     diseaseName: String,
     buttonText: Int,
     onButtonClick: ()-> Unit,
@@ -45,22 +45,29 @@ fun DiseaseHeader(
         modifier = modifier
     ) {
         Box(modifier = Modifier.fillMaxWidth()) {
-            Image(
-                painter = painterResource(id = image),
-                contentDescription = null,
-                modifier = Modifier.fillMaxWidth()
-            )
+            if (image == null) {
+                EmptyImage(modifier = Modifier.fillMaxWidth())
+            } else {
+                Image(
+                    painter = painterResource(id = image),
+                    contentDescription = null,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
 
             Row(
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
                     .padding(MaterialTheme.spacing.medium)
             ) {
+                // Disease Name
                 Text(
                     text = diseaseName,
                     color = Color.White,
                     modifier = Modifier.weight(1f)
                 )
+
+                // Search for more Button
                 Button(
                     onClick = onButtonClick,
                     colors = ButtonDefaults.buttonColors(containerColor = Color.White),

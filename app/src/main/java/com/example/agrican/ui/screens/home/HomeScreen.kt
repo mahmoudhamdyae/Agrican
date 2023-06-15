@@ -112,8 +112,10 @@ fun HomeScreenContent(
                 TopBar(
                     title = {
                         if (topBarIcon) {
-                            Icon(painter = painterResource(id = R.drawable.logo),
-                                contentDescription = null)
+                            Icon(
+                                painter = painterResource(id = R.drawable.logo),
+                                contentDescription = null
+                            )
                         } else {
                             Text(text = stringResource(id = topBarTitle))
                         }

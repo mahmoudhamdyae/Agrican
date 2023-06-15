@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import com.example.agrican.R
 import com.example.agrican.ui.theme.greenDark
@@ -41,7 +42,8 @@ fun BackButton(
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.baseline_arrow_forward_ios_24),
-                contentDescription = null
+                contentDescription = null,
+                tint = Color.White
             )
         }
     }

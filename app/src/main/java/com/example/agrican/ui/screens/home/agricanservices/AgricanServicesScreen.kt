@@ -52,6 +52,7 @@ fun AgricanServicesScreen(
                 modifier = Modifier.fillMaxWidth().background(greenLight)
             )
             Row(modifier = Modifier.height(IntrinsicSize.Max)) {
+                // Default Age
                 Card(
                     title = R.string.default_age,
                     description = R.string.problem_images_description,
@@ -62,6 +63,8 @@ fun AgricanServicesScreen(
                         .clickable { openScreen(DefaultAgesDestination.route) },
                     isPrimaryMain = true
                 )
+
+                // Orders
                 Card(
                     title = R.string.order,
                     description = R.string.problem_images_description,
@@ -75,6 +78,7 @@ fun AgricanServicesScreen(
         }
 
         Box(modifier = Modifier.background(greenLight)) {
+            // Diseases
             Column(modifier = Modifier) {
                 Row(modifier = Modifier.height(IntrinsicSize.Max)) {
                     Card(
@@ -85,6 +89,8 @@ fun AgricanServicesScreen(
                             .padding(MaterialTheme.spacing.medium)
                             .clickable { openScreen(DiseasesDestination.route) }
                     )
+
+                    // Pests
                     Card(
                         title = R.string.pests,
                         description = R.string.problem_images_description,
@@ -95,6 +101,7 @@ fun AgricanServicesScreen(
                             .clickable { openScreen(PestsDestination.route) }
                     )
                 }
+
                 Box(modifier = Modifier.height(IntrinsicSize.Max)) {
                     Box(
                         modifier = Modifier
@@ -102,6 +109,7 @@ fun AgricanServicesScreen(
                             .padding(vertical = MaterialTheme.spacing.large)
                             .background(greenDark)
                     )
+                    // Treatmen
                     Card(
                         title = R.string.treatment,
                         description = R.string.problem_images_description,
@@ -113,6 +121,7 @@ fun AgricanServicesScreen(
             }
         }
 
+        // Join As Expert
         Card(
             title = R.string.join_as_expert,
             description = R.string.problem_images_description,
@@ -142,15 +151,19 @@ fun Card(
         modifier = modifier
     ) {
         Column(modifier = Modifier.padding(MaterialTheme.spacing.medium)) {
+            // Card Title
             Text(
                 text = stringResource(id = title),
                 fontWeight = FontWeight.Bold,
                 color = secondaryColor
             )
-            
+
+            // Card Description
             Text(text = stringResource(id = description))
 
             Spacer(modifier = Modifier.height(MaterialTheme.spacing.small))
+
+            // Card Icon
             Row {
                 Spacer(modifier = Modifier.weight(1f))
                 Surface(

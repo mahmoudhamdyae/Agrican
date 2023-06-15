@@ -39,6 +39,7 @@ fun EngineerMapScreen(
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
         modifier = modifier.padding(MaterialTheme.spacing.medium)
     ) {
+        // Choose Farm Drop Down
         DropDown(options = listOf(
             R.string.choose_farm
         ), onSelect = { /*TODO*/ },
@@ -47,6 +48,7 @@ fun EngineerMapScreen(
                 .height(MaterialTheme.spacing.large)
         )
 
+        // Choose Size Text
         Text(
             text = stringResource(id = R.string.choose_farm_size),
             color = greenLight
@@ -54,6 +56,7 @@ fun EngineerMapScreen(
 
         MapScreen(modifier = Modifier.fillMaxWidth().weight(1f).background(Color.Black))
 
+        // Continue Button
         Button(
             onClick = { /*TODO*/ },
             colors = ButtonDefaults.buttonColors(containerColor = greenDark),

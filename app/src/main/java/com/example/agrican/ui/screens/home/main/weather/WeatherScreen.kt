@@ -62,12 +62,14 @@ fun WeatherScreenContent(
             horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
             verticalAlignment = Alignment.CenterVertically
         ) {
+            // Weather Icon
             Icon(
                 painter = painterResource(id = R.drawable.sunny),
                 contentDescription = null,
                 tint = greenLight,
                 modifier = Modifier.size(MaterialTheme.spacing.extraLarge)
             )
+            // Weather Degree
             Text(
                 text = "${weather.degree}°",
                 fontSize = 32.sp,
@@ -81,20 +83,28 @@ fun WeatherScreenContent(
         )
 
         Divider(modifier = Modifier.fillMaxWidth())
+
+        // Air Quality
         WeatherRow(weatherLabel = R.string.air_quality, weatherData = weather.air)
         Divider(modifier = Modifier.fillMaxWidth())
+        // Wind
         WeatherRow(weatherLabel = R.string.wind, weatherData = weather.wind)
         Divider(modifier = Modifier.fillMaxWidth())
+        // Gusts of Wind
         WeatherRow(weatherLabel = R.string.gusts_of_wind, weatherData = weather.windGusts)
         Divider(modifier = Modifier.fillMaxWidth())
 
+        // Air Quality
         WeatherRow(weatherLabel = R.string.air_quality, weatherData = weather.air)
         Divider(modifier = Modifier.fillMaxWidth())
+        // Wind
         WeatherRow(weatherLabel = R.string.wind, weatherData = weather.wind)
         Divider(modifier = Modifier.fillMaxWidth())
+        // Gusts of Wind
         WeatherRow(weatherLabel = R.string.gusts_of_wind, weatherData = weather.windGusts)
         Divider(modifier = Modifier.fillMaxWidth())
 
+        // Weather Information
         Surface(
             shape = RoundedCornerShape(MaterialTheme.spacing.medium),
             color = greenLight,

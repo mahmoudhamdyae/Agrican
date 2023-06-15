@@ -84,7 +84,10 @@ fun DiseaseListItem(
             .padding(MaterialTheme.spacing.medium)
     ) {
         Box {
+            // Disease Image
             Image(painter = painterResource(id = R.drawable.ic_sunny), contentDescription = null)
+
+            // Disease Title
             Text(
                 text = disease.title,
                 color = Color.White,
