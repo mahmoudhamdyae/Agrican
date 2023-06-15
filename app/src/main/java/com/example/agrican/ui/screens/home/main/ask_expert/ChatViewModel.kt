@@ -1,5 +1,6 @@
 package com.example.agrican.ui.screens.home.main.ask_expert
 
+import android.util.Log
 import com.example.agrican.domain.model.Message
 import com.example.agrican.domain.model.MessageType
 import com.example.agrican.domain.use_case.BaseUseCase
@@ -30,13 +31,17 @@ class ChatViewModel @Inject constructor(
     }
 
     fun sendMessage(
-        messageBody: String = "",
+        messageBody: String? = null,
+        image: String? = null,
         file: File? = null,
         messageType: MessageType
     ) {
+        Log.d("hahahaha", image.toString())
+
         val message = Message(
             body = messageBody,
-            file = file,
+            userId = _uiState.value.currentUser.userId,
+            image = image,
             type = messageType,
         )
         launchCatching {

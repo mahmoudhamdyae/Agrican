@@ -6,6 +6,7 @@ import com.example.agrican.domain.model.Crop
 import com.example.agrican.domain.model.Disease
 import com.example.agrican.domain.model.Farm
 import com.example.agrican.domain.model.Message
+import com.example.agrican.domain.model.MessageType
 import com.example.agrican.domain.model.News
 import com.example.agrican.domain.model.Order
 import com.example.agrican.domain.model.Pest
@@ -16,6 +17,7 @@ import com.example.agrican.domain.model.Weather
 import com.example.agrican.domain.repository.MainRepository
 import com.example.agrican.domain.use_case.GetDefaultAgeResponse
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
@@ -109,11 +111,18 @@ class MainRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getChat(): Flow<Chat> {
-        return apiService.getChat()
+//        return apiService.getChat()
+        return flow { emit(Chat(messages, "2")) }
     }
 
+    private val messages = mutableListOf(Message(
+                    body = "أهلا بيك معاك .. من أجريكان أقدر أساعد حضرتك إزاى؟",
+                    userId = "1",
+                    type = MessageType.TEXT
+                ),)
     override suspend fun sendMessage(message: Message) {
-        apiService.sendMessage(message)
+//        apiService.sendMessage(message)
+        messages.add(message)
     }
 
     override suspend fun getFarms(): List<Farm> {
