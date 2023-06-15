@@ -39,6 +39,7 @@ class ChatViewModel @Inject constructor(
             body = messageBody,
             userId = _uiState.value.currentUser.userId,
             image = image,
+            file = file,
             type = messageType,
         )
         launchCatching {

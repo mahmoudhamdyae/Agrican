@@ -143,7 +143,7 @@ fun ImageMessage(
         contentDescription = null,
         placeholder = painterResource(id = R.drawable.loading_img),
         error =  painterResource(id = R.drawable.ic_broken_image),
-        contentScale = ContentScale.FillBounds,
+        contentScale = ContentScale.FillWidth,
         modifier = modifier
     )
 }

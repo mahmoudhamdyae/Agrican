@@ -60,6 +60,7 @@ import java.util.Objects
 fun BottomView(
     sendMessage: (String) -> Unit,
     sendImage: (String?) -> Unit,
+    sendFile: (File?) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
@@ -113,7 +114,10 @@ fun BottomView(
             ChatButton(
                 icon = R.drawable.ic_visibility_on,
                 messageBody = message,
-                onItemClick = sendMessage
+                onItemClick = {
+                    sendMessage(it)
+                    message = ""
+                }
             )
 
             OutlinedTextField(
@@ -133,7 +137,7 @@ fun BottomView(
                         // Stop Recording
                         recorder.stop()
                         recording = false
-//                        sendFile(audioFile)
+                        sendFile(audioFile)
                     } else {
                         if (checkRecordAudioPermission(context)) {
                             mediaPlayer.start()

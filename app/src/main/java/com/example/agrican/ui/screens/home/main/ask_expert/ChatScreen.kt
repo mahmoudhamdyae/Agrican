@@ -27,6 +27,7 @@ import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.spacing
 import kotlinx.coroutines.launch
+import java.io.File
 
 object ChatDestination: NavigationDestination {
     override val route: String = "chat"
@@ -63,6 +64,12 @@ fun ChatScreen(
                 scrollState.animateScrollToItem(uiState.chat.messages.size - 1)
             }
         },
+        sendFile = {
+            viewModel.sendMessage(file = it, messageType = MessageType.VOICE)
+            scope.launch {
+                scrollState.animateScrollToItem(uiState.chat.messages.size - 1)
+            }
+        },
         scrollState = scrollState,
         modifier = modifier
     )
@@ -75,6 +82,7 @@ fun ChatScreenContent(
     chat: Chat,
     sendMessage: (String) -> Unit,
     sendImage: (String?) -> Unit,
+    sendFile: (File?) -> Unit,
     modifier: Modifier = Modifier,
     scrollState: LazyListState = rememberLazyListState()
 ) {
@@ -103,6 +111,7 @@ fun ChatScreenContent(
         BottomView(
             sendMessage = sendMessage,
             sendImage = sendImage,
+            sendFile = sendFile,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(MaterialTheme.spacing.small)
