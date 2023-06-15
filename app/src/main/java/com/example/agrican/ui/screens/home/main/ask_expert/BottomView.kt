@@ -133,10 +133,10 @@ fun BottomView(
                 else Icons.Outlined.RecordVoiceOver,
                 onItemClick = {
                     if (recording) {
-                        mediaPlayer.start()
                         // Stop Recording
                         recorder.stop()
                         recording = false
+                        mediaPlayer.start()
                         sendFile(audioFile)
                     } else {
                         if (checkRecordAudioPermission(context)) {
