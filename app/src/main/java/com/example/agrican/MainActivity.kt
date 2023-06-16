@@ -34,7 +34,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Splash Screen
-        installSplashScreen()
+        installSplashScreen().apply {
+//            setKeepOnScreenCondition {
+//
+//            }
+        }
 
         setContent {
             AgricanTheme {
