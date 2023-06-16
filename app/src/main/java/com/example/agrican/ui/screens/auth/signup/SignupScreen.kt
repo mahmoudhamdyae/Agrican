@@ -7,17 +7,19 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
@@ -105,6 +107,7 @@ fun SignupScreenContent(
                     modifier = Modifier
                         .fillMaxSize()
                         .verticalScroll(rememberScrollState())
+                        .padding(MaterialTheme.spacing.large)
                 )
             } else {
                 Signup(
@@ -114,6 +117,7 @@ fun SignupScreenContent(
                     modifier = Modifier
                         .fillMaxSize()
                         .verticalScroll(rememberScrollState())
+                        .padding(MaterialTheme.spacing.large)
                 )
             }
         })
@@ -130,16 +134,24 @@ fun AccountType(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier.fillMaxSize()
     ) {
-        Column(horizontalAlignment = Alignment.CenterHorizontally,) {
-            OutlinedButton(
-                onClick = {  },
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
+        ) {
+            Surface(
+                shape = RoundedCornerShape(MaterialTheme.spacing.large),
                 border = BorderStroke(1.dp, gray)
             ) {
                 Text(
                     text = stringResource(id = R.string.create_new_user),
-                    color = greenDark
+                    color = greenDark,
+                    modifier = Modifier.padding(
+                        vertical = MaterialTheme.spacing.small,
+                        horizontal = MaterialTheme.spacing.medium
+                    )
                 )
             }
+
             Text(
                 text = stringResource(id = R.string.choose_user_account),
                 color = greenDark
@@ -193,7 +205,7 @@ fun AccountTypeItem(
             text = stringResource(id = accountTypeDescription),
             textAlign = TextAlign.Center,
             color = greenDark,
-            modifier = Modifier.padding(horizontal = MaterialTheme.spacing.large)
+            modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
         )
     }
 }
@@ -212,13 +224,17 @@ fun Signup(
         verticalArrangement = Arrangement.Center,
         modifier = modifier
     ) {
-        Button(
-            onClick = {  },
-            colors = ButtonDefaults.buttonColors(containerColor = greenDark),
+        Surface(
+            shape = RoundedCornerShape(MaterialTheme.spacing.medium),
+            color = greenDark
         ) {
             Text(
                 text = stringResource(id = accountType.title),
-                modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
+                color = Color.White,
+                modifier = Modifier.padding(
+                    vertical = MaterialTheme.spacing.small,
+                    horizontal = MaterialTheme.spacing.large
+                )
             )
         }
 

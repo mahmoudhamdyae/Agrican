@@ -99,6 +99,7 @@ fun LoginScreenContent(
             modifier = Modifier
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
+                .padding(MaterialTheme.spacing.large)
         ) {
             // Profile Image
             Icon(

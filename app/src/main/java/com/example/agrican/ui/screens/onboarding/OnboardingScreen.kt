@@ -124,7 +124,7 @@ fun OnBoardingItem(
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
-        modifier = modifier
+        modifier = modifier.fillMaxSize()
     ) {
         // Onboarding Image
         Image(
@@ -134,7 +134,8 @@ fun OnBoardingItem(
         // Onboarding Text
         Text(
             text = stringResource(id = item.text),
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
+            modifier = Modifier.padding(MaterialTheme.spacing.medium)
         )
     }
 }

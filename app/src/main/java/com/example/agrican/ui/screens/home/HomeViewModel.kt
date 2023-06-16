@@ -6,6 +6,7 @@ import com.example.agrican.ui.screens.BaseViewModel
 import com.example.agrican.ui.screens.auth.login.LoginDestination
 import com.example.agrican.ui.screens.welcome.WelcomeDestination
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
@@ -24,10 +25,12 @@ class HomeViewModel @Inject constructor(
             isFirstTime.collectLatest {
                 if (it) {
                     navigate(WelcomeDestination.route)
+                    this.cancel()
                 } else {
                     if (!accountService.hasUser()) {
                         navigate(LoginDestination.route)
                     }
+                    this.cancel()
                 }
             }
         }
