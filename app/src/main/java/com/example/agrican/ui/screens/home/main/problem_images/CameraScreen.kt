@@ -18,7 +18,6 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -173,31 +172,32 @@ fun CameraView(
                 // Back Button
                 IconButton(
                     onClick = { navigateUp() },
-                    modifier = Modifier.padding(MaterialTheme.spacing.medium)
+                    modifier = Modifier.padding(MaterialTheme.spacing.medium).align(Alignment.End)
                 ) {
                     Icon(
-                        painter = painterResource(id = R.drawable.camera_back),
+                        painter = painterResource(id = R.drawable.baseline_arrow_forward_24),
                         contentDescription = null,
+                        tint = Color.Black,
                     )
                 }
-            }
 
-            // Camera Border
-            Image(
-                painter = painterResource(id = R.drawable.camera_border),
-                contentDescription = null
-            )
+                // Camera Border
+                Icon(
+                    painter = painterResource(id = R.drawable.camera_border),
+                    contentDescription = null,
+                    tint = Color.White,
+                    modifier = Modifier.weight(1f)
+                )
 
-            // Images Captured
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
-                modifier = Modifier
-                    .padding(MaterialTheme.spacing.medium)
-                    .align(Alignment.BottomCenter)
-            ) {
-                ImageCaptured(image = uiState.image1)
-                ImageCaptured(image = uiState.image2)
-                ImageCaptured(image = uiState.image3)
+                // Images Captured
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
+                    modifier = Modifier.padding(MaterialTheme.spacing.medium)
+                ) {
+                    ImageCaptured(image = uiState.image1)
+                    ImageCaptured(image = uiState.image2)
+                    ImageCaptured(image = uiState.image3)
+                }
             }
 
         }
@@ -214,7 +214,8 @@ fun CameraView(
             IconButton(onClick = navigateUp) {
                 Icon(
                     painter = painterResource(id = R.drawable.done),
-                    contentDescription = null
+                    contentDescription = null,
+                    tint = Color.White
                 )
             }
 
@@ -243,6 +244,7 @@ fun CameraView(
                 Icon(
                     painter = painterResource(id = R.drawable.lens),
                     contentDescription = "Take picture",
+                    tint = Color.White,
                     modifier = Modifier
                         .size(200.dp)
                         .padding(1.dp)
@@ -257,7 +259,8 @@ fun CameraView(
                         if (flashOn) R.drawable.baseline_flash_on_24
                         else R.drawable.flash_off
                     ),
-                    contentDescription = null
+                    contentDescription = null,
+                    tint = Color.White
                 )
             }
         }

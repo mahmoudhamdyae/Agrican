@@ -1,11 +1,14 @@
 package com.example.agrican.ui.screens.home.agricanservices.pests
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -77,7 +80,10 @@ fun PestScreenContent(
             onButtonClick = navigateUp
         )
 
-        Column(modifier = Modifier.padding(MaterialTheme.spacing.medium)) {
+        Column(
+            verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
+            modifier = Modifier.padding(MaterialTheme.spacing.medium)
+        ) {
 
             // Scientific Name Label
             MainLabel(text = R.string.scientific_name)
@@ -105,7 +111,7 @@ fun PestScreenContent(
 
             // Main Label
             MainLabel(text = R.string.main_host)
-            Row(modifier = Modifier.fillMaxWidth()) {
+            Row(modifier = Modifier.fillMaxWidth().height(150.dp)) {
                 MainHostItem(
                     text = "نبات الأرز\nOryza sativa",
                     modifier = Modifier.weight(1f)
@@ -169,7 +175,7 @@ fun MainHostItem(
             .padding(MaterialTheme.spacing.medium)
     ) {
         Box {
-            EmptyImage()
+            EmptyImage(modifier = Modifier.fillMaxSize())
             Text(
                 text = text,
                 color = Color.White,

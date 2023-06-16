@@ -1,5 +1,6 @@
 package com.example.agrican.ui.screens.home.agricanservices.diseases
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -65,7 +66,10 @@ fun DiseaseScreenContent(
             onButtonClick = navigateUp
         )
 
-        Column(modifier = Modifier.padding(MaterialTheme.spacing.medium)) {
+        Column(
+            verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
+            modifier = Modifier.padding(MaterialTheme.spacing.medium)
+        ) {
             // Naming
             MainLabel(text = R.string.naming)
             DescriptionLabel(texts = listOf(disease.name))

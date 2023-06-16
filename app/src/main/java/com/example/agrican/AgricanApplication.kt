@@ -13,6 +13,7 @@ class AgricanApplication: Application() {
     override fun onCreate() {
         super.onCreate()
 
+        // Install Amplify
         try {
             Amplify.addPlugin(AWSCognitoAuthPlugin())
             Amplify.configure(applicationContext)

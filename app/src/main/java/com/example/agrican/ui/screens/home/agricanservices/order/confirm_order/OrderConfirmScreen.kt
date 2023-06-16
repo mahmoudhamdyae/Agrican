@@ -11,12 +11,15 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -60,26 +63,25 @@ fun OrderConfirmScreen(
     modifier: Modifier = Modifier,
     viewModel: OrderConfirmViewModel = hiltViewModel()
 ) {
-    BackButton(navigateUp = navigateUp, modifier = modifier) {
+    BackButton(navigateUp = navigateUp) {
 
         Column(
             verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
-            modifier = Modifier.padding(
-                horizontal = MaterialTheme.spacing.large,
-                vertical = MaterialTheme.spacing.medium
-            )
+            modifier = modifier
+                .verticalScroll(rememberScrollState())
+                .padding(MaterialTheme.spacing.medium)
         ) {
             Text(
                 text = stringResource(id = R.string.confirm_order),
                 color = greenLight,
-                modifier = Modifier.padding(start = MaterialTheme.spacing.medium)
+                modifier = Modifier.padding(vertical = MaterialTheme.spacing.small)
             )
 
             Divider(
                 modifier = Modifier
-                    .padding(horizontal = MaterialTheme.spacing.medium)
                     .height(2.dp)
                     .background(gray)
+                    .padding(vertical = MaterialTheme.spacing.small)
             )
 
             OrderConfirmScreenContent(buy = viewModel::buy)
@@ -98,6 +100,8 @@ fun OrderConfirmScreenContent(
 
     val focusManager = LocalFocusManager.current
 
+    var isCash by rememberSaveable { mutableStateOf(OrderWay.CASH) }
+
     Column(
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
         modifier = modifier.fillMaxWidth()
@@ -108,10 +112,19 @@ fun OrderConfirmScreenContent(
             border = BorderStroke(1.dp, gray),
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text(
-                text = stringResource(id = R.string.cash),
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.padding(MaterialTheme.spacing.medium)
-            )
+            ) {
+                RadioButton(
+                    selected = isCash == OrderWay.CASH,
+                    onClick = { isCash = OrderWay.CASH }
+                )
+                Text(
+                    text = stringResource(id = R.string.cash),
+                    modifier = Modifier.padding(MaterialTheme.spacing.medium)
+                )
+            }
         }
 
         // Visa
@@ -124,8 +137,24 @@ fun OrderConfirmScreenContent(
                 horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
                 modifier = Modifier.padding(MaterialTheme.spacing.medium)
             ) {
-                Image(painter = painterResource(id = R.drawable.visa), contentDescription = null)
-                Image(painter = painterResource(id = R.drawable.mastercard), contentDescription = null)
+                RadioButton(
+                    selected = isCash == OrderWay.VISA,
+                    onClick = { isCash = OrderWay.VISA }
+                )
+
+                // Visa Image
+                Image(
+                    painter = painterResource(id = R.drawable.visa),
+                    contentDescription = null,
+                    modifier = Modifier.weight(1f)
+                )
+
+                // MasterCard Image
+                Image(
+                    painter = painterResource(id = R.drawable.mastercard),
+                    contentDescription = null,
+                    modifier = Modifier.weight(1f)
+                )
             }
         }
 
@@ -143,7 +172,7 @@ fun OrderConfirmScreenContent(
                 verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
                 modifier = Modifier.weight(1f)
             ) {
-                // Epired Date
+                // Expired Date
                 Text(text = stringResource(id = R.string.expire_date))
                 SimpleTextField(
                     value = expireDate,
@@ -171,12 +200,13 @@ fun OrderConfirmScreenContent(
         }
 
         // Confirm Order Button
-        Button(onClick = { buy(OrderRequest(
-            orderWay = OrderWay.CASH,
-            cardId = cardId,
-            expireDate = expireDate,
-            cvc = cvc
-        )) }, colors = ButtonDefaults.buttonColors(containerColor = greenDark) ,
+        Button(
+            onClick = { buy(OrderRequest(
+                orderWay = isCash,
+                cardId = cardId,
+                expireDate = expireDate,
+                cvc = cvc
+            )) }, colors = ButtonDefaults.buttonColors(containerColor = greenDark) ,
             modifier = Modifier.fillMaxWidth()
         ) {
             Row(

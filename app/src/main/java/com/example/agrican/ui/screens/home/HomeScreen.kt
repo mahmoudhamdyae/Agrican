@@ -2,6 +2,7 @@ package com.example.agrican.ui.screens.home
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -71,7 +72,7 @@ fun HomeScreen(
 ) {
 
     LaunchedEffect(Unit) {
-        viewModel.initialize(openAndClear)
+//        viewModel.initialize(openAndClear)
     }
 
     HomeScreenContent(
@@ -112,7 +113,7 @@ fun HomeScreenContent(
                 TopBar(
                     title = {
                         if (topBarIcon) {
-                            Icon(
+                            Image(
                                 painter = painterResource(id = R.drawable.logo),
                                 contentDescription = null
                             )
@@ -198,6 +199,8 @@ fun BottomNavigationBar(
     modifier: Modifier = Modifier
 ) {
     Box(modifier = modifier.height(110.dp)) {
+
+        // Profile Item
         Surface(
             shape = CircleShape,
             shadowElevation = MaterialTheme.spacing.large,
@@ -210,10 +213,13 @@ fun BottomNavigationBar(
                 Icon(
                     painter = painterResource(id = bottomNavItems[1].icon),
                     contentDescription = null,
-                    tint = if (selectedItem == 1) greenDark else gray
+                    tint = if (selectedItem == 1) greenDark else gray,
+                    modifier = Modifier.padding(bottom = MaterialTheme.spacing.small)
                 )
             }
         }
+
+        // Main and Services Items
         Surface(
             shape = NavigationBarCustomShape(145f),
             shadowElevation = MaterialTheme.spacing.large,
@@ -227,6 +233,7 @@ fun BottomNavigationBar(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier.fillMaxSize()
                 ) {
+                    // Main Item
                     BottomNavigationItem(
                         text = bottomNavItems[0].name,
                         icon = bottomNavItems[0].icon,
@@ -243,6 +250,7 @@ fun BottomNavigationBar(
                                 .padding(start = MaterialTheme.spacing.large)
                         )
                     }
+                    // Agrican Services Item
                     BottomNavigationItem(
                         text = bottomNavItems[2].name,
                         icon = bottomNavItems[2].icon,

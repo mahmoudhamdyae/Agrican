@@ -29,7 +29,7 @@ import com.example.agrican.ui.theme.spacing
 
 object AddCropDestination: NavigationDestination {
     override val route: String = "add_crop"
-    override val titleRes: Int = R.string.add_crop
+    override val titleRes: Int = R.string.add_crop_title
 }
 
 @Composable

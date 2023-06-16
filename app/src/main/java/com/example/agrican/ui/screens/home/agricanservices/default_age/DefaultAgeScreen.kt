@@ -101,9 +101,9 @@ fun DefaultAgeScreenContent(
     val datePickerDialog = DatePickerDialog(
         context,
         { _: DatePicker, year: Int, month: Int, day: Int ->
-//            updateDay(day)
-//            updateMonth(month)
-//            updateYear(year)
+            updateDay(day)
+            updateMonth(month)
+            updateYear(year)
         }, LocalDate.now().year, LocalDate.now().monthValue, LocalDate.now().dayOfMonth
     )
 

@@ -63,12 +63,13 @@ fun TreatmentScreenContent(
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
-        modifier = modifier.padding(MaterialTheme.spacing.medium)
+        modifier = modifier
     ) {
         // Choose Crop
         Text(
             text = stringResource(id = R.string.choose_crop),
-            color = greenLight
+            color = greenLight,
+            modifier = Modifier.padding(MaterialTheme.spacing.medium)
         )
 
         CropsList(

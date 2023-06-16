@@ -180,6 +180,7 @@
     <string name="add_farm">إضافة مزرعة</string>
     <string name="add_farm_description">يمكنك إضافة مزرعة و متابعة المحاصيل من خلال إضافة مزرعة</string>
     <string name="add_crop">إضافة محصول لمزرعة</string>
+    <string name="add_crop_title">إضافة محصول</string>
     <string name="add_crop_description">يمكنك إضافة محصول و متابعة المحصول من خلال إضافة محصول</string>
     <string name="engineer_map">خريطة المهندس</string>
     <string name="engineer_map_description">يمكنك تحديد أماكن المشكلة فى الأرض و متابعتها من خلال خريطة المهندس</string>

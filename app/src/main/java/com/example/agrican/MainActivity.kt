@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
 import com.amplifyframework.auth.AuthException
 import com.amplifyframework.kotlin.core.Amplify
@@ -21,6 +22,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // Fetch Amplify Session
         lifecycleScope.launch {
             try {
                 val session = Amplify.Auth.fetchAuthSession()
@@ -30,6 +32,9 @@ class MainActivity : AppCompatActivity() {
                 Log.e("AmplifyQuickstart", "Failed to fetch auth session", error)
             }
         }
+
+        // Splash Screen
+        installSplashScreen()
 
         setContent {
             AgricanTheme {

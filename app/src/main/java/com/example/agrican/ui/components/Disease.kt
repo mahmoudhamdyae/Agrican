@@ -5,7 +5,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -23,6 +25,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import com.example.agrican.R
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
@@ -44,9 +47,9 @@ fun DiseaseHeader(
         ),
         modifier = modifier
     ) {
-        Box(modifier = Modifier.fillMaxWidth()) {
+        Box(modifier = Modifier.fillMaxWidth().height(150.dp)) {
             if (image == null) {
-                EmptyImage(modifier = Modifier.fillMaxWidth())
+                EmptyImage(modifier = Modifier.fillMaxSize())
             } else {
                 Image(
                     painter = painterResource(id = image),

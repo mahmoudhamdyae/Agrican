@@ -43,7 +43,6 @@ import com.example.agrican.domain.model.Crop
 import com.example.agrican.ui.components.Days
 import com.example.agrican.ui.components.ProfileHeader
 import com.example.agrican.ui.navigation.NavigationDestination
-import com.example.agrican.ui.screens.home.profile.add_farm.AddFarmDestination
 import com.example.agrican.ui.screens.home.profile.add_task.AddTaskDestination
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
@@ -69,7 +68,7 @@ fun ObserveCropScreen(
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    ProfileHeader(navigateUp = navigateUp, headerText = AddFarmDestination.titleRes) {
+    ProfileHeader(navigateUp = navigateUp, headerText = ObserveCropDestination.titleRes) {
         ObserveCropScreenContent(crop = uiState.crop, openScreen = openScreen, modifier = modifier)
     }
 }

@@ -244,7 +244,7 @@ fun LatestNewsList(
                     news = news[it],
                     modifier = Modifier
                         .padding(MaterialTheme.spacing.small)
-                        .height(100.dp)
+                        .height(110.dp)
                         .width(170.dp)
                 )
             }
@@ -377,12 +377,10 @@ fun ProblemImagesRow(
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
+        horizontalArrangement = Arrangement.SpaceBetween,
         modifier = modifier
-            .padding(
-                vertical = MaterialTheme.spacing.small,
-                horizontal = MaterialTheme.spacing.medium
-            )
+            .padding(vertical = MaterialTheme.spacing.small)
+            .fillMaxWidth()
     ) {
         ProblemImagesRowItem()
         Icon(
@@ -394,7 +392,8 @@ fun ProblemImagesRow(
         Icon(
             painter = painterResource(id = R.drawable.baseline_arrow_forward_ios_24),
             contentDescription = null,
-            tint = greenDark
+            tint = greenDark,
+            modifier = Modifier.padding(MaterialTheme.spacing.small)
         )
         ProblemImagesRowItem()
     }
