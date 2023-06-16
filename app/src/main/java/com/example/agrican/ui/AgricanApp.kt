@@ -21,19 +21,19 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.example.agrican.common.snackbar.SnackBarManager
 import com.example.agrican.ui.navigation.agricanAppGraph
-import com.example.agrican.ui.screens.home.HomeDestination
 import com.google.accompanist.pager.ExperimentalPagerApi
 import kotlinx.coroutines.CoroutineScope
 
 @Composable
-fun AgricanApp() {
+fun AgricanApp(startDestination: String) {
 
     val snackBarHostState = remember { SnackbarHostState() }
     val appState = rememberAppState(snackBarHostState = snackBarHostState)
 
     AgricanAppContent(
         snackBarHostState = snackBarHostState,
-        appState = appState
+        appState = appState,
+        startDestination = startDestination
     )
 }
 
@@ -42,6 +42,7 @@ fun AgricanApp() {
 private fun AgricanAppContent(
     snackBarHostState: SnackbarHostState,
     appState: AgricanAppState,
+    startDestination: String,
     modifier: Modifier = Modifier,
 ) {
     Scaffold(
@@ -57,7 +58,7 @@ private fun AgricanAppContent(
     ) { innerPadding ->
         NavHost(
             navController = appState.navController,
-            startDestination = HomeDestination.route,
+            startDestination = startDestination,
             modifier = modifier.padding(innerPadding)
         ) {
             agricanAppGraph(

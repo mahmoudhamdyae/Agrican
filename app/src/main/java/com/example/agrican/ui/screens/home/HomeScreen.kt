@@ -24,7 +24,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -44,7 +43,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.agrican.R
 import com.example.agrican.ui.navigation.AgricanServicesGraph
 import com.example.agrican.ui.navigation.MainGraph
@@ -64,25 +62,9 @@ data class BottomNavItem(
     @DrawableRes val icon: Int,
 )
 
-@Composable
-fun HomeScreen(
-    openAndClear: (String) -> Unit,
-    modifier: Modifier = Modifier,
-    viewModel: HomeViewModel = hiltViewModel()
-) {
-
-    LaunchedEffect(Unit) {
-//        viewModel.initialize(openAndClear)
-    }
-
-    HomeScreenContent(
-        modifier = modifier,
-    )
-}
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreenContent(
+fun HomeScreen(
     modifier: Modifier = Modifier
 ) {
     var selectedItem by rememberSaveable { mutableStateOf(0) }
@@ -283,7 +265,7 @@ fun BottomNavigationItem(
 @Preview
 @Composable
 fun HomeScreenContentPreview() {
-    HomeScreenContent()
+    HomeScreen()
 }
 
 class NavigationBarCustomShape(private val cornerRadius: Float) : Shape {
@@ -302,32 +284,9 @@ class NavigationBarCustomShape(private val cornerRadius: Float) : Shape {
     private fun drawTicketPath(size: Size, cornerRadius: Float): Path {
         return Path().apply {
             reset()
-//            lineTo(x = size.width / 2 - cornerRadius, y = 0f)
-//            arcTo(
-//                rect = Rect(
-//                    left = size.width / 2 - cornerRadius,
-//                    top = -cornerRadius,
-//                    right = size.width / 2 + cornerRadius,
-//                    bottom = cornerRadius
-//                ),
-//                startAngleDegrees = 180.0f,
-//                sweepAngleDegrees = -180.0f,
-//                forceMoveTo = false
-//            )
-//            lineTo(x = size.width, y = 0f)
-//            lineTo(x = size.width, y = size.height)
-//            lineTo(x = 0f, y = size.height)
-//            lineTo(x = 0f, y = 0f)
-
-
             val r2 = 16f
             val r1 = cornerRadius
             val w = size.width
-
-
-
-
-
             lineTo(x = w / 2 - r1 - r2, y = 0f)
             arcTo(
                 rect = Rect(
@@ -366,18 +325,6 @@ class NavigationBarCustomShape(private val cornerRadius: Float) : Shape {
             lineTo(x = size.width, y = size.height)
             lineTo(x = 0f, y = size.height)
             lineTo(x = 0f, y = 0f)
-
-
-
-
-
-
-
-
-
-
-
-
             close()
         }
     }
