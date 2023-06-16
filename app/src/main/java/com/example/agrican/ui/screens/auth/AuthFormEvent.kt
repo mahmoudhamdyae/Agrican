@@ -10,4 +10,5 @@ sealed class AuthFormEvent {
     data class EmailChanged(val email: String) : AuthFormEvent()
 
     object Submit: AuthFormEvent()
+    object ForgotPassword: AuthFormEvent()
 }

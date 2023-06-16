@@ -71,7 +71,7 @@ fun HomeScreen(
 ) {
 
     LaunchedEffect(Unit) {
-//        viewModel.initialize(openAndClear)
+        viewModel.initialize(openAndClear)
     }
 
     HomeScreenContent(

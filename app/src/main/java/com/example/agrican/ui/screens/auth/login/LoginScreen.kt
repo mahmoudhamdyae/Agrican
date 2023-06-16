@@ -77,7 +77,6 @@ fun LoginScreen(
         state = state,
         clearState = viewModel::clearState,
         onEvent = viewModel::onEvent,
-        onForgotPassword = viewModel::onForgotPassword,
         openScreen = openScreen,
         modifier = modifier
     )
@@ -89,7 +88,6 @@ fun LoginScreenContent(
     state: AuthFormState,
     clearState: () -> Unit,
     onEvent: (AuthFormEvent) -> Unit,
-    onForgotPassword: () -> Unit,
     openScreen: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -109,7 +107,7 @@ fun LoginScreenContent(
                 tint = gray,
                 modifier = Modifier
                     .padding(bottom = MaterialTheme.spacing.medium)
-                    .size(100.dp)
+                    .size(150.dp)
             )
 
             UserNameField(
@@ -140,7 +138,7 @@ fun LoginScreenContent(
                     text = stringResource(id = R.string.click_here),
                     textDecoration = TextDecoration.Underline,
                     color = Color.Blue,
-                    modifier = Modifier.clickable { onForgotPassword() }
+                    modifier = Modifier.clickable { onEvent(AuthFormEvent.ForgotPassword) }
                 )
             }
             Row(modifier = Modifier.fillMaxWidth().height(50.dp)) {
@@ -160,7 +158,7 @@ fun LoginScreenContent(
                             else -> { changeAccountType(UserType.FARMER) }
                         }
                                },
-                    modifier = Modifier.weight(1f).padding(vertical = MaterialTheme.spacing.small)
+                    modifier = Modifier.weight(1f)
                 )
             }
 
@@ -203,7 +201,6 @@ fun LoginScreenPreview() {
         state = AuthFormState(),
         clearState = { },
         onEvent = { },
-        onForgotPassword = { },
         openScreen = { }
     )
 }

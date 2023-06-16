@@ -54,6 +54,9 @@ class SignupViewModel @Inject constructor(
             is AuthFormEvent.Submit -> {
                 submitData()
             }
+            else -> {
+                throw Exception("Unknown event")
+            }
         }
     }
 

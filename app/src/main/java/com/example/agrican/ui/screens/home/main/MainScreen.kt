@@ -1,7 +1,6 @@
 package com.example.agrican.ui.screens.home.main
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -33,6 +32,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -147,9 +147,9 @@ fun MainScreenContent(
 
             // Ask An Expert Card
             BottomCard(
-                title = R.drawable.ask_expert,
+                title = R.string.ask_expert,
                 description = R.string.ask_expert_description,
-                icon = R.drawable.calculator,
+                icon = R.drawable.ask_expert,
                 onItemClick = { openScreen(AskExpertDestination.route) },
                 modifier = Modifier
                     .padding(MaterialTheme.spacing.small)
@@ -245,7 +245,7 @@ fun LatestNewsList(
                     modifier = Modifier
                         .padding(MaterialTheme.spacing.small)
                         .height(100.dp)
-                        .width(150.dp)
+                        .width(170.dp)
                 )
             }
         }
@@ -314,11 +314,13 @@ fun LatestNewsListItem(
                     .fillMaxSize()
                     .weight(1f)
             )
+
             // Item Title
             Text(
                 text = news.title,
                 textAlign = TextAlign.Center,
                 overflow = TextOverflow.Ellipsis,
+                color = greenDark,
                 maxLines = 1,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -375,22 +377,24 @@ fun ProblemImagesRow(
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
+        horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
         modifier = modifier
             .padding(
-                vertical = MaterialTheme.spacing.medium,
-                horizontal = MaterialTheme.spacing.large
+                vertical = MaterialTheme.spacing.small,
+                horizontal = MaterialTheme.spacing.medium
             )
     ) {
         ProblemImagesRowItem()
-        Image(
+        Icon(
             painter = painterResource(id = R.drawable.baseline_arrow_forward_ios_24),
-            contentDescription = null
+            contentDescription = null,
+            tint = greenDark
         )
         ProblemImagesRowItem()
-        Image(
+        Icon(
             painter = painterResource(id = R.drawable.baseline_arrow_forward_ios_24),
-            contentDescription = null
+            contentDescription = null,
+            tint = greenDark
         )
         ProblemImagesRowItem()
     }
@@ -400,12 +404,14 @@ fun ProblemImagesRow(
 fun ProblemImagesRowItem(
     modifier: Modifier = Modifier
 ) {
-    Surface(
-        shape = RoundedCornerShape(MaterialTheme.spacing.medium),
-        color = gray,
-        modifier = modifier.size(MaterialTheme.spacing.large)
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = modifier
+            .size(70.dp)
+            .clip(RoundedCornerShape(MaterialTheme.spacing.medium))
+            .background(gray)
     ) {
-        Text(text = "ico")
+        Text(text = "ico", color = Color.White)
     }
 }
 

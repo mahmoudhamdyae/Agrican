@@ -41,6 +41,9 @@ class LoginViewModel @Inject constructor(
             is AuthFormEvent.Submit -> {
                 submitData()
             }
+            is AuthFormEvent.ForgotPassword -> {
+                onForgotPasswordClick()
+            }
             else -> {
                 throw Exception("Unknown event")
             }
@@ -85,7 +88,14 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    fun onForgotPassword() {
+    private fun onForgotPasswordClick() {
+        val userNameResult = useCase.validateUserName(state.userName)
+
+        if (!userNameResult.successful) {
+            state = state.copy(userNameError = userNameResult.errorMessage)
+            return
+        }
+
         launchCatching {
             useCase.forgotPasswordUseCase(userName = state.userName) { }
         }
