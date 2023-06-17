@@ -1,9 +1,9 @@
 package com.example.agrican.ui.navigation
 
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -31,6 +31,7 @@ import com.example.agrican.ui.screens.home.agricanservices.treatment.SelectedCro
 import com.example.agrican.ui.screens.home.agricanservices.treatment.SelectedCropScreen
 import com.example.agrican.ui.screens.home.agricanservices.treatment.TreatmentDestination
 import com.example.agrican.ui.screens.home.agricanservices.treatment.TreatmentScreen
+import com.example.agrican.ui.theme.spacing
 
 @Composable
 fun AgricanServicesGraph(
@@ -56,7 +57,7 @@ fun AgricanServicesGraph(
     NavHost(
         navController = navController,
         startDestination = AgricanServicesDestination.route,
-        modifier = Modifier.padding(bottom = 75.dp)
+        modifier = Modifier.padding(bottom = MaterialTheme.spacing.dp_75)
     ) {
 
         composable(route = AgricanServicesDestination.route) {

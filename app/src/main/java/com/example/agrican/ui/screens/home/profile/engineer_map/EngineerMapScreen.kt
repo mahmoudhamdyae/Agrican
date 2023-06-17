@@ -14,13 +14,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.example.agrican.R
 import com.example.agrican.ui.components.DropDown
 import com.example.agrican.ui.navigation.NavigationDestination
+import com.example.agrican.ui.theme.black
+import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.spacing
@@ -40,21 +40,24 @@ fun EngineerMapScreen(
         modifier = modifier.padding(MaterialTheme.spacing.medium)
     ) {
         // Choose Farm Drop Down
-        DropDown(options = listOf(
-            R.string.choose_farm
-        ), onSelect = { /*TODO*/ },
+        DropDown(
+            options = listOf(
+                R.string.choose_farm),
+            onSelect = { /*TODO*/ },
+            textColor = greenDark,
             modifier = Modifier
-                .width(150.dp)
+                .width(MaterialTheme.spacing.dp_150)
                 .height(MaterialTheme.spacing.large)
         )
 
         // Choose Size Text
         Text(
             text = stringResource(id = R.string.choose_farm_size),
-            color = greenLight
+            color = greenLight,
+            style = MaterialTheme.typography.body
         )
 
-        MapScreen(modifier = Modifier.fillMaxWidth().weight(1f).background(Color.Black))
+        MapScreen(modifier = Modifier.fillMaxWidth().weight(1f).background(black))
 
         // Continue Button
         Button(

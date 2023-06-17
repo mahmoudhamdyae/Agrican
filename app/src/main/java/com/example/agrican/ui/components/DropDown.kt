@@ -25,10 +25,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.example.agrican.R
+import com.example.agrican.ui.theme.black
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.spacing
+import com.example.agrican.ui.theme.textGray
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -36,7 +37,7 @@ fun DropDown(
     options: List<Int>,
     onSelect: (Int) -> Unit,
     modifier: Modifier = Modifier,
-    isGray: Boolean = false,
+    textColor: Color = black,
 ) {
 
     var expanded by remember { mutableStateOf(false) }
@@ -54,7 +55,7 @@ fun DropDown(
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(
                         text = stringResource(id = selectedOption),
-                        color = if (isGray) gray else Color.Black,
+                        color = textColor,
                         modifier = Modifier.padding(start = MaterialTheme.spacing.small)
                     )
                     Spacer(modifier = Modifier.weight(1f))
@@ -66,7 +67,7 @@ fun DropDown(
             modifier = Modifier
                 .menuAnchor()
                 .border(
-                    border = BorderStroke(1.dp, gray),
+                    border = BorderStroke(MaterialTheme.spacing.dp_1, gray),
                     shape = RoundedCornerShape(MaterialTheme.spacing.medium)
                 )
                 .fillMaxHeight()
@@ -79,7 +80,7 @@ fun DropDown(
                 DropdownMenuItem(
                     text = { Text(
                         text = stringResource(id = selectionOption),
-                        color = if (isGray) gray else Color.Black
+                        color = textColor
                         ) },
                     onClick = {
                         onSelect(selectionOption)
@@ -117,7 +118,7 @@ fun DateDropDown(
                     Text(
                         text = if (selectedOption2 == options[0]) stringResource(id = selectedOption2)
                             else selectedOption2.toString(),
-                        color = Color.Black,
+                        color = textGray,
                         modifier = Modifier.padding(start = MaterialTheme.spacing.small)
                     )
                     Spacer(modifier = Modifier.weight(1f))
@@ -130,7 +131,7 @@ fun DateDropDown(
             modifier = Modifier
                 .menuAnchor()
                 .border(
-                    border = BorderStroke(1.dp, gray),
+                    border = BorderStroke(MaterialTheme.spacing.dp_1, gray),
                     shape = RoundedCornerShape(MaterialTheme.spacing.medium)
                 )
                 .fillMaxHeight()
@@ -144,7 +145,7 @@ fun DateDropDown(
                     text = { Text(
                         text = if (selectionOption == options[0]) stringResource(id = selectionOption)
                         else selectionOption.toString(),
-                        color = Color.Black
+                        color = black
                     ) },
                     onClick = {
                         onSelect(selectionOption)

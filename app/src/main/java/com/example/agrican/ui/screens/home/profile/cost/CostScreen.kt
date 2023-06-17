@@ -3,6 +3,7 @@ package com.example.agrican.ui.screens.home.profile.cost
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
@@ -14,7 +15,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
@@ -22,6 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.agrican.R
 import com.example.agrican.ui.components.SimpleTextField
 import com.example.agrican.ui.navigation.NavigationDestination
+import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.spacing
@@ -46,12 +47,24 @@ fun CostScreen(
     ) {
         // Main Table Row
         Row(modifier = Modifier.padding(MaterialTheme.spacing.medium)) {
-            Text(text = stringResource(id = R.string.services), modifier = Modifier.weight(1f))
-            Text(text = stringResource(id = R.string.cost_in_month), modifier = Modifier.weight(1f))
-            Text(text = stringResource(id = R.string.discount_code), modifier = Modifier.weight(1f))
+            Text(
+                text = stringResource(id = R.string.services),
+                style = MaterialTheme.typography.body,
+                modifier = Modifier.weight(1f)
+            )
+            Text(
+                text = stringResource(id = R.string.cost_in_month),
+                style = MaterialTheme.typography.body,
+                modifier = Modifier.weight(1f)
+            )
+            Text(
+                text = stringResource(id = R.string.discount_code),
+                style = MaterialTheme.typography.body,
+                modifier = Modifier.weight(1f)
+            )
         }
 
-        Divider()
+        Divider(color = gray)
 
         // Insurance Row
         CostRow(
@@ -93,16 +106,28 @@ fun CostScreen(
             onCodeChanged = { cropManagerCode = it }
         )
 
-        Divider(modifier = Modifier.padding(MaterialTheme.spacing.medium), color = Color.Black)
+        Divider(modifier = Modifier.height(MaterialTheme.spacing.dp_2), color = gray)
 
         // Total Sum Row
         Row(modifier = modifier.padding(MaterialTheme.spacing.medium)) {
-            Text(text = stringResource(id = R.string.sum), modifier = Modifier.weight(1f))
+            Text(
+                text = stringResource(id = R.string.sum),
+                style = MaterialTheme.typography.body,
+                modifier = Modifier.weight(1f)
+            )
 
             Row(modifier = Modifier.weight(1f)) {
-                Text(text = "00.00")
+                // Price
+                Text(
+                    text = "00.00",
+                    style = MaterialTheme.typography.body
+                )
                 Spacer(modifier = Modifier.padding(end = MaterialTheme.spacing.small))
-                Text(text = stringResource(id = R.string.pound))
+                // Pound Label
+                Text(
+                    text = stringResource(id = R.string.pound),
+                    style = MaterialTheme.typography.body
+                )
             }
         }
     }
@@ -121,10 +146,18 @@ fun CostRow(
         modifier = modifier
     ) {
         // Services Text
-        Text(text = stringResource(id = mainLabel), modifier = Modifier.weight(1f))
+        Text(
+            text = stringResource(id = mainLabel),
+            style = MaterialTheme.typography.body,
+            modifier = Modifier.weight(1f)
+        )
 
         // Cost in Month
-        Text(text = costMonthly.toString(), modifier = Modifier.weight(1f))
+        Text(
+            text = costMonthly.toString(),
+            style = MaterialTheme.typography.body,
+            modifier = Modifier.weight(1f)
+        )
 
         // Discount Code Text Field
         SimpleTextField(
@@ -145,7 +178,7 @@ fun CostRow(
     }
 }
 
-@Preview(showBackground = true, showSystemUi = true)
+@Preview(showBackground = true)
 @Composable
 fun CostScreenPreview() {
     CostScreen()

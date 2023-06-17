@@ -29,10 +29,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -44,9 +42,12 @@ import com.example.agrican.ui.components.Days
 import com.example.agrican.ui.components.ProfileHeader
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.screens.home.profile.add_task.AddTaskDestination
+import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.spacing
+import com.example.agrican.ui.theme.title
+import com.example.agrican.ui.theme.white
 
 object ObserveCropDestination: NavigationDestination {
     override val route: String = "observe_crop"
@@ -84,62 +85,14 @@ fun ObserveCropScreenContent(
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
         modifier = modifier.padding(MaterialTheme.spacing.medium)
     ) {
-        // Plant Surface
-        Surface(
-            shadowElevation = MaterialTheme.spacing.small,
-            shape = RoundedCornerShape(MaterialTheme.spacing.medium),
-            color = greenLight,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Column(modifier = Modifier.padding(MaterialTheme.spacing.small)) {
-                Text(text = crop.name, color = Color.White)
+        CropSurface(crop = crop)
 
-                Row(modifier = Modifier.align(Alignment.End)) {
-                    Text(
-                        text = stringResource(id = R.string.agri_history),
-                        color = Color.White,
-                        modifier = Modifier.padding(end = MaterialTheme.spacing.small)
-                    )
-                    Text(text = crop.date, color = Color.White)
-                }
-            }
-        }
+        AddTakSurface(openScreen = openScreen)
 
-        // Add Task Surface
-        Surface(
-            shadowElevation = MaterialTheme.spacing.small,
-            shape = RoundedCornerShape(MaterialTheme.spacing.medium),
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Column(modifier = Modifier.padding(MaterialTheme.spacing.small)) {
-                Text(
-                    text = stringResource(id = R.string.add_task),
-                    color = greenDark,
-                    fontWeight = FontWeight.Bold
-                )
-
-                Text(
-                    text = stringResource(id = R.string.add_task_description),
-                    color = greenDark,
-                )
-
-                IconButton(
-                    onClick = { openScreen(AddTaskDestination.route) },
-                    modifier = Modifier
-                        .clip(CircleShape)
-                        .background(greenDark)
-                        .align(Alignment.End)
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Add,
-                        contentDescription = null,
-                        tint = Color.White
-                    )
-                }
-            }
-        }
-
-        Text(text = stringResource(id = R.string.tasks), color = greenDark)
+        Text(
+            text = stringResource(id = R.string.tasks),
+            style = MaterialTheme.typography.title
+        )
         Divider()
 
         ExpandableItem(
@@ -154,6 +107,77 @@ fun ObserveCropScreenContent(
             onDayAdded = { /*TODO*/ }
         )
 
+    }
+}
+
+@Composable
+fun CropSurface(
+    crop: Crop,
+    modifier: Modifier = Modifier
+) {
+    Surface(
+        shadowElevation = MaterialTheme.spacing.small,
+        shape = RoundedCornerShape(MaterialTheme.spacing.medium),
+        color = greenLight,
+        modifier = modifier.fillMaxWidth()
+    ) {
+        Column(modifier = Modifier.padding(MaterialTheme.spacing.small)) {
+            Text(
+                text = crop.name,
+                color = white,
+                style = MaterialTheme.typography.title,
+            )
+
+            Row(modifier = Modifier.align(Alignment.End)) {
+                Text(
+                    text = stringResource(id = R.string.agri_history),
+                    color = white,
+                    style = MaterialTheme.typography.body,
+                    modifier = Modifier.padding(end = MaterialTheme.spacing.small)
+                )
+                Text(text = crop.date, color = white)
+            }
+        }
+    }
+}
+
+@Composable
+fun AddTakSurface(
+    openScreen: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Surface(
+        shadowElevation = MaterialTheme.spacing.small,
+        shape = RoundedCornerShape(MaterialTheme.spacing.medium),
+        modifier = modifier.fillMaxWidth()
+    ) {
+        Column(modifier = Modifier.padding(MaterialTheme.spacing.small)) {
+            // Add Task Label
+            Text(
+                text = stringResource(id = R.string.add_task),
+                style = MaterialTheme.typography.title
+            )
+
+            Text(
+                text = stringResource(id = R.string.add_task_description),
+                color = greenDark,
+                style = MaterialTheme.typography.body
+            )
+
+            IconButton(
+                onClick = { openScreen(AddTaskDestination.route) },
+                modifier = Modifier
+                    .clip(CircleShape)
+                    .background(greenDark)
+                    .align(Alignment.End)
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Add,
+                    contentDescription = null,
+                    tint = white
+                )
+            }
+        }
     }
 }
 
@@ -182,7 +206,11 @@ fun ExpandableItem(
                     contentDescription = null,
                     modifier = Modifier.clip(CircleShape)
                 )
-                Text(text = stringResource(id = label), color = Color.White)
+                Text(
+                    text = stringResource(id = label),
+                    color = white,
+                    style = MaterialTheme.typography.body
+                )
 
                 Spacer(modifier = Modifier.weight(1f))
 
@@ -193,7 +221,7 @@ fun ExpandableItem(
                     Icon(
                         imageVector = if (visible) Icons.Default.ExpandLess else Icons.Default.ExpandMore,
                         contentDescription = null,
-                        tint = Color.White
+                        tint = white
                     )
                 }
             }
@@ -208,5 +236,5 @@ fun ExpandableItem(
 @Preview(showBackground = true)
 @Composable
 fun ObserveCropScreenPreview() {
-    ObserveCropScreenContent(crop = Crop(), openScreen = { })
+    ObserveCropScreenContent(crop = Crop(name = "الأرز"), openScreen = { })
 }

@@ -30,14 +30,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
@@ -48,9 +47,12 @@ import com.example.agrican.ui.components.BackButton
 import com.example.agrican.ui.components.CropsList
 import com.example.agrican.ui.components.EmptyImage
 import com.example.agrican.ui.navigation.NavigationDestination
+import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.spacing
+import com.example.agrican.ui.theme.title
+import com.example.agrican.ui.theme.white
 
 object ProblemImagesDestination: NavigationDestination {
     override val route: String = "problem_images"
@@ -130,13 +132,13 @@ fun ProblemImageScreenContent(
     ) {
         Text(
             text = stringResource(id = R.string.choose_plant_type),
-            color = greenDark,
+            style = MaterialTheme.typography.title,
             modifier = Modifier.padding(start = MaterialTheme.spacing.medium)
         )
         CropsList(crops = uiState.crops, setSelectedCrop = { updateSelectedCrop(it) })
         Text(
             text = stringResource(id = R.string.choose_problem_image_way),
-            color = greenDark,
+            style = MaterialTheme.typography.title,
             modifier = Modifier.padding(start = MaterialTheme.spacing.medium)
         )
         Row(modifier = Modifier.fillMaxWidth()) {
@@ -186,7 +188,8 @@ fun ProblemImageScreenContent(
             // Advices Label
             Text(
                 text = stringResource(id = R.string.advices_label),
-                color = Color.White,
+                color = white,
+                fontSize = 24.sp,
                 modifier = Modifier
                     .align(Alignment.BottomStart)
                     .padding(MaterialTheme.spacing.medium)
@@ -196,6 +199,7 @@ fun ProblemImageScreenContent(
         // Advices
         Text(
             text = stringResource(id = R.string.advices),
+            style = MaterialTheme.typography.body,
             modifier = Modifier.padding(start = MaterialTheme.spacing.medium)
         )
     }
@@ -210,7 +214,7 @@ fun WayChoose(
 ) {
     Surface(
         shape = RoundedCornerShape(MaterialTheme.spacing.small),
-        border = BorderStroke(1.dp, greenDark),
+        border = BorderStroke(MaterialTheme.spacing.dp_1, greenDark),
         modifier = modifier
             .padding(MaterialTheme.spacing.medium)
             .clickable {
@@ -230,7 +234,8 @@ fun WayChoose(
             // Choose Text
             Text(
                 text = stringResource(id = text),
-                color = greenDark
+                color = greenDark,
+                style = MaterialTheme.typography.body,
             )
         }
     }
@@ -243,10 +248,10 @@ fun ImageView(
 ) {
     if (image == null) {
         EmptyImage(
-            tint = Color.White,
+            tint = white,
             background = greenLight,
             modifier = modifier
-                .size(75.dp)
+                .size(MaterialTheme.spacing.dp_75)
                 .padding(MaterialTheme.spacing.small)
                 .clip(RoundedCornerShape(MaterialTheme.spacing.small))
         )
@@ -261,7 +266,7 @@ fun ImageView(
             contentDescription = null,
             contentScale = ContentScale.FillBounds,
             modifier = modifier
-                .size(75.dp)
+                .size(MaterialTheme.spacing.dp_75)
                 .padding(MaterialTheme.spacing.small)
                 .clip(RoundedCornerShape(MaterialTheme.spacing.small))
         )

@@ -26,7 +26,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
@@ -35,10 +34,13 @@ import com.example.agrican.ui.components.BackButton
 import com.example.agrican.ui.components.EmptyImage
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.screens.home.agricanservices.order.confirm_order.OrderConfirmDestination
+import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.spacing
+import com.example.agrican.ui.theme.textGray
+import com.example.agrican.ui.theme.title
 
 object OrderStatusDestination: NavigationDestination {
     override val route: String = "order_status"
@@ -72,11 +74,12 @@ fun OrderStatusScreenContent(
         Text(
             text = stringResource(id = R.string.order_status),
             color = greenLight,
+            style = MaterialTheme.typography.title,
         )
 
         Divider(
             modifier = Modifier
-                .height(2.dp)
+                .height(MaterialTheme.spacing.dp_2)
                 .background(gray)
         )
 
@@ -94,7 +97,7 @@ fun EmptyView(
     ) {
         Text(
             text = stringResource(id = R.string.empty_orders),
-            color = greenDark,
+            style = MaterialTheme.typography.title,
         )
     }
 }
@@ -127,23 +130,28 @@ fun OrdersListItem(
     ) {
         Surface(
             shape = RoundedCornerShape(MaterialTheme.spacing.medium),
-            border = BorderStroke(1.dp, gray),
-            modifier = Modifier.padding(bottom = 24.dp)
+            border = BorderStroke(MaterialTheme.spacing.dp_1, gray),
+            modifier = Modifier.padding(bottom = MaterialTheme.spacing.dp_24)
         ) {
             Row(modifier = Modifier.padding(MaterialTheme.spacing.medium)) {
                 Column(modifier = Modifier.weight(3f)) {
                     Row {
                         // Order Name
-                        Text(text = order.name)
+                        Text(
+                            text = order.name,
+                            color = textGray,
+                            style = MaterialTheme.typography.title
+                        )
                         Spacer(modifier = Modifier.weight(1f))
                         Surface(
                             shape = RoundedCornerShape(MaterialTheme.spacing.medium),
-                            border = BorderStroke(1.dp, gray)
+                            border = BorderStroke(MaterialTheme.spacing.dp_1, gray)
                         ) {
                             // Title
                             Text(
                                 text = order.t,
                                 color = greenDark,
+                                style = MaterialTheme.typography.body,
                                 modifier = Modifier.padding(horizontal = MaterialTheme.spacing.small)
                             )
                         }
@@ -151,16 +159,22 @@ fun OrdersListItem(
                     }
 
                     // Order Price
-                    Text(text = "السعر ${order.price} جنيهاً")
+                    Text(
+                        text = "السعر ${order.price} جنيهاً",
+                        style = MaterialTheme.typography.body
+                    )
                     // Order Description
-                    Text(text = order.description)
+                    Text(
+                        text = order.description,
+                        style = MaterialTheme.typography.body,
+                    )
                 }
 
                 EmptyImage(
                     modifier = Modifier
                         .clip(RoundedCornerShape(MaterialTheme.spacing.medium))
-                        .width(50.dp)
-                        .height(100.dp)
+                        .width(MaterialTheme.spacing.dp_50)
+                        .height(MaterialTheme.spacing.dp_100)
                         .weight(1f)
                 )
             }

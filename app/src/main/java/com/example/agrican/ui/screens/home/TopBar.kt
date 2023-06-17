@@ -21,14 +21,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.example.agrican.R
 import com.example.agrican.ui.theme.greenDark
+import com.example.agrican.ui.theme.iconGray
 import com.example.agrican.ui.theme.spacing
+import com.example.agrican.ui.theme.white
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -56,7 +56,7 @@ fun TopBar(
                             Surface(shape = CircleShape, color = greenDark) {
                                 Text(
                                     text = "ico",
-                                    color = Color.White,
+                                    color = white,
                                     modifier = Modifier.padding(MaterialTheme.spacing.small)
                                 )
                             }
@@ -77,7 +77,7 @@ fun TopBar(
                             Surface(shape = CircleShape, color = greenDark) {
                                 Text(
                                     text = "ico",
-                                    color = Color.White,
+                                    color = white,
                                     modifier = Modifier.padding(MaterialTheme.spacing.small)
                                 )
                             }
@@ -90,16 +90,24 @@ fun TopBar(
             Row {
                 // Notifications Icon
                 IconButton(onClick = { /*TODO*/ }) {
-                    Icon(painter = painterResource(id = R.drawable.notifications), contentDescription = null)
+                    Icon(
+                        painter = painterResource(id = R.drawable.notifications),
+                        contentDescription = null,
+                        tint = iconGray
+                    )
                 }
 
                 // Menu Item
                 IconButton(onClick = { showMenu = true }) {
-                    Icon(painter = painterResource(id = R.drawable.menu), contentDescription = null)
+                    Icon(
+                        painter = painterResource(id = R.drawable.menu),
+                        contentDescription = null,
+                        tint = iconGray
+                    )
                 }
             }
         },
-        modifier = modifier.shadow(16.dp)
+        modifier = modifier.shadow(MaterialTheme.spacing.medium)
     )
 }
 

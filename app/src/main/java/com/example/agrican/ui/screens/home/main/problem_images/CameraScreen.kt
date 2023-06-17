@@ -44,12 +44,10 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Lifecycle
@@ -57,7 +55,9 @@ import androidx.lifecycle.LifecycleEventObserver
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.agrican.R
+import com.example.agrican.ui.theme.black
 import com.example.agrican.ui.theme.spacing
+import com.example.agrican.ui.theme.white
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -177,7 +177,7 @@ fun CameraView(
                     Icon(
                         painter = painterResource(id = R.drawable.baseline_arrow_forward_24),
                         contentDescription = null,
-                        tint = Color.Black,
+                        tint = black,
                     )
                 }
 
@@ -185,7 +185,7 @@ fun CameraView(
                 Icon(
                     painter = painterResource(id = R.drawable.camera_border),
                     contentDescription = null,
-                    tint = Color.White,
+                    tint = white,
                     modifier = Modifier.weight(1f)
                 )
 
@@ -207,7 +207,7 @@ fun CameraView(
             horizontalArrangement = Arrangement.SpaceAround,
             modifier = Modifier
                 .fillMaxWidth()
-                .background(Color.Black)
+                .background(black)
                 .padding(vertical = MaterialTheme.spacing.large)
         ) {
             // Navigate Back and Save Images
@@ -215,7 +215,7 @@ fun CameraView(
                 Icon(
                     painter = painterResource(id = R.drawable.done),
                     contentDescription = null,
-                    tint = Color.White
+                    tint = white
                 )
             }
 
@@ -244,11 +244,11 @@ fun CameraView(
                 Icon(
                     painter = painterResource(id = R.drawable.lens),
                     contentDescription = "Take picture",
-                    tint = Color.White,
+                    tint = white,
                     modifier = Modifier
-                        .size(200.dp)
-                        .padding(1.dp)
-                        .border(1.dp, Color.White, CircleShape)
+                        .size(MaterialTheme.spacing.dp_200)
+                        .padding(MaterialTheme.spacing.dp_1)
+                        .border(MaterialTheme.spacing.dp_1, white, CircleShape)
                 )
             }
 
@@ -260,7 +260,7 @@ fun CameraView(
                         else R.drawable.flash_off
                     ),
                     contentDescription = null,
-                    tint = Color.White
+                    tint = white
                 )
             }
         }
@@ -273,9 +273,9 @@ fun ImageCaptured(
     modifier: Modifier = Modifier
 ) {
     Surface(
-        border = BorderStroke(2.dp, Color.White),
+        border = BorderStroke(MaterialTheme.spacing.dp_2, white),
         shape = RoundedCornerShape(MaterialTheme.spacing.medium),
-        modifier = modifier.size(75.dp)
+        modifier = modifier.size(MaterialTheme.spacing.dp_75)
     ) {
         AsyncImage(
             model = ImageRequest

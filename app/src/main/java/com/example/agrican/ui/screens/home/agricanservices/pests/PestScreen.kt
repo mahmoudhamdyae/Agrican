@@ -21,9 +21,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavType
@@ -38,6 +36,7 @@ import com.example.agrican.ui.components.MainLabel
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.spacing
+import com.example.agrican.ui.theme.white
 
 object PestDestination: NavigationDestination {
     override val route: String = "pest"
@@ -111,7 +110,7 @@ fun PestScreenContent(
 
             // Main Label
             MainLabel(text = R.string.main_host)
-            Row(modifier = Modifier.fillMaxWidth().height(150.dp)) {
+            Row(modifier = Modifier.fillMaxWidth().height(MaterialTheme.spacing.dp_150)) {
                 MainHostItem(
                     text = "نبات الأرز\nOryza sativa",
                     modifier = Modifier.weight(1f)
@@ -152,7 +151,7 @@ fun CategoryItem(
 ) {
     Surface(
         shape = RoundedCornerShape(MaterialTheme.spacing.small),
-        border = BorderStroke(1.dp, gray),
+        border = BorderStroke(MaterialTheme.spacing.dp_1, gray),
         modifier = modifier.padding(MaterialTheme.spacing.small)
     ) {
         Text(
@@ -178,7 +177,7 @@ fun MainHostItem(
             EmptyImage(modifier = Modifier.fillMaxSize())
             Text(
                 text = text,
-                color = Color.White,
+                color = white,
                 modifier = Modifier
                     .align(Alignment.BottomStart)
                     .padding(MaterialTheme.spacing.small)

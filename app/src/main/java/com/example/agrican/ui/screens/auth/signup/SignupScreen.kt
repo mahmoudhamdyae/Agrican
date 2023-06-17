@@ -19,14 +19,12 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
@@ -42,9 +40,12 @@ import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.screens.auth.AuthFormEvent
 import com.example.agrican.ui.screens.auth.AuthFormState
 import com.example.agrican.ui.screens.auth.ValidationEvent
+import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.spacing
+import com.example.agrican.ui.theme.title
+import com.example.agrican.ui.theme.white
 
 object SignupDestination: NavigationDestination {
     override val route: String = "signup"
@@ -140,11 +141,11 @@ fun AccountType(
         ) {
             Surface(
                 shape = RoundedCornerShape(MaterialTheme.spacing.large),
-                border = BorderStroke(1.dp, gray)
+                border = BorderStroke(MaterialTheme.spacing.dp_1, gray)
             ) {
                 Text(
                     text = stringResource(id = R.string.create_new_user),
-                    color = greenDark,
+                    style = MaterialTheme.typography.title,
                     modifier = Modifier.padding(
                         vertical = MaterialTheme.spacing.small,
                         horizontal = MaterialTheme.spacing.medium
@@ -154,7 +155,8 @@ fun AccountType(
 
             Text(
                 text = stringResource(id = R.string.choose_user_account),
-                color = greenDark
+                color = greenDark,
+                style = MaterialTheme.typography.body,
             )
         }
 
@@ -205,6 +207,7 @@ fun AccountTypeItem(
             text = stringResource(id = accountTypeDescription),
             textAlign = TextAlign.Center,
             color = greenDark,
+            style = MaterialTheme.typography.body,
             modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
         )
     }
@@ -230,7 +233,7 @@ fun Signup(
         ) {
             Text(
                 text = stringResource(id = accountType.title),
-                color = Color.White,
+                color = white,
                 modifier = Modifier.padding(
                     vertical = MaterialTheme.spacing.small,
                     horizontal = MaterialTheme.spacing.large

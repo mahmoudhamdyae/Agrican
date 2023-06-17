@@ -31,7 +31,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
@@ -40,8 +39,10 @@ import com.example.agrican.domain.model.Treatment
 import com.example.agrican.ui.components.DropDown
 import com.example.agrican.ui.components.EmptyImage
 import com.example.agrican.ui.navigation.NavigationDestination
+import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.spacing
+import com.example.agrican.ui.theme.title
 
 object SelectedCropDestination: NavigationDestination {
     override val route: String = "selected_crop"
@@ -119,7 +120,7 @@ fun SelectedCropScreenContent(
         // Choose Disease Type Label
         Text(
             text = stringResource(id = R.string.choose_disease_type),
-            color = greenDark
+            style = MaterialTheme.typography.title,
         )
 
         // Choose Disease Type Drop Down
@@ -127,7 +128,7 @@ fun SelectedCropScreenContent(
             DiseaseType.INSECTS.title
         ),
             onSelect = updateDiseaseType,
-            modifier = Modifier.width(150.dp).height(MaterialTheme.spacing.large)
+            modifier = Modifier.width(MaterialTheme.spacing.dp_150).height(MaterialTheme.spacing.large)
         )
 
         // Show Treatment Button
@@ -154,7 +155,7 @@ fun CropImage(
     Surface(
         shape = RoundedCornerShape(MaterialTheme.spacing.large),
         shadowElevation = MaterialTheme.spacing.large,
-        modifier = modifier.size(75.dp)
+        modifier = modifier.size(MaterialTheme.spacing.dp_75)
     ) {
         Icon(
             painter = painterResource(id = R.drawable.ic_visibility_on),
@@ -209,7 +210,7 @@ fun TreatmentListItem(
                     // Treatment Name
                     Text(
                         text = treatment.name,
-                        color = greenDark
+                        style = MaterialTheme.typography.title,
                     )
                     Spacer(modifier = Modifier.weight(1f))
                     // Know More Button
@@ -222,7 +223,10 @@ fun TreatmentListItem(
                 }
 
                 // Treatment Description
-                Text(text = treatment.description)
+                Text(
+                    text = treatment.description,
+                    style = MaterialTheme.typography.body,
+                )
             }
         }
     }

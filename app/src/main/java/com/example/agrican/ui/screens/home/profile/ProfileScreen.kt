@@ -36,13 +36,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
@@ -56,10 +54,13 @@ import com.example.agrican.ui.screens.home.profile.add_farm.AddFarmDestination
 import com.example.agrican.ui.screens.home.profile.cost.CostDestination
 import com.example.agrican.ui.screens.home.profile.engineer_map.EngineerMapDestination
 import com.example.agrican.ui.screens.home.profile.observe_crop.ObserveCropDestination
+import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.spacing
+import com.example.agrican.ui.theme.title
+import com.example.agrican.ui.theme.white
 
 object ProfileDestination: NavigationDestination {
     override val route: String = "profile"
@@ -98,7 +99,7 @@ fun ProfileScreenContent(
             item {
                 Text(
                     text = stringResource(id = R.string.farms_label),
-                    color = greenDark,
+                    style = MaterialTheme.typography.title,
                     modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
                 )
             }
@@ -117,7 +118,7 @@ fun ProfileScreenContent(
         item {
             Text(
                 text = stringResource(id = R.string.my_crops),
-                color = greenDark,
+                style = MaterialTheme.typography.title,
                 modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
             )
         }
@@ -204,14 +205,14 @@ fun UserHeader(
         modifier = modifier.fillMaxWidth()) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = modifier.padding(MaterialTheme.spacing.large)
+            modifier = modifier.padding(MaterialTheme.spacing.medium)
         ) {
 
             // Profile Image
             Surface(
                 shape = CircleShape,
                 shadowElevation = MaterialTheme.spacing.small,
-                modifier = Modifier.size(90.dp).padding(MaterialTheme.spacing.small)
+                modifier = Modifier.size(MaterialTheme.spacing.dp_100).padding(MaterialTheme.spacing.small)
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.default_image),
@@ -231,7 +232,10 @@ fun UserHeader(
                 modifier = Modifier.padding(MaterialTheme.spacing.small)
             ) {
                 // User Name
-                Text(text = user.userName, color = greenLight)
+                Text(
+                    text = user.userName,
+                    style = MaterialTheme.typography.title
+                )
 
                 Surface(
                     shape = RoundedCornerShape(MaterialTheme.spacing.medium),
@@ -240,7 +244,8 @@ fun UserHeader(
                     // Account Type
                     Text(
                         text = stringResource(id = user.userType.title),
-                        color = Color.White,
+                        color = white,
+                        style = MaterialTheme.typography.body,
                         modifier = Modifier.padding(MaterialTheme.spacing.small)
                     )
                 }
@@ -252,7 +257,8 @@ fun UserHeader(
                 OutlinedButton(onClick = { /*TODO*/ },) {
                     Text(
                         text = stringResource(id = R.string.modify_data),
-                        color = greenLight
+                        color = greenDark,
+                        style = MaterialTheme.typography.body
                     )
                 }
 
@@ -262,7 +268,8 @@ fun UserHeader(
                 ) {
                     Text(
                         text = stringResource(id = R.string.cost),
-                        color = greenLight
+                        color = greenDark,
+                        style = MaterialTheme.typography.body,
                     )
                 }
             }
@@ -286,14 +293,17 @@ fun AddItem(
             modifier = Modifier.padding(MaterialTheme.spacing.small)
         ) {
             Column(verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)) {
+                // Add Title
                 Text(
                     text = stringResource(id = title),
-                    color = greenDark,
+                    style = MaterialTheme.typography.title,
                     fontWeight = FontWeight.Bold
                 )
+                // Add Description
                 Text(
                     text = stringResource(id = description),
                     color = greenDark,
+                    style = MaterialTheme.typography.body,
                     modifier = Modifier.padding(end = MaterialTheme.spacing.large)
                 )
             }
@@ -309,7 +319,7 @@ fun AddItem(
                 Icon(
                     imageVector = Icons.Default.Add,
                     contentDescription = null,
-                    tint = Color.White
+                    tint = white
                 )
             }
         }
@@ -336,14 +346,18 @@ fun FarmsListItem(
 
     Column(modifier = modifier
         .padding(MaterialTheme.spacing.small)
-        .width(50.dp)) {
+        .width(MaterialTheme.spacing.dp_50)) {
         Surface(
             shape = RoundedCornerShape(MaterialTheme.spacing.medium),
             shadowElevation = MaterialTheme.spacing.medium,
-            modifier = Modifier.size(50.dp)
+            modifier = Modifier.size(MaterialTheme.spacing.dp_50)
         ) {
         }
-        Text(text = farm.name, textAlign = TextAlign.Center)
+        Text(
+            text = farm.name,
+            textAlign = TextAlign.Center,
+            style = MaterialTheme.typography.body
+        )
     }
 }
 
@@ -374,7 +388,9 @@ fun CropsListItem(
         ) {
             // Crop Name
             Text(
-                text = crop.name, color = Color.White,
+                text = crop.name,
+                color = white,
+                style = MaterialTheme.typography.title,
                 modifier = Modifier.padding(MaterialTheme.spacing.small)
             )
 
@@ -386,7 +402,7 @@ fun CropsListItem(
                     Icon(
                         imageVector = Icons.Default.Close,
                         contentDescription = null,
-                        tint = Color.White,
+                        tint = white,
                         modifier = Modifier.size(MaterialTheme.spacing.medium)
                     )
                 }

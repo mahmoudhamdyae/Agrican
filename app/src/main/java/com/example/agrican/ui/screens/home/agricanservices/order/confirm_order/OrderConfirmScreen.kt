@@ -29,12 +29,12 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
@@ -42,10 +42,12 @@ import com.example.agrican.R
 import com.example.agrican.ui.components.BackButton
 import com.example.agrican.ui.components.SimpleTextField
 import com.example.agrican.ui.navigation.NavigationDestination
+import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.spacing
+import com.example.agrican.ui.theme.title
 
 object OrderConfirmDestination: NavigationDestination {
     override val route: String = "order_confirm"
@@ -74,12 +76,13 @@ fun OrderConfirmScreen(
             Text(
                 text = stringResource(id = R.string.confirm_order),
                 color = greenLight,
+                style = MaterialTheme.typography.title,
                 modifier = Modifier.padding(vertical = MaterialTheme.spacing.small)
             )
 
             Divider(
                 modifier = Modifier
-                    .height(2.dp)
+                    .height(MaterialTheme.spacing.dp_2)
                     .background(gray)
                     .padding(vertical = MaterialTheme.spacing.small)
             )
@@ -109,7 +112,7 @@ fun OrderConfirmScreenContent(
         // Cash
         Surface(
             shape = RoundedCornerShape(MaterialTheme.spacing.medium),
-            border = BorderStroke(1.dp, gray),
+            border = BorderStroke(MaterialTheme.spacing.dp_1, gray),
             modifier = Modifier.fillMaxWidth()
         ) {
             Row(
@@ -122,6 +125,8 @@ fun OrderConfirmScreenContent(
                 )
                 Text(
                     text = stringResource(id = R.string.cash),
+                    color = Color(0xff5a5a5a),
+                    style = MaterialTheme.typography.body,
                     modifier = Modifier.padding(MaterialTheme.spacing.medium)
                 )
             }
@@ -130,7 +135,7 @@ fun OrderConfirmScreenContent(
         // Visa
         Surface(
             shape = RoundedCornerShape(MaterialTheme.spacing.medium),
-            border = BorderStroke(1.dp, gray),
+            border = BorderStroke(MaterialTheme.spacing.dp_1, gray),
             modifier = Modifier.fillMaxWidth()
         ) {
             Row(
@@ -159,7 +164,11 @@ fun OrderConfirmScreenContent(
         }
 
         // Personal Id
-        Text(text = stringResource(id = R.string.card_id))
+        Text(
+            text = stringResource(id = R.string.card_id),
+            color = Color(0xff5a5a5a),
+            style = MaterialTheme.typography.body,
+        )
         SimpleTextField(
             value = cardId,
             onNewValue = { cardId = it },
@@ -173,7 +182,11 @@ fun OrderConfirmScreenContent(
                 modifier = Modifier.weight(1f)
             ) {
                 // Expired Date
-                Text(text = stringResource(id = R.string.expire_date))
+                Text(
+                    text = stringResource(id = R.string.expire_date),
+                    color = Color(0xff5a5a5a),
+                    style = MaterialTheme.typography.body,
+                )
                 SimpleTextField(
                     value = expireDate,
                     onNewValue = { expireDate = it },
@@ -188,7 +201,11 @@ fun OrderConfirmScreenContent(
                 modifier = Modifier.weight(1f)
             ) {
                 // CW/CVC
-                Text(text = stringResource(id = R.string.cvc))
+                Text(
+                    text = stringResource(id = R.string.cvc),
+                    color = Color(0xff5a5a5a),
+                    style = MaterialTheme.typography.body,
+                )
                 SimpleTextField(
                     value = cvc,
                     onNewValue = { cvc = it },

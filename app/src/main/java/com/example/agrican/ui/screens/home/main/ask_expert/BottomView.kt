@@ -32,10 +32,8 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
@@ -45,6 +43,7 @@ import com.example.agrican.ui.screens.home.main.ask_expert.record.AndroidAudioRe
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.spacing
+import com.example.agrican.ui.theme.white
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -182,7 +181,7 @@ fun ChatOutlinedButton(
     modifier: Modifier = Modifier
 ) {
     Surface(
-        border = BorderStroke(1.dp, gray),
+        border = BorderStroke(MaterialTheme.spacing.dp_1, gray),
         shape = CircleShape,
         modifier = modifier
     ) {
@@ -213,7 +212,7 @@ fun SendButton(
         Icon(
             painter = painterResource(id = icon),
             contentDescription = null,
-            tint = Color.White,
+            tint = white,
         )
     }
 }

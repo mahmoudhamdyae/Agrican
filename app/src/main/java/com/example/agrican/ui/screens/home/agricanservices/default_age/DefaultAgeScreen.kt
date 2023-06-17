@@ -35,14 +35,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.LightGray
 import androidx.compose.ui.graphics.Color.Companion.Red
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
@@ -53,10 +51,13 @@ import com.example.agrican.ui.components.Chip
 import com.example.agrican.ui.components.CropsList
 import com.example.agrican.ui.components.DateDropDown
 import com.example.agrican.ui.navigation.NavigationDestination
+import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.spacing
+import com.example.agrican.ui.theme.title
+import com.example.agrican.ui.theme.white
 import java.time.LocalDate
 
 object DefaultAgesDestination: NavigationDestination {
@@ -113,7 +114,7 @@ fun DefaultAgeScreenContent(
         // Harvest Date Label
         Text(
             text = stringResource(id = R.string.harvest_date),
-            color = greenLight,
+            style = MaterialTheme.typography.title,
             modifier = Modifier.padding(MaterialTheme.spacing.small)
         )
 
@@ -131,7 +132,7 @@ fun DefaultAgeScreenContent(
                 Icon(
                     painter = painterResource(id = R.drawable.calender),
                     contentDescription = null,
-                    tint = Color.White
+                    tint = white
                 )
             }
 
@@ -176,7 +177,7 @@ fun DefaultAgeScreenContent(
         // Choose Crop Label
         Text(
             text = stringResource(id = R.string.crop_choose),
-            color = greenLight,
+            style = MaterialTheme.typography.title,
             modifier = Modifier.padding(MaterialTheme.spacing.small)
         )
 
@@ -185,7 +186,7 @@ fun DefaultAgeScreenContent(
         // Crop Quality Label
         Text(
             text = stringResource(id = R.string.crop_quality),
-            color = greenLight,
+            style = MaterialTheme.typography.title,
             modifier = Modifier.padding(MaterialTheme.spacing.small)
         )
 
@@ -223,34 +224,55 @@ fun DefaultAgeScreenContent(
             )
         }
         AnimatedVisibility(visible = uiState.defaultAge != null && uiState.dangerDegree != null) {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-
-                CircularProgress(
-                    percent = uiState.defaultAge!!,
-                    modifier = Modifier.padding(MaterialTheme.spacing.medium)
-                )
-
-                Text(text = stringResource(id = R.string.default_age_title))
-
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(
-                        text = stringResource(id = R.string.danger_degree),
-                        modifier = Modifier.padding(MaterialTheme.spacing.small)
-                    )
-
-                    Indicators(
-                        selectedItems = listOf(0, 1),
-                        modifier = Modifier.padding(MaterialTheme.spacing.medium)
-                    )
-
-                    Spacer(modifier = Modifier.weight(1f))
-                }
-
-                Text(text = uiState.dangerAdvice)
-            }
+            DefaultAgeResponse(
+                defaultAge = uiState.defaultAge,
+                dangerAdvice = uiState.dangerAdvice
+            )
         }
+    }
+}
+
+@Composable
+fun DefaultAgeResponse(
+    defaultAge: Float?,
+    dangerAdvice: String,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = modifier
+    ) {
+
+        CircularProgress(
+            percent = defaultAge!!,
+            modifier = Modifier.padding(MaterialTheme.spacing.medium)
+        )
+
+        Text(
+            text = stringResource(id = R.string.default_age_title),
+            style = MaterialTheme.typography.body,
+        )
+
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Text(
+                text = stringResource(id = R.string.danger_degree),
+                style = MaterialTheme.typography.body,
+                modifier = Modifier.padding(MaterialTheme.spacing.small)
+            )
+
+            Indicators(
+                selectedItems = listOf(0, 1),
+                modifier = Modifier.padding(MaterialTheme.spacing.medium)
+            )
+
+            Spacer(modifier = Modifier.weight(1f))
+        }
+
+        // Advice
+        Text(
+            text = dangerAdvice,
+            style = MaterialTheme.typography.body,
+        )
     }
 }
 
@@ -271,17 +293,17 @@ fun CircularProgress(
         CircularProgressIndicator(
             progress = 1f,
             color = LightGray,
-            strokeWidth = 2.8.dp,
-            modifier = Modifier.size(120.dp)
+            strokeWidth = MaterialTheme.spacing.dp_3,
+            modifier = Modifier.size(MaterialTheme.spacing.dp_130)
         )
         // Progress Indicator
         CircularProgressIndicator(
             progress = animatedProgress,
             modifier = Modifier
-                .size(120.dp)
-                .clip(RoundedCornerShape(14.dp)),
+                .size(MaterialTheme.spacing.dp_130)
+                .clip(RoundedCornerShape(MaterialTheme.spacing.medium)),
             color = greenLight,
-            strokeWidth = 2.8.dp
+            strokeWidth = MaterialTheme.spacing.dp_3
         )
 
         // Progress Label
@@ -312,7 +334,7 @@ fun Indicators(
 fun Indicator(isSelected: Boolean) {
     Box(
         modifier = Modifier
-            .size(10.dp)
+            .size(MaterialTheme.spacing.dp_10)
             .clip(CircleShape)
             .background(
                 color = if (isSelected) Red else gray
@@ -324,4 +346,10 @@ fun Indicator(isSelected: Boolean) {
 @Composable
 fun DefaultAgeScreenContent() {
     DefaultAgeScreenContent(uiState = DefaultAgeUiState(), { }, { }, { }, { }, { }, { })
+}
+
+@Preview(showBackground = true)
+@Composable
+fun DefaultAgeResponsePreview() {
+    DefaultAgeResponse(defaultAge = 88f, dangerAdvice = "Danger Advice")
 }

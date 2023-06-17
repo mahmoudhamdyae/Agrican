@@ -31,7 +31,6 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.unit.dp
 import com.example.agrican.R
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.spacing
@@ -292,7 +291,7 @@ fun SimpleTextField(
                 modifier = Modifier
                     .fillMaxWidth()
                     .wrapContentHeight()
-                    .padding(10.dp),
+                    .padding(MaterialTheme.spacing.dp_10),
             contentAlignment = Alignment.Center
             ) {
                 innerTextField()
@@ -308,7 +307,7 @@ fun SimpleTextField(
         ),
         modifier = modifier
             .border(
-                border = BorderStroke(1.dp, borderColor),
+                border = BorderStroke(MaterialTheme.spacing.dp_1, borderColor),
                 shape = RoundedCornerShape(MaterialTheme.spacing.medium)
             )
     )

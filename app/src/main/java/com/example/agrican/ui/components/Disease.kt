@@ -22,14 +22,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import com.example.agrican.R
+import com.example.agrican.ui.theme.black
+import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.spacing
+import com.example.agrican.ui.theme.title
+import com.example.agrican.ui.theme.white
 
 @Composable
 fun DiseaseHeader(
@@ -47,7 +49,7 @@ fun DiseaseHeader(
         ),
         modifier = modifier
     ) {
-        Box(modifier = Modifier.fillMaxWidth().height(150.dp)) {
+        Box(modifier = Modifier.fillMaxWidth().height(MaterialTheme.spacing.dp_150)) {
             if (image == null) {
                 EmptyImage(modifier = Modifier.fillMaxSize())
             } else {
@@ -66,20 +68,22 @@ fun DiseaseHeader(
                 // Disease Name
                 Text(
                     text = diseaseName,
-                    color = Color.White,
+                    color = white,
+                    style = MaterialTheme.typography.body,
                     modifier = Modifier.weight(1f)
                 )
 
                 // Search for more Button
                 Button(
                     onClick = onButtonClick,
-                    colors = ButtonDefaults.buttonColors(containerColor = Color.White),
+                    colors = ButtonDefaults.buttonColors(containerColor = white),
                     modifier = Modifier.weight(1f)
                 ) {
                     Row {
                         Text(
                             text = stringResource(id = buttonText),
-                            color = greenDark
+                            color = greenDark,
+                            style = MaterialTheme.typography.body
                         )
                         Spacer(modifier = Modifier.weight(1f))
                         Icon(
@@ -102,6 +106,7 @@ fun MainLabel(
     Text(
         text = stringResource(id = text),
         color = greenDark,
+        style = MaterialTheme.typography.title,
         modifier = modifier
     )
 }
@@ -118,11 +123,15 @@ fun DescriptionLabel(
                     modifier = Modifier
                         .padding(MaterialTheme.spacing.small)
                         .clip(CircleShape)
-                        .background(Color.Black)
+                        .background(black)
                         .size(MaterialTheme.spacing.extraSmall)
                 )
             }
-            Text(text = it)
+            Text(
+                text = it,
+                color = black,
+                style = MaterialTheme.typography.body
+            )
         }
     }
 }

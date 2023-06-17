@@ -31,10 +31,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
-import androidx.compose.ui.unit.dp
 import com.example.agrican.R
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
+import com.example.agrican.ui.theme.iconGray
 import com.example.agrican.ui.theme.spacing
 
 @Composable
@@ -44,7 +44,7 @@ fun BottomNavigationBar(
     bottomNavItems: List<BottomNavItem>,
     modifier: Modifier = Modifier
 ) {
-    Box(modifier = modifier.height(110.dp)) {
+    Box(modifier = modifier.height(MaterialTheme.spacing.dp_100)) {
 
         // Profile Item
         Surface(
@@ -54,12 +54,12 @@ fun BottomNavigationBar(
         ) {
             IconButton(
                 onClick = { setSelectedItem(1) },
-                modifier = Modifier.size(75.dp)
+                modifier = Modifier.size(MaterialTheme.spacing.dp_75)
             ) {
                 Icon(
                     painter = painterResource(id = bottomNavItems[1].icon),
                     contentDescription = null,
-                    tint = if (selectedItem == 1) greenDark else gray,
+                    tint = if (selectedItem == 1) greenDark else iconGray,
                     modifier = Modifier.padding(bottom = MaterialTheme.spacing.small)
                 )
             }
@@ -70,7 +70,7 @@ fun BottomNavigationBar(
             shape = NavigationBarCustomShape(145f),
             shadowElevation = MaterialTheme.spacing.large,
             modifier = Modifier
-                .height(75.dp)
+                .height(MaterialTheme.spacing.dp_75)
                 .align(Alignment.BottomCenter)
         ) {
             Box(modifier = Modifier.fillMaxWidth()) {
@@ -83,14 +83,14 @@ fun BottomNavigationBar(
                     BottomNavigationItem(
                         text = bottomNavItems[0].name,
                         icon = bottomNavItems[0].icon,
-                        color = if (selectedItem == 0) greenDark else gray,
+                        color = if (selectedItem == 0) greenDark else iconGray,
                         modifier = Modifier.clickable { setSelectedItem(0) }
                     )
                     Column {
                         Spacer(modifier = Modifier.weight(1f))
                         Text(
                             text = stringResource(id = bottomNavItems[1].name),
-                            color = if (selectedItem == 1) greenDark else gray,
+                            color = if (selectedItem == 1) greenDark else iconGray,
                             modifier = Modifier
                                 .clickable { setSelectedItem(1) }
                                 .padding(start = MaterialTheme.spacing.large)

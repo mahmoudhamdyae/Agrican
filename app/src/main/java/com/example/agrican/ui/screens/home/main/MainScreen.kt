@@ -39,7 +39,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
@@ -51,10 +50,13 @@ import com.example.agrican.ui.screens.home.main.ask_expert.AskExpertDestination
 import com.example.agrican.ui.screens.home.main.fertilizers_calculator.FertilizersCalculatorDestination
 import com.example.agrican.ui.screens.home.main.problem_images.ProblemImagesDestination
 import com.example.agrican.ui.screens.home.main.weather.WeatherDestination
+import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.spacing
+import com.example.agrican.ui.theme.title
+import com.example.agrican.ui.theme.white
 import kotlinx.coroutines.launch
 
 object MainDestination: NavigationDestination {
@@ -165,7 +167,7 @@ fun WeatherBox(
     modifier: Modifier = Modifier
 ) {
     Surface(
-        border = BorderStroke(1.dp, Color.Gray),
+        border = BorderStroke(MaterialTheme.spacing.dp_1, Color.Gray),
         shadowElevation = MaterialTheme.spacing.medium,
         shape = RoundedCornerShape(MaterialTheme.spacing.medium),
         modifier = modifier
@@ -174,7 +176,7 @@ fun WeatherBox(
             Row(modifier = Modifier.fillMaxWidth()) {
                 Text(
                     text = "الطقس",
-                    color = greenDark
+                    style = MaterialTheme.typography.title
                 )
                 Spacer(modifier = Modifier.weight(1f))
                 Text(text = weather.firstInformation)
@@ -182,16 +184,16 @@ fun WeatherBox(
 
             Row {
                 Column {
-                    Text(text = "جودة الهواء")
-                    Text(text = "الرياح")
-                    Text(text = "هبات الرياح")
+                    Text(text = "جودة الهواء", style = MaterialTheme.typography.body)
+                    Text(text = "الرياح", style = MaterialTheme.typography.body)
+                    Text(text = "هبات الرياح", style = MaterialTheme.typography.body)
                 }
                 Column(
                     modifier = Modifier.padding(horizontal = MaterialTheme.spacing.small)
                 ) {
-                    Text(text = weather.air)
-                    Text(text = weather.wind)
-                    Text(text = weather.windGusts)
+                    Text(text = weather.air, style = MaterialTheme.typography.body)
+                    Text(text = weather.wind, style = MaterialTheme.typography.body)
+                    Text(text = weather.windGusts, style = MaterialTheme.typography.body)
                 }
             }
 
@@ -202,10 +204,11 @@ fun WeatherBox(
                 Text(
                     text = weather.air,
                     color = greenDark,
+                    style = MaterialTheme.typography.body,
                     modifier = Modifier.padding(MaterialTheme.spacing.extraSmall)
                 )
                 Text(
-                    text = weather.degree.toString(),
+                    text = "${weather.degree}°",
                     color = greenDark,
                     modifier = Modifier.padding(MaterialTheme.spacing.extraSmall)
                 )
@@ -235,7 +238,7 @@ fun LatestNewsList(
             modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.Center)
-                .height(85.dp)
+                .height(MaterialTheme.spacing.dp_80)
                 .background(greenDark)
         )
         LazyRow(state = scrollState) {
@@ -244,8 +247,8 @@ fun LatestNewsList(
                     news = news[it],
                     modifier = Modifier
                         .padding(MaterialTheme.spacing.small)
-                        .height(110.dp)
-                        .width(170.dp)
+                        .height(MaterialTheme.spacing.dp_100)
+                        .width(MaterialTheme.spacing.dp_150)
                 )
             }
         }
@@ -322,6 +325,7 @@ fun LatestNewsListItem(
                 overflow = TextOverflow.Ellipsis,
                 color = greenDark,
                 maxLines = 1,
+                style = MaterialTheme.typography.body,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(MaterialTheme.spacing.small)
@@ -353,7 +357,7 @@ fun BottomCard(
                 // Card Title
                 Text(
                     text = stringResource(id = title),
-                    color = greenDark
+                    style = MaterialTheme.typography.title
                 )
                 Spacer(modifier = Modifier.weight(1f))
                 // Card Icon
@@ -361,11 +365,14 @@ fun BottomCard(
                     painter = painterResource(id = icon),
                     contentDescription = null,
                     tint = greenDark,
-                    modifier = Modifier.size(24.dp)
+                    modifier = Modifier.size(MaterialTheme.spacing.dp_24)
                 )
             }
             // Card Description
-            Text(text = stringResource(id = description))
+            Text(
+                text = stringResource(id = description),
+                style = MaterialTheme.typography.body
+            )
             body()
         }
     }
@@ -406,11 +413,11 @@ fun ProblemImagesRowItem(
     Box(
         contentAlignment = Alignment.Center,
         modifier = modifier
-            .size(70.dp)
+            .size(MaterialTheme.spacing.dp_75)
             .clip(RoundedCornerShape(MaterialTheme.spacing.medium))
             .background(gray)
     ) {
-        Text(text = "ico", color = Color.White)
+        Text(text = "ico", color = white)
     }
 }
 
@@ -427,11 +434,9 @@ fun MainScreenContentPreview() {
         secondInformation = "من المتوقع حدوث عواصف شديدة غدا"
     )
     val news = listOf(
-        News(title = "ابتكار طرق جديدة"),
-        News(title = "ابتكار طرق جديدة"),
-        News(title = "ابتكار طرق جديدة"),
-        News(title = "ابتكار طرق جديدة"),
-        News(title = "ابتكار طرق جديدة"),
+        News(title = "ابتكار طرق رى جديدة"),
+        News(title = "ابتكار طرق رى جديدة"),
+        News(title = "ابتكار طرق رى جديدة"),
     )
     MainScreenContent(weather = weather, news = news, openScreen = { })
 }

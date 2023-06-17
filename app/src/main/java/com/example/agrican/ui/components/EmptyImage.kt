@@ -11,11 +11,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.agrican.R
 import com.example.agrican.ui.theme.gray
+import com.example.agrican.ui.theme.white
 
 @Composable
 fun EmptyImage(
     modifier: Modifier = Modifier,
-    tint: Color = Color.White,
+    tint: Color = white,
     background: Color = gray
 
 ) {

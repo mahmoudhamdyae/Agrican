@@ -1,9 +1,9 @@
 package com.example.agrican.ui.navigation
 
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -21,6 +21,7 @@ import com.example.agrican.ui.screens.home.profile.engineer_map.EngineerMapDesti
 import com.example.agrican.ui.screens.home.profile.engineer_map.EngineerMapScreen
 import com.example.agrican.ui.screens.home.profile.observe_crop.ObserveCropDestination
 import com.example.agrican.ui.screens.home.profile.observe_crop.ObserveCropScreen
+import com.example.agrican.ui.theme.spacing
 
 @Composable
 fun ProfileGraph(
@@ -49,7 +50,7 @@ fun ProfileGraph(
     NavHost(
         navController = navController,
         startDestination = ProfileDestination.route,
-        modifier = Modifier.padding(bottom = 75.dp)
+        modifier = Modifier.padding(bottom = MaterialTheme.spacing.dp_75)
     ) {
         composable(route = ProfileDestination.route) {
             showTopBar(false)

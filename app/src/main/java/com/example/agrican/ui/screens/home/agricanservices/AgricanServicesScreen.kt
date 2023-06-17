@@ -32,9 +32,13 @@ import com.example.agrican.ui.screens.home.agricanservices.join_as_expert.JoinAs
 import com.example.agrican.ui.screens.home.agricanservices.order.OrderDestination
 import com.example.agrican.ui.screens.home.agricanservices.pests.PestsDestination
 import com.example.agrican.ui.screens.home.agricanservices.treatment.TreatmentDestination
+import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.spacing
+import com.example.agrican.ui.theme.textGray
+import com.example.agrican.ui.theme.title
+import com.example.agrican.ui.theme.white
 
 object AgricanServicesDestination: NavigationDestination {
     override val route: String = "agrican_services"
@@ -139,10 +143,8 @@ fun Card(
     modifier: Modifier = Modifier,
     isPrimaryMain: Boolean = false
 ) {
-    val mainColor = if (isPrimaryMain) greenDark
-                    else MaterialTheme.colorScheme.background
-    val secondaryColor = if (isPrimaryMain) MaterialTheme.colorScheme.background
-                    else greenDark
+    val mainColor = if (isPrimaryMain) greenDark else white
+    val secondaryColor = if (isPrimaryMain) white else greenDark
 
     Surface(
         shape = RoundedCornerShape(MaterialTheme.spacing.medium),
@@ -155,11 +157,16 @@ fun Card(
             Text(
                 text = stringResource(id = title),
                 fontWeight = FontWeight.Bold,
-                color = secondaryColor
+                color = secondaryColor,
+                style = MaterialTheme.typography.title
             )
 
             // Card Description
-            Text(text = stringResource(id = description))
+            Text(
+                text = stringResource(id = description),
+                color = if (isPrimaryMain) white else textGray,
+                style = MaterialTheme.typography.body,
+            )
 
             Spacer(modifier = Modifier.height(MaterialTheme.spacing.small))
 
@@ -181,7 +188,7 @@ fun Card(
     }
 }
 
-@Preview(showBackground = true, showSystemUi = true)
+@Preview(showBackground = true)
 @Composable
 fun AgricanServiceScreenPreview() {
     AgricanServicesScreen(openScreen = { })

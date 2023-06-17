@@ -28,7 +28,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
@@ -38,10 +37,12 @@ import com.example.agrican.ui.components.Chip
 import com.example.agrican.ui.components.CropsList
 import com.example.agrican.ui.components.EmptyImage
 import com.example.agrican.ui.navigation.NavigationDestination
+import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.spacing
+import com.example.agrican.ui.theme.title
 
 object FertilizersCalculatorDestination: NavigationDestination {
     override val route: String = "fertilizers_calculator"
@@ -88,7 +89,7 @@ fun FertilizersCalculatorScreenContent(
         item {
             Text(
                 text = stringResource(id = R.string.choose_crop_label),
-                color = greenDark,
+                style = MaterialTheme.typography.title,
                 modifier = Modifier.padding(
                     start = MaterialTheme.spacing.medium,
                     top = MaterialTheme.spacing.medium
@@ -105,7 +106,7 @@ fun FertilizersCalculatorScreenContent(
         item {
             Text(
                 text = stringResource(id = R.string.measuring_unit),
-                color = greenDark,
+                style = MaterialTheme.typography.title,
                 modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
             )
         }
@@ -132,7 +133,7 @@ fun FertilizersCalculatorScreenContent(
         item {
             Text(
                 text = stringResource(id = R.string.land_size),
-                color = greenDark,
+                style = MaterialTheme.typography.title,
                 modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
             )
         }
@@ -191,11 +192,12 @@ fun FertilizerListItem(
                     Column {
                         Text(
                             text = "سماد رقم 1",
-                            color = greenDark
+                            style = MaterialTheme.typography.title
                         )
                         Text(
                             text = "لمدة سنة",
-                            color = greenDark
+                            color = greenDark,
+                            style = MaterialTheme.typography.body
                         )
                     }
 
@@ -211,7 +213,10 @@ fun FertilizerListItem(
                 }
 
                 // Fertilizer Description
-                Text(text = "هذه هى الكمية المطلوب بنائها و يتم تسميد الأرض باستخدام المنتجات المخصصة لذلك هذه هى الكمية المطلوب بنائها و يتم تسميد الأرض باستخدام المنتجات المخصصة لذلك")
+                Text(
+                    text = "هذه هى الكمية المطلوب بنائها و يتم تسميد الأرض باستخدام المنتجات المخصصة لذلك هذه هى الكمية المطلوب بنائها و يتم تسميد الأرض باستخدام المنتجات المخصصة لذلك",
+                    style = MaterialTheme.typography.body,
+                )
             }
         }
     }
@@ -225,11 +230,11 @@ fun LandSize(
     modifier: Modifier = Modifier
 ) {
     Surface(
-        border = BorderStroke(1.dp, gray),
+        border = BorderStroke(MaterialTheme.spacing.dp_1, gray),
         shape = RoundedCornerShape(MaterialTheme.spacing.medium),
         modifier = modifier
             .fillMaxWidth()
-            .height(40.dp)
+            .height(MaterialTheme.spacing.dp_40)
     ) {
         Row {
             // Decrease Button
@@ -253,7 +258,7 @@ fun LandSize(
                 )
 
                 Surface(
-                    border = BorderStroke(1.dp, gray),
+                    border = BorderStroke(MaterialTheme.spacing.dp_1, gray),
                     shape = RoundedCornerShape(MaterialTheme.spacing.medium),
                     modifier = Modifier.fillMaxHeight()
                 ) {

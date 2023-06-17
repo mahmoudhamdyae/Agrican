@@ -46,7 +46,6 @@ fun AgricanTheme(
     ) {
         MaterialTheme(
             colorScheme = LightColorScheme,
-            typography = Typography,
             content = content
         )
     }

@@ -29,8 +29,10 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
 import com.example.agrican.domain.model.Weather
 import com.example.agrican.ui.navigation.NavigationDestination
+import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.spacing
+import com.example.agrican.ui.theme.white
 
 object WeatherDestination : NavigationDestination {
     override val route: String = "weather"
@@ -79,6 +81,7 @@ fun WeatherScreenContent(
         Text(
             text = weather.weatherDescription,
             color = greenLight,
+            style = MaterialTheme.typography.body,
             modifier = Modifier.padding(bottom = MaterialTheme.spacing.small)
         )
 
@@ -112,7 +115,8 @@ fun WeatherScreenContent(
         ) {
             Text(
                 text = stringResource(id = R.string.air_information_button),
-                color = Color.White,
+                color = white,
+                style = MaterialTheme.typography.body,
                 modifier = Modifier.padding(
                     horizontal = MaterialTheme.spacing.medium,
                     vertical = MaterialTheme.spacing.small,
@@ -121,8 +125,14 @@ fun WeatherScreenContent(
         }
 
         Column(modifier = Modifier.fillMaxWidth()) {
-            Text(text = weather.firstInformation)
-            Text(text = weather.secondInformation)
+            Text(
+                text = weather.firstInformation,
+                style = MaterialTheme.typography.body
+            )
+            Text(
+                text = weather.secondInformation,
+                style = MaterialTheme.typography.body,
+            )
         }
     }
 }
@@ -138,9 +148,15 @@ fun WeatherRow(
             .fillMaxWidth()
             .padding(MaterialTheme.spacing.small)
     ) {
-        Text(text = stringResource(id = weatherLabel))
+        Text(
+            text = stringResource(id = weatherLabel),
+            style = MaterialTheme.typography.body
+        )
         Spacer(modifier = Modifier.weight(1f))
-        Text(text = weatherData)
+        Text(
+            text = weatherData,
+            style = MaterialTheme.typography.body,
+        )
     }
 }
 

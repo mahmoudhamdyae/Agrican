@@ -30,7 +30,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.agrican.R
 import com.example.agrican.domain.model.UserType
@@ -43,6 +42,7 @@ import com.example.agrican.ui.screens.auth.AuthFormEvent
 import com.example.agrican.ui.screens.auth.AuthFormState
 import com.example.agrican.ui.screens.auth.ValidationEvent
 import com.example.agrican.ui.screens.auth.signup.SignupDestination
+import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.spacing
@@ -108,7 +108,7 @@ fun LoginScreenContent(
                 tint = gray,
                 modifier = Modifier
                     .padding(bottom = MaterialTheme.spacing.medium)
-                    .size(150.dp)
+                    .size(MaterialTheme.spacing.dp_150)
             )
 
             UserNameField(
@@ -134,15 +134,20 @@ fun LoginScreenContent(
                     .align(Alignment.Start)
                     .padding(MaterialTheme.spacing.small)
             ) {
-                Text(text = stringResource(id = R.string.forgot_password_text))
+                Text(
+                    text = stringResource(id = R.string.forgot_password_text),
+                    style = MaterialTheme.typography.body,
+                    modifier = Modifier.padding(end = MaterialTheme.spacing.small)
+                )
                 Text(
                     text = stringResource(id = R.string.click_here),
                     textDecoration = TextDecoration.Underline,
                     color = Color.Blue,
+                    style = MaterialTheme.typography.body,
                     modifier = Modifier.clickable { onEvent(AuthFormEvent.ForgotPassword) }
                 )
             }
-            Row(modifier = Modifier.fillMaxWidth().height(50.dp)) {
+            Row(modifier = Modifier.fillMaxWidth().height(MaterialTheme.spacing.dp_50)) {
                 Spacer(modifier = Modifier.weight(1f))
 
                 // Account Type Drop Down
@@ -151,7 +156,7 @@ fun LoginScreenContent(
                     R.string.farm,
                     R.string.engineer,
                 ),
-                    isGray = true,
+                    textColor = gray,
                     onSelect = {
                         when (it) {
                             R.string.engineer -> { changeAccountType(UserType.ENGINEER) }
@@ -176,13 +181,14 @@ fun LoginScreenContent(
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
                     text = stringResource(id = R.string.new_user_text),
+                    style = MaterialTheme.typography.body,
                     modifier = Modifier.padding(MaterialTheme.spacing.small)
                 )
                 OutlinedButton(
                     onClick = {
                         openScreen(SignupDestination.route)
                         clearState() },
-                    border = BorderStroke(1.dp, gray)
+                    border = BorderStroke(MaterialTheme.spacing.dp_1, gray)
                 ) {
                     Text(
                         text = stringResource(id = R.string.signup_button),

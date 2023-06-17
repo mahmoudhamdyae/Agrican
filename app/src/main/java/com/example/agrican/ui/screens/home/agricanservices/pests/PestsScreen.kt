@@ -25,8 +25,10 @@ import com.example.agrican.R
 import com.example.agrican.domain.model.Pest
 import com.example.agrican.ui.components.BackButton
 import com.example.agrican.ui.navigation.NavigationDestination
+import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.spacing
+import com.example.agrican.ui.theme.white
 
 object PestsDestination: NavigationDestination {
     override val route: String = "pests"
@@ -90,7 +92,8 @@ fun PestListItem(
             // Pest Title
             Text(
                 text = pest.title,
-                color = Color.White,
+                color = white,
+                style = MaterialTheme.typography.body,
                 modifier = Modifier
                     .align(Alignment.BottomStart)
                     .padding(MaterialTheme.spacing.small)

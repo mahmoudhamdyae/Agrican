@@ -12,11 +12,14 @@ class GetNewsUseCase @Inject constructor(
 //        return mainRepository.getNews()
 
         return listOf(
-            News(title = "ابتكار طرق جديدة"),
-            News(title = "ابتكار طرق جديدة"),
-            News(title = "ابتكار طرق جديدة"),
-            News(title = "ابتكار طرق جديدة"),
-            News(title = "ابتكار طرق جديدة"),
+            News(title = "ابتكار طرق رى جديدة"),
+            News(title = "ابتكار طرق رى جديدة"),
+            News(title = "ابتكار طرق رى جديدة"),
+            News(title = "ابتكار طرق رى جديدة"),
+            News(title = "ابتكار طرق رى جديدة"),
+            News(title = "ابتكار طرق رى جديدة"),
+            News(title = "ابتكار طرق رى جديدة"),
+            News(title = "ابتكار طرق رى جديدة")
         )
     }
 }

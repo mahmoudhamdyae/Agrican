@@ -25,12 +25,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.sp
 import androidx.core.os.LocaleListCompat
 import com.example.agrican.R
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.screens.onboarding.OnboardingDestination
+import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.spacing
@@ -64,9 +67,17 @@ fun WelcomeScreen(
                 .padding(MaterialTheme.spacing.large)
         ) {
             // Welcome Text
-            Text(text = "Welcome to Agrican")
+            Text(
+                text = "Welcome to Agrican",
+                fontWeight = FontWeight(700),
+                fontSize = 25.sp,
+                style = MaterialTheme.typography.body
+            )
             Text(
                 text = "أهلا بك فى أجريكان",
+                fontWeight = FontWeight(700),
+                fontSize = 30.sp,
+                style = MaterialTheme.typography.body,
                 modifier = Modifier.padding(MaterialTheme.spacing.small)
             )
 

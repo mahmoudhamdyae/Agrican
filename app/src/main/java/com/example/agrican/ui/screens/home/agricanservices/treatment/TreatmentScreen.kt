@@ -25,6 +25,7 @@ import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.spacing
+import com.example.agrican.ui.theme.title
 
 object TreatmentDestination : NavigationDestination {
     override val route: String = "treatment"
@@ -69,6 +70,7 @@ fun TreatmentScreenContent(
         Text(
             text = stringResource(id = R.string.choose_crop),
             color = greenLight,
+            style = MaterialTheme.typography.title,
             modifier = Modifier.padding(MaterialTheme.spacing.medium)
         )
 

@@ -21,8 +21,8 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.example.agrican.R
+import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.spacing
@@ -55,7 +55,7 @@ fun LabelWithTextField(
             focusManager = focusManager,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 70.dp),
+                .padding(start = MaterialTheme.spacing.dp_75),
             keyboardType = keyboardType,
             imeAction = imeAction
         )
@@ -70,13 +70,14 @@ fun LabelItem(
 ) {
     Surface(
         shape = RoundedCornerShape(MaterialTheme.spacing.medium),
-        border = BorderStroke(1.dp, greenDark),
-        modifier = modifier.width(100.dp)
+        border = BorderStroke(MaterialTheme.spacing.dp_1, greenDark),
+        modifier = modifier.width(MaterialTheme.spacing.dp_100)
     ) {
         Text(
             text = stringResource(id = text),
             textAlign = TextAlign.Center,
             color = greenDark,
+            style = MaterialTheme.typography.body,
             modifier = Modifier.padding(vertical = MaterialTheme.spacing.small)
         )
     }

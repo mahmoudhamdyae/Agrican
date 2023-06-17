@@ -37,7 +37,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusDirection
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
@@ -45,14 +44,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.agrican.R
 import com.example.agrican.common.ext.encodeImage
 import com.example.agrican.ui.navigation.NavigationDestination
+import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.spacing
+import com.example.agrican.ui.theme.white
 
 object JoinAsExpertDestination: NavigationDestination {
     override val route: String = "join_as_expert"
@@ -103,7 +103,8 @@ fun JoinAsExpertScreen(
                 Text(
                     text = stringResource(id = R.string.join_as_expert_label),
                     textAlign = TextAlign.Center,
-                    color = Color.White,
+                    color = white,
+                    style = MaterialTheme.typography.body,
                     modifier = Modifier.padding(
                         horizontal = MaterialTheme.spacing.medium,
                         vertical = MaterialTheme.spacing.extraLarge
@@ -131,7 +132,10 @@ fun JoinAsExpertScreen(
         }
 
         // Full Name Text Field
-        Text(text = stringResource(id = R.string.full_name))
+        Text(
+            text = stringResource(id = R.string.full_name),
+            style = MaterialTheme.typography.body,
+        )
         OutlinedTextField(
             value = fullName,
             onValueChange = { fullName = it },
@@ -151,7 +155,10 @@ fun JoinAsExpertScreen(
         )
 
         // Email TextField
-        Text(text = stringResource(id = R.string.e_mail))
+        Text(
+            text = stringResource(id = R.string.e_mail),
+            style = MaterialTheme.typography.body,
+        )
         OutlinedTextField(
             value = email,
             onValueChange = { email = it },
@@ -171,7 +178,10 @@ fun JoinAsExpertScreen(
         )
 
         // Phone Number Text Field
-        Text(text = stringResource(id = R.string.phone_number))
+        Text(
+            text = stringResource(id = R.string.phone_number),
+            style = MaterialTheme.typography.body,
+        )
         OutlinedTextField(
             value = phoneNumber,
             onValueChange = { phoneNumber = it },
@@ -191,7 +201,10 @@ fun JoinAsExpertScreen(
         )
 
         // Image to Upload
-        Text(text = stringResource(id = R.string.image_of_certificate))
+        Text(
+            text = stringResource(id = R.string.image_of_certificate),
+            style = MaterialTheme.typography.body,
+        )
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxWidth()
@@ -204,7 +217,7 @@ fun JoinAsExpertScreen(
                             mediaType = ActivityResultContracts.PickVisualMedia.ImageOnly)
                     )
                 },
-                border = BorderStroke(1.dp, greenLight)
+                border = BorderStroke(MaterialTheme.spacing.dp_1, greenLight)
             ) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically

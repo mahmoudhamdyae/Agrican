@@ -28,7 +28,6 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.agrican.R
 import com.example.agrican.common.enums.Quantity
@@ -70,7 +69,7 @@ fun NewOrderScreen(
                 R.string.insecticide
             ),
                 onSelect = { viewModel.updateUiState(productType = it) },
-                modifier = Modifier.width(130.dp).fillMaxHeight()
+                modifier = Modifier.width(MaterialTheme.spacing.dp_130).fillMaxHeight()
             )
             Spacer(modifier = Modifier.weight(1f))
         }
@@ -103,7 +102,7 @@ fun NewOrderScreen(
                 Quantity.KILOGRAM.title
             ),
                 onSelect = { viewModel.updateUiState(quantityUnit = it) },
-                modifier = Modifier.width(130.dp).fillMaxHeight())
+                modifier = Modifier.width(MaterialTheme.spacing.dp_130).fillMaxHeight())
         }
 
         // Receiving Address Row
@@ -152,7 +151,7 @@ fun NewOrderScreen(
             focusManager = focusManager,
             modifier = Modifier
                 .fillMaxWidth()
-                .height(100.dp)
+                .height(MaterialTheme.spacing.dp_100)
         )
 
         // Order Button

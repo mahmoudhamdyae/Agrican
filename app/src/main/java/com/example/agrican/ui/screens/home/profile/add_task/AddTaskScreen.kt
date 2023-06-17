@@ -21,7 +21,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
@@ -31,6 +30,7 @@ import com.example.agrican.ui.components.ProfileHeader
 import com.example.agrican.ui.components.SimpleTextField
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.screens.home.profile.add_farm.AddFarmDestination
+import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.spacing
@@ -74,9 +74,13 @@ fun AddTaskScreenContent(
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
-            modifier = Modifier.height(40.dp)
+            modifier = Modifier.height(MaterialTheme.spacing.dp_40)
         ) {
-            Text(text = stringResource(id = R.string.task_name), color = greenDark)
+            Text(
+                text = stringResource(id = R.string.task_name),
+                color = greenDark,
+                style = MaterialTheme.typography.body
+            )
 
             // Task Name Text Field
             SimpleTextField(
@@ -99,13 +103,14 @@ fun AddTaskScreenContent(
                 R.string.add_task
             ),
                 onSelect = { /*TODO*/ },
-                modifier = Modifier.width(130.dp)
+                modifier = Modifier.width(MaterialTheme.spacing.dp_130)
             )
         }
         
         Text(
             text = stringResource(id = R.string.task_dates_label),
             color = greenDark,
+            style = MaterialTheme.typography.body,
             modifier = Modifier.padding(vertical = MaterialTheme.spacing.medium)
         )
 

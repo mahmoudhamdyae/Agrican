@@ -27,20 +27,21 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.example.agrican.R
 import com.example.agrican.ui.components.Background
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.screens.auth.login.LoginDestination
+import com.example.agrican.ui.theme.black
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.spacing
+import com.example.agrican.ui.theme.title
+import com.example.agrican.ui.theme.white
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
@@ -104,7 +105,7 @@ fun OnboardingScreen(
                 }
             },
             colors = ButtonDefaults.buttonColors(
-                containerColor = Color.White
+                containerColor = white
             )
         ) {
             Text(
@@ -135,6 +136,8 @@ fun OnBoardingItem(
         Text(
             text = stringResource(id = item.text),
             textAlign = TextAlign.Center,
+            color = black,
+            style = MaterialTheme.typography.title,
             modifier = Modifier.padding(MaterialTheme.spacing.medium)
         )
     }
@@ -148,7 +151,7 @@ fun Indicators(
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(12.dp),
+        horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
         modifier = modifier
     ) {
         repeat(size) {
@@ -160,13 +163,13 @@ fun Indicators(
 @Composable
 fun Indicator(isSelected: Boolean) {
     val width = animateDpAsState(
-        targetValue = 25.dp,
+        targetValue = MaterialTheme.spacing.dp_24,
         animationSpec = spring(dampingRatio = Spring.DampingRatioMediumBouncy)
     )
 
     Box(
         modifier = Modifier
-            .height(10.dp)
+            .height(MaterialTheme.spacing.small)
             .width(width.value)
             .clip(CircleShape)
             .background(

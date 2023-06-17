@@ -31,7 +31,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.agrican.R
 import com.example.agrican.common.ext.decodeImage
@@ -69,7 +68,7 @@ fun MessageItem(
             UserImage(
                 modifier = Modifier
                     .padding(horizontal = MaterialTheme.spacing.small)
-                    .size(42.dp)
+                    .size(MaterialTheme.spacing.dp_40)
                     .align(Alignment.Top)
             )
         }
@@ -87,15 +86,15 @@ fun MessageItemContent(
 
         Column(modifier = chatModifier) {
             val chatBubbleShape = if (!isUserMe) RoundedCornerShape(
-                topStart = 20.dp,
-                topEnd = 4.dp,
-                bottomEnd = 20.dp,
-                bottomStart = 20.dp
+                topStart = MaterialTheme.spacing.dp_20,
+                topEnd = MaterialTheme.spacing.extraSmall,
+                bottomEnd = MaterialTheme.spacing.dp_20,
+                bottomStart = MaterialTheme.spacing.dp_20
             ) else RoundedCornerShape(
-                topStart = 4.dp,
-                topEnd = 20.dp,
-                bottomEnd = 20.dp,
-                bottomStart = 20.dp
+                topStart = MaterialTheme.spacing.extraSmall,
+                topEnd = MaterialTheme.spacing.dp_20,
+                bottomEnd = MaterialTheme.spacing.dp_20,
+                bottomStart = MaterialTheme.spacing.dp_20
             )
             Surface(
                 color = gray,

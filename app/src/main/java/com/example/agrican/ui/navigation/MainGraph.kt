@@ -1,13 +1,13 @@
 package com.example.agrican.ui.navigation
 
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -23,6 +23,7 @@ import com.example.agrican.ui.screens.home.main.problem_images.ProblemImagesDest
 import com.example.agrican.ui.screens.home.main.problem_images.ProblemImagesScreen
 import com.example.agrican.ui.screens.home.main.weather.WeatherDestination
 import com.example.agrican.ui.screens.home.main.weather.WeatherScreen
+import com.example.agrican.ui.theme.spacing
 
 @Composable
 fun MainGraph(
@@ -54,7 +55,13 @@ fun MainGraph(
     NavHost(
         navController = navController,
         startDestination = MainDestination.route,
-        modifier = Modifier.padding(bottom = if (shouldShowBottomPadding) 75.dp else 0.dp)
+        modifier = Modifier.padding(
+            bottom = if (shouldShowBottomPadding) {
+                MaterialTheme.spacing.dp_75
+            } else {
+                MaterialTheme.spacing.default
+            }
+        )
     ) {
         composable(route = MainDestination.route) {
             setTopBarIcon(true)
