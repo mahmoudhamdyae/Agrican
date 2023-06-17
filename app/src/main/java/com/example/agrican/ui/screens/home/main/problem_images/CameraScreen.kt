@@ -19,7 +19,6 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -28,7 +27,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -167,12 +165,12 @@ fun CameraView(
         Box(contentAlignment = Alignment.BottomCenter, modifier = Modifier.weight(1f)) {
             AndroidView({ previewView }, modifier = Modifier.fillMaxSize())
 
-            Column {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
 
                 // Back Button
                 IconButton(
                     onClick = { navigateUp() },
-                    modifier = Modifier.padding(MaterialTheme.spacing.medium).align(Alignment.End)
+                    modifier = Modifier.align(Alignment.End)
                 ) {
                     Icon(
                         painter = painterResource(id = R.drawable.baseline_arrow_forward_24),
@@ -244,11 +242,7 @@ fun CameraView(
                 Icon(
                     painter = painterResource(id = R.drawable.lens),
                     contentDescription = "Take picture",
-                    tint = white,
-                    modifier = Modifier
-                        .size(MaterialTheme.spacing.dp_200)
-                        .padding(MaterialTheme.spacing.dp_1)
-                        .border(MaterialTheme.spacing.dp_1, white, CircleShape)
+                    tint = white
                 )
             }
 

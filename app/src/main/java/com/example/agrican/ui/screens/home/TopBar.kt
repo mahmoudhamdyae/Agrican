@@ -10,6 +10,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.MenuDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -46,50 +47,20 @@ fun TopBar(
                 expanded = showMenu,
                 onDismissRequest = { showMenu = false }
             ) {
-                DropdownMenuItem(
-                    onClick = { showMenu = false },
-                    text = {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
-                        ) {
-                            // Language Icon
-                            Surface(shape = CircleShape, color = greenDark) {
-                                Text(
-                                    text = "ico",
-                                    color = white,
-                                    fontSize = MaterialTheme.spacing.sp_18,
-                                    fontWeight = FontWeight.Bold,
-                                    modifier = Modifier.padding(MaterialTheme.spacing.small)
-                                )
-                            }
-                            // Language Text
-                            Text(text = stringResource(id = R.string.language), color = greenDark)
-                        }
-                    }
+
+                // Language Item
+                DropDownItem(
+                    text = R.string.language,
+                    onItemClick = { showMenu = false }
                 )
-                // On the main screen
-                DropdownMenuItem(
-                    onClick = { showMenu = false },
-                    text = {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
-                        ) {
-                            // About Us Icon
-                            Surface(shape = CircleShape, color = greenDark) {
-                                Text(
-                                    text = "ico",
-                                    color = white,
-                                    modifier = Modifier.padding(MaterialTheme.spacing.small)
-                                )
-                            }
-                            // About Us Text
-                            Text(text = stringResource(id = R.string.about_us), color = greenDark)
-                        }
-                    }
+
+                // About Us Item
+                DropDownItem(
+                    text = R.string.about_us,
+                    onItemClick = { showMenu = false }
                 )
             }
+
             Row {
                 // Notifications Icon
                 IconButton(onClick = { /*TODO*/ }) {
@@ -111,6 +82,42 @@ fun TopBar(
             }
         },
         modifier = modifier.shadow(MaterialTheme.spacing.medium)
+    )
+}
+
+@Composable
+fun DropDownItem(
+    text: Int,
+    onItemClick: () -> Unit,
+    modifier: Modifier= Modifier
+) {
+    DropdownMenuItem(
+        modifier = modifier,
+        onClick = onItemClick,
+        colors = MenuDefaults.itemColors(),
+        text = {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
+            ) {
+                // Language Icon
+                Surface(shape = CircleShape, color = greenDark) {
+                    Text(
+                        text = "ico",
+                        color = white,
+                        fontSize = MaterialTheme.spacing.sp_18,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.padding(MaterialTheme.spacing.small)
+                    )
+                }
+                // Language Text
+                Text(
+                    text = stringResource(id = text ),
+                    color = greenDark,
+                    fontSize = MaterialTheme.spacing.sp_14
+                )
+            }
+        }
     )
 }
 

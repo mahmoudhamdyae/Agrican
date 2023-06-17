@@ -66,7 +66,7 @@ fun AgricanServicesScreen(
                     modifier = Modifier
                         .weight(1.5f)
                         .fillMaxHeight()
-                        .padding(MaterialTheme.spacing.medium)
+                        .padding(MaterialTheme.spacing.small)
                         .clickable { openScreen(DefaultAgesDestination.route) },
                     isPrimaryMain = true
                 )
@@ -77,7 +77,7 @@ fun AgricanServicesScreen(
                     description = R.string.problem_images_description,
                     modifier = Modifier
                         .weight(1f)
-                        .padding(MaterialTheme.spacing.medium)
+                        .padding(MaterialTheme.spacing.small)
                         .clickable { openScreen(OrderDestination.route) },
                     isPrimaryMain = true
                 )
@@ -93,7 +93,7 @@ fun AgricanServicesScreen(
                         description = R.string.problem_images_description,
                         modifier = Modifier
                             .weight(1f)
-                            .padding(MaterialTheme.spacing.medium)
+                            .padding(MaterialTheme.spacing.small)
                             .clickable { openScreen(DiseasesDestination.route) }
                     )
 
@@ -104,7 +104,7 @@ fun AgricanServicesScreen(
                         modifier = Modifier
                             .weight(1.5f)
                             .fillMaxHeight()
-                            .padding(MaterialTheme.spacing.medium)
+                            .padding(MaterialTheme.spacing.small)
                             .clickable { openScreen(PestsDestination.route) }
                     )
                 }
@@ -116,12 +116,12 @@ fun AgricanServicesScreen(
                             .padding(vertical = MaterialTheme.spacing.large)
                             .background(greenDark)
                     )
-                    // Treatmen
+                    // Treatment
                     Card(
                         title = R.string.treatment,
                         description = R.string.problem_images_description,
                         modifier = Modifier
-                            .padding(MaterialTheme.spacing.medium)
+                            .padding(MaterialTheme.spacing.small)
                             .clickable { openScreen(TreatmentDestination.route) }
                     )
                 }
@@ -155,7 +155,7 @@ fun Card(
         color = mainColor,
         modifier = modifier
     ) {
-        Column(modifier = Modifier.padding(MaterialTheme.spacing.medium)) {
+        Column(modifier = Modifier.padding(MaterialTheme.spacing.small)) {
             // Card Title
             Text(
                 text = stringResource(id = title),
