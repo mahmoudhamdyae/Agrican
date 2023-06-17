@@ -56,6 +56,7 @@ fun NewOrderScreen(
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
         modifier = modifier
             .padding(MaterialTheme.spacing.small)
+            .padding(bottom = MaterialTheme.spacing.dp_60)
             .verticalScroll(rememberScrollState())
     ) {
         // Product Kind Row

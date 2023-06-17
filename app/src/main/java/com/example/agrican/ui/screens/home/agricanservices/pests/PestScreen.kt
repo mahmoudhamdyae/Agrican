@@ -61,7 +61,7 @@ fun PestScreen(
         PestScreenContent(
             pest = pest,
             navigateUp = navigateUp,
-            modifier = modifier
+            modifier = modifier.padding(bottom = MaterialTheme.spacing.dp_60)
         )
     }
 }

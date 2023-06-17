@@ -170,6 +170,11 @@ fun FertilizersCalculatorScreenContent(
         items(3) {
             FertilizerListItem(modifier = Modifier.padding(MaterialTheme.spacing.small))
         }
+
+        // Space fo Bottom Navigation Bar
+        item {
+            Spacer(modifier = Modifier.height(MaterialTheme.spacing.dp_60))
+        }
     }
 }
 
@@ -184,9 +189,13 @@ fun FertilizerListItem(
     ) {
         Row(
             horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
-            modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Max)
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(IntrinsicSize.Max)
         ) {
-            EmptyImage(modifier = Modifier.weight(1f).fillMaxHeight())
+            EmptyImage(modifier = Modifier
+                .weight(1f)
+                .fillMaxHeight())
             Column(
                 verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
                 modifier = Modifier

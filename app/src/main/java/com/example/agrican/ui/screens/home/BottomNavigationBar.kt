@@ -60,7 +60,9 @@ fun BottomNavigationBar(
                     painter = painterResource(id = bottomNavItems[1].icon),
                     contentDescription = null,
                     tint = if (selectedItem == 1) greenDark else iconGray,
-                    modifier = Modifier.padding(bottom = MaterialTheme.spacing.small)
+                    modifier = Modifier
+                        .padding(bottom = MaterialTheme.spacing.small)
+                        .padding(MaterialTheme.spacing.small)
                 )
             }
         }

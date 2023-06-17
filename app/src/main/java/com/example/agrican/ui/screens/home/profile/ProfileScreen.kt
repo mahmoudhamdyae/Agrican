@@ -131,6 +131,11 @@ fun ProfileScreenContent(
         }
 
         cropsList(crops = uiState.crops, openScreen = openScreen)
+
+        // Space fo Bottom Navigation Bar
+        item {
+            Spacer(modifier = Modifier.height(MaterialTheme.spacing.dp_60))
+        }
     }
 }
 

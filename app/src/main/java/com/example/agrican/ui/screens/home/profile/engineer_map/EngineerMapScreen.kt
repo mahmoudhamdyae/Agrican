@@ -38,7 +38,9 @@ fun EngineerMapScreen(
 
     Column(
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
-        modifier = modifier.padding(MaterialTheme.spacing.medium)
+        modifier = modifier
+            .padding(MaterialTheme.spacing.medium)
+            .padding(bottom = MaterialTheme.spacing.dp_60)
     ) {
         // Choose Farm Drop Down
         DropDown(

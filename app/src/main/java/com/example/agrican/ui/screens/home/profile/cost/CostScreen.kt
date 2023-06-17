@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -43,7 +45,10 @@ fun CostScreen(
     var cropManagerCode by rememberSaveable { mutableStateOf("") }
 
     Column(
-        modifier = modifier.padding(MaterialTheme.spacing.small)
+        modifier = modifier
+            .verticalScroll(rememberScrollState())
+            .padding(MaterialTheme.spacing.small)
+            .padding(bottom = MaterialTheme.spacing.dp_60)
     ) {
         // Main Table Row
         Row(modifier = Modifier.padding(MaterialTheme.spacing.medium)) {

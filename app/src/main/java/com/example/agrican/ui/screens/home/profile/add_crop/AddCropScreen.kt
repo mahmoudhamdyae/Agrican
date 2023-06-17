@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -68,7 +70,7 @@ fun AddCropScreenContent(
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
-        modifier = modifier
+        modifier = modifier.verticalScroll(rememberScrollState())
     ) {
         // Choose Crop Text
         Text(
@@ -97,19 +99,25 @@ fun AddCropScreenContent(
                 options = DateUtils().days,
                 onSelect = { if (it != 0) updateDay(it) },
                 selectedOption = uiState.day,
-                modifier = Modifier.weight(1f).height(MaterialTheme.spacing.large)
+                modifier = Modifier
+                    .weight(1f)
+                    .height(MaterialTheme.spacing.large)
             )
             DateDropDown(
                 options = DateUtils().months,
                 onSelect = { if (it != 0) updateMonth(it) },
                 selectedOption = uiState.month,
-                modifier = Modifier.weight(1f).height(MaterialTheme.spacing.large)
+                modifier = Modifier
+                    .weight(1f)
+                    .height(MaterialTheme.spacing.large)
             )
             DateDropDown(
                 options = DateUtils().years,
                 onSelect = { if (it != 0) updateYear(it) },
                 selectedOption = uiState.year,
-                modifier = Modifier.weight(1f).height(MaterialTheme.spacing.large)
+                modifier = Modifier
+                    .weight(1f)
+                    .height(MaterialTheme.spacing.large)
             )
         }
 

@@ -3,6 +3,8 @@ package com.example.agrican.ui.screens.home.agricanservices.diseases
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -64,6 +66,11 @@ fun DiseaseList(
     ) {
         items(diseases) { disease ->
             DiseaseListItem(disease = disease, onItemClick = onItemClick)
+        }
+
+        // Spacer for Bottom Navigation Bar
+        item {
+            Spacer(modifier = Modifier.height(MaterialTheme.spacing.dp_60))
         }
     }
 }

@@ -78,7 +78,7 @@ fun SelectedCropScreenContent(
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
-        modifier = modifier
+        modifier = modifier.padding(bottom = MaterialTheme.spacing.dp_60)
     ) {
         Text(
             text = stringResource(id = R.string.selected_crop),
@@ -250,7 +250,7 @@ fun TreatmentListItem(
     }
 }
 
-@Preview(showBackground = true, showSystemUi = true)
+@Preview(showBackground = true)
 @Composable
 fun SelectedCropScreenPreview() {
     SelectedCropScreenContent(uiState = TreatmentUiState(), updateDiseaseType = { }, getTreatments = { })

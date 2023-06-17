@@ -88,7 +88,11 @@ fun MainScreenContent(
     openScreen: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Column(modifier = modifier.verticalScroll(rememberScrollState())) {
+    Column(
+        modifier = modifier
+            .verticalScroll(rememberScrollState())
+            .padding(bottom = MaterialTheme.spacing.dp_60)
+    ) {
         WeatherBox(
             weather = weather,
             modifier = Modifier

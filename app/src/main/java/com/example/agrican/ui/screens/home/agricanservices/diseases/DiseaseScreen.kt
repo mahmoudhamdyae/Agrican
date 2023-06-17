@@ -58,7 +58,11 @@ fun DiseaseScreenContent(
     navigateUp: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Column(modifier = modifier.verticalScroll(rememberScrollState())) {
+    Column(
+        modifier = modifier
+            .verticalScroll(rememberScrollState())
+            .padding(bottom = MaterialTheme.spacing.dp_60)
+    ) {
         DiseaseHeader(
             image = null,
             diseaseName = disease.name,

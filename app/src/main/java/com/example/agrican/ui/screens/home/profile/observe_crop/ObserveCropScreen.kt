@@ -70,7 +70,11 @@ fun ObserveCropScreen(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     ProfileHeader(navigateUp = navigateUp, headerText = ObserveCropDestination.titleRes) {
-        ObserveCropScreenContent(crop = uiState.crop, openScreen = openScreen, modifier = modifier)
+        ObserveCropScreenContent(
+            crop = uiState.crop,
+            openScreen = openScreen,
+            modifier = modifier
+        )
     }
 }
 
@@ -83,7 +87,7 @@ fun ObserveCropScreenContent(
 
     Column(
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
-        modifier = modifier.padding(MaterialTheme.spacing.medium)
+        modifier = modifier
     ) {
         CropSurface(crop = crop)
 

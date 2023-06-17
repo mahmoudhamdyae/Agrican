@@ -129,6 +129,7 @@ fun ProblemImageScreenContent(
         modifier = modifier
             .verticalScroll(rememberScrollState())
             .padding(top = MaterialTheme.spacing.large)
+            .padding(bottom = MaterialTheme.spacing.dp_60)
     ) {
         Text(
             text = stringResource(id = R.string.choose_plant_type),

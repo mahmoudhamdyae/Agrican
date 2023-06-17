@@ -3,6 +3,8 @@ package com.example.agrican.ui.screens.home.agricanservices.pests
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -65,6 +67,11 @@ fun PestList(
         items(pests) { pest ->
             PestListItem(pest = pest, onItemClick = onItemClick)
         }
+
+        // Spacer for Bottom Navigation Bar
+        item {
+            Spacer(modifier = Modifier.height(MaterialTheme.spacing.dp_60))
+        }
     }
 }
 
@@ -93,7 +100,7 @@ fun PestListItem(
                 text = pest.title,
                 color = white,
                 style = MaterialTheme.typography.body,
-                fontSize = MaterialTheme.spacing.sp_14  ,
+                fontSize = MaterialTheme.spacing.sp_14,
                 modifier = Modifier
                     .align(Alignment.BottomStart)
                     .padding(MaterialTheme.spacing.small)

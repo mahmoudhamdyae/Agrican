@@ -81,7 +81,7 @@ fun DefaultAgeScreen(
         updateCurrentCrop = { viewModel.updateUiStates(currentCrop = it) },
         updateCurrentQuality = { viewModel.updateUiStates(currentQuality = it) },
         getResults = viewModel::getResults,
-        modifier = modifier
+        modifier = modifier.padding(bottom = MaterialTheme.spacing.dp_60)
     )
 }
 

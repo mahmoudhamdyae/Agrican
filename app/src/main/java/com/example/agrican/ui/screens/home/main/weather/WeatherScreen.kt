@@ -59,24 +59,25 @@ fun WeatherScreenContent(
         modifier = modifier
             .verticalScroll(rememberScrollState())
             .padding(MaterialTheme.spacing.medium)
+            .padding(bottom = MaterialTheme.spacing.dp_60)
     ) {
         Row(
             horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Weather Icon
-            Icon(
-                painter = painterResource(id = R.drawable.sunny),
-                contentDescription = null,
-                tint = greenDark,
-                modifier = Modifier.size(MaterialTheme.spacing.extraLarge)
-            )
             // Weather Degree
             Text(
                 text = "${weather.degree.toInt()}°",
                 color = greenDark,
                 fontSize = MaterialTheme.spacing.sp_62,
                 fontWeight = FontWeight.SemiBold,
+            )
+            // Weather Icon
+            Icon(
+                painter = painterResource(id = R.drawable.sunny),
+                contentDescription = null,
+                tint = greenDark,
+                modifier = Modifier.size(MaterialTheme.spacing.extraLarge)
             )
         }
         Text(

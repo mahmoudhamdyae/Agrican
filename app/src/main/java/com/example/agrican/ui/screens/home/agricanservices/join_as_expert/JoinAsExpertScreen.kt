@@ -88,7 +88,8 @@ fun JoinAsExpertScreen(
                 start = MaterialTheme.spacing.medium,
                 end = MaterialTheme.spacing.medium,
                 bottom = MaterialTheme.spacing.large
-            ),
+            )
+            .padding(bottom = MaterialTheme.spacing.dp_60),
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
     ) {
         // Header

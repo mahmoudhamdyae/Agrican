@@ -73,6 +73,7 @@ fun OrderConfirmScreen(
             modifier = modifier
                 .verticalScroll(rememberScrollState())
                 .padding(MaterialTheme.spacing.medium)
+                .padding(bottom = MaterialTheme.spacing.dp_60)
         ) {
             Text(
                 text = stringResource(id = R.string.confirm_order),

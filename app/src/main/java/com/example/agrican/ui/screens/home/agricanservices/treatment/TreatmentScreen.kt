@@ -3,7 +3,10 @@ package com.example.agrican.ui.screens.home.agricanservices.treatment
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -66,6 +69,8 @@ fun TreatmentScreenContent(
     Column(
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
         modifier = modifier
+            .verticalScroll(rememberScrollState())
+            .padding(bottom = MaterialTheme.spacing.dp_60)
     ) {
         // Choose Crop
         Text(
@@ -79,7 +84,7 @@ fun TreatmentScreenContent(
         CropsList(
             crops = uiState.crops,
             setSelectedCrop = onSelectCrop,
-            modifier = Modifier.background(greenLight)
+            modifier = Modifier.fillMaxWidth().background(greenLight)
         )
 
         // Continue Button

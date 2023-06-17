@@ -118,6 +118,11 @@ fun OrdersList(
             items(orders.size) {
                 OrdersListItem(order = orders[it], openScreen = openScreen)
             }
+
+            // Spacer for Bottom Navigation Bar
+            item {
+                Spacer(modifier = Modifier.height(MaterialTheme.spacing.dp_60))
+            }
         }
     }
 }
@@ -176,6 +181,7 @@ fun OrdersListItem(
                         text = order.description,
                         style = MaterialTheme.typography.body,
                         fontWeight = FontWeight.SemiBold,
+                        modifier = Modifier.padding(bottom = MaterialTheme.spacing.small)
                     )
                 }
 
@@ -205,7 +211,14 @@ fun OrdersListItem(
 @Preview(showBackground = true)
 @Composable
 fun OrderStatusPreview() {
-    OrderStatusScreen(navigateUp = { }, openScreen = { })
+    OrdersList(orders = listOf(
+        Order(
+            name = "سماد عالى الفسفور",
+            t = "تقاوي",
+            price = 500.0,
+            description = "سماد عضوى لتغذية النباتات سماد عضوى لتغذية النباتات سماد عضوى لتغذية النباتات"
+        )
+    ), openScreen = { })
 }
 
 @Preview(showBackground = true)
