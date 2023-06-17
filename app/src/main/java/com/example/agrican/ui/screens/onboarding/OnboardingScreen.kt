@@ -79,11 +79,13 @@ fun OnboardingScreen(
     val pageState = rememberPagerState()
 
     Background(body1 = {
-        Box(modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState())) {
+        Box(
+//            contentAlignment = Alignment.Center,
+            modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState())
+        ) {
             HorizontalPager(
                 count = items.size,
                 state = pageState,
-                modifier = Modifier.fillMaxSize()
             ) { page ->
                 OnBoardingItem(item = items[page])
             }
@@ -127,13 +129,13 @@ fun OnBoardingItem(
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
-        modifier = modifier.fillMaxSize()
+        verticalArrangement = Arrangement.Bottom,
+        modifier = modifier
     ) {
         // Onboarding Image
         Image(
             painter = painterResource(id = item.image),
-            contentDescription = null,
+            contentDescription = null
         )
         // Onboarding Text
         Text(

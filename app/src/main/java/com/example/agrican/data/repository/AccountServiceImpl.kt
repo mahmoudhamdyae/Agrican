@@ -17,7 +17,7 @@ class AccountServiceImpl @Inject constructor(
 
     override suspend fun hasUser(): Boolean {
         // todo: Auth has user ia not always true
-        return true//auth.fetchAuthSession().isSignedIn
+        return false//auth.fetchAuthSession().isSignedIn
     }
 
     override suspend fun getCurrentUserId(): String {
