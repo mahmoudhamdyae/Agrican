@@ -19,11 +19,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
@@ -73,15 +72,18 @@ fun WeatherScreenContent(
             )
             // Weather Degree
             Text(
-                text = "${weather.degree}°",
-                fontSize = 32.sp,
-                color = greenLight
+                text = "${weather.degree.toInt()}°",
+                color = greenLight,
+                fontSize = MaterialTheme.spacing.sp_62,
+                fontWeight = FontWeight.SemiBold,
             )
         }
         Text(
             text = weather.weatherDescription,
             color = greenLight,
             style = MaterialTheme.typography.body,
+            fontSize = MaterialTheme.spacing.sp_14,
+            fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(bottom = MaterialTheme.spacing.small)
         )
 
@@ -117,6 +119,7 @@ fun WeatherScreenContent(
                 text = stringResource(id = R.string.air_information_button),
                 color = white,
                 style = MaterialTheme.typography.body,
+                fontSize = MaterialTheme.spacing.sp_14,
                 modifier = Modifier.padding(
                     horizontal = MaterialTheme.spacing.medium,
                     vertical = MaterialTheme.spacing.small,
@@ -127,11 +130,13 @@ fun WeatherScreenContent(
         Column(modifier = Modifier.fillMaxWidth()) {
             Text(
                 text = weather.firstInformation,
-                style = MaterialTheme.typography.body
+                style = MaterialTheme.typography.body,
+                fontSize = MaterialTheme.spacing.sp_11
             )
             Text(
                 text = weather.secondInformation,
                 style = MaterialTheme.typography.body,
+                fontSize = MaterialTheme.spacing.sp_11
             )
         }
     }
@@ -150,12 +155,14 @@ fun WeatherRow(
     ) {
         Text(
             text = stringResource(id = weatherLabel),
-            style = MaterialTheme.typography.body
+            style = MaterialTheme.typography.body,
+            fontSize = MaterialTheme.spacing.sp_14
         )
         Spacer(modifier = Modifier.weight(1f))
         Text(
             text = weatherData,
             style = MaterialTheme.typography.body,
+            fontSize = MaterialTheme.spacing.sp_14
         )
     }
 }

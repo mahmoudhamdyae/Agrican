@@ -20,6 +20,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -124,7 +125,11 @@ fun AddTaskScreenContent(
                 .align(Alignment.CenterHorizontally)
                 .padding(MaterialTheme.spacing.medium)
         ) {
-            Text(text = stringResource(id = R.string.add_task_button))
+            Text(
+                text = stringResource(id = R.string.add_task_button),
+                fontSize = MaterialTheme.spacing.sp_15,
+                fontWeight = FontWeight.Bold,
+            )
         }
     }
 }

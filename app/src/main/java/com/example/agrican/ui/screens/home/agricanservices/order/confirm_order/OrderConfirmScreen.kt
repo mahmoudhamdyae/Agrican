@@ -33,6 +33,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -77,6 +78,7 @@ fun OrderConfirmScreen(
                 text = stringResource(id = R.string.confirm_order),
                 color = greenLight,
                 style = MaterialTheme.typography.title,
+                fontSize = MaterialTheme.spacing.sp_15,
                 modifier = Modifier.padding(vertical = MaterialTheme.spacing.small)
             )
 
@@ -127,6 +129,7 @@ fun OrderConfirmScreenContent(
                     text = stringResource(id = R.string.cash),
                     color = Color(0xff5a5a5a),
                     style = MaterialTheme.typography.body,
+                    fontSize = MaterialTheme.spacing.sp_14,
                     modifier = Modifier.padding(MaterialTheme.spacing.medium)
                 )
             }
@@ -167,6 +170,7 @@ fun OrderConfirmScreenContent(
         Text(
             text = stringResource(id = R.string.card_id),
             color = Color(0xff5a5a5a),
+            fontSize = MaterialTheme.spacing.sp_12,
             style = MaterialTheme.typography.body,
         )
         SimpleTextField(
@@ -186,6 +190,7 @@ fun OrderConfirmScreenContent(
                     text = stringResource(id = R.string.expire_date),
                     color = Color(0xff5a5a5a),
                     style = MaterialTheme.typography.body,
+                    fontSize = MaterialTheme.spacing.sp_12
                 )
                 SimpleTextField(
                     value = expireDate,
@@ -205,6 +210,7 @@ fun OrderConfirmScreenContent(
                     text = stringResource(id = R.string.cvc),
                     color = Color(0xff5a5a5a),
                     style = MaterialTheme.typography.body,
+                    fontSize = MaterialTheme.spacing.sp_14
                 )
                 SimpleTextField(
                     value = cvc,
@@ -232,16 +238,32 @@ fun OrderConfirmScreenContent(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text(text = stringResource(id = R.string.sum))
+                    Text(
+                        text = stringResource(id = R.string.sum),
+                        fontSize = MaterialTheme.spacing.sp_11,
+                        fontWeight = FontWeight.Bold,
+                    )
 
                     Row {
-                        Text(text = "00.00")
+                        Text(
+                            text = "00.00",
+                            fontSize = MaterialTheme.spacing.sp_12,
+                            fontWeight = FontWeight.Bold,
+                        )
                         Spacer(modifier = Modifier.padding(end = MaterialTheme.spacing.small))
-                        Text(text = stringResource(id = R.string.pound))
+                        Text(
+                            text = stringResource(id = R.string.pound),
+                            fontSize = MaterialTheme.spacing.sp_12,
+                            fontWeight = FontWeight.Bold,
+                        )
                     }
                 }
 
-                Text(text = stringResource(id = R.string.complete_buying))
+                Text(
+                    text = stringResource(id = R.string.complete_buying),
+                    fontSize = MaterialTheme.spacing.sp_16,
+                    fontWeight = FontWeight.Bold
+                )
 
                 Icon(painter = painterResource(id = R.drawable.cart), contentDescription = null)
             }

@@ -5,9 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -28,6 +26,8 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
@@ -44,7 +44,7 @@ fun BottomNavigationBar(
     bottomNavItems: List<BottomNavItem>,
     modifier: Modifier = Modifier
 ) {
-    Box(modifier = modifier.height(MaterialTheme.spacing.dp_100)) {
+    Box(modifier = modifier.height(MaterialTheme.spacing.dp_90)) {
 
         // Profile Item
         Surface(
@@ -54,7 +54,7 @@ fun BottomNavigationBar(
         ) {
             IconButton(
                 onClick = { setSelectedItem(1) },
-                modifier = Modifier.size(MaterialTheme.spacing.dp_75)
+                modifier = Modifier.size(MaterialTheme.spacing.dp_60)
             ) {
                 Icon(
                     painter = painterResource(id = bottomNavItems[1].icon),
@@ -67,43 +67,46 @@ fun BottomNavigationBar(
 
         // Main and Services Items
         Surface(
-            shape = NavigationBarCustomShape(145f),
+            shape = NavigationBarCustomShape(115f),
             shadowElevation = MaterialTheme.spacing.large,
             modifier = Modifier
-                .height(MaterialTheme.spacing.dp_75)
+                .height(MaterialTheme.spacing.dp_60)
                 .align(Alignment.BottomCenter)
         ) {
-            Box(modifier = Modifier.fillMaxWidth()) {
-                Row(
-                    horizontalArrangement = Arrangement.SpaceAround,
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.fillMaxSize()
-                ) {
-                    // Main Item
-                    BottomNavigationItem(
-                        text = bottomNavItems[0].name,
-                        icon = bottomNavItems[0].icon,
-                        color = if (selectedItem == 0) greenDark else iconGray,
-                        modifier = Modifier.clickable { setSelectedItem(0) }
-                    )
-                    Column {
-                        Spacer(modifier = Modifier.weight(1f))
-                        Text(
-                            text = stringResource(id = bottomNavItems[1].name),
-                            color = if (selectedItem == 1) greenDark else iconGray,
-                            modifier = Modifier
-                                .clickable { setSelectedItem(1) }
-                                .padding(start = MaterialTheme.spacing.large)
-                        )
-                    }
-                    // Agrican Services Item
-                    BottomNavigationItem(
-                        text = bottomNavItems[2].name,
-                        icon = bottomNavItems[2].icon,
-                        color = if (selectedItem == 2) greenDark else gray,
-                        modifier = Modifier.clickable { setSelectedItem(2) }
-                    )
-                }
+            Row(
+                horizontalArrangement = Arrangement.SpaceAround,
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.fillMaxSize()
+            ) {
+                // Agrican Services Item
+                BottomNavigationItem(
+                    text = bottomNavItems[2].name,
+                    icon = bottomNavItems[2].icon,
+                    color = if (selectedItem == 2) greenDark else gray,
+                    modifier = Modifier.weight(1f).clickable { setSelectedItem(2) }
+                )
+
+                // Profile Text
+                Text(
+                    text = stringResource(id = bottomNavItems[1].name),
+                    color = if (selectedItem == 1) greenDark else iconGray,
+                    textAlign = TextAlign.Center,
+                    fontSize = MaterialTheme.spacing.sp_10,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier
+                        .clickable { setSelectedItem(1) }
+                        .padding(bottom = MaterialTheme.spacing.extraSmall)
+                        .weight(1f)
+                        .align(Alignment.Bottom)
+                )
+
+                // Main Item
+                BottomNavigationItem(
+                    text = bottomNavItems[0].name,
+                    icon = bottomNavItems[0].icon,
+                    color = if (selectedItem == 0) greenDark else iconGray,
+                    modifier = Modifier.weight(1f).clickable { setSelectedItem(0) }
+                )
             }
         }
     }
@@ -122,7 +125,12 @@ fun BottomNavigationItem(
             contentDescription = null,
             tint = color
         )
-        Text(text = stringResource(id = text), color = color)
+        Text(
+            text = stringResource(id = text),
+            color = color,
+            fontSize = MaterialTheme.spacing.sp_10,
+            fontWeight = FontWeight.Bold,
+        )
     }
 }
 

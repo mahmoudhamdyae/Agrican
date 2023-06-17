@@ -100,6 +100,7 @@ fun ProfileScreenContent(
                 Text(
                     text = stringResource(id = R.string.farms_label),
                     style = MaterialTheme.typography.title,
+                    fontSize = MaterialTheme.spacing.sp_16,
                     modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
                 )
             }
@@ -119,6 +120,7 @@ fun ProfileScreenContent(
             Text(
                 text = stringResource(id = R.string.my_crops),
                 style = MaterialTheme.typography.title,
+                fontSize = MaterialTheme.spacing.sp_16,
                 modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
             )
         }
@@ -234,7 +236,8 @@ fun UserHeader(
                 // User Name
                 Text(
                     text = user.userName,
-                    style = MaterialTheme.typography.title
+                    style = MaterialTheme.typography.title,
+                    fontSize = MaterialTheme.spacing.sp_15
                 )
 
                 Surface(
@@ -246,6 +249,7 @@ fun UserHeader(
                         text = stringResource(id = user.userType.title),
                         color = white,
                         style = MaterialTheme.typography.body,
+                        fontSize = MaterialTheme.spacing.sp_14,
                         modifier = Modifier.padding(MaterialTheme.spacing.small)
                     )
                 }
@@ -258,7 +262,8 @@ fun UserHeader(
                     Text(
                         text = stringResource(id = R.string.modify_data),
                         color = greenDark,
-                        style = MaterialTheme.typography.body
+                        style = MaterialTheme.typography.body,
+                        fontSize = MaterialTheme.spacing.sp_11
                     )
                 }
 
@@ -270,6 +275,7 @@ fun UserHeader(
                         text = stringResource(id = R.string.cost),
                         color = greenDark,
                         style = MaterialTheme.typography.body,
+                        fontSize = MaterialTheme.spacing.sp_11
                     )
                 }
             }
@@ -297,13 +303,14 @@ fun AddItem(
                 Text(
                     text = stringResource(id = title),
                     style = MaterialTheme.typography.title,
-                    fontWeight = FontWeight.Bold
+                    fontSize = MaterialTheme.spacing.sp_16
                 )
                 // Add Description
                 Text(
                     text = stringResource(id = description),
                     color = greenDark,
                     style = MaterialTheme.typography.body,
+                    fontSize = MaterialTheme.spacing.sp_10,
                     modifier = Modifier.padding(end = MaterialTheme.spacing.large)
                 )
             }
@@ -356,7 +363,8 @@ fun FarmsListItem(
         Text(
             text = farm.name,
             textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.body
+            style = MaterialTheme.typography.body,
+            fontSize = MaterialTheme.spacing.sp_11
         )
     }
 }
@@ -391,6 +399,7 @@ fun CropsListItem(
                 text = crop.name,
                 color = white,
                 style = MaterialTheme.typography.title,
+                fontSize = MaterialTheme.spacing.sp_16,
                 modifier = Modifier.padding(MaterialTheme.spacing.small)
             )
 
@@ -412,7 +421,11 @@ fun CropsListItem(
                     onClick = { onClick(crop.cropId) },
                     colors = ButtonDefaults.buttonColors(containerColor = greenDark),
                 ) {
-                    Text(text = stringResource(id = R.string.observe_crop))
+                    Text(
+                        text = stringResource(id = R.string.observe_crop),
+                        fontSize = MaterialTheme.spacing.sp_10,
+                        fontWeight = FontWeight.Bold
+                    )
                 }
             }
         }

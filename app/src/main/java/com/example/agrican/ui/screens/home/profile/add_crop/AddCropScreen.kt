@@ -14,6 +14,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -26,6 +27,7 @@ import com.example.agrican.ui.components.ProfileHeader
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.spacing
+import com.example.agrican.ui.theme.title
 
 object AddCropDestination: NavigationDestination {
     override val route: String = "add_crop"
@@ -72,6 +74,8 @@ fun AddCropScreenContent(
         Text(
             text = stringResource(id = R.string.choose_crop_label),
             color = greenDark,
+            style = MaterialTheme.typography.title,
+            fontSize = MaterialTheme.spacing.sp_14,
             modifier = Modifier.padding(start = MaterialTheme.spacing.medium)
         )
 
@@ -85,7 +89,9 @@ fun AddCropScreenContent(
         ) {
             Text(
                 text = stringResource(id = R.string.agri_history),
-                color = greenDark
+                color = greenDark,
+                fontSize = MaterialTheme.spacing.sp_14,
+                style = MaterialTheme.typography.title
             )
             DateDropDown(
                 options = DateUtils().days,
@@ -113,7 +119,11 @@ fun AddCropScreenContent(
             colors = ButtonDefaults.buttonColors(containerColor = greenDark),
             modifier = Modifier.align(Alignment.CenterHorizontally)
         ) {
-            Text(text = stringResource(id = R.string.add_crop_button))
+            Text(
+                text = stringResource(id = R.string.add_crop_button),
+                fontSize = MaterialTheme.spacing.sp_15,
+                fontWeight = FontWeight.Bold
+            )
         }
     }
 }

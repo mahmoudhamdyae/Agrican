@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.spacing
 import com.example.agrican.ui.theme.white
@@ -35,6 +36,8 @@ fun Chip(
             Text(
                 text = stringResource(id = text),
                 textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.body,
+                fontSize = MaterialTheme.spacing.sp_14,
                 modifier = Modifier.fillMaxWidth()
             )
         },

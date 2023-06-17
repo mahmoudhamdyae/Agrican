@@ -27,6 +27,7 @@ import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -52,6 +53,8 @@ fun UserNameField(
         placeholder = { Text(
             text = stringResource(R.string.user_name_text_field),
             color = gray,
+            fontSize = MaterialTheme.spacing.sp_12,
+            fontWeight = FontWeight.SemiBold
         ) },
         leadingIcon = {
             Icon(
@@ -134,6 +137,8 @@ private fun PasswordField(
         placeholder = { Text(
             text = stringResource(placeholder),
             color = gray,
+            fontSize = MaterialTheme.spacing.sp_12,
+            fontWeight = FontWeight.SemiBold
         ) },
         leadingIcon = { Icon(
             imageVector = Icons.Default.Lock,
@@ -187,6 +192,8 @@ fun PhoneNumberField(
         placeholder = { Text(
             text = stringResource(R.string.phone_number_text_field),
             color = gray,
+            fontSize = MaterialTheme.spacing.sp_12,
+            fontWeight = FontWeight.SemiBold
         ) },
         leadingIcon = {
             Icon(
@@ -235,6 +242,8 @@ fun EmailField(
         placeholder = { Text(
             text = stringResource(R.string.email_text_field),
             color = gray,
+            fontSize = MaterialTheme.spacing.sp_12,
+            fontWeight = FontWeight.SemiBold
         ) },
         leadingIcon = {
             Icon(

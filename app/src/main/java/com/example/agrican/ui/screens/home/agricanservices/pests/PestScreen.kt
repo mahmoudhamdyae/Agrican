@@ -21,6 +21,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -156,6 +157,8 @@ fun CategoryItem(
     ) {
         Text(
             text = categoryName,
+            fontSize = MaterialTheme.spacing.sp_13,
+            fontWeight = FontWeight.SemiBold,
             modifier = modifier.padding(MaterialTheme.spacing.small)
         )
     }
@@ -178,6 +181,8 @@ fun MainHostItem(
             Text(
                 text = text,
                 color = white,
+                fontSize = MaterialTheme.spacing.sp_14,
+                fontWeight = FontWeight.Bold,
                 modifier = Modifier
                     .align(Alignment.BottomStart)
                     .padding(MaterialTheme.spacing.small)

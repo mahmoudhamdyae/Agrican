@@ -50,16 +50,19 @@ fun CostScreen(
             Text(
                 text = stringResource(id = R.string.services),
                 style = MaterialTheme.typography.body,
+                fontSize = MaterialTheme.spacing.sp_15,
                 modifier = Modifier.weight(1f)
             )
             Text(
                 text = stringResource(id = R.string.cost_in_month),
                 style = MaterialTheme.typography.body,
+                fontSize = MaterialTheme.spacing.sp_15,
                 modifier = Modifier.weight(1f)
             )
             Text(
                 text = stringResource(id = R.string.discount_code),
                 style = MaterialTheme.typography.body,
+                fontSize = MaterialTheme.spacing.sp_15,
                 modifier = Modifier.weight(1f)
             )
         }
@@ -113,6 +116,7 @@ fun CostScreen(
             Text(
                 text = stringResource(id = R.string.sum),
                 style = MaterialTheme.typography.body,
+                fontSize = MaterialTheme.spacing.sp_17,
                 modifier = Modifier.weight(1f)
             )
 
@@ -120,13 +124,15 @@ fun CostScreen(
                 // Price
                 Text(
                     text = "00.00",
-                    style = MaterialTheme.typography.body
+                    style = MaterialTheme.typography.body,
+                    fontSize = MaterialTheme.spacing.sp_17
                 )
                 Spacer(modifier = Modifier.padding(end = MaterialTheme.spacing.small))
                 // Pound Label
                 Text(
                     text = stringResource(id = R.string.pound),
-                    style = MaterialTheme.typography.body
+                    style = MaterialTheme.typography.body,
+                    fontSize = MaterialTheme.spacing.sp_17
                 )
             }
         }
@@ -149,6 +155,7 @@ fun CostRow(
         Text(
             text = stringResource(id = mainLabel),
             style = MaterialTheme.typography.body,
+            fontSize = MaterialTheme.spacing.sp_12,
             modifier = Modifier.weight(1f)
         )
 
@@ -156,6 +163,7 @@ fun CostRow(
         Text(
             text = costMonthly.toString(),
             style = MaterialTheme.typography.body,
+            fontSize = MaterialTheme.spacing.sp_15,
             modifier = Modifier.weight(1f)
         )
 

@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.agrican.R
 import com.example.agrican.ui.components.DropDown
@@ -54,7 +55,8 @@ fun EngineerMapScreen(
         Text(
             text = stringResource(id = R.string.choose_farm_size),
             color = greenLight,
-            style = MaterialTheme.typography.body
+            style = MaterialTheme.typography.body,
+            fontSize = MaterialTheme.spacing.sp_15
         )
 
         MapScreen(modifier = Modifier.fillMaxWidth().weight(1f).background(black))
@@ -65,7 +67,11 @@ fun EngineerMapScreen(
             colors = ButtonDefaults.buttonColors(containerColor = greenDark),
             modifier = Modifier.padding(bottom = MaterialTheme.spacing.large).align(Alignment.CenterHorizontally)
         ) {
-            Text(text = stringResource(id = R.string.continue_button))
+            Text(
+                text = stringResource(id = R.string.continue_button),
+                fontSize = MaterialTheme.spacing.sp_15,
+                fontWeight = FontWeight.Bold
+            )
         }
     }
 }

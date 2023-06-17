@@ -36,6 +36,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -106,6 +107,8 @@ fun MainScreenContent(
             ) {
                 Text(
                     text = stringResource(id = R.string.last_news),
+                    fontSize = MaterialTheme.spacing.sp_14,
+                    fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
                 )
             }
@@ -115,6 +118,8 @@ fun MainScreenContent(
                 Text(
                     text = stringResource(id = R.string.last_offers),
                     color = greenDark,
+                    fontSize = MaterialTheme.spacing.sp_14,
+                    fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
                 )
             }
@@ -176,24 +181,57 @@ fun WeatherBox(
             Row(modifier = Modifier.fillMaxWidth()) {
                 Text(
                     text = "الطقس",
-                    style = MaterialTheme.typography.title
+                    style = MaterialTheme.typography.title,
+                    fontSize = MaterialTheme.spacing.sp_16,
                 )
                 Spacer(modifier = Modifier.weight(1f))
-                Text(text = weather.firstInformation)
+                Text(
+                    text = weather.firstInformation,
+                    fontSize = MaterialTheme.spacing.sp_11,
+                    fontWeight = FontWeight.Bold,
+                )
             }
 
             Row {
                 Column {
-                    Text(text = "جودة الهواء", style = MaterialTheme.typography.body)
-                    Text(text = "الرياح", style = MaterialTheme.typography.body)
-                    Text(text = "هبات الرياح", style = MaterialTheme.typography.body)
+                    Text(
+                        text = "جودة الهواء",
+                        style = MaterialTheme.typography.body,
+                        fontSize = MaterialTheme.spacing.sp_11,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Text(
+                        text = "الرياح", style = MaterialTheme.typography.body,
+                        fontSize = MaterialTheme.spacing.sp_11,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Text(
+                        text = "هبات الرياح", style = MaterialTheme.typography.body,
+                        fontSize = MaterialTheme.spacing.sp_11,
+                        fontWeight = FontWeight.Bold
+                    )
                 }
                 Column(
                     modifier = Modifier.padding(horizontal = MaterialTheme.spacing.small)
                 ) {
-                    Text(text = weather.air, style = MaterialTheme.typography.body)
-                    Text(text = weather.wind, style = MaterialTheme.typography.body)
-                    Text(text = weather.windGusts, style = MaterialTheme.typography.body)
+                    Text(
+                        text = weather.air,
+                        style = MaterialTheme.typography.body,
+                        fontSize = MaterialTheme.spacing.sp_11,
+                        fontWeight = FontWeight.Bold,
+                    )
+                    Text(
+                        text = weather.wind,
+                        style = MaterialTheme.typography.body,
+                        fontSize = MaterialTheme.spacing.sp_11,
+                        fontWeight = FontWeight.Bold,
+                    )
+                    Text(
+                        text = weather.windGusts,
+                        style = MaterialTheme.typography.body,
+                        fontSize = MaterialTheme.spacing.sp_11,
+                        fontWeight = FontWeight.Bold,
+                    )
                 }
             }
 
@@ -205,11 +243,15 @@ fun WeatherBox(
                     text = weather.air,
                     color = greenDark,
                     style = MaterialTheme.typography.body,
+                    fontSize = MaterialTheme.spacing.sp_11,
+                    fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(MaterialTheme.spacing.extraSmall)
                 )
                 Text(
                     text = "${weather.degree}°",
                     color = greenDark,
+                    fontSize = MaterialTheme.spacing.sp_30,
+                    fontWeight = FontWeight.SemiBold,
                     modifier = Modifier.padding(MaterialTheme.spacing.extraSmall)
                 )
                 Icon(
@@ -326,6 +368,8 @@ fun LatestNewsListItem(
                 color = greenDark,
                 maxLines = 1,
                 style = MaterialTheme.typography.body,
+                fontSize = MaterialTheme.spacing.sp_11,
+                fontWeight = FontWeight.Bold,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(MaterialTheme.spacing.small)
@@ -357,7 +401,8 @@ fun BottomCard(
                 // Card Title
                 Text(
                     text = stringResource(id = title),
-                    style = MaterialTheme.typography.title
+                    style = MaterialTheme.typography.title,
+                    fontSize = MaterialTheme.spacing.sp_16
                 )
                 Spacer(modifier = Modifier.weight(1f))
                 // Card Icon
@@ -371,7 +416,9 @@ fun BottomCard(
             // Card Description
             Text(
                 text = stringResource(id = description),
-                style = MaterialTheme.typography.body
+                style = MaterialTheme.typography.body,
+                fontSize = MaterialTheme.spacing.sp_11,
+                fontWeight = FontWeight.Bold,
             )
             body()
         }

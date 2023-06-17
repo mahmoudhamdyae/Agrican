@@ -26,6 +26,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -90,6 +91,7 @@ fun FertilizersCalculatorScreenContent(
             Text(
                 text = stringResource(id = R.string.choose_crop_label),
                 style = MaterialTheme.typography.title,
+                fontSize = MaterialTheme.spacing.sp_16,
                 modifier = Modifier.padding(
                     start = MaterialTheme.spacing.medium,
                     top = MaterialTheme.spacing.medium
@@ -107,6 +109,7 @@ fun FertilizersCalculatorScreenContent(
             Text(
                 text = stringResource(id = R.string.measuring_unit),
                 style = MaterialTheme.typography.title,
+                fontSize = MaterialTheme.spacing.sp_16,
                 modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
             )
         }
@@ -134,6 +137,7 @@ fun FertilizersCalculatorScreenContent(
             Text(
                 text = stringResource(id = R.string.land_size),
                 style = MaterialTheme.typography.title,
+                fontSize = MaterialTheme.spacing.sp_16,
                 modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
             )
         }
@@ -154,7 +158,11 @@ fun FertilizersCalculatorScreenContent(
                     colors = ButtonDefaults.buttonColors(containerColor = greenDark),
                     modifier = Modifier.align(Alignment.Center)
                 ) {
-                    Text(text = stringResource(id = R.string.calculate_fertilizer))
+                    Text(
+                        text = stringResource(id = R.string.calculate_fertilizer),
+                        fontSize = MaterialTheme.spacing.sp_15,
+                        fontWeight = FontWeight.Bold,
+                    )
                 }
             }
         }
@@ -192,12 +200,14 @@ fun FertilizerListItem(
                     Column {
                         Text(
                             text = "سماد رقم 1",
-                            style = MaterialTheme.typography.title
+                            style = MaterialTheme.typography.title,
+                            fontSize = MaterialTheme.spacing.sp_16
                         )
                         Text(
                             text = "لمدة سنة",
                             color = greenDark,
-                            style = MaterialTheme.typography.body
+                            style = MaterialTheme.typography.body,
+                            fontSize = MaterialTheme.spacing.sp_12
                         )
                     }
 
@@ -208,7 +218,11 @@ fun FertilizerListItem(
                         onClick = { /*TODO*/ },
                         colors = ButtonDefaults.buttonColors(containerColor = greenDark),
                     ) {
-                        Text(text = stringResource(id = R.string.know_more))
+                        Text(
+                            text = stringResource(id = R.string.know_more),
+                            fontSize = MaterialTheme.spacing.sp_12,
+                            fontWeight = FontWeight.Bold,
+                        )
                     }
                 }
 
@@ -216,6 +230,8 @@ fun FertilizerListItem(
                 Text(
                     text = "هذه هى الكمية المطلوب بنائها و يتم تسميد الأرض باستخدام المنتجات المخصصة لذلك هذه هى الكمية المطلوب بنائها و يتم تسميد الأرض باستخدام المنتجات المخصصة لذلك",
                     style = MaterialTheme.typography.body,
+                    fontSize = MaterialTheme.spacing.sp_11,
+                    fontWeight = FontWeight.SemiBold,
                 )
             }
         }
@@ -255,6 +271,8 @@ fun LandSize(
                     text = stringResource(id = R.string.hectare),
                     color = greenLight,
                     textAlign = TextAlign.Center,
+                    fontSize = MaterialTheme.spacing.sp_14,
+                    fontWeight = FontWeight.Bold,
                 )
 
                 Surface(

@@ -28,7 +28,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.sp
 import androidx.core.os.LocaleListCompat
 import com.example.agrican.R
 import com.example.agrican.ui.navigation.NavigationDestination
@@ -69,14 +68,14 @@ fun WelcomeScreen(
             // Welcome Text
             Text(
                 text = "Welcome to Agrican",
-                fontWeight = FontWeight(700),
-                fontSize = 25.sp,
+                fontSize = MaterialTheme.spacing.sp_30,
+                fontWeight = FontWeight.ExtraBold,
                 style = MaterialTheme.typography.body
             )
             Text(
                 text = "أهلا بك فى أجريكان",
-                fontWeight = FontWeight(700),
-                fontSize = 30.sp,
+                fontSize = MaterialTheme.spacing.sp_25,
+                fontWeight = FontWeight.ExtraBold,
                 style = MaterialTheme.typography.body,
                 modifier = Modifier.padding(MaterialTheme.spacing.small)
             )
@@ -92,6 +91,8 @@ fun WelcomeScreen(
                             text = "English",
                             textAlign = TextAlign.Center,
                             color = greenLight,
+                            fontSize = MaterialTheme.spacing.sp_16,
+                            fontWeight = FontWeight.Bold,
                             modifier = Modifier.fillMaxWidth()
                         )
                     },
@@ -110,6 +111,8 @@ fun WelcomeScreen(
                             text = "العربية",
                             textAlign = TextAlign.Center,
                             color = greenLight,
+                            fontSize = MaterialTheme.spacing.sp_16,
+                            fontWeight = FontWeight.Bold,
                             modifier = Modifier.fillMaxWidth()
                         )
                     },
@@ -136,7 +139,11 @@ fun WelcomeScreen(
                     modifier = Modifier
                         .padding(MaterialTheme.spacing.medium)
                 ) {
-                    Text(text = "متابعة")
+                    Text(
+                        text = "متابعة",
+                        fontSize = MaterialTheme.spacing.sp_15,
+                        fontWeight = FontWeight.Bold,
+                    )
                 }
             }
         }

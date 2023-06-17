@@ -24,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import com.example.agrican.R
 import com.example.agrican.ui.theme.black
 import com.example.agrican.ui.theme.body
@@ -70,6 +71,7 @@ fun DiseaseHeader(
                     text = diseaseName,
                     color = white,
                     style = MaterialTheme.typography.body,
+                    fontSize = MaterialTheme.spacing.sp_16,
                     modifier = Modifier.weight(1f)
                 )
 
@@ -83,7 +85,8 @@ fun DiseaseHeader(
                         Text(
                             text = stringResource(id = buttonText),
                             color = greenDark,
-                            style = MaterialTheme.typography.body
+                            style = MaterialTheme.typography.body,
+                            fontSize = MaterialTheme.spacing.sp_14
                         )
                         Spacer(modifier = Modifier.weight(1f))
                         Icon(
@@ -107,6 +110,7 @@ fun MainLabel(
         text = stringResource(id = text),
         color = greenDark,
         style = MaterialTheme.typography.title,
+        fontSize = MaterialTheme.spacing.sp_14,
         modifier = modifier
     )
 }
@@ -130,7 +134,8 @@ fun DescriptionLabel(
             Text(
                 text = it,
                 color = black,
-                style = MaterialTheme.typography.body
+                style = MaterialTheme.typography.body,
+                fontWeight = FontWeight.SemiBold
             )
         }
     }

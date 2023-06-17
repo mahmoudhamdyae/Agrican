@@ -24,9 +24,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.agrican.R
 import com.example.agrican.ui.theme.black
+import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.spacing
 import com.example.agrican.ui.theme.textGray
@@ -56,6 +58,9 @@ fun DropDown(
                     Text(
                         text = stringResource(id = selectedOption),
                         color = textColor,
+                        fontSize = MaterialTheme.spacing.sp_11,
+                        fontWeight = FontWeight.SemiBold,
+                        style = MaterialTheme.typography.body,
                         modifier = Modifier.padding(start = MaterialTheme.spacing.small)
                     )
                     Spacer(modifier = Modifier.weight(1f))
@@ -119,6 +124,8 @@ fun DateDropDown(
                         text = if (selectedOption2 == options[0]) stringResource(id = selectedOption2)
                             else selectedOption2.toString(),
                         color = textGray,
+                        fontSize = MaterialTheme.spacing.sp_10,
+                        fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(start = MaterialTheme.spacing.small)
                     )
                     Spacer(modifier = Modifier.weight(1f))

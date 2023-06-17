@@ -29,6 +29,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.agrican.R
@@ -111,6 +112,8 @@ fun OnboardingScreen(
             Text(
                 text = stringResource(id = R.string.onboarding_button),
                 color = greenLight,
+                fontSize = MaterialTheme.spacing.sp_15,
+                fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
             )
         }
@@ -137,6 +140,8 @@ fun OnBoardingItem(
             text = stringResource(id = item.text),
             textAlign = TextAlign.Center,
             color = black,
+            fontSize = MaterialTheme.spacing.sp_20,
+            fontWeight = FontWeight.Bold,
             style = MaterialTheme.typography.title,
             modifier = Modifier.padding(MaterialTheme.spacing.medium)
         )

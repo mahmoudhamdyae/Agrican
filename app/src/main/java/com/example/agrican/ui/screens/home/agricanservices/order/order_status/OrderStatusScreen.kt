@@ -25,6 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -75,6 +76,7 @@ fun OrderStatusScreenContent(
             text = stringResource(id = R.string.order_status),
             color = greenLight,
             style = MaterialTheme.typography.title,
+            fontSize = MaterialTheme.spacing.sp_15,
         )
 
         Divider(
@@ -98,6 +100,7 @@ fun EmptyView(
         Text(
             text = stringResource(id = R.string.empty_orders),
             style = MaterialTheme.typography.title,
+            fontSize = MaterialTheme.spacing.sp_14
         )
     }
 }
@@ -140,7 +143,9 @@ fun OrdersListItem(
                         Text(
                             text = order.name,
                             color = textGray,
-                            style = MaterialTheme.typography.title
+                            style = MaterialTheme.typography.title,
+                            fontSize = MaterialTheme.spacing.sp_17,
+                            fontWeight = FontWeight.SemiBold,
                         )
                         Spacer(modifier = Modifier.weight(1f))
                         Surface(
@@ -152,6 +157,7 @@ fun OrdersListItem(
                                 text = order.t,
                                 color = greenDark,
                                 style = MaterialTheme.typography.body,
+                                fontSize = MaterialTheme.spacing.sp_10,
                                 modifier = Modifier.padding(horizontal = MaterialTheme.spacing.small)
                             )
                         }
@@ -161,12 +167,15 @@ fun OrdersListItem(
                     // Order Price
                     Text(
                         text = "السعر ${order.price} جنيهاً",
-                        style = MaterialTheme.typography.body
+                        style = MaterialTheme.typography.body,
+                        fontSize = MaterialTheme.spacing.sp_14,
+                        fontWeight = FontWeight.Normal,
                     )
                     // Order Description
                     Text(
                         text = order.description,
                         style = MaterialTheme.typography.body,
+                        fontWeight = FontWeight.SemiBold,
                     )
                 }
 

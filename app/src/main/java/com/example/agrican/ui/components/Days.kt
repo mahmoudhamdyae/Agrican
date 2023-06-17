@@ -11,6 +11,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
@@ -58,6 +59,8 @@ fun DayItem(
         Text(
             text = day.toString(),
             color = if (selected) white else greenDark,
+            fontSize = MaterialTheme.spacing.sp_15,
+            fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(
                 vertical = MaterialTheme.spacing.extraSmall,
                 horizontal = MaterialTheme.spacing.small

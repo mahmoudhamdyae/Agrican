@@ -16,7 +16,6 @@ import androidx.compose.material.icons.filled.Pause
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -31,12 +30,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import coil.compose.AsyncImage
 import com.example.agrican.R
 import com.example.agrican.common.ext.decodeImage
 import com.example.agrican.domain.model.Message
 import com.example.agrican.domain.model.MessageType
 import com.example.agrican.ui.screens.home.main.ask_expert.playback.AndroidAudioPlayer
+import com.example.agrican.ui.theme.black
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.spacing
@@ -127,7 +128,9 @@ fun TextMessage(
 ) {
     Text(
         text = messageBody,
-        style = MaterialTheme.typography.bodyLarge.copy(color = LocalContentColor.current),
+        fontSize = MaterialTheme.spacing.sp_11,
+        fontWeight = FontWeight.Bold,
+        color = black,
         modifier = modifier,
     )
 }

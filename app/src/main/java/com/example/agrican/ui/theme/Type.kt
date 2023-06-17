@@ -1,12 +1,12 @@
 package com.example.agrican.ui.theme
 
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.sp
 import com.example.agrican.R
 
 val cairoFontFamily = FontFamily(
@@ -25,7 +25,7 @@ val Typography.title: TextStyle
     get() {
         return  TextStyle(
             fontFamily = cairoFontFamily,
-            fontSize = 18.sp,
+            fontSize = MaterialTheme.spacing.sp_18,
             fontWeight = FontWeight.Bold,
             color = greenDark
         )
@@ -36,8 +36,8 @@ val Typography.body: TextStyle
     get() {
         return  TextStyle(
             fontFamily = cairoFontFamily,
-            fontSize = 12.sp,
-            fontWeight = FontWeight.SemiBold,
+            fontSize = MaterialTheme.spacing.sp_12,
+            fontWeight = FontWeight.Bold,
             color = textGray
         )
     }

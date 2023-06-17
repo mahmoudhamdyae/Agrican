@@ -91,7 +91,8 @@ fun ObserveCropScreenContent(
 
         Text(
             text = stringResource(id = R.string.tasks),
-            style = MaterialTheme.typography.title
+            style = MaterialTheme.typography.title,
+            fontSize = MaterialTheme.spacing.sp_16
         )
         Divider()
 
@@ -126,6 +127,7 @@ fun CropSurface(
                 text = crop.name,
                 color = white,
                 style = MaterialTheme.typography.title,
+                fontSize = MaterialTheme.spacing.sp_16
             )
 
             Row(modifier = Modifier.align(Alignment.End)) {
@@ -133,9 +135,15 @@ fun CropSurface(
                     text = stringResource(id = R.string.agri_history),
                     color = white,
                     style = MaterialTheme.typography.body,
+                    fontSize = MaterialTheme.spacing.sp_14,
                     modifier = Modifier.padding(end = MaterialTheme.spacing.small)
                 )
-                Text(text = crop.date, color = white)
+                Text(
+                    text = crop.date,
+                    color = white,
+                    style = MaterialTheme.typography.body,
+                    fontSize = MaterialTheme.spacing.sp_14
+                )
             }
         }
     }
@@ -155,13 +163,15 @@ fun AddTakSurface(
             // Add Task Label
             Text(
                 text = stringResource(id = R.string.add_task),
-                style = MaterialTheme.typography.title
+                style = MaterialTheme.typography.title,
+                fontSize = MaterialTheme.spacing.sp_16
             )
 
             Text(
                 text = stringResource(id = R.string.add_task_description),
                 color = greenDark,
-                style = MaterialTheme.typography.body
+                style = MaterialTheme.typography.body,
+                fontSize = MaterialTheme.spacing.sp_10
             )
 
             IconButton(
@@ -209,7 +219,8 @@ fun ExpandableItem(
                 Text(
                     text = stringResource(id = label),
                     color = white,
-                    style = MaterialTheme.typography.body
+                    style = MaterialTheme.typography.body,
+                    fontSize = MaterialTheme.spacing.sp_14
                 )
 
                 Spacer(modifier = Modifier.weight(1f))

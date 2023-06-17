@@ -41,6 +41,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
@@ -105,6 +106,7 @@ fun JoinAsExpertScreen(
                     textAlign = TextAlign.Center,
                     color = white,
                     style = MaterialTheme.typography.body,
+                    fontSize = MaterialTheme.spacing.sp_16,
                     modifier = Modifier.padding(
                         horizontal = MaterialTheme.spacing.medium,
                         vertical = MaterialTheme.spacing.extraLarge
@@ -135,6 +137,7 @@ fun JoinAsExpertScreen(
         Text(
             text = stringResource(id = R.string.full_name),
             style = MaterialTheme.typography.body,
+            fontSize = MaterialTheme.spacing.sp_14
         )
         OutlinedTextField(
             value = fullName,
@@ -158,6 +161,7 @@ fun JoinAsExpertScreen(
         Text(
             text = stringResource(id = R.string.e_mail),
             style = MaterialTheme.typography.body,
+            fontSize = MaterialTheme.spacing.sp_14
         )
         OutlinedTextField(
             value = email,
@@ -181,6 +185,7 @@ fun JoinAsExpertScreen(
         Text(
             text = stringResource(id = R.string.phone_number),
             style = MaterialTheme.typography.body,
+            fontSize = MaterialTheme.spacing.sp_14
         )
         OutlinedTextField(
             value = phoneNumber,
@@ -204,6 +209,7 @@ fun JoinAsExpertScreen(
         Text(
             text = stringResource(id = R.string.image_of_certificate),
             style = MaterialTheme.typography.body,
+            fontSize = MaterialTheme.spacing.sp_14
         )
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -225,12 +231,14 @@ fun JoinAsExpertScreen(
                     Text(
                         text = stringResource(id = R.string.add_image),
                         color = greenLight,
+                        fontSize = MaterialTheme.spacing.sp_14,
+                        fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
                     )
 
                     Icon(
                         painter = painterResource(id = R.drawable.take_picture),
-                        contentDescription = null
+                        contentDescription = null,
                     )
                 }
             }
@@ -243,6 +251,8 @@ fun JoinAsExpertScreen(
             ) {
                 Text(
                     text = stringResource(id = R.string.send),
+                    fontSize = MaterialTheme.spacing.sp_15,
+                    fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(horizontal = MaterialTheme.spacing.large)
                 )
             }

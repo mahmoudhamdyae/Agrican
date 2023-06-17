@@ -58,6 +58,7 @@ fun CropsListItem(
             Text(
                 text = crop.name,
                 style = MaterialTheme.typography.body,
+                fontSize = MaterialTheme.spacing.sp_10,
                 modifier = Modifier.align(Alignment.BottomCenter)
             )
         }

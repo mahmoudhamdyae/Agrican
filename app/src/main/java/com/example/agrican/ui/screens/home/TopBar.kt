@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.agrican.R
 import com.example.agrican.ui.theme.greenDark
@@ -57,6 +58,8 @@ fun TopBar(
                                 Text(
                                     text = "ico",
                                     color = white,
+                                    fontSize = MaterialTheme.spacing.sp_18,
+                                    fontWeight = FontWeight.Bold,
                                     modifier = Modifier.padding(MaterialTheme.spacing.small)
                                 )
                             }

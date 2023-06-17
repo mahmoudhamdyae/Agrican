@@ -27,6 +27,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
@@ -137,6 +138,8 @@ fun LoginScreenContent(
                 Text(
                     text = stringResource(id = R.string.forgot_password_text),
                     style = MaterialTheme.typography.body,
+                    fontSize = MaterialTheme.spacing.sp_10,
+                    fontWeight = FontWeight.SemiBold,
                     modifier = Modifier.padding(end = MaterialTheme.spacing.small)
                 )
                 Text(
@@ -144,6 +147,8 @@ fun LoginScreenContent(
                     textDecoration = TextDecoration.Underline,
                     color = Color.Blue,
                     style = MaterialTheme.typography.body,
+                    fontSize = MaterialTheme.spacing.sp_10,
+                    fontWeight = FontWeight.SemiBold,
                     modifier = Modifier.clickable { onEvent(AuthFormEvent.ForgotPassword) }
                 )
             }
@@ -182,6 +187,8 @@ fun LoginScreenContent(
                 Text(
                     text = stringResource(id = R.string.new_user_text),
                     style = MaterialTheme.typography.body,
+                    fontSize = MaterialTheme.spacing.sp_10,
+                    fontWeight = FontWeight.SemiBold,
                     modifier = Modifier.padding(MaterialTheme.spacing.small)
                 )
                 OutlinedButton(
@@ -192,7 +199,9 @@ fun LoginScreenContent(
                 ) {
                     Text(
                         text = stringResource(id = R.string.signup_button),
-                        color = greenDark
+                        color = greenDark,
+                        fontSize = MaterialTheme.spacing.sp_15,
+                        fontWeight = FontWeight.Bold,
                     )
                 }
             }

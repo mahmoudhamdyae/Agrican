@@ -34,9 +34,9 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
@@ -133,12 +133,14 @@ fun ProblemImageScreenContent(
         Text(
             text = stringResource(id = R.string.choose_plant_type),
             style = MaterialTheme.typography.title,
+            fontSize = MaterialTheme.spacing.sp_14,
             modifier = Modifier.padding(start = MaterialTheme.spacing.medium)
         )
         CropsList(crops = uiState.crops, setSelectedCrop = { updateSelectedCrop(it) })
         Text(
             text = stringResource(id = R.string.choose_problem_image_way),
             style = MaterialTheme.typography.title,
+            fontSize = MaterialTheme.spacing.sp_14,
             modifier = Modifier.padding(start = MaterialTheme.spacing.medium)
         )
         Row(modifier = Modifier.fillMaxWidth()) {
@@ -172,6 +174,8 @@ fun ProblemImageScreenContent(
                 Text(
                     text = stringResource(id = R.string.start_searching),
                     textAlign = TextAlign.Center,
+                    fontSize = MaterialTheme.spacing.sp_14,
+                    fontWeight = FontWeight.Bold,
                 )
             }
             ImageView(image = uiState.image1)
@@ -189,7 +193,8 @@ fun ProblemImageScreenContent(
             Text(
                 text = stringResource(id = R.string.advices_label),
                 color = white,
-                fontSize = 24.sp,
+                fontSize = MaterialTheme.spacing.sp_25,
+                fontWeight = FontWeight.Bold,
                 modifier = Modifier
                     .align(Alignment.BottomStart)
                     .padding(MaterialTheme.spacing.medium)
@@ -200,6 +205,8 @@ fun ProblemImageScreenContent(
         Text(
             text = stringResource(id = R.string.advices),
             style = MaterialTheme.typography.body,
+            fontSize = MaterialTheme.spacing.sp_14,
+            fontWeight = FontWeight.SemiBold,
             modifier = Modifier.padding(start = MaterialTheme.spacing.medium)
         )
     }
@@ -236,6 +243,7 @@ fun WayChoose(
                 text = stringResource(id = text),
                 color = greenDark,
                 style = MaterialTheme.typography.body,
+                fontSize = MaterialTheme.spacing.sp_16
             )
         }
     }

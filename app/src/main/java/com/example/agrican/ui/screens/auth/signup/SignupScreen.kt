@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -146,6 +147,7 @@ fun AccountType(
                 Text(
                     text = stringResource(id = R.string.create_new_user),
                     style = MaterialTheme.typography.title,
+                    fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(
                         vertical = MaterialTheme.spacing.small,
                         horizontal = MaterialTheme.spacing.medium
@@ -157,6 +159,8 @@ fun AccountType(
                 text = stringResource(id = R.string.choose_user_account),
                 color = greenDark,
                 style = MaterialTheme.typography.body,
+                fontSize = MaterialTheme.spacing.sp_14,
+                fontWeight = FontWeight.Bold,
             )
         }
 
@@ -200,6 +204,8 @@ fun AccountTypeItem(
         ) {
             Text(
                 text = stringResource(id = accountType.title),
+                fontSize = MaterialTheme.spacing.sp_16,
+                fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(horizontal = MaterialTheme.spacing.small)
             )
         }
@@ -208,6 +214,7 @@ fun AccountTypeItem(
             textAlign = TextAlign.Center,
             color = greenDark,
             style = MaterialTheme.typography.body,
+            fontWeight = FontWeight.SemiBold,
             modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
         )
     }
@@ -234,6 +241,9 @@ fun Signup(
             Text(
                 text = stringResource(id = accountType.title),
                 color = white,
+                style = MaterialTheme.typography.body,
+                fontSize = MaterialTheme.spacing.sp_18,
+                fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(
                     vertical = MaterialTheme.spacing.small,
                     horizontal = MaterialTheme.spacing.large
@@ -290,6 +300,8 @@ fun Signup(
         ) {
             Text(
                 text = stringResource(id = R.string.signup_button),
+                fontSize = MaterialTheme.spacing.sp_15,
+                fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
             )
         }

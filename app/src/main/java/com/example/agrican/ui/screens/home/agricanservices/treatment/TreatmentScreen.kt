@@ -14,6 +14,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -71,6 +72,7 @@ fun TreatmentScreenContent(
             text = stringResource(id = R.string.choose_crop),
             color = greenLight,
             style = MaterialTheme.typography.title,
+            fontSize = MaterialTheme.spacing.sp_16,
             modifier = Modifier.padding(MaterialTheme.spacing.medium)
         )
 
@@ -88,6 +90,8 @@ fun TreatmentScreenContent(
         ) {
             Text(
                 text = stringResource(id = R.string.continue_button),
+                fontSize = MaterialTheme.spacing.sp_15,
+                fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
             )
         }

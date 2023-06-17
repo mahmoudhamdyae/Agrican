@@ -29,6 +29,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -81,7 +82,8 @@ fun SelectedCropScreenContent(
     ) {
         Text(
             text = stringResource(id = R.string.selected_crop),
-            color = greenDark
+            style = MaterialTheme.typography.title,
+            fontSize = MaterialTheme.spacing.sp_16
         )
 
         Row(horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)) {
@@ -96,6 +98,8 @@ fun SelectedCropScreenContent(
                         text = "الأرز",
                         color = greenDark,
                         textAlign = TextAlign.Center,
+                        fontSize = MaterialTheme.spacing.sp_14,
+                        fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(
                             horizontal = MaterialTheme.spacing.medium,
                             vertical = MaterialTheme.spacing.small
@@ -111,6 +115,8 @@ fun SelectedCropScreenContent(
                 ) {
                     Text(
                         text = stringResource(id = R.string.configure),
+                        fontSize = MaterialTheme.spacing.sp_14,
+                        fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
                     )
                 }
@@ -121,13 +127,16 @@ fun SelectedCropScreenContent(
         Text(
             text = stringResource(id = R.string.choose_disease_type),
             style = MaterialTheme.typography.title,
+            fontSize = MaterialTheme.spacing.sp_16
         )
 
         // Choose Disease Type Drop Down
-        DropDown(options = listOf(
-            DiseaseType.INSECTS.title
-        ),
+        DropDown(
+            options = listOf(
+                DiseaseType.INSECTS.title
+            ),
             onSelect = updateDiseaseType,
+            textColor = greenDark,
             modifier = Modifier.width(MaterialTheme.spacing.dp_150).height(MaterialTheme.spacing.large)
         )
 
@@ -139,7 +148,11 @@ fun SelectedCropScreenContent(
                       },
             colors = ButtonDefaults.buttonColors(containerColor = greenDark),
         ) {
-            Text(text = stringResource(id = R.string.show_treatment_button))
+            Text(
+                text = stringResource(id = R.string.show_treatment_button),
+                fontSize = MaterialTheme.spacing.sp_15,
+                fontWeight = FontWeight.Bold,
+            )
         }
 
         if (isTreatmentShown) {
@@ -210,7 +223,7 @@ fun TreatmentListItem(
                     // Treatment Name
                     Text(
                         text = treatment.name,
-                        style = MaterialTheme.typography.title,
+                        style = MaterialTheme.typography.title
                     )
                     Spacer(modifier = Modifier.weight(1f))
                     // Know More Button
@@ -218,7 +231,11 @@ fun TreatmentListItem(
                         onClick = { /*TODO*/ },
                         colors = ButtonDefaults.buttonColors(containerColor = greenDark),
                     ) {
-                        Text(text = stringResource(id = R.string.know_more))
+                        Text(
+                            text = stringResource(id = R.string.know_more),
+                            fontSize = MaterialTheme.spacing.sp_12,
+                            fontWeight = FontWeight.Bold,
+                        )
                     }
                 }
 
@@ -226,6 +243,7 @@ fun TreatmentListItem(
                 Text(
                     text = treatment.description,
                     style = MaterialTheme.typography.body,
+                    fontWeight = FontWeight.SemiBold
                 )
             }
         }

@@ -156,9 +156,10 @@ fun Card(
             // Card Title
             Text(
                 text = stringResource(id = title),
-                fontWeight = FontWeight.Bold,
                 color = secondaryColor,
-                style = MaterialTheme.typography.title
+                style = MaterialTheme.typography.title,
+                fontSize = MaterialTheme.spacing.sp_16,
+                fontWeight = FontWeight.Bold,
             )
 
             // Card Description
@@ -166,6 +167,8 @@ fun Card(
                 text = stringResource(id = description),
                 color = if (isPrimaryMain) white else textGray,
                 style = MaterialTheme.typography.body,
+                fontSize = MaterialTheme.spacing.sp_16,
+                fontWeight = FontWeight.Bold,
             )
 
             Spacer(modifier = Modifier.height(MaterialTheme.spacing.small))

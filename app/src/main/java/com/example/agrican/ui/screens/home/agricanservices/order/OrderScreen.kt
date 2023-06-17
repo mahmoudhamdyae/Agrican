@@ -17,6 +17,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.agrican.R
 import com.example.agrican.ui.components.BackButton
@@ -53,6 +54,8 @@ fun OrderScreen(
             ) {
                 Text(
                     text = stringResource(id = R.string.order_status),
+                    fontSize = MaterialTheme.spacing.sp_14,
+                    fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(MaterialTheme.spacing.medium)
                 )
             }
@@ -68,6 +71,8 @@ fun OrderScreen(
             ) {
                 Text(
                     text = stringResource(id = R.string.new_order),
+                    fontSize = MaterialTheme.spacing.sp_14,
+                    fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(MaterialTheme.spacing.medium)
                 )
             }

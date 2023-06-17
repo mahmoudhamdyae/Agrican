@@ -40,6 +40,7 @@ import androidx.compose.ui.graphics.Color.Companion.Red
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -115,6 +116,7 @@ fun DefaultAgeScreenContent(
         Text(
             text = stringResource(id = R.string.harvest_date),
             style = MaterialTheme.typography.title,
+            fontSize = MaterialTheme.spacing.sp_16,
             modifier = Modifier.padding(MaterialTheme.spacing.small)
         )
 
@@ -178,6 +180,7 @@ fun DefaultAgeScreenContent(
         Text(
             text = stringResource(id = R.string.crop_choose),
             style = MaterialTheme.typography.title,
+            fontSize = MaterialTheme.spacing.sp_16,
             modifier = Modifier.padding(MaterialTheme.spacing.small)
         )
 
@@ -187,6 +190,7 @@ fun DefaultAgeScreenContent(
         Text(
             text = stringResource(id = R.string.crop_quality),
             style = MaterialTheme.typography.title,
+            fontSize = MaterialTheme.spacing.sp_16,
             modifier = Modifier.padding(MaterialTheme.spacing.small)
         )
 
@@ -220,6 +224,7 @@ fun DefaultAgeScreenContent(
         ) {
             Text(
                 text = stringResource(id = R.string.get_results),
+                fontSize = MaterialTheme.spacing.sp_15,
                 modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
             )
         }
@@ -251,12 +256,14 @@ fun DefaultAgeResponse(
         Text(
             text = stringResource(id = R.string.default_age_title),
             style = MaterialTheme.typography.body,
+            fontSize = MaterialTheme.spacing.sp_14,
         )
 
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(
                 text = stringResource(id = R.string.danger_degree),
                 style = MaterialTheme.typography.body,
+                fontSize = MaterialTheme.spacing.sp_14,
                 modifier = Modifier.padding(MaterialTheme.spacing.small)
             )
 
@@ -272,6 +279,7 @@ fun DefaultAgeResponse(
         Text(
             text = dangerAdvice,
             style = MaterialTheme.typography.body,
+            fontSize = MaterialTheme.spacing.sp_11
         )
     }
 }
@@ -309,6 +317,9 @@ fun CircularProgress(
         // Progress Label
         Text(
             text = "${percent.toInt()}%",
+            style = MaterialTheme.typography.body,
+            fontSize = MaterialTheme.spacing.sp_32,
+            fontWeight = FontWeight.SemiBold,
             modifier = Modifier.Companion.align(Alignment.Center)
         )
     }
