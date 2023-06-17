@@ -76,7 +76,7 @@ fun FertilizersCalculatorScreenContent(
     calculateFertilizers: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    var selected by rememberSaveable { mutableStateOf(0) }
+    var selected by rememberSaveable { mutableStateOf(1) }
     val units = listOf(
         MeasureUnit.ACRE,
         MeasureUnit.HECTARE,
@@ -220,8 +220,7 @@ fun FertilizerListItem(
                     ) {
                         Text(
                             text = stringResource(id = R.string.know_more),
-                            fontSize = MaterialTheme.spacing.sp_12,
-                            fontWeight = FontWeight.Bold,
+                            fontSize = MaterialTheme.spacing.sp_12
                         )
                     }
                 }

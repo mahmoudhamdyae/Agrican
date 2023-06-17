@@ -20,6 +20,24 @@ val cairoFontFamily = FontFamily(
     Font(R.font.cairo_semibold, weight = FontWeight.SemiBold)
 )
 
+val typography = Typography(
+    displayLarge = TextStyle(fontFamily = cairoFontFamily, fontWeight = FontWeight.Bold),
+    displayMedium = TextStyle(fontFamily = cairoFontFamily, fontWeight = FontWeight.Bold),
+    displaySmall = TextStyle(fontFamily = cairoFontFamily, fontWeight = FontWeight.Bold),
+    headlineLarge = TextStyle(fontFamily = cairoFontFamily, fontWeight = FontWeight.Bold),
+    headlineMedium = TextStyle(fontFamily = cairoFontFamily, fontWeight = FontWeight.Bold),
+    headlineSmall = TextStyle(fontFamily = cairoFontFamily, fontWeight = FontWeight.Bold),
+    titleLarge = TextStyle(fontFamily = cairoFontFamily, fontWeight = FontWeight.Bold),
+    titleMedium = TextStyle(fontFamily = cairoFontFamily, fontWeight = FontWeight.Bold),
+    titleSmall = TextStyle(fontFamily = cairoFontFamily, fontWeight = FontWeight.Bold),
+    bodyLarge = TextStyle(fontFamily = cairoFontFamily, fontWeight = FontWeight.Bold),
+    bodyMedium = TextStyle(fontFamily = cairoFontFamily, fontWeight = FontWeight.Bold),
+    bodySmall = TextStyle(fontFamily = cairoFontFamily, fontWeight = FontWeight.Bold),
+    labelLarge = TextStyle(fontFamily = cairoFontFamily, fontWeight = FontWeight.Bold),
+    labelMedium = TextStyle(fontFamily = cairoFontFamily, fontWeight = FontWeight.Bold),
+    labelSmall = TextStyle(fontFamily = cairoFontFamily, fontWeight = FontWeight.Bold),
+)
+
 val Typography.title: TextStyle
     @Composable
     get() {

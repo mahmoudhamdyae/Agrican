@@ -5,7 +5,7 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 
-private val LightColorScheme = lightColorScheme(
+private val colorScheme = lightColorScheme(
     primary = md_theme_light_primary,
     onPrimary = md_theme_light_onPrimary,
     primaryContainer = md_theme_light_primaryContainer,
@@ -45,7 +45,8 @@ fun AgricanTheme(
         LocalSpacing provides Spacing()
     ) {
         MaterialTheme(
-            colorScheme = LightColorScheme,
+            colorScheme = colorScheme,
+            typography = typography,
             content = content
         )
     }

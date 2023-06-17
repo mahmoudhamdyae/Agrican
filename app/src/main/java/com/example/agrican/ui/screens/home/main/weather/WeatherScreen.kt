@@ -29,6 +29,7 @@ import com.example.agrican.R
 import com.example.agrican.domain.model.Weather
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.body
+import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.spacing
 import com.example.agrican.ui.theme.white
@@ -67,20 +68,20 @@ fun WeatherScreenContent(
             Icon(
                 painter = painterResource(id = R.drawable.sunny),
                 contentDescription = null,
-                tint = greenLight,
+                tint = greenDark,
                 modifier = Modifier.size(MaterialTheme.spacing.extraLarge)
             )
             // Weather Degree
             Text(
                 text = "${weather.degree.toInt()}°",
-                color = greenLight,
+                color = greenDark,
                 fontSize = MaterialTheme.spacing.sp_62,
                 fontWeight = FontWeight.SemiBold,
             )
         }
         Text(
             text = weather.weatherDescription,
-            color = greenLight,
+            color = greenDark,
             style = MaterialTheme.typography.body,
             fontSize = MaterialTheme.spacing.sp_14,
             fontWeight = FontWeight.Bold,

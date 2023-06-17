@@ -93,7 +93,7 @@ fun PestListItem(
                 text = pest.title,
                 color = white,
                 style = MaterialTheme.typography.body,
-                fontSize = MaterialTheme.spacing.sp_14,
+                fontSize = MaterialTheme.spacing.sp_14  ,
                 modifier = Modifier
                     .align(Alignment.BottomStart)
                     .padding(MaterialTheme.spacing.small)

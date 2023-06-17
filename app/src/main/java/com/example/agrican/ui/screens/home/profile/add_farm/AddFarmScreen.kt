@@ -36,6 +36,7 @@ import com.example.agrican.ui.components.ProfileHeader
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.spacing
+import com.example.agrican.ui.theme.textGray
 
 object AddFarmDestination: NavigationDestination {
     override val route: String = "add_farm"
@@ -110,10 +111,12 @@ fun AddFarmScreenContent(
                 modifier = Modifier.weight(1f)
             )
             Spacer(modifier = Modifier.width(MaterialTheme.spacing.small))
-            DropDown(options = listOf(
-                SizeUnit.SQUARE_KILOMETER.title
-            ),
+            DropDown(
+                options = listOf(
+                    SizeUnit.SQUARE_KILOMETER.title
+                ),
                 onSelect = { updateSizeUnit(it) },
+                textColor = textGray,
                 modifier = Modifier
                     .width(MaterialTheme.spacing.dp_130)
                     .fillMaxHeight()

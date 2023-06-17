@@ -30,6 +30,7 @@ import com.example.agrican.R
 import com.example.agrican.ui.theme.black
 import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.gray
+import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.spacing
 import com.example.agrican.ui.theme.textGray
 
@@ -125,7 +126,6 @@ fun DateDropDown(
                             else selectedOption2.toString(),
                         color = textGray,
                         fontSize = MaterialTheme.spacing.sp_10,
-                        fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(start = MaterialTheme.spacing.small)
                     )
                     Spacer(modifier = Modifier.weight(1f))
@@ -168,5 +168,5 @@ fun DateDropDown(
 @Preview(showBackground = true)
 @Composable
 fun BasicDropDownPreview() {
-    DropDown(options = listOf(R.string.place), onSelect = { }, modifier = Modifier.fillMaxSize())
+    DropDown(options = listOf(R.string.place), onSelect = { }, modifier = Modifier.fillMaxSize(), greenDark)
 }

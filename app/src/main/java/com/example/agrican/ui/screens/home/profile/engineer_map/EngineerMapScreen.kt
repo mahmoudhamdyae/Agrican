@@ -76,7 +76,7 @@ fun EngineerMapScreen(
     }
 }
 
-@Preview(showBackground = true, showSystemUi = true)
+@Preview(showBackground = true)
 @Composable
 fun EngineerMapScreenPreview() {
     EngineerMapScreen()

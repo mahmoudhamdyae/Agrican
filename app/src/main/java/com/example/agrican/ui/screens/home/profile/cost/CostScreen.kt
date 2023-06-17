@@ -61,6 +61,7 @@ fun CostScreen(
             )
             Text(
                 text = stringResource(id = R.string.discount_code),
+                textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.body,
                 fontSize = MaterialTheme.spacing.sp_15,
                 modifier = Modifier.weight(1f)
@@ -163,6 +164,7 @@ fun CostRow(
         Text(
             text = costMonthly.toString(),
             style = MaterialTheme.typography.body,
+            textAlign = TextAlign.Center,
             fontSize = MaterialTheme.spacing.sp_15,
             modifier = Modifier.weight(1f)
         )

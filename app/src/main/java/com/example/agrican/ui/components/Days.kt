@@ -11,7 +11,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
@@ -60,7 +59,6 @@ fun DayItem(
             text = day.toString(),
             color = if (selected) white else greenDark,
             fontSize = MaterialTheme.spacing.sp_15,
-            fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(
                 vertical = MaterialTheme.spacing.extraSmall,
                 horizontal = MaterialTheme.spacing.small
@@ -69,7 +67,7 @@ fun DayItem(
     }
 }
 
-@Preview(showBackground = true, showSystemUi = true)
+@Preview(showBackground = true)
 @Composable
 fun DaysPreview() {
     Days(selectedDays = listOf(9, 12, 25), onDayClicked = { })

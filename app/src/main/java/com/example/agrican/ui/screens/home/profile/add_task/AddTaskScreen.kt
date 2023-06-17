@@ -20,7 +20,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -100,10 +99,12 @@ fun AddTaskScreenContent(
                 modifier = Modifier.weight(1f)
             )
 
-            DropDown(options = listOf(
-                R.string.add_task
-            ),
+            DropDown(
+                options = listOf(
+                    R.string.add_task
+                ),
                 onSelect = { /*TODO*/ },
+                textColor = greenDark,
                 modifier = Modifier.width(MaterialTheme.spacing.dp_130)
             )
         }
@@ -127,8 +128,7 @@ fun AddTaskScreenContent(
         ) {
             Text(
                 text = stringResource(id = R.string.add_task_button),
-                fontSize = MaterialTheme.spacing.sp_15,
-                fontWeight = FontWeight.Bold,
+                fontSize = MaterialTheme.spacing.sp_15
             )
         }
     }

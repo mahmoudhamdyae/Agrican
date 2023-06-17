@@ -444,7 +444,7 @@ fun ProfileScreenFarmerPreview() {
     ProfileScreenContent(uiState = fakeUiState.copy(currentUser = fakeUiState.currentUser.copy(userType = UserType.FARMER)), openScreen = { })
 }
 
-@Preview(showBackground = true, showSystemUi = true, name = "Engineer Users")
+@Preview(showBackground = true, name = "Engineer Users")
 @Composable
 fun ProfileScreenEngineerPreview() {
     ProfileScreenContent(uiState = fakeUiState, openScreen = { })

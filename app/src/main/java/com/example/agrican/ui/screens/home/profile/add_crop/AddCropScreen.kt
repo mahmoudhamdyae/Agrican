@@ -76,7 +76,7 @@ fun AddCropScreenContent(
             color = greenDark,
             style = MaterialTheme.typography.title,
             fontSize = MaterialTheme.spacing.sp_14,
-            modifier = Modifier.padding(start = MaterialTheme.spacing.medium)
+            modifier = Modifier.padding(start = MaterialTheme.spacing.small)
         )
 
         CropsList(crops = uiState.crops, setSelectedCrop = updateSelectedCrop)

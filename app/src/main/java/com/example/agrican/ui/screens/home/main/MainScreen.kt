@@ -187,8 +187,8 @@ fun WeatherBox(
                 Spacer(modifier = Modifier.weight(1f))
                 Text(
                     text = weather.firstInformation,
-                    fontSize = MaterialTheme.spacing.sp_11,
-                    fontWeight = FontWeight.Bold,
+                    style = MaterialTheme.typography.body,
+                    fontSize = MaterialTheme.spacing.sp_11
                 )
             }
 
@@ -248,7 +248,7 @@ fun WeatherBox(
                     modifier = Modifier.padding(MaterialTheme.spacing.extraSmall)
                 )
                 Text(
-                    text = "${weather.degree}°",
+                    text = "${weather.degree.toInt()}°",
                     color = greenDark,
                     fontSize = MaterialTheme.spacing.sp_30,
                     fontWeight = FontWeight.SemiBold,
