@@ -94,7 +94,8 @@ fun HomeScreen(
             .fillMaxSize()
             .padding(
                 top = contentPadding.calculateTopPadding(), bottom = MaterialTheme.spacing.default
-            )) {
+            )
+        ) {
             when (selectedItem) {
                 0 -> {
                     MainGraph(

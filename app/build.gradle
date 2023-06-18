@@ -117,7 +117,6 @@ dependencies {
     implementation 'com.amplifyframework:aws-auth-cognito:2.8.4'
 
     // Date Time
-    implementation "io.github.vanpra.compose-material-dialogs:datetime:0.9.0"
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.3'
 }
 
