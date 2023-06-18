@@ -38,7 +38,7 @@ class NewOrderViewModel @Inject constructor(
         notes: String,
     ) {
         launchCatching { 
-            useCase.orderNewProduct(
+            useCase.orderNewProductUseCase(
                 productType= _uiState.value.productType,
                 productName= productName,
                 quantity = quantity.toInt(),

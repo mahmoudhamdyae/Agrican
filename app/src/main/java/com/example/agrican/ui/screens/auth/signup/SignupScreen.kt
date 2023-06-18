@@ -161,9 +161,7 @@ fun AccountType(
                 fontSize = MaterialTheme.spacing.sp_14,
                 fontWeight = FontWeight.Bold,
             )
-        }
 
-        Column {
             // Farmer
             AccountTypeItem(
                 setAccountType = setAccountType,

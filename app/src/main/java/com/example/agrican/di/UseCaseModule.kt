@@ -23,7 +23,7 @@ import com.example.agrican.domain.use_case.GetPests
 import com.example.agrican.domain.use_case.GetTreatmentsUseCase
 import com.example.agrican.domain.use_case.GetWeatherUseCase
 import com.example.agrican.domain.use_case.JoinUsUseCase
-import com.example.agrican.domain.use_case.OrderNewProduct
+import com.example.agrican.domain.use_case.OrderNewProductUseCase
 import com.example.agrican.domain.use_case.SearchUseCase
 import com.example.agrican.domain.use_case.SendMessageUseCase
 import com.example.agrican.domain.use_case.auth.ForgotPasswordUseCase
@@ -82,7 +82,7 @@ object UseCaseModule {
             getDefaultAgeUseCase = GetDefaultAgeUseCase(mainRepository),
             getOrdersUseCase = GetOrdersUseCase(mainRepository),
             getOrderUseCase = GetOrderUseCase(mainRepository),
-            orderNewProduct = OrderNewProduct(mainRepository),
+            orderNewProductUseCase = OrderNewProductUseCase(mainRepository),
             getTreatmentsUseCase = GetTreatmentsUseCase(mainRepository),
             joinUsUseCase = JoinUsUseCase(mainRepository),
 

@@ -5,7 +5,7 @@ import com.example.agrican.common.enums.Quantity
 import com.example.agrican.domain.repository.MainRepository
 import javax.inject.Inject
 
-class OrderNewProduct @Inject constructor(
+class OrderNewProductUseCase @Inject constructor(
     private val mainRepository: MainRepository
 ) {
 

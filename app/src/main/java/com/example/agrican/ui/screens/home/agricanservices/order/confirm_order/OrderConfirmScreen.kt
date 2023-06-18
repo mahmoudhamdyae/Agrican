@@ -143,6 +143,7 @@ fun OrderConfirmScreenContent(
             modifier = Modifier.fillMaxWidth()
         ) {
             Row(
+                verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
                 modifier = Modifier.padding(MaterialTheme.spacing.medium)
             ) {
