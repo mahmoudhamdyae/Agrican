@@ -51,8 +51,14 @@ class SignupViewModel @Inject constructor(
             is AuthFormEvent.EmailChanged -> {
                 state = state.copy(email = event.email)
             }
+            is AuthFormEvent.ConfirmCodeChanged -> {
+                state = state.copy(confirmCode = event.code)
+            }
             is AuthFormEvent.Submit -> {
                 submitData()
+            }
+            is AuthFormEvent.ConfirmSignUp -> {
+                submitConfirmSignUp()
             }
             else -> {
                 throw Exception("Unknown event")
@@ -88,7 +94,21 @@ class SignupViewModel @Inject constructor(
             return
         }
         launchCatching {
-            validationEventChannel.send(ValidationEvent.Success)
+            validationEventChannel.send(ValidationEvent.AuthSuccess)
+        }
+    }
+
+    private fun submitConfirmSignUp() {
+        val codeResult = useCase.validateConfirmSignUpCode(state.confirmCode)
+
+        val hasError = !codeResult.successful
+
+        if (hasError) {
+            state = state.copy(confirmCodeError = codeResult.errorMessage)
+            return
+        }
+        launchCatching {
+            validationEventChannel.send(ValidationEvent.ConfirmSignUpSuccess)
         }
     }
 
@@ -99,17 +119,29 @@ class SignupViewModel @Inject constructor(
             repeatedPasswordError = null,
             phoneNumberError = null,
             emailError = null,
+            confirmCodeError = null
         )
     }
 
-    fun onSignUpClick(accountType: UserType, navigate: (String) -> Unit) {
+    fun onSignUpClick(accountType: UserType, onSuccess: () -> Unit) {
         launchCatching {
             useCase.signupUseCase(
                 userName = state.userName,
                 password = state.password,
                 phoneNumber = state.phoneNumber,
                 email = state.email,
-                accountType = accountType
+                accountType = accountType,
+                onSuccess = onSuccess
+            )
+        }
+    }
+
+    fun onConfirmSignUpClick(navigate: (String) -> Unit) {
+        launchCatching {
+            useCase.confirmSignUpUseCase(
+                userName = state.userName,
+                code = state.confirmCode,
+                password = state.password
             ) { navigate(HomeDestination.route) }
         }
     }

@@ -17,6 +17,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -31,6 +34,7 @@ import com.example.agrican.R
 import com.example.agrican.domain.model.UserType
 import com.example.agrican.ui.components.BackButton
 import com.example.agrican.ui.components.Background
+import com.example.agrican.ui.components.ConfirmSignUpField
 import com.example.agrican.ui.components.EmailField
 import com.example.agrican.ui.components.PasswordField
 import com.example.agrican.ui.components.PhoneNumberField
@@ -65,11 +69,16 @@ fun SignupScreen(
 
     val accountType by viewModel.accountType.collectAsStateWithLifecycle()
 
+    var confirmAccount by rememberSaveable { mutableStateOf(false) }
+
     LaunchedEffect(key1 = context) {
         viewModel.validationEvents.collect { event ->
             when (event) {
-                is ValidationEvent.Success -> {
-                    viewModel.onSignUpClick(accountType!!, openAndClear)
+                is ValidationEvent.AuthSuccess -> {
+                    viewModel.onSignUpClick(accountType!!) { confirmAccount = true }
+                }
+                is ValidationEvent.ConfirmSignUpSuccess -> {
+                    viewModel.onConfirmSignUpClick(openAndClear)
                 }
             }
         }
@@ -82,6 +91,7 @@ fun SignupScreen(
         clearState = viewModel::clearState,
         onEvent = viewModel::onEvent,
         navigateUp = navigateUp,
+        confirmAccount = confirmAccount,
         modifier = modifier
     )
 }
@@ -94,6 +104,7 @@ fun SignupScreenContent(
     clearState: () -> Unit,
     onEvent: (AuthFormEvent) -> Unit,
     navigateUp: () -> Unit,
+    confirmAccount: Boolean,
     modifier: Modifier = Modifier
 ) {
     BackButton(navigateUp = {
@@ -115,6 +126,7 @@ fun SignupScreenContent(
                     state = state,
                     onEvent = onEvent,
                     accountType = accountType,
+                    confirmAccount = confirmAccount,
                     modifier = Modifier
                         .fillMaxSize()
                         .verticalScroll(rememberScrollState())
@@ -222,77 +234,121 @@ fun Signup(
     state: AuthFormState,
     onEvent: (AuthFormEvent) -> Unit,
     accountType: UserType,
+    confirmAccount: Boolean,
     modifier: Modifier = Modifier
 ) {
-    val focusManager = LocalFocusManager.current
+    if (!confirmAccount) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
+            modifier = modifier
+        ) {
+            val focusManager = LocalFocusManager.current
 
+            Surface(
+                shape = RoundedCornerShape(MaterialTheme.spacing.medium),
+                color = greenDark,
+                modifier = Modifier.padding(vertical = MaterialTheme.spacing.small)
+            ) {
+                Text(
+                    text = stringResource(id = accountType.title),
+                    color = white,
+                    style = MaterialTheme.typography.body,
+                    fontSize = MaterialTheme.spacing.sp_18,
+                    modifier = Modifier.padding(horizontal = MaterialTheme.spacing.large)
+                )
+            }
+
+            UserNameField(
+                value = state.userName,
+                onNewValue = { onEvent(AuthFormEvent.UserNameChanged(it)) },
+                focusManager = focusManager,
+                userNameError = state.userNameError,
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            PasswordField(
+                value = state.password,
+                onNewValue = { onEvent(AuthFormEvent.PasswordChanged(it)) },
+                focusManager = focusManager,
+                passwordError = state.passwordError,
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            RepeatPasswordField(
+                value = state.repeatedPassword,
+                onNewValue = { onEvent(AuthFormEvent.RepeatedPasswordChanged(it)) },
+                focusManager = focusManager,
+                repeatedPasswordError = state.repeatedPasswordError,
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            PhoneNumberField(
+                value = state.phoneNumber,
+                onNewValue = { onEvent(AuthFormEvent.PhoneNumberChanged(it)) },
+                focusManager = focusManager,
+                phoneNumberError = state.phoneNumberError,
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            EmailField(
+                value = state.email,
+                onNewValue = { onEvent(AuthFormEvent.EmailChanged(it)) },
+                focusManager = focusManager,
+                emailError = state.emailError,
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            // Sign Up Button
+            Button(
+                onClick = { onEvent(AuthFormEvent.Submit) },
+                colors = ButtonDefaults.buttonColors(containerColor = greenDark),
+                modifier = Modifier.padding(MaterialTheme.spacing.medium)
+            ) {
+                Text(
+                    text = stringResource(id = R.string.signup_button),
+                    fontSize = MaterialTheme.spacing.sp_15
+                )
+            }
+        }
+    } else {
+        ConfirmSignUpScreen(
+            value = state.confirmCode,
+            onNewValue = { onEvent(AuthFormEvent.ConfirmCodeChanged(it)) },
+            codeError = state.confirmCodeError,
+            onEvent = onEvent,
+            modifier = modifier
+        )
+    }
+}
+
+@Composable
+fun ConfirmSignUpScreen(
+    value: String,
+    onNewValue: (String) -> Unit,
+    codeError: Int?,
+    onEvent: (AuthFormEvent) -> Unit,
+    modifier: Modifier = Modifier
+) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
         modifier = modifier
     ) {
-        Surface(
-            shape = RoundedCornerShape(MaterialTheme.spacing.medium),
-            color = greenDark,
-            modifier = Modifier.padding(vertical = MaterialTheme.spacing.small)
-        ) {
-            Text(
-                text = stringResource(id = accountType.title),
-                color = white,
-                style = MaterialTheme.typography.body,
-                fontSize = MaterialTheme.spacing.sp_18,
-                modifier = Modifier.padding(horizontal = MaterialTheme.spacing.large)
-            )
-        }
-
-        UserNameField(
-            value = state.userName,
-            onNewValue = { onEvent(AuthFormEvent.UserNameChanged(it)) },
-            focusManager = focusManager,
-            userNameError = state.userNameError,
+        ConfirmSignUpField(
+            value = value,
+            onNewValue = onNewValue,
+            codeError = codeError,
             modifier = Modifier.fillMaxWidth()
         )
 
-        PasswordField(
-            value = state.password,
-            onNewValue = { onEvent(AuthFormEvent.PasswordChanged(it)) },
-            focusManager = focusManager,
-            passwordError = state.passwordError,
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        RepeatPasswordField(
-            value = state.repeatedPassword,
-            onNewValue = { onEvent(AuthFormEvent.RepeatedPasswordChanged(it)) },
-            focusManager = focusManager,
-            repeatedPasswordError = state.repeatedPasswordError,
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        PhoneNumberField(
-            value = state.phoneNumber,
-            onNewValue = { onEvent(AuthFormEvent.PhoneNumberChanged(it)) },
-            focusManager = focusManager,
-            phoneNumberError = state.phoneNumberError,
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        EmailField(
-            value = state.email,
-            onNewValue = { onEvent(AuthFormEvent.EmailChanged(it)) },
-            focusManager = focusManager,
-            emailError = state.emailError,
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        // Sign Up Button
         Button(
-            onClick = { onEvent(AuthFormEvent.Submit) },
+            onClick = { onEvent(AuthFormEvent.ConfirmSignUp) },
             colors = ButtonDefaults.buttonColors(containerColor = greenDark),
             modifier = Modifier.padding(MaterialTheme.spacing.medium)
         ) {
             Text(
-                text = stringResource(id = R.string.signup_button),
+                text = stringResource(id = R.string.confirm_signup_button),
                 fontSize = MaterialTheme.spacing.sp_15
             )
         }
@@ -308,7 +364,8 @@ fun SignupScreenPreview() {
         state = AuthFormState(),
         clearState = { },
         onEvent = { },
-        navigateUp = { }
+        navigateUp = { },
+        confirmAccount = true
     )
 }
 
@@ -318,6 +375,18 @@ fun SignupPreview() {
     Signup(
         state = AuthFormState(),
         onEvent = { },
-        accountType = UserType.FARMER
+        accountType = UserType.FARMER,
+        confirmAccount = false
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ConfirmSignupPreview() {
+    Signup(
+        state = AuthFormState(),
+        onEvent = { },
+        accountType = UserType.FARMER,
+        confirmAccount = true
     )
 }

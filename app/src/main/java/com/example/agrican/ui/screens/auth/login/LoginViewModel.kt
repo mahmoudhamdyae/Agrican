@@ -67,7 +67,7 @@ class LoginViewModel @Inject constructor(
             return
         }
         launchCatching {
-            validationEventChannel.send(ValidationEvent.Success)
+            validationEventChannel.send(ValidationEvent.AuthSuccess)
         }
     }
 
@@ -82,9 +82,8 @@ class LoginViewModel @Inject constructor(
         launchCatching {
             useCase.loginUseCase(
                 userName = state.userName,
-                password = state.password,
-                onSuccess = { navigate(HomeDestination.route) }
-            )
+                password = state.password
+            ) { navigate(HomeDestination.route) }
         }
     }
 

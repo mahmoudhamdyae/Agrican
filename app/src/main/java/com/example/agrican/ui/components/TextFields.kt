@@ -29,6 +29,7 @@ import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -143,7 +144,6 @@ fun PhoneNumberField(
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EmailField(
     value: String,
@@ -166,6 +166,27 @@ fun EmailField(
 }
 
 @Composable
+fun ConfirmSignUpField(
+    value: String,
+    onNewValue: (String) -> Unit,
+    codeError: Int?,
+    modifier: Modifier = Modifier,
+    focusManager: FocusManager = LocalFocusManager.current,
+) {
+    AuthEditText(
+        value = value,
+        onNewValue = { onNewValue(it) },
+        icon = null,
+        hint = R.string.confirm_sign_up_text_field,
+        fieldError = codeError,
+        focusManager = focusManager,
+        keyboardType = KeyboardType.Number,
+        imeAction = ImeAction.Done,
+        modifier = modifier
+    )
+}
+
+@Composable
 fun AuthEditText(
     value: String,
     onNewValue: (String) -> Unit,
@@ -173,7 +194,7 @@ fun AuthEditText(
     @StringRes fieldError: Int?,
     focusManager: FocusManager,
     modifier: Modifier = Modifier,
-    icon: ImageVector = Icons.Default.Person,
+    icon: ImageVector? = Icons.Default.Person,
     keyboardType: KeyboardType = KeyboardType.Text,
     imeAction: ImeAction = ImeAction.Next,
     trailingIcon: @Composable () -> Unit = { },
@@ -186,12 +207,14 @@ fun AuthEditText(
         decorationBox = { innerTextField ->
 
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(
-                    imageVector = icon,
-                    contentDescription = stringResource(id = hint),
-                    tint = gray,
-                    modifier = Modifier.padding(MaterialTheme.spacing.small)
-                )
+                icon?.let {
+                    Icon(
+                        imageVector = it,
+                        contentDescription = stringResource(id = hint),
+                        tint = gray,
+                        modifier = Modifier.padding(MaterialTheme.spacing.small)
+                    )
+                }
 
                 if (value.isEmpty()) {
                     Text(

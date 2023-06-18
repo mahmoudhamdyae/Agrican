@@ -16,5 +16,23 @@
         "agrican97f42b84": {}
       }
     }
+  },
+  "agrican": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-agrican-agrican-182103-authRole",
+      "UnauthRoleArn": "arn:aws:iam::175360585410:role/amplify-agrican-agrican-182103-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::175360585410:role/amplify-agrican-agrican-182103-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-agrican-agrican-182103-deployment",
+      "UnauthRoleName": "amplify-agrican-agrican-182103-unauthRole",
+      "StackName": "amplify-agrican-agrican-182103",
+      "StackId": "arn:aws:cloudformation:us-east-2:175360585410:stack/amplify-agrican-agrican-182103/21f8f850-0df4-11ee-a793-0aec20f8ca07",
+      "AmplifyAppId": "d208a3qozgy01p"
+    },
+    "categories": {
+      "auth": {
+        "agrican97f42b84": {}
+      }
+    }
   }
 }

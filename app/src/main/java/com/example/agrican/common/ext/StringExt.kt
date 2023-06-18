@@ -21,6 +21,10 @@ fun String.isValidUserName(): Boolean {
     return this.isNotBlank()
 }
 
+fun String.isValidConfirmSignUpCode(): Boolean {
+    return this.isNotBlank()
+}
+
 fun String.passwordErrorMessage(): Int? {
     return if (this.isBlank()) {
         R.string.empty_password_error

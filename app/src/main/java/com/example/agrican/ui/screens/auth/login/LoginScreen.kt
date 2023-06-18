@@ -66,9 +66,10 @@ fun LoginScreen(
     LaunchedEffect(key1 = context) {
         viewModel.validationEvents.collect { event ->
             when (event) {
-                is ValidationEvent.Success -> {
+                is ValidationEvent.AuthSuccess -> {
                     viewModel.onSignInClick(openAndClear)
                 }
+                else -> { }
             }
         }
     }

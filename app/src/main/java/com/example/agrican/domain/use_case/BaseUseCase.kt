@@ -1,9 +1,11 @@
 package com.example.agrican.domain.use_case
 
+import com.example.agrican.domain.use_case.auth.ConfirmSignUpUseCase
 import com.example.agrican.domain.use_case.auth.ForgotPasswordUseCase
 import com.example.agrican.domain.use_case.auth.LoginUseCase
 import com.example.agrican.domain.use_case.auth.SignOutUseCase
 import com.example.agrican.domain.use_case.auth.SignupUseCase
+import com.example.agrican.domain.use_case.validation.ValidateConfirmSignUpCode
 import com.example.agrican.domain.use_case.validation.ValidateEmail
 import com.example.agrican.domain.use_case.validation.ValidatePassword
 import com.example.agrican.domain.use_case.validation.ValidatePhoneNumber
@@ -15,12 +17,14 @@ data class BaseUseCase (
     val loginUseCase: LoginUseCase,
     val signOutUseCase: SignOutUseCase,
     val signupUseCase: SignupUseCase,
+    val confirmSignUpUseCase: ConfirmSignUpUseCase,
 
     val validateEmail: ValidateEmail,
     val validatePassword: ValidatePassword,
     val validatePhoneNumber: ValidatePhoneNumber,
     val validateRepeatedPassword: ValidateRepeatedPassword,
     val validateUserName: ValidateUserName,
+    val validateConfirmSignUpCode: ValidateConfirmSignUpCode,
 
     val getCurrentUserUseCase: GetCurrentUserUseCase,
 

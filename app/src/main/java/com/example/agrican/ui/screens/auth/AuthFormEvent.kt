@@ -8,7 +8,9 @@ sealed class AuthFormEvent {
     ) : AuthFormEvent()
     data class PhoneNumberChanged(val phoneNumber: String) : AuthFormEvent()
     data class EmailChanged(val email: String) : AuthFormEvent()
+    data class ConfirmCodeChanged(val code: String) : AuthFormEvent()
 
     object Submit: AuthFormEvent()
+    object ConfirmSignUp: AuthFormEvent()
     object ForgotPassword: AuthFormEvent()
 }

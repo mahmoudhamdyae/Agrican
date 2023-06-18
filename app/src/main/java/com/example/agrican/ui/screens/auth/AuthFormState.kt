@@ -11,4 +11,6 @@ data class AuthFormState(
     val phoneNumberError: Int? = null,
     val email: String = "",
     val emailError: Int? = null,
+    val confirmCode: String = "",
+    val confirmCodeError: Int? = null,
 )
