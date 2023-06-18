@@ -80,7 +80,7 @@ fun OnboardingScreen(
 
     Background(body1 = {
         Box(
-//            contentAlignment = Alignment.Center,
+            contentAlignment = if (pageState.currentPage == 2) Alignment.Center else Alignment.TopCenter,
             modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState())
         ) {
             HorizontalPager(
