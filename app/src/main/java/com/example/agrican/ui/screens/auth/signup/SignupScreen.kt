@@ -23,7 +23,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -236,18 +235,15 @@ fun Signup(
     ) {
         Surface(
             shape = RoundedCornerShape(MaterialTheme.spacing.medium),
-            color = greenDark
+            color = greenDark,
+            modifier = Modifier.padding(vertical = MaterialTheme.spacing.small)
         ) {
             Text(
                 text = stringResource(id = accountType.title),
                 color = white,
                 style = MaterialTheme.typography.body,
                 fontSize = MaterialTheme.spacing.sp_18,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(
-                    vertical = MaterialTheme.spacing.small,
-                    horizontal = MaterialTheme.spacing.large
-                )
+                modifier = Modifier.padding(horizontal = MaterialTheme.spacing.large)
             )
         }
 
@@ -264,7 +260,6 @@ fun Signup(
             onNewValue = { onEvent(AuthFormEvent.PasswordChanged(it)) },
             focusManager = focusManager,
             passwordError = state.passwordError,
-            imeAction = ImeAction.Done,
             modifier = Modifier.fillMaxWidth()
         )
 
@@ -300,9 +295,7 @@ fun Signup(
         ) {
             Text(
                 text = stringResource(id = R.string.signup_button),
-                fontSize = MaterialTheme.spacing.sp_15,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
+                fontSize = MaterialTheme.spacing.sp_15
             )
         }
     }

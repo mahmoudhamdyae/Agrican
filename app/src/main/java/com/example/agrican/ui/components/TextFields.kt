@@ -4,7 +4,10 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -25,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -36,7 +40,6 @@ import com.example.agrican.R
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.spacing
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UserNameField(
     value: String,
@@ -45,45 +48,15 @@ fun UserNameField(
     userNameError: Int?,
     modifier: Modifier = Modifier,
 ) {
-    OutlinedTextField(
-        singleLine = true,
+    AuthEditText(
         value = value,
-        onValueChange = { onNewValue(it) },
-        isError = userNameError != null,
-        placeholder = { Text(
-            text = stringResource(R.string.user_name_text_field),
-            color = gray,
-            fontSize = MaterialTheme.spacing.sp_12,
-            fontWeight = FontWeight.SemiBold
-        ) },
-        leadingIcon = {
-            Icon(
-                imageVector = Icons.Default.Person,
-                contentDescription = stringResource(id = R.string.user_name_text_field),
-                tint = gray
-            )
-        },
-        keyboardOptions = KeyboardOptions(
-            keyboardType = KeyboardType.Text,
-            imeAction = ImeAction.Next
-        ),
-        keyboardActions = KeyboardActions(
-            onNext = { focusManager.moveFocus(FocusDirection.Down) }
-        ),
-        shape = RoundedCornerShape(MaterialTheme.spacing.medium),
-        colors = TextFieldDefaults.outlinedTextFieldColors(
-            unfocusedBorderColor = gray,
-            textColor = gray
-        ),
-        modifier = modifier.padding(MaterialTheme.spacing.small)
+        onNewValue = { onNewValue(it) },
+        icon = Icons.Default.Person,
+        hint = R.string.user_name_text_field,
+        fieldError = userNameError,
+        focusManager = focusManager,
+        modifier = modifier
     )
-    if (userNameError != null) {
-        Text(
-            text = stringResource(id = userNameError),
-            color = MaterialTheme.colorScheme.error,
-            modifier = modifier
-        )
-    }
 }
 
 @Composable
@@ -109,7 +82,6 @@ fun RepeatPasswordField(
     PasswordField(value, R.string.repeat_password_text_field, onNewValue, repeatedPasswordError, focusManager, modifier)
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun PasswordField(
     value: String,
@@ -129,53 +101,28 @@ private fun PasswordField(
     val visualTransformation =
         if (isVisible) VisualTransformation.None else PasswordVisualTransformation()
 
-    OutlinedTextField(
+    AuthEditText(
         value = value,
-        onValueChange = { onNewValue(it) },
-        singleLine = true,
-        isError = passwordError != null,
-        placeholder = { Text(
-            text = stringResource(placeholder),
-            color = gray,
-            fontSize = MaterialTheme.spacing.sp_12,
-            fontWeight = FontWeight.SemiBold
-        ) },
-        leadingIcon = { Icon(
-            imageVector = Icons.Default.Lock,
-            contentDescription = "Lock",
-            tint = gray
-        ) },
+        onNewValue = { onNewValue(it) },
+        icon = Icons.Default.Lock,
+        hint = placeholder,
+        fieldError = passwordError,
+        focusManager = focusManager,
+        keyboardType = KeyboardType.Password,
+        imeAction = imeAction,
+        visualTransformation = visualTransformation,
         trailingIcon = {
-            IconButton(onClick = { isVisible = !isVisible }) {
+            IconButton(
+                onClick = { isVisible = !isVisible },
+                modifier = Modifier.height(MaterialTheme.spacing.dp_24)
+            ) {
                 Icon(painter = icon, contentDescription = "Visibility", tint = gray)
             }
         },
-        keyboardOptions = KeyboardOptions(
-            keyboardType = KeyboardType.Password,
-            imeAction = imeAction
-        ),
-        keyboardActions = KeyboardActions(
-            onDone = { focusManager.clearFocus() },
-            onNext = { focusManager.moveFocus(FocusDirection.Down)}
-        ),
-        visualTransformation = visualTransformation,
-        shape = RoundedCornerShape(MaterialTheme.spacing.medium),
-        colors = TextFieldDefaults.outlinedTextFieldColors(
-            unfocusedBorderColor = gray,
-            textColor = gray
-        ),
-        modifier = modifier.padding(MaterialTheme.spacing.small)
+        modifier = modifier
     )
-    if (passwordError != null) {
-        Text(
-            text = stringResource(id = passwordError),
-            color = MaterialTheme.colorScheme.error,
-            modifier = modifier
-        )
-    }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PhoneNumberField(
     value: String,
@@ -184,45 +131,16 @@ fun PhoneNumberField(
     phoneNumberError: Int?,
     modifier: Modifier = Modifier,
 ) {
-    OutlinedTextField(
-        singleLine = true,
+    AuthEditText(
         value = value,
-        onValueChange = { onNewValue(it) },
-        isError = phoneNumberError != null,
-        placeholder = { Text(
-            text = stringResource(R.string.phone_number_text_field),
-            color = gray,
-            fontSize = MaterialTheme.spacing.sp_12,
-            fontWeight = FontWeight.SemiBold
-        ) },
-        leadingIcon = {
-            Icon(
-                imageVector = Icons.Default.Person,
-                contentDescription = stringResource(id = R.string.phone_number_text_field),
-                tint = gray
-            )
-        },
-        keyboardOptions = KeyboardOptions(
-            keyboardType = KeyboardType.Number,
-            imeAction = ImeAction.Next
-        ),
-        keyboardActions = KeyboardActions(
-            onNext = { focusManager.moveFocus(FocusDirection.Down) }
-        ),
-        shape = RoundedCornerShape(MaterialTheme.spacing.medium),
-        colors = TextFieldDefaults.outlinedTextFieldColors(
-            unfocusedBorderColor = gray,
-            textColor = gray
-        ),
-        modifier = modifier.padding(MaterialTheme.spacing.small)
+        onNewValue = { onNewValue(it) },
+        icon = Icons.Default.Person,
+        hint = R.string.phone_number_text_field,
+        fieldError = phoneNumberError,
+        focusManager = focusManager,
+        keyboardType = KeyboardType.Number,
+        modifier = modifier
     )
-    if (phoneNumberError != null) {
-        Text(
-            text = stringResource(id = phoneNumberError),
-            color = MaterialTheme.colorScheme.error,
-            modifier = modifier
-        )
-    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -234,43 +152,90 @@ fun EmailField(
     emailError: Int?,
     modifier: Modifier = Modifier,
 ) {
-    OutlinedTextField(
+    AuthEditText(
+        value = value,
+        onNewValue = { onNewValue(it) },
+        icon = Icons.Default.Person,
+        hint = R.string.email_text_field,
+        fieldError = emailError,
+        focusManager = focusManager,
+        keyboardType = KeyboardType.Email,
+        imeAction = ImeAction.Done,
+        modifier = modifier
+    )
+}
+
+@Composable
+fun AuthEditText(
+    value: String,
+    onNewValue: (String) -> Unit,
+    @StringRes hint: Int,
+    @StringRes fieldError: Int?,
+    focusManager: FocusManager,
+    modifier: Modifier = Modifier,
+    icon: ImageVector = Icons.Default.Person,
+    keyboardType: KeyboardType = KeyboardType.Text,
+    imeAction: ImeAction = ImeAction.Next,
+    trailingIcon: @Composable () -> Unit = { },
+    visualTransformation: VisualTransformation = VisualTransformation.None
+) {
+    BasicTextField(
         singleLine = true,
         value = value,
         onValueChange = { onNewValue(it) },
-        isError = emailError != null,
-        placeholder = { Text(
-            text = stringResource(R.string.email_text_field),
-            color = gray,
-            fontSize = MaterialTheme.spacing.sp_12,
-            fontWeight = FontWeight.SemiBold
-        ) },
-        leadingIcon = {
-            Icon(
-                imageVector = Icons.Default.Person,
-                contentDescription = stringResource(id = R.string.email_text_field),
-                tint = gray
-            )
+        decorationBox = { innerTextField ->
+
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Icon(
+                    imageVector = icon,
+                    contentDescription = stringResource(id = hint),
+                    tint = gray,
+                    modifier = Modifier.padding(MaterialTheme.spacing.small)
+                )
+
+                if (value.isEmpty()) {
+                    Text(
+                        text = stringResource(hint),
+                        color = gray,
+                        fontSize = MaterialTheme.spacing.sp_12,
+                        fontWeight = FontWeight.SemiBold,
+                        modifier = Modifier.padding(MaterialTheme.spacing.small)
+                    )
+                } else {
+                    Box(modifier = Modifier.padding(MaterialTheme.spacing.small)) {
+                        innerTextField()
+                    }
+                }
+
+                Spacer(modifier = Modifier.weight(1f))
+
+                trailingIcon()
+            }
         },
         keyboardOptions = KeyboardOptions(
-            keyboardType = KeyboardType.Email,
-            imeAction = ImeAction.Done
+            keyboardType = keyboardType,
+            imeAction = imeAction
         ),
         keyboardActions = KeyboardActions(
+            onNext = { focusManager.moveFocus(FocusDirection.Down) },
             onDone = { focusManager.clearFocus() }
         ),
-        shape = RoundedCornerShape(MaterialTheme.spacing.medium),
-        colors = TextFieldDefaults.outlinedTextFieldColors(
-            unfocusedBorderColor = gray,
-            textColor = gray
-        ),
-        modifier = modifier.padding(MaterialTheme.spacing.small)
+        visualTransformation = visualTransformation,
+        modifier = modifier
+            .padding(MaterialTheme.spacing.small)
+            .border(
+                border = BorderStroke(
+                    width = MaterialTheme.spacing.dp_1,
+                    color = if (fieldError != null) MaterialTheme.colorScheme.error else gray
+                ),
+                shape = RoundedCornerShape(MaterialTheme.spacing.medium)
+            )
     )
-    if (emailError != null) {
+    if (fieldError != null) {
         Text(
-            text = stringResource(id = emailError),
+            text = stringResource(id = fieldError),
             color = MaterialTheme.colorScheme.error,
-            modifier = modifier
+            modifier = modifier.padding(horizontal = MaterialTheme.spacing.small)
         )
     }
 }

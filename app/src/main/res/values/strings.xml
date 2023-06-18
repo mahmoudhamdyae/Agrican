@@ -9,10 +9,10 @@
     <string name="onboarding_button">التالى</string>
 
     <!-- Auth -->
-    <string name="email_error">Please insert a valid email.</string>
-    <string name="empty_password_error">Password cannot be empty.</string>
-    <string name="password_length_error">Your password should have at least six digits.</string>
-    <string name="password_error">Your password should include one digit, one lower case letter and one upper case letter.</string>
+    <string name="email_error">Please insert a valid email</string>
+    <string name="empty_password_error">Password cannot be empty</string>
+    <string name="password_length_error">Your password should have at least six digits</string>
+    <string name="password_error">Your password should include one digit, one lower case letter and one upper case letter</string>
     <string name="farmer">مزارع</string>
     <string name="farms_description">يمكنك اختيار عمل حساب مزارع من التمتع بالخصاءص العديدة</string>
     <string name="farm">مزرعة</string>
@@ -30,9 +30,9 @@
     <!-- Signup Screen -->
     <string name="create_new_user">إنشاء حساب جديد</string>
     <string name="choose_user_account">اختار نوع الحساب</string>
-    <string name="user_name_error">Please insert a valid name.</string>
-    <string name="phone_number_error">Please insert a valid phone number.</string>
-    <string name="password_match_error">Passwords do not match.</string>
+    <string name="user_name_error">Please insert a valid name</string>
+    <string name="phone_number_error">Please insert a valid phone number</string>
+    <string name="password_match_error">Passwords do not match</string>
     <string name="repeat_password_text_field">تأكيد كلمة المرور</string>
     <string name="phone_number_text_field">رقم الهاتف المحمول</string>
     <string name="email_text_field">البريد الإلكترونى</string>

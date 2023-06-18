@@ -152,15 +152,20 @@ fun LoginScreenContent(
                     modifier = Modifier.clickable { onEvent(AuthFormEvent.ForgotPassword) }
                 )
             }
-            Row(modifier = Modifier.fillMaxWidth().height(MaterialTheme.spacing.dp_50)) {
-                Spacer(modifier = Modifier.weight(1f))
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(MaterialTheme.spacing.large)
+            ) {
+                Spacer(modifier = Modifier.weight(2f))
 
                 // Account Type Drop Down
-                DropDown(options = listOf(
-                    R.string.farmer,
-                    R.string.farm,
-                    R.string.engineer,
-                ),
+                DropDown(
+                    options = listOf(
+                        R.string.farmer,
+                        R.string.farm,
+                        R.string.engineer,
+                    ),
                     textColor = gray,
                     onSelect = {
                         when (it) {
