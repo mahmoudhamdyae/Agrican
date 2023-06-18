@@ -38,11 +38,20 @@ class LoginViewModel @Inject constructor(
             is AuthFormEvent.PasswordChanged -> {
                 state = state.copy(password = event.password)
             }
+            is AuthFormEvent.RepeatedPasswordChanged -> {
+                state = state.copy(repeatedPassword = event.repeatedPassword)
+            }
+            is AuthFormEvent.ConfirmCodeChanged -> {
+                state = state.copy(confirmCode = event.code)
+            }
             is AuthFormEvent.Submit -> {
                 submitData()
             }
             is AuthFormEvent.ForgotPassword -> {
                 onForgotPasswordClick()
+            }
+            is AuthFormEvent.ConfirmResetPassword -> {
+                onConfirmResetPasswordClick()
             }
             else -> {
                 throw Exception("Unknown event")
@@ -97,6 +106,37 @@ class LoginViewModel @Inject constructor(
 
         launchCatching {
             useCase.forgotPasswordUseCase(userName = state.userName) { }
+        }
+    }
+
+    private fun onConfirmResetPasswordClick() {
+        val passwordResult = useCase.validatePassword(state.repeatedPassword, true)
+        val codeResult = useCase.validateConfirmCodeCode(state.confirmCode)
+
+        val hasError = listOf(
+            passwordResult,
+            codeResult
+        ).any { !it.successful }
+
+        if (hasError) {
+            state = state.copy(
+                repeatedPasswordError = passwordResult.errorMessage,
+                confirmCodeError = codeResult.errorMessage
+            )
+            return
+        }
+        launchCatching {
+            validationEventChannel.send(ValidationEvent.ConfirmSuccess)
+        }
+    }
+
+    fun onConfirmResetPassword(navigate: (String) -> Unit) {
+        launchCatching {
+            useCase.confirmResetPasswordUseCase(
+                userName = state.userName,
+                newPassword = state.repeatedPassword,
+                code = state.confirmCode,
+            ) { navigate(HomeDestination.route) }
         }
     }
 }

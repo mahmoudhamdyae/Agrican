@@ -99,7 +99,7 @@ class SignupViewModel @Inject constructor(
     }
 
     private fun submitConfirmSignUp() {
-        val codeResult = useCase.validateConfirmSignUpCode(state.confirmCode)
+        val codeResult = useCase.validateConfirmCodeCode(state.confirmCode)
 
         val hasError = !codeResult.successful
 
@@ -108,7 +108,7 @@ class SignupViewModel @Inject constructor(
             return
         }
         launchCatching {
-            validationEventChannel.send(ValidationEvent.ConfirmSignUpSuccess)
+            validationEventChannel.send(ValidationEvent.ConfirmSuccess)
         }
     }
 

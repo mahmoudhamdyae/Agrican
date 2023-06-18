@@ -26,12 +26,13 @@ import com.example.agrican.domain.use_case.JoinUsUseCase
 import com.example.agrican.domain.use_case.OrderNewProductUseCase
 import com.example.agrican.domain.use_case.SearchUseCase
 import com.example.agrican.domain.use_case.SendMessageUseCase
+import com.example.agrican.domain.use_case.auth.ConfirmResetPasswordUseCase
 import com.example.agrican.domain.use_case.auth.ConfirmSignUpUseCase
 import com.example.agrican.domain.use_case.auth.ForgotPasswordUseCase
 import com.example.agrican.domain.use_case.auth.LoginUseCase
 import com.example.agrican.domain.use_case.auth.SignOutUseCase
 import com.example.agrican.domain.use_case.auth.SignupUseCase
-import com.example.agrican.domain.use_case.validation.ValidateConfirmSignUpCode
+import com.example.agrican.domain.use_case.validation.ValidateConfirmCodeCode
 import com.example.agrican.domain.use_case.validation.ValidateEmail
 import com.example.agrican.domain.use_case.validation.ValidatePassword
 import com.example.agrican.domain.use_case.validation.ValidatePhoneNumber
@@ -57,13 +58,14 @@ object UseCaseModule {
             signOutUseCase = SignOutUseCase(accountService),
             signupUseCase = SignupUseCase(accountService, mainRepository),
             confirmSignUpUseCase = ConfirmSignUpUseCase(accountService),
+            confirmResetPasswordUseCase = ConfirmResetPasswordUseCase(accountService),
 
             validateEmail = ValidateEmail(),
             validatePassword = ValidatePassword(),
             validatePhoneNumber = ValidatePhoneNumber(),
             validateRepeatedPassword = ValidateRepeatedPassword(),
             validateUserName = ValidateUserName(),
-            validateConfirmSignUpCode = ValidateConfirmSignUpCode(),
+            validateConfirmCodeCode = ValidateConfirmCodeCode(),
 
             getCurrentUserUseCase = GetCurrentUserUseCase(accountService, mainRepository),
 

@@ -12,5 +12,6 @@ sealed class AuthFormEvent {
 
     object Submit: AuthFormEvent()
     object ConfirmSignUp: AuthFormEvent()
+    object ConfirmResetPassword: AuthFormEvent()
     object ForgotPassword: AuthFormEvent()
 }

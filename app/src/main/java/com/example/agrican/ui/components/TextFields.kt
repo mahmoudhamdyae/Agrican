@@ -67,9 +67,10 @@ fun PasswordField(
     focusManager: FocusManager,
     passwordError: Int?,
     modifier: Modifier = Modifier,
+    @StringRes hint: Int = R.string.password_text_field,
     imeAction: ImeAction = ImeAction.Next
 ) {
-    PasswordField(value, R.string.password_text_field, onNewValue, passwordError, focusManager, modifier, imeAction)
+    PasswordField(value, hint, onNewValue, passwordError, focusManager, modifier, imeAction)
 }
 
 @Composable
@@ -166,7 +167,7 @@ fun EmailField(
 }
 
 @Composable
-fun ConfirmSignUpField(
+fun ConfirmField(
     value: String,
     onNewValue: (String) -> Unit,
     codeError: Int?,

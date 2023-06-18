@@ -36,7 +36,7 @@ fun NavGraphBuilder.agricanAppGraph(
     }
 
     composable(route = LoginDestination.route) {
-        LoginScreen(openScreen = openScreen, openAndClear = openAndClear)
+        LoginScreen(openScreen = openScreen, openAndClear = openAndClear,)
     }
 
     composable(route = SignupDestination.route) {

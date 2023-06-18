@@ -3,7 +3,7 @@ package com.example.agrican.domain.use_case.validation
 import com.example.agrican.R
 import com.example.agrican.common.ext.isValidConfirmSignUpCode
 
-class ValidateConfirmSignUpCode {
+class ValidateConfirmCodeCode {
 
     operator fun invoke(userName: String): ValidationResult {
         return if (userName.isValidConfirmSignUpCode()) {

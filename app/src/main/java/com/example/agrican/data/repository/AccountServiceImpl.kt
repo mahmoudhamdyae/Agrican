@@ -125,7 +125,7 @@ class AccountServiceImpl @Inject constructor(
         try {
             auth.confirmResetPassword(userName, newPassword, confirmationCode)
             Log.i("AuthQuickstart", "New password confirmed")
-            onSuccess()
+            login(userName, newPassword, onSuccess)
         } catch (error: AuthException) {
             Log.e("AuthQuickstart", "Failed to confirm password reset", error)
             SnackBarManager.showMessage(error.toSnackBarMessage())

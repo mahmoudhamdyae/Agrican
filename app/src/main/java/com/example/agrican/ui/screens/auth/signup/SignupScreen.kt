@@ -34,7 +34,7 @@ import com.example.agrican.R
 import com.example.agrican.domain.model.UserType
 import com.example.agrican.ui.components.BackButton
 import com.example.agrican.ui.components.Background
-import com.example.agrican.ui.components.ConfirmSignUpField
+import com.example.agrican.ui.components.ConfirmField
 import com.example.agrican.ui.components.EmailField
 import com.example.agrican.ui.components.PasswordField
 import com.example.agrican.ui.components.PhoneNumberField
@@ -77,7 +77,7 @@ fun SignupScreen(
                 is ValidationEvent.AuthSuccess -> {
                     viewModel.onSignUpClick(accountType!!) { confirmAccount = true }
                 }
-                is ValidationEvent.ConfirmSignUpSuccess -> {
+                is ValidationEvent.ConfirmSuccess -> {
                     viewModel.onConfirmSignUpClick(openAndClear)
                 }
             }
@@ -335,7 +335,7 @@ fun ConfirmSignUpScreen(
         verticalArrangement = Arrangement.Center,
         modifier = modifier
     ) {
-        ConfirmSignUpField(
+        ConfirmField(
             value = value,
             onNewValue = onNewValue,
             codeError = codeError,
