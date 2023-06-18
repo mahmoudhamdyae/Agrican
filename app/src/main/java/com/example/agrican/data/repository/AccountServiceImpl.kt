@@ -28,8 +28,8 @@ class AccountServiceImpl @Inject constructor(
             val result = auth.signIn(userName, password)
             if (result.isSignedIn) {
                 Log.i("AuthQuickstart", "Sign in succeeded")
-            } else {
                 onSuccess()
+            } else {
                 Log.e("AuthQuickstart", "Sign in not complete")
             }
         } catch (error: AuthException) {
