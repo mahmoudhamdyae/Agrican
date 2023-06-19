@@ -39,7 +39,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.agrican.R
 import com.example.agrican.domain.model.UserType
 import com.example.agrican.ui.components.Background
-import com.example.agrican.ui.components.ConfirmField
 import com.example.agrican.ui.components.DropDown
 import com.example.agrican.ui.components.PasswordField
 import com.example.agrican.ui.components.UserNameField
@@ -128,107 +127,105 @@ fun LoginScreenContent(
                         .size(MaterialTheme.spacing.dp_150)
                 )
 
-                Column {
-                    UserNameField(
-                        value = state.userName,
-                        onNewValue = { onEvent(AuthFormEvent.UserNameChanged(it)) },
-                        focusManager = focusManager,
-                        userNameError = state.userNameError,
-                        modifier = Modifier.fillMaxWidth()
+                UserNameField(
+                    value = state.userName,
+                    onNewValue = { onEvent(AuthFormEvent.UserNameChanged(it)) },
+                    focusManager = focusManager,
+                    userNameError = state.userNameError,
+                    modifier = Modifier.fillMaxWidth()
+                )
+
+                PasswordField(
+                    value = state.password,
+                    onNewValue = { onEvent(AuthFormEvent.PasswordChanged(it)) },
+                    focusManager = focusManager,
+                    passwordError = state.passwordError,
+                    imeAction = ImeAction.Done,
+                    modifier = Modifier.fillMaxWidth()
+                )
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .align(Alignment.Start)
+                        .padding(MaterialTheme.spacing.small)
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.forgot_password_text),
+                        style = MaterialTheme.typography.body,
+                        fontSize = MaterialTheme.spacing.sp_10,
+                        fontWeight = FontWeight.SemiBold,
+                        modifier = Modifier.padding(end = MaterialTheme.spacing.small)
                     )
-
-                    PasswordField(
-                        value = state.password,
-                        onNewValue = { onEvent(AuthFormEvent.PasswordChanged(it)) },
-                        focusManager = focusManager,
-                        passwordError = state.passwordError,
-                        imeAction = ImeAction.Done,
-                        modifier = Modifier.fillMaxWidth()
-                    )
-
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .align(Alignment.Start)
-                            .padding(MaterialTheme.spacing.small)
-                    ) {
-                        Text(
-                            text = stringResource(id = R.string.forgot_password_text),
-                            style = MaterialTheme.typography.body,
-                            fontSize = MaterialTheme.spacing.sp_10,
-                            fontWeight = FontWeight.SemiBold,
-                            modifier = Modifier.padding(end = MaterialTheme.spacing.small)
-                        )
-                        Text(
-                            text = stringResource(id = R.string.click_here),
-                            textDecoration = TextDecoration.Underline,
-                            color = Color.Blue,
-                            style = MaterialTheme.typography.body,
-                            fontSize = MaterialTheme.spacing.sp_10,
-                            fontWeight = FontWeight.SemiBold,
-                            modifier = Modifier.clickable {
-                                onEvent(AuthFormEvent.ForgotPassword)
-                                if (state.userNameError != null) setConfirmResetScreen()
-                            }
-                        )
-                    }
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(MaterialTheme.spacing.large)
-                    ) {
-                        Spacer(modifier = Modifier.weight(2f))
-
-                        // Account Type Drop Down
-                        DropDown(
-                            options = listOf(
-                                R.string.farmer,
-                                R.string.farm,
-                                R.string.engineer,
-                            ),
-                            textColor = gray,
-                            onSelect = {
-                                when (it) {
-                                    R.string.engineer -> { changeAccountType(UserType.ENGINEER) }
-                                    R.string.farm -> { changeAccountType(UserType.FARM) }
-                                    else -> { changeAccountType(UserType.FARMER) }
-                                }
-                            },
-                            modifier = Modifier.weight(1f)
-                        )
-                    }
-
-                    // Log In Button
-                    Button(
-                        onClick = { onEvent(AuthFormEvent.Submit) },
-                        colors = ButtonDefaults.buttonColors(containerColor = greenDark),
-                        modifier = Modifier.padding(MaterialTheme.spacing.small)
-                    ) {
-                        Text(text = stringResource(id = R.string.login_button))
-                    }
-
-                    // Navigate To Sign Up Screen
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text(
-                            text = stringResource(id = R.string.new_user_text),
-                            style = MaterialTheme.typography.body,
-                            fontSize = MaterialTheme.spacing.sp_10,
-                            fontWeight = FontWeight.SemiBold,
-                            modifier = Modifier.padding(MaterialTheme.spacing.small)
-                        )
-                        OutlinedButton(
-                            onClick = {
-                                openScreen(SignupDestination.route)
-                                clearState() },
-                            border = BorderStroke(MaterialTheme.spacing.dp_1, gray)
-                        ) {
-                            Text(
-                                text = stringResource(id = R.string.signup_button),
-                                color = greenDark,
-                                fontSize = MaterialTheme.spacing.sp_15,
-                                fontWeight = FontWeight.Bold,
-                            )
+                    Text(
+                        text = stringResource(id = R.string.click_here),
+                        textDecoration = TextDecoration.Underline,
+                        color = Color.Blue,
+                        style = MaterialTheme.typography.body,
+                        fontSize = MaterialTheme.spacing.sp_10,
+                        fontWeight = FontWeight.SemiBold,
+                        modifier = Modifier.clickable {
+                            onEvent(AuthFormEvent.ForgotPassword)
+                            if (state.userNameError != null) setConfirmResetScreen()
                         }
+                    )
+                }
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(MaterialTheme.spacing.large)
+                ) {
+                    Spacer(modifier = Modifier.weight(2f))
+
+                    // Account Type Drop Down
+                    DropDown(
+                        options = listOf(
+                            R.string.farmer,
+                            R.string.farm,
+                            R.string.engineer,
+                        ),
+                        textColor = gray,
+                        onSelect = {
+                            when (it) {
+                                R.string.engineer -> { changeAccountType(UserType.ENGINEER) }
+                                R.string.farm -> { changeAccountType(UserType.FARM) }
+                                else -> { changeAccountType(UserType.FARMER) }
+                            }
+                        },
+                        modifier = Modifier.weight(1f)
+                    )
+                }
+
+                // Log In Button
+                Button(
+                    onClick = { onEvent(AuthFormEvent.Submit) },
+                    colors = ButtonDefaults.buttonColors(containerColor = greenDark),
+                    modifier = Modifier.padding(MaterialTheme.spacing.small)
+                ) {
+                    Text(text = stringResource(id = R.string.login_button))
+                }
+
+                // Navigate To Sign Up Screen
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        text = stringResource(id = R.string.new_user_text),
+                        style = MaterialTheme.typography.body,
+                        fontSize = MaterialTheme.spacing.sp_10,
+                        fontWeight = FontWeight.SemiBold,
+                        modifier = Modifier.padding(MaterialTheme.spacing.small)
+                    )
+                    OutlinedButton(
+                        onClick = {
+                            openScreen(SignupDestination.route)
+                            clearState() },
+                        border = BorderStroke(MaterialTheme.spacing.dp_1, gray)
+                    ) {
+                        Text(
+                            text = stringResource(id = R.string.signup_button),
+                            color = greenDark,
+                            fontSize = MaterialTheme.spacing.sp_15,
+                            fontWeight = FontWeight.Bold,
+                        )
                     }
                 }
             }
@@ -240,51 +237,6 @@ fun LoginScreenContent(
         }
         
     }, modifier = modifier)
-}
-
-@Composable
-fun ResetPasswordScreen(
-    state: AuthFormState,
-    onEvent: (AuthFormEvent) -> Unit,
-    modifier: Modifier = Modifier
-) {
-    val focusManager = LocalFocusManager.current
-
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState())
-            .padding(MaterialTheme.spacing.large)
-    ) {
-        ConfirmField(
-            value = state.confirmCode,
-            onNewValue = { onEvent(AuthFormEvent.ConfirmCodeChanged(it)) },
-            codeError = state.confirmCodeError,
-            modifier = Modifier.fillMaxWidth().height(MaterialTheme.spacing.dp_50)
-        )
-
-        PasswordField(
-            value = state.repeatedPassword,
-            onNewValue = { onEvent(AuthFormEvent.RepeatedPasswordChanged(it)) },
-            focusManager = focusManager,
-            passwordError = state.repeatedPasswordError,
-            hint = R.string.new_password_text_field,
-            imeAction = ImeAction.Done,
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        Button(
-            onClick = { onEvent(AuthFormEvent.ConfirmResetPassword) },
-            colors = ButtonDefaults.buttonColors(containerColor = greenDark),
-            modifier = Modifier.padding(MaterialTheme.spacing.medium)
-        ) {
-            Text(
-                text = stringResource(id = R.string.confirm_reset_password_button),
-                fontSize = MaterialTheme.spacing.sp_15
-            )
-        }
-    }
 }
 
 @Preview(showBackground = true)
@@ -299,10 +251,4 @@ fun LoginScreenPreview() {
         confirmResetScreen = false,
         setConfirmResetScreen = { }
     )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun ResetPasswordScreenPreview() {
-    ResetPasswordScreen(state = AuthFormState(), onEvent = { })
 }

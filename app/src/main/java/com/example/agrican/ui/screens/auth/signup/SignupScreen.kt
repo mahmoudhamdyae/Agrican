@@ -34,7 +34,6 @@ import com.example.agrican.R
 import com.example.agrican.domain.model.UserType
 import com.example.agrican.ui.components.BackButton
 import com.example.agrican.ui.components.Background
-import com.example.agrican.ui.components.ConfirmField
 import com.example.agrican.ui.components.EmailField
 import com.example.agrican.ui.components.PasswordField
 import com.example.agrican.ui.components.PhoneNumberField
@@ -322,39 +321,6 @@ fun Signup(
     }
 }
 
-@Composable
-fun ConfirmSignUpScreen(
-    value: String,
-    onNewValue: (String) -> Unit,
-    codeError: Int?,
-    onEvent: (AuthFormEvent) -> Unit,
-    modifier: Modifier = Modifier
-) {
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
-        modifier = modifier
-    ) {
-        ConfirmField(
-            value = value,
-            onNewValue = onNewValue,
-            codeError = codeError,
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        Button(
-            onClick = { onEvent(AuthFormEvent.ConfirmSignUp) },
-            colors = ButtonDefaults.buttonColors(containerColor = greenDark),
-            modifier = Modifier.padding(MaterialTheme.spacing.medium)
-        ) {
-            Text(
-                text = stringResource(id = R.string.confirm_signup_button),
-                fontSize = MaterialTheme.spacing.sp_15
-            )
-        }
-    }
-}
-
 @Preview(showBackground = true)
 @Composable
 fun SignupScreenPreview() {
@@ -377,16 +343,5 @@ fun SignupPreview() {
         onEvent = { },
         accountType = UserType.FARMER,
         confirmAccount = false
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun ConfirmSignupPreview() {
-    Signup(
-        state = AuthFormState(),
-        onEvent = { },
-        accountType = UserType.FARMER,
-        confirmAccount = true
     )
 }
