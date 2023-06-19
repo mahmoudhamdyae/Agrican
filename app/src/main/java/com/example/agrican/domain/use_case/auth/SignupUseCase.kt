@@ -19,7 +19,13 @@ class SignupUseCase @Inject constructor(
         accountType: UserType,
         onSuccess: () -> Unit
     ) {
-        accountService.signup(userName, email, password, phoneNumber, onSuccess)
+        accountService.signup(
+            userName = userName,
+            email = email,
+            phoneNumber = phoneNumber,
+            password = password,
+            onSuccess = onSuccess
+        )
 
         val userId = accountService.getCurrentUserId()
         val user = User(

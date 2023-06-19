@@ -25,6 +25,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import com.example.agrican.R
 import com.example.agrican.ui.theme.black
 import com.example.agrican.ui.theme.body
@@ -50,7 +51,9 @@ fun DiseaseHeader(
         ),
         modifier = modifier
     ) {
-        Box(modifier = Modifier.fillMaxWidth().height(MaterialTheme.spacing.dp_150)) {
+        Box(modifier = Modifier
+            .fillMaxWidth()
+            .height(MaterialTheme.spacing.dp_150)) {
             if (image == null) {
                 EmptyImage(modifier = Modifier.fillMaxSize())
             } else {
@@ -139,4 +142,14 @@ fun DescriptionLabel(
             )
         }
     }
+}
+
+@Preview
+@Composable
+fun DiseaseHeaderPreview() {
+    DiseaseHeader(
+        image = null,
+        diseaseName = "تيكا",
+        buttonText = R.string.search_for_another_disease,
+        onButtonClick = { })
 }

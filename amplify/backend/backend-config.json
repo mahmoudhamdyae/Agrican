@@ -1,10 +1,10 @@
 {
   "auth": {
-    "agrican97f42b84": {
+    "agricanfba7b238": {
       "customAuth": false,
       "dependsOn": [],
       "frontendAuthConfig": {
-        "mfaConfiguration": "OPTIONAL",
+        "mfaConfiguration": "OFF",
         "mfaTypes": [
           "SMS"
         ],
