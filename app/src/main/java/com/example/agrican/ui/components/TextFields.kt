@@ -204,7 +204,7 @@ fun AuthEditText(
     BasicTextField(
         singleLine = true,
         value = value,
-        onValueChange = { onNewValue(it) },
+        onValueChange = onNewValue,
         decorationBox = { innerTextField ->
 
             Row(verticalAlignment = Alignment.CenterVertically) {
@@ -225,10 +225,10 @@ fun AuthEditText(
                         fontWeight = FontWeight.SemiBold,
                         modifier = Modifier.padding(MaterialTheme.spacing.small)
                     )
-                } else {
-                    Box(modifier = Modifier.padding(MaterialTheme.spacing.small)) {
-                        innerTextField()
-                    }
+                }
+
+                Box(modifier = Modifier.padding(MaterialTheme.spacing.small)) {
+                    innerTextField()
                 }
 
                 Spacer(modifier = Modifier.weight(1f))
@@ -255,6 +255,7 @@ fun AuthEditText(
                 shape = RoundedCornerShape(MaterialTheme.spacing.medium)
             )
     )
+
     if (fieldError != null) {
         Text(
             text = stringResource(id = fieldError),
