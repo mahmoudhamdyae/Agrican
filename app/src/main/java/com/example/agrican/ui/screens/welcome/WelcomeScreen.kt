@@ -4,10 +4,12 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -24,6 +26,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -53,11 +56,7 @@ fun WelcomeScreen(
     }
     Box(modifier = modifier.fillMaxSize()) {
 
-        Image(
-            painter = painterResource(id = R.drawable.welcome_screen_background),
-            contentDescription = null,
-            modifier = Modifier.align(Alignment.BottomCenter)
-        )
+        BackGroundImage(modifier = Modifier.align(Alignment.BottomCenter))
 
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -146,6 +145,40 @@ fun WelcomeScreen(
                     )
                 }
             }
+        }
+    }
+}
+
+@Composable
+fun BackGroundImage(
+    modifier: Modifier = Modifier
+) {
+    Box(modifier = modifier.height(IntrinsicSize.Max)) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .align(Alignment.BottomCenter)
+        ) {
+            Spacer(modifier = Modifier.weight(1f))
+            Image(
+                painter = painterResource(id = R.drawable.welcome_screen_background),
+                contentDescription = null,
+                contentScale = ContentScale.FillWidth,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f)
+            )
+        }
+
+        Row(
+            modifier = Modifier.align(Alignment.BottomCenter)
+        ) {
+            Spacer(modifier = Modifier.weight(3f))
+            Image(
+                painter = painterResource(id = R.drawable.welcome_screen_tree),
+                contentDescription = null
+            )
+            Spacer(modifier = Modifier.weight(1f))
         }
     }
 }

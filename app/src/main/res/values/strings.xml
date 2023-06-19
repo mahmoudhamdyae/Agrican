@@ -48,6 +48,7 @@
     <string name="navigation_agrican_services">خدمات اجريكان</string>
     <string name="language">اللغة</string>
     <string name="about_us">حول التطبيق</string>
+    <string name="sign_out">تسجيل خروج</string>
 
     <!-- Main Screen -->
     <string name="weather">الطقس</string>

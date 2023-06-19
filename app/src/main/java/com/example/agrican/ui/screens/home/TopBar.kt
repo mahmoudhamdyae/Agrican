@@ -36,6 +36,7 @@ import com.example.agrican.ui.theme.white
 @Composable
 fun TopBar(
     title: @Composable () -> Unit,
+    signOutAction: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     var showMenu by remember { mutableStateOf(false) }
@@ -58,6 +59,15 @@ fun TopBar(
                 DropDownItem(
                     text = R.string.about_us,
                     onItemClick = { showMenu = false }
+                )
+                
+                // Sign Out Item
+                DropDownItem(
+                    text = R.string.sign_out,
+                    onItemClick = {
+                        showMenu = false
+                        signOutAction()
+                    }
                 )
             }
 
@@ -124,5 +134,5 @@ fun DropDownItem(
 @Preview
 @Composable
 fun TopBarPreview() {
-    TopBar(title = { Text(text = "Preview") })
+    TopBar(title = { Text(text = "Preview") }, signOutAction = { })
 }

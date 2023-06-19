@@ -44,6 +44,6 @@ fun NavGraphBuilder.agricanAppGraph(
     }
 
     composable(route = HomeDestination.route) {
-        HomeScreen()
+        HomeScreen(openAndClear = openAndClear)
     }
 }

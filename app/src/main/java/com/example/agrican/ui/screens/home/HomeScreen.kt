@@ -19,7 +19,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.agrican.R
 import com.example.agrican.ui.navigation.AgricanServicesGraph
 import com.example.agrican.ui.navigation.MainGraph
@@ -42,7 +42,9 @@ data class BottomNavItem(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
-    modifier: Modifier = Modifier
+    openAndClear: (String) -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: HomeViewModel = hiltViewModel()
 ) {
     var selectedItem by rememberSaveable { mutableStateOf(0) }
     val bottomNavItems = listOf(
@@ -74,7 +76,8 @@ fun HomeScreen(
                                 style = MaterialTheme.typography.title
                             )
                         }
-                    }
+                    },
+                    signOutAction = { viewModel.signOut(openAndClear) }
                 )
             }
         },
@@ -121,10 +124,4 @@ fun HomeScreen(
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun HomeScreenContentPreview() {
-    HomeScreen()
 }
