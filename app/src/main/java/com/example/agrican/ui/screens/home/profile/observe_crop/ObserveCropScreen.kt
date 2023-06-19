@@ -87,7 +87,7 @@ fun ObserveCropScreenContent(
 
     Column(
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
-        modifier = modifier
+        modifier = modifier.padding(MaterialTheme.spacing.small)
     ) {
         CropSurface(crop = crop)
 

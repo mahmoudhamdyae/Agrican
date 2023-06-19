@@ -84,7 +84,7 @@ fun DiseaseHeader(
                     colors = ButtonDefaults.buttonColors(containerColor = white),
                     modifier = Modifier.weight(1f)
                 ) {
-                    Row {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
                         Text(
                             text = stringResource(id = buttonText),
                             color = greenDark,
