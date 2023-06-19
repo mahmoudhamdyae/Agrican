@@ -227,13 +227,20 @@ fun AuthEditText(
                     )
                 }
 
-                Box(modifier = Modifier.padding(MaterialTheme.spacing.small)) {
-                    innerTextField()
-                }
-
                 Spacer(modifier = Modifier.weight(1f))
 
                 trailingIcon()
+            }
+
+            Box(
+                contentAlignment = Alignment.CenterStart,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight()
+                    .padding(MaterialTheme.spacing.small)
+                    .padding(start = MaterialTheme.spacing.large)
+            ) {
+                innerTextField()
             }
         },
         keyboardOptions = KeyboardOptions(
