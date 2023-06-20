@@ -9,7 +9,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -18,13 +17,14 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.sp
 import com.example.agrican.R
 import com.example.agrican.ui.components.ConfirmField
 import com.example.agrican.ui.components.PasswordField
 import com.example.agrican.ui.screens.auth.AuthFormEvent
 import com.example.agrican.ui.screens.auth.AuthFormState
 import com.example.agrican.ui.theme.greenDark
-import com.example.agrican.ui.theme.spacing
+import androidx.compose.ui.unit.dp
 
 @Composable
 fun ResetPasswordScreen(
@@ -39,13 +39,13 @@ fun ResetPasswordScreen(
         modifier = modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
-            .padding(MaterialTheme.spacing.large)
+            .padding(32.dp)
     ) {
         ConfirmField(
             value = state.confirmCode,
             onNewValue = { onEvent(AuthFormEvent.ConfirmCodeChanged(it)) },
             codeError = state.confirmCodeError,
-            modifier = Modifier.fillMaxWidth().height(MaterialTheme.spacing.dp_50)
+            modifier = Modifier.fillMaxWidth().height(50.dp)
         )
 
         PasswordField(
@@ -61,11 +61,11 @@ fun ResetPasswordScreen(
         Button(
             onClick = { onEvent(AuthFormEvent.ConfirmResetPassword) },
             colors = ButtonDefaults.buttonColors(containerColor = greenDark),
-            modifier = Modifier.padding(MaterialTheme.spacing.medium)
+            modifier = Modifier.padding(16.dp)
         ) {
             Text(
                 text = stringResource(id = R.string.confirm_reset_password_button),
-                fontSize = MaterialTheme.spacing.sp_15
+                fontSize = 15.sp
             )
         }
     }

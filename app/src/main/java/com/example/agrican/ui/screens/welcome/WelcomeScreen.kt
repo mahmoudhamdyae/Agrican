@@ -38,7 +38,8 @@ import com.example.agrican.ui.screens.onboarding.OnboardingDestination
 import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
-import com.example.agrican.ui.theme.spacing
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 object WelcomeDestination: NavigationDestination {
     override val route: String = "welcome"
@@ -62,21 +63,21 @@ fun WelcomeScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .align(Alignment.Center)
-                .padding(MaterialTheme.spacing.large)
+                .padding(32.dp)
         ) {
             // Welcome Text
             Text(
                 text = "Welcome to Agrican",
-                fontSize = MaterialTheme.spacing.sp_30,
+                fontSize = 30.sp,
                 fontWeight = FontWeight.ExtraBold,
                 style = MaterialTheme.typography.body
             )
             Text(
                 text = "أهلا بك فى أجريكان",
-                fontSize = MaterialTheme.spacing.sp_25,
+                fontSize = 25.sp,
                 fontWeight = FontWeight.ExtraBold,
                 style = MaterialTheme.typography.body,
-                modifier = Modifier.padding(MaterialTheme.spacing.small)
+                modifier = Modifier.padding(8.dp)
             )
 
             Row {
@@ -90,15 +91,15 @@ fun WelcomeScreen(
                             text = "English",
                             textAlign = TextAlign.Center,
                             color = greenLight,
-                            fontSize = MaterialTheme.spacing.sp_16,
+                            fontSize = 16.sp,
                             fontWeight = FontWeight.Bold,
                             modifier = Modifier.fillMaxWidth()
                         )
                     },
-                    shape = RoundedCornerShape(MaterialTheme.spacing.large),
+                    shape = RoundedCornerShape(32.dp),
                     modifier = Modifier
                         .weight(1f)
-                        .padding(MaterialTheme.spacing.medium)
+                        .padding(16.dp)
                 )
 
                 // Arabic Button
@@ -110,15 +111,15 @@ fun WelcomeScreen(
                             text = "العربية",
                             textAlign = TextAlign.Center,
                             color = greenLight,
-                            fontSize = MaterialTheme.spacing.sp_16,
+                            fontSize = 16.sp,
                             fontWeight = FontWeight.Bold,
                             modifier = Modifier.fillMaxWidth()
                         )
                     },
-                    shape = RoundedCornerShape(MaterialTheme.spacing.large),
+                    shape = RoundedCornerShape(32.dp),
                     modifier = Modifier
                         .weight(1f)
-                        .padding(MaterialTheme.spacing.medium)
+                        .padding(16.dp)
                 )
             }
 
@@ -136,11 +137,11 @@ fun WelcomeScreen(
                     enabled = isEnglish != null,
                     colors= ButtonDefaults.buttonColors(containerColor = greenDark),
                     modifier = Modifier
-                        .padding(MaterialTheme.spacing.medium)
+                        .padding(16.dp)
                 ) {
                     Text(
                         text = "متابعة",
-                        fontSize = MaterialTheme.spacing.sp_15,
+                        fontSize = 15.sp,
                         fontWeight = FontWeight.Bold,
                     )
                 }

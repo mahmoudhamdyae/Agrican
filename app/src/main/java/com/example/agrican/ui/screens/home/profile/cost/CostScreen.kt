@@ -27,7 +27,8 @@ import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenLight
-import com.example.agrican.ui.theme.spacing
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 object CostDestination: NavigationDestination {
     override val route: String = "cost"
@@ -47,28 +48,28 @@ fun CostScreen(
     Column(
         modifier = modifier
             .verticalScroll(rememberScrollState())
-            .padding(MaterialTheme.spacing.small)
-            .padding(bottom = MaterialTheme.spacing.dp_60)
+            .padding(8.dp)
+            .padding(bottom = 60.dp)
     ) {
         // Main Table Row
-        Row(modifier = Modifier.padding(MaterialTheme.spacing.medium)) {
+        Row(modifier = Modifier.padding(16.dp)) {
             Text(
                 text = stringResource(id = R.string.services),
                 style = MaterialTheme.typography.body,
-                fontSize = MaterialTheme.spacing.sp_15,
+                fontSize = 15.sp,
                 modifier = Modifier.weight(1f)
             )
             Text(
                 text = stringResource(id = R.string.cost_in_month),
                 style = MaterialTheme.typography.body,
-                fontSize = MaterialTheme.spacing.sp_15,
+                fontSize = 15.sp,
                 modifier = Modifier.weight(1f)
             )
             Text(
                 text = stringResource(id = R.string.discount_code),
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.body,
-                fontSize = MaterialTheme.spacing.sp_15,
+                fontSize = 15.sp,
                 modifier = Modifier.weight(1f)
             )
         }
@@ -115,14 +116,14 @@ fun CostScreen(
             onCodeChanged = { cropManagerCode = it }
         )
 
-        Divider(modifier = Modifier.height(MaterialTheme.spacing.dp_2), color = gray)
+        Divider(modifier = Modifier.height(2.dp), color = gray)
 
         // Total Sum Row
-        Row(modifier = modifier.padding(MaterialTheme.spacing.medium)) {
+        Row(modifier = modifier.padding(16.dp)) {
             Text(
                 text = stringResource(id = R.string.sum),
                 style = MaterialTheme.typography.body,
-                fontSize = MaterialTheme.spacing.sp_17,
+                fontSize = 17.sp,
                 modifier = Modifier.weight(1f)
             )
 
@@ -131,14 +132,14 @@ fun CostScreen(
                 Text(
                     text = "00.00",
                     style = MaterialTheme.typography.body,
-                    fontSize = MaterialTheme.spacing.sp_17
+                    fontSize = 17.sp
                 )
-                Spacer(modifier = Modifier.padding(end = MaterialTheme.spacing.small))
+                Spacer(modifier = Modifier.padding(end = 8.dp))
                 // Pound Label
                 Text(
                     text = stringResource(id = R.string.pound),
                     style = MaterialTheme.typography.body,
-                    fontSize = MaterialTheme.spacing.sp_17
+                    fontSize = 17.sp
                 )
             }
         }
@@ -161,7 +162,7 @@ fun CostRow(
         Text(
             text = stringResource(id = mainLabel),
             style = MaterialTheme.typography.body,
-            fontSize = MaterialTheme.spacing.sp_12,
+            fontSize = 12.sp,
             modifier = Modifier.weight(1f)
         )
 
@@ -170,7 +171,7 @@ fun CostRow(
             text = costMonthly.toString(),
             style = MaterialTheme.typography.body,
             textAlign = TextAlign.Center,
-            fontSize = MaterialTheme.spacing.sp_15,
+            fontSize = 15.sp,
             modifier = Modifier.weight(1f)
         )
 
@@ -182,13 +183,13 @@ fun CostRow(
                 text = stringResource(R.string.add_code),
                 color = gray,
                 textAlign = TextAlign.Center,
-                modifier = Modifier.padding(MaterialTheme.spacing.small)
+                modifier = Modifier.padding(8.dp)
             ) },
             imeAction = ImeAction.Done,
             borderColor = greenLight,
             modifier = Modifier
                 .weight(1f)
-                .padding(vertical = MaterialTheme.spacing.medium)
+                .padding(vertical = 16.dp)
         )
     }
 }

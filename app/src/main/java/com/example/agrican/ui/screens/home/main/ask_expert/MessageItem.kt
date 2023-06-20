@@ -16,7 +16,6 @@ import androidx.compose.material.icons.filled.Pause
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -40,7 +39,8 @@ import com.example.agrican.ui.screens.home.main.ask_expert.playback.AndroidAudio
 import com.example.agrican.ui.theme.black
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
-import com.example.agrican.ui.theme.spacing
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import java.io.File
 
 @Composable
@@ -51,7 +51,7 @@ fun MessageItem(
 ) {
     Row(
         horizontalArrangement = if (isUserMe) Arrangement.Start else Arrangement.End,
-        modifier = modifier.padding(MaterialTheme.spacing.small)
+        modifier = modifier.padding(8.dp)
     ) {
         if (isUserMe) {
             MessageItemContent(
@@ -68,8 +68,8 @@ fun MessageItem(
             )
             UserImage(
                 modifier = Modifier
-                    .padding(horizontal = MaterialTheme.spacing.small)
-                    .size(MaterialTheme.spacing.dp_40)
+                    .padding(horizontal = 8.dp)
+                    .size(40.dp)
                     .align(Alignment.Top)
             )
         }
@@ -87,15 +87,15 @@ fun MessageItemContent(
 
         Column(modifier = chatModifier) {
             val chatBubbleShape = if (!isUserMe) RoundedCornerShape(
-                topStart = MaterialTheme.spacing.dp_20,
-                topEnd = MaterialTheme.spacing.extraSmall,
-                bottomEnd = MaterialTheme.spacing.dp_20,
-                bottomStart = MaterialTheme.spacing.dp_20
+                topStart = 20.dp,
+                topEnd = 4.dp,
+                bottomEnd = 20.dp,
+                bottomStart = 20.dp
             ) else RoundedCornerShape(
-                topStart = MaterialTheme.spacing.extraSmall,
-                topEnd = MaterialTheme.spacing.dp_20,
-                bottomEnd = MaterialTheme.spacing.dp_20,
-                bottomStart = MaterialTheme.spacing.dp_20
+                topStart = 4.dp,
+                topEnd = 20.dp,
+                bottomEnd = 20.dp,
+                bottomStart = 20.dp
             )
             Surface(
                 color = gray,
@@ -105,14 +105,14 @@ fun MessageItemContent(
                     MessageType.TEXT -> {
                         TextMessage(
                             messageBody = message.body.orEmpty(),
-                            modifier = Modifier.padding(MaterialTheme.spacing.medium)
+                            modifier = Modifier.padding(16.dp)
                         )
                     }
                     MessageType.IMAGE -> { ImageMessage(image = message.image!!) }
                     MessageType.VOICE -> {
                         VoiceMessage(
                             audioFile = message.file!!,
-                            modifier = Modifier.padding(MaterialTheme.spacing.medium)
+                            modifier = Modifier.padding(16.dp)
                         )
                     }
                 }
@@ -128,7 +128,7 @@ fun TextMessage(
 ) {
     Text(
         text = messageBody,
-        fontSize = MaterialTheme.spacing.sp_11,
+        fontSize = 11.sp,
         fontWeight = FontWeight.Bold,
         color = black,
         modifier = modifier,
@@ -166,7 +166,7 @@ fun VoiceMessage(
     ) {
         Text(text = "01:30")
 
-        Spacer(modifier = Modifier.width(MaterialTheme.spacing.extraLarge))
+        Spacer(modifier = Modifier.width(64.dp))
 
         IconButton(onClick = {
             playing = !playing

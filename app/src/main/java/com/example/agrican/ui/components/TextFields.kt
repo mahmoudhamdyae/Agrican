@@ -39,7 +39,8 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import com.example.agrican.R
 import com.example.agrican.ui.theme.gray
-import com.example.agrican.ui.theme.spacing
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 @Composable
 fun UserNameField(
@@ -116,7 +117,7 @@ private fun PasswordField(
         trailingIcon = {
             IconButton(
                 onClick = { isVisible = !isVisible },
-                modifier = Modifier.height(MaterialTheme.spacing.dp_24)
+                modifier = Modifier.height(24.dp)
             ) {
                 Icon(painter = icon, contentDescription = "Visibility", tint = gray)
             }
@@ -213,7 +214,7 @@ fun AuthEditText(
                         imageVector = it,
                         contentDescription = stringResource(id = hint),
                         tint = gray,
-                        modifier = Modifier.padding(MaterialTheme.spacing.small)
+                        modifier = Modifier.padding(8.dp)
                     )
                 }
 
@@ -221,9 +222,9 @@ fun AuthEditText(
                     Text(
                         text = stringResource(hint),
                         color = gray,
-                        fontSize = MaterialTheme.spacing.sp_12,
+                        fontSize = 12.sp,
                         fontWeight = FontWeight.SemiBold,
-                        modifier = Modifier.padding(MaterialTheme.spacing.small)
+                        modifier = Modifier.padding(8.dp)
                     )
                 }
 
@@ -237,8 +238,8 @@ fun AuthEditText(
                 modifier = Modifier
                     .fillMaxWidth()
                     .wrapContentHeight()
-                    .padding(MaterialTheme.spacing.small)
-                    .padding(start = MaterialTheme.spacing.large)
+                    .padding(8.dp)
+                    .padding(start = 32.dp)
             ) {
                 innerTextField()
             }
@@ -253,13 +254,13 @@ fun AuthEditText(
         ),
         visualTransformation = visualTransformation,
         modifier = modifier
-            .padding(MaterialTheme.spacing.small)
+            .padding(8.dp)
             .border(
                 border = BorderStroke(
-                    width = MaterialTheme.spacing.dp_1,
+                    width = 1.dp,
                     color = if (fieldError != null) MaterialTheme.colorScheme.error else gray
                 ),
-                shape = RoundedCornerShape(MaterialTheme.spacing.medium)
+                shape = RoundedCornerShape(16.dp)
             )
     )
 
@@ -267,7 +268,7 @@ fun AuthEditText(
         Text(
             text = stringResource(id = fieldError),
             color = MaterialTheme.colorScheme.error,
-            modifier = modifier.padding(horizontal = MaterialTheme.spacing.small)
+            modifier = modifier.padding(horizontal = 8.dp)
         )
     }
 }
@@ -297,7 +298,7 @@ fun SimpleTextField(
                 modifier = Modifier
                     .fillMaxWidth()
                     .wrapContentHeight()
-                    .padding(MaterialTheme.spacing.dp_10),
+                    .padding(10.dp),
             contentAlignment = Alignment.Center
             ) {
                 innerTextField()
@@ -313,8 +314,8 @@ fun SimpleTextField(
         ),
         modifier = modifier
             .border(
-                border = BorderStroke(MaterialTheme.spacing.dp_1, borderColor),
-                shape = RoundedCornerShape(MaterialTheme.spacing.medium)
+                border = BorderStroke(1.dp, borderColor),
+                shape = RoundedCornerShape(16.dp)
             )
     )
 }
@@ -338,7 +339,7 @@ fun NotesField(
         keyboardActions = KeyboardActions(
             onDone = { focusManager.clearFocus() }
         ),
-        shape = RoundedCornerShape(MaterialTheme.spacing.small),
+        shape = RoundedCornerShape(8.dp),
         colors = TextFieldDefaults.outlinedTextFieldColors(
             unfocusedBorderColor = gray,
             textColor = gray

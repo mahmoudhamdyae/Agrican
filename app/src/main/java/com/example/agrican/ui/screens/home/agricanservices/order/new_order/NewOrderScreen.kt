@@ -14,7 +14,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -36,7 +35,8 @@ import com.example.agrican.ui.components.LabelItem
 import com.example.agrican.ui.components.LabelWithTextField
 import com.example.agrican.ui.components.NotesField
 import com.example.agrican.ui.theme.greenDark
-import com.example.agrican.ui.theme.spacing
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 @Composable
 fun NewOrderScreen(
@@ -53,10 +53,10 @@ fun NewOrderScreen(
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
         modifier = modifier
-            .padding(MaterialTheme.spacing.small)
-            .padding(bottom = MaterialTheme.spacing.dp_60)
+            .padding(8.dp)
+            .padding(bottom = 60.dp)
             .verticalScroll(rememberScrollState())
     ) {
         // Product Kind Row
@@ -70,7 +70,7 @@ fun NewOrderScreen(
                 R.string.insecticide
             ),
                 onSelect = { viewModel.updateUiState(productType = it) },
-                modifier = Modifier.width(MaterialTheme.spacing.dp_130).fillMaxHeight()
+                modifier = Modifier.width(130.dp).fillMaxHeight()
             )
             Spacer(modifier = Modifier.weight(1f))
         }
@@ -98,12 +98,12 @@ fun NewOrderScreen(
                 keyboardType = KeyboardType.Number,
                 modifier = Modifier.weight(1f)
             )
-            Spacer(modifier = Modifier.width(MaterialTheme.spacing.small))
+            Spacer(modifier = Modifier.width(8.dp))
             DropDown(options = listOf(
                 Quantity.KILOGRAM.title
             ),
                 onSelect = { viewModel.updateUiState(quantityUnit = it) },
-                modifier = Modifier.width(MaterialTheme.spacing.dp_130).fillMaxHeight())
+                modifier = Modifier.width(130.dp).fillMaxHeight())
         }
 
         // Receiving Address Row
@@ -118,8 +118,8 @@ fun NewOrderScreen(
 
         // Place Row
         Row(
-            horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
-            modifier = Modifier.height(MaterialTheme.spacing.large)
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier.height(32.dp)
         ) {
             // Place Drop Down
             DropDown(options = listOf(
@@ -150,7 +150,7 @@ fun NewOrderScreen(
             value = notes,
             onNewValue = { notes = it },
             focusManager = focusManager,
-            modifier = Modifier.fillMaxWidth().height(MaterialTheme.spacing.dp_100)
+            modifier = Modifier.fillMaxWidth().height(100.dp)
         )
 
         // Order Button
@@ -162,8 +162,8 @@ fun NewOrderScreen(
         ) {
             Text(
                 text = stringResource(id = R.string.order_button),
-                fontSize = MaterialTheme.spacing.sp_15,
-                modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
+                fontSize = 15.sp,
+                modifier = Modifier.padding(horizontal = 16.dp)
             )
         }
     }

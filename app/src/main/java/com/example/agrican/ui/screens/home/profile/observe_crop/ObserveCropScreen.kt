@@ -45,9 +45,10 @@ import com.example.agrican.ui.screens.home.profile.add_task.AddTaskDestination
 import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
-import com.example.agrican.ui.theme.spacing
 import com.example.agrican.ui.theme.title
 import com.example.agrican.ui.theme.white
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 object ObserveCropDestination: NavigationDestination {
     override val route: String = "observe_crop"
@@ -86,8 +87,8 @@ fun ObserveCropScreenContent(
 ) {
 
     Column(
-        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
-        modifier = modifier.padding(MaterialTheme.spacing.small)
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+        modifier = modifier.padding(8.dp)
     ) {
         CropSurface(crop = crop)
 
@@ -96,7 +97,7 @@ fun ObserveCropScreenContent(
         Text(
             text = stringResource(id = R.string.tasks),
             style = MaterialTheme.typography.title,
-            fontSize = MaterialTheme.spacing.sp_16
+            fontSize = 16.sp
         )
         Divider()
 
@@ -121,17 +122,17 @@ fun CropSurface(
     modifier: Modifier = Modifier
 ) {
     Surface(
-        shadowElevation = MaterialTheme.spacing.small,
-        shape = RoundedCornerShape(MaterialTheme.spacing.medium),
+        shadowElevation = 8.dp,
+        shape = RoundedCornerShape(16.dp),
         color = greenLight,
         modifier = modifier.fillMaxWidth()
     ) {
-        Column(modifier = Modifier.padding(MaterialTheme.spacing.small)) {
+        Column(modifier = Modifier.padding(8.dp)) {
             Text(
                 text = crop.name,
                 color = white,
                 style = MaterialTheme.typography.title,
-                fontSize = MaterialTheme.spacing.sp_16
+                fontSize = 16.sp
             )
 
             Row(modifier = Modifier.align(Alignment.End)) {
@@ -139,14 +140,14 @@ fun CropSurface(
                     text = stringResource(id = R.string.agri_history),
                     color = white,
                     style = MaterialTheme.typography.body,
-                    fontSize = MaterialTheme.spacing.sp_14,
-                    modifier = Modifier.padding(end = MaterialTheme.spacing.small)
+                    fontSize = 14.sp,
+                    modifier = Modifier.padding(end = 8.dp)
                 )
                 Text(
                     text = crop.date,
                     color = white,
                     style = MaterialTheme.typography.body,
-                    fontSize = MaterialTheme.spacing.sp_14
+                    fontSize = 14.sp
                 )
             }
         }
@@ -159,23 +160,23 @@ fun AddTakSurface(
     modifier: Modifier = Modifier
 ) {
     Surface(
-        shadowElevation = MaterialTheme.spacing.small,
-        shape = RoundedCornerShape(MaterialTheme.spacing.medium),
+        shadowElevation = 8.dp,
+        shape = RoundedCornerShape(16.dp),
         modifier = modifier.fillMaxWidth()
     ) {
-        Column(modifier = Modifier.padding(MaterialTheme.spacing.small)) {
+        Column(modifier = Modifier.padding(8.dp)) {
             // Add Task Label
             Text(
                 text = stringResource(id = R.string.add_task),
                 style = MaterialTheme.typography.title,
-                fontSize = MaterialTheme.spacing.sp_16
+                fontSize = 16.sp
             )
 
             Text(
                 text = stringResource(id = R.string.add_task_description),
                 color = greenDark,
                 style = MaterialTheme.typography.body,
-                fontSize = MaterialTheme.spacing.sp_10
+                fontSize = 10.sp
             )
 
             IconButton(
@@ -206,14 +207,14 @@ fun ExpandableItem(
 
     Column(modifier = modifier) {
         Surface(
-            shadowElevation = MaterialTheme.spacing.small,
-            shape = RoundedCornerShape(MaterialTheme.spacing.medium),
+            shadowElevation = 8.dp,
+            shape = RoundedCornerShape(16.dp),
             color = greenDark
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
-                modifier = Modifier.padding(MaterialTheme.spacing.medium)
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                modifier = Modifier.padding(16.dp)
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_visibility_on),
@@ -224,14 +225,14 @@ fun ExpandableItem(
                     text = stringResource(id = label),
                     color = white,
                     style = MaterialTheme.typography.body,
-                    fontSize = MaterialTheme.spacing.sp_14
+                    fontSize = 14.sp
                 )
 
                 Spacer(modifier = Modifier.weight(1f))
 
                 IconButton(
                     onClick = { visible = !visible },
-                    modifier = Modifier.height(MaterialTheme.spacing.large)
+                    modifier = Modifier.height(32.dp)
                 ) {
                     Icon(
                         imageVector = if (visible) Icons.Default.ExpandLess else Icons.Default.ExpandMore,

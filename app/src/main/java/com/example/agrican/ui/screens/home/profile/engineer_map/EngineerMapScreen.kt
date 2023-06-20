@@ -24,7 +24,8 @@ import com.example.agrican.ui.theme.black
 import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
-import com.example.agrican.ui.theme.spacing
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 object EngineerMapDestination: NavigationDestination {
     override val route: String = "engineer_map"
@@ -37,10 +38,10 @@ fun EngineerMapScreen(
 ) {
 
     Column(
-        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
         modifier = modifier
-            .padding(MaterialTheme.spacing.medium)
-            .padding(bottom = MaterialTheme.spacing.dp_60)
+            .padding(16.dp)
+            .padding(bottom = 60.dp)
     ) {
         // Choose Farm Drop Down
         DropDown(
@@ -49,8 +50,8 @@ fun EngineerMapScreen(
             onSelect = { /*TODO*/ },
             textColor = greenDark,
             modifier = Modifier
-                .width(MaterialTheme.spacing.dp_150)
-                .height(MaterialTheme.spacing.large)
+                .width(150.dp)
+                .height(32.dp)
         )
 
         // Choose Size Text
@@ -58,7 +59,7 @@ fun EngineerMapScreen(
             text = stringResource(id = R.string.choose_farm_size),
             color = greenLight,
             style = MaterialTheme.typography.body,
-            fontSize = MaterialTheme.spacing.sp_15
+            fontSize = 15.sp
         )
 
         MapScreen(modifier = Modifier.fillMaxWidth().weight(1f).background(black))
@@ -67,11 +68,11 @@ fun EngineerMapScreen(
         Button(
             onClick = { /*TODO*/ },
             colors = ButtonDefaults.buttonColors(containerColor = greenDark),
-            modifier = Modifier.padding(bottom = MaterialTheme.spacing.large).align(Alignment.CenterHorizontally)
+            modifier = Modifier.padding(bottom = 32.dp).align(Alignment.CenterHorizontally)
         ) {
             Text(
                 text = stringResource(id = R.string.continue_button),
-                fontSize = MaterialTheme.spacing.sp_15,
+                fontSize = 15.sp,
                 fontWeight = FontWeight.Bold
             )
         }

@@ -20,8 +20,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.example.agrican.common.snackbar.SnackBarManager
 import com.example.agrican.ui.navigation.agricanAppGraph
-import com.example.agrican.ui.theme.spacing
 import com.google.accompanist.pager.ExperimentalPagerApi
+import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.CoroutineScope
 
 @Composable
@@ -49,7 +49,7 @@ private fun AgricanAppContent(
         snackbarHost = {
             SnackbarHost(
                 hostState = snackBarHostState,
-                modifier = Modifier.padding(MaterialTheme.spacing.small),
+                modifier = Modifier.padding(8.dp),
                 snackbar = { snackBarData ->
                     Snackbar(snackBarData, contentColor = MaterialTheme.colorScheme.onPrimary)
                 }

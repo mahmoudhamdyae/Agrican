@@ -19,13 +19,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.agrican.R
 import com.example.agrican.ui.navigation.AgricanServicesGraph
 import com.example.agrican.ui.navigation.MainGraph
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.navigation.ProfileGraph
-import com.example.agrican.ui.theme.spacing
 import com.example.agrican.ui.theme.textGray
 import com.example.agrican.ui.theme.title
 
@@ -96,7 +96,7 @@ fun HomeScreen(
         Box(modifier = modifier
             .fillMaxSize()
             .padding(
-                top = contentPadding.calculateTopPadding(), bottom = MaterialTheme.spacing.default
+                top = contentPadding.calculateTopPadding(), bottom = 0.dp
             )
         ) {
             when (selectedItem) {

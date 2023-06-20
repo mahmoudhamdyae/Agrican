@@ -45,13 +45,14 @@ import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
-import com.example.agrican.ui.theme.spacing
 import com.example.agrican.ui.theme.textGray
 import com.example.agrican.ui.theme.title
 import com.paymob.acceptsdk.IntentConstants
 import com.paymob.acceptsdk.PayResponseKeys
 import com.paymob.acceptsdk.SaveCardResponseKeys
 import com.paymob.acceptsdk.ToastMaker
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 object OrderStatusDestination: NavigationDestination {
     override val route: String = "order_status"
@@ -82,19 +83,19 @@ fun OrderStatusScreenContent(
     modifier: Modifier = Modifier,
 ) {
     Column(
-        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
-        modifier = modifier.padding(MaterialTheme.spacing.medium)
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+        modifier = modifier.padding(16.dp)
     ) {
         Text(
             text = stringResource(id = R.string.order_status),
             color = greenLight,
             style = MaterialTheme.typography.title,
-            fontSize = MaterialTheme.spacing.sp_15,
+            fontSize = 15.sp,
         )
 
         Divider(
             modifier = Modifier
-                .height(MaterialTheme.spacing.dp_2)
+                .height(2.dp)
                 .background(gray)
         )
 
@@ -113,7 +114,7 @@ fun EmptyView(
         Text(
             text = stringResource(id = R.string.empty_orders),
             style = MaterialTheme.typography.title,
-            fontSize = MaterialTheme.spacing.sp_14
+            fontSize = 14.sp
         )
     }
 }
@@ -134,7 +135,7 @@ fun OrdersList(
 
             // Spacer for Bottom Navigation Bar
             item {
-                Spacer(modifier = Modifier.height(MaterialTheme.spacing.dp_60))
+                Spacer(modifier = Modifier.height(60.dp))
             }
         }
     }
@@ -150,11 +151,11 @@ fun OrdersListItem(
         modifier = modifier
     ) {
         Surface(
-            shape = RoundedCornerShape(MaterialTheme.spacing.medium),
-            border = BorderStroke(MaterialTheme.spacing.dp_1, gray),
-            modifier = Modifier.padding(bottom = MaterialTheme.spacing.dp_24)
+            shape = RoundedCornerShape(16.dp),
+            border = BorderStroke(1.dp, gray),
+            modifier = Modifier.padding(bottom = 24.dp)
         ) {
-            Row(modifier = Modifier.padding(MaterialTheme.spacing.medium)) {
+            Row(modifier = Modifier.padding(16.dp)) {
                 Column(modifier = Modifier.weight(3f)) {
                     Row {
                         // Order Name
@@ -162,21 +163,21 @@ fun OrdersListItem(
                             text = order.name,
                             color = textGray,
                             style = MaterialTheme.typography.title,
-                            fontSize = MaterialTheme.spacing.sp_17,
+                            fontSize = 17.sp,
                             fontWeight = FontWeight.SemiBold,
                         )
                         Spacer(modifier = Modifier.weight(1f))
                         Surface(
-                            shape = RoundedCornerShape(MaterialTheme.spacing.medium),
-                            border = BorderStroke(MaterialTheme.spacing.dp_1, gray)
+                            shape = RoundedCornerShape(16.dp),
+                            border = BorderStroke(1.dp, gray)
                         ) {
                             // Title
                             Text(
                                 text = order.t,
                                 color = greenDark,
                                 style = MaterialTheme.typography.body,
-                                fontSize = MaterialTheme.spacing.sp_10,
-                                modifier = Modifier.padding(horizontal = MaterialTheme.spacing.small)
+                                fontSize = 10.sp,
+                                modifier = Modifier.padding(horizontal = 8.dp)
                             )
                         }
 
@@ -186,7 +187,7 @@ fun OrdersListItem(
                     Text(
                         text = "السعر ${order.price} جنيهاً",
                         style = MaterialTheme.typography.body,
-                        fontSize = MaterialTheme.spacing.sp_14,
+                        fontSize = 14.sp,
                         fontWeight = FontWeight.Normal,
                     )
                     // Order Description
@@ -194,15 +195,15 @@ fun OrdersListItem(
                         text = order.description,
                         style = MaterialTheme.typography.body,
                         fontWeight = FontWeight.SemiBold,
-                        modifier = Modifier.padding(bottom = MaterialTheme.spacing.small)
+                        modifier = Modifier.padding(bottom = 8.dp)
                     )
                 }
 
                 EmptyImage(
                     modifier = Modifier
-                        .clip(RoundedCornerShape(MaterialTheme.spacing.medium))
-                        .width(MaterialTheme.spacing.dp_50)
-                        .height(MaterialTheme.spacing.dp_100)
+                        .clip(RoundedCornerShape(16.dp))
+                        .width(50.dp)
+                        .height(100.dp)
                         .weight(1f)
                 )
             }

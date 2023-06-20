@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -19,7 +18,8 @@ import com.example.agrican.ui.components.ConfirmField
 import com.example.agrican.ui.screens.auth.AuthFormEvent
 import com.example.agrican.ui.screens.auth.AuthFormState
 import com.example.agrican.ui.theme.greenDark
-import com.example.agrican.ui.theme.spacing
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 @Composable
 fun ConfirmSignUpScreen(
@@ -44,11 +44,11 @@ fun ConfirmSignUpScreen(
         Button(
             onClick = { onEvent(AuthFormEvent.ConfirmSignUp) },
             colors = ButtonDefaults.buttonColors(containerColor = greenDark),
-            modifier = Modifier.padding(MaterialTheme.spacing.medium)
+            modifier = Modifier.padding(16.dp)
         ) {
             Text(
                 text = stringResource(id = R.string.confirm_signup_button),
-                fontSize = MaterialTheme.spacing.sp_15
+                fontSize = 15.sp
             )
         }
     }

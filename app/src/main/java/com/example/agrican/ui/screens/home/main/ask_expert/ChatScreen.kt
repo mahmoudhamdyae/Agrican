@@ -10,7 +10,6 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -26,7 +25,8 @@ import com.example.agrican.domain.model.Message
 import com.example.agrican.domain.model.MessageType
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.greenDark
-import com.example.agrican.ui.theme.spacing
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.launch
 import java.io.File
 
@@ -89,19 +89,19 @@ fun ChatScreenContent(
 ) {
     Column(modifier = modifier
         .fillMaxSize()
-        .padding(MaterialTheme.spacing.small)) {
+        .padding(8.dp)) {
         // Finish Chat Button
         Button(
             onClick = { navigateUp() },
-            shape = RoundedCornerShape(MaterialTheme.spacing.medium),
+            shape = RoundedCornerShape(16.dp),
             colors = ButtonDefaults.buttonColors(containerColor = greenDark),
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(
                 text = stringResource(id = R.string.finish_chat),
-                fontSize = MaterialTheme.spacing.sp_15,
+                fontSize = 15.sp,
                 fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(vertical = MaterialTheme.spacing.small)
+                modifier = Modifier.padding(vertical = 8.dp)
             )
         }
 
@@ -118,7 +118,7 @@ fun ChatScreenContent(
             sendFile = sendFile,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(MaterialTheme.spacing.small)
+                .padding(8.dp)
         )
     }
 }

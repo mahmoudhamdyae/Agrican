@@ -40,6 +40,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
@@ -55,7 +57,6 @@ import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
-import com.example.agrican.ui.theme.spacing
 import com.example.agrican.ui.theme.title
 import com.example.agrican.ui.theme.white
 import kotlinx.coroutines.launch
@@ -91,13 +92,13 @@ fun MainScreenContent(
     Column(
         modifier = modifier
             .verticalScroll(rememberScrollState())
-            .padding(bottom = MaterialTheme.spacing.dp_60)
+            .padding(bottom = 60.dp)
     ) {
         WeatherBox(
             weather = weather,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(MaterialTheme.spacing.medium)
+                .padding(16.dp)
                 .clickable { openScreen(WeatherDestination.route) }
         )
         Row(
@@ -111,9 +112,9 @@ fun MainScreenContent(
             ) {
                 Text(
                     text = stringResource(id = R.string.last_news),
-                    fontSize = MaterialTheme.spacing.sp_14,
+                    fontSize = 14.sp,
                     fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
+                    modifier = Modifier.padding(horizontal = 16.dp)
                 )
             }
 
@@ -122,9 +123,9 @@ fun MainScreenContent(
                 Text(
                     text = stringResource(id = R.string.last_offers),
                     color = greenDark,
-                    fontSize = MaterialTheme.spacing.sp_14,
+                    fontSize = 14.sp,
                     fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
+                    modifier = Modifier.padding(horizontal = 16.dp)
                 )
             }
         }
@@ -139,7 +140,7 @@ fun MainScreenContent(
             onItemClick = { openScreen(ProblemImagesDestination.route) },
             body = { ProblemImagesRow() },
             modifier = Modifier
-                .padding(MaterialTheme.spacing.small)
+                .padding(8.dp)
                 .fillMaxWidth()
 
         )
@@ -152,7 +153,7 @@ fun MainScreenContent(
                 icon = R.drawable.calculator,
                 onItemClick = { openScreen(FertilizersCalculatorDestination.route) },
                 modifier = Modifier
-                    .padding(MaterialTheme.spacing.small)
+                    .padding(8.dp)
                     .weight(1f)
             )
 
@@ -163,7 +164,7 @@ fun MainScreenContent(
                 icon = R.drawable.ask_expert,
                 onItemClick = { openScreen(AskExpertDestination.route) },
                 modifier = Modifier
-                    .padding(MaterialTheme.spacing.small)
+                    .padding(8.dp)
                     .weight(1f)
             )
         }
@@ -176,23 +177,23 @@ fun WeatherBox(
     modifier: Modifier = Modifier
 ) {
     Surface(
-        border = BorderStroke(MaterialTheme.spacing.dp_1, Color.Gray),
-        shadowElevation = MaterialTheme.spacing.medium,
-        shape = RoundedCornerShape(MaterialTheme.spacing.medium),
+        border = BorderStroke(1.dp, Color.Gray),
+        shadowElevation = 16.dp,
+        shape = RoundedCornerShape(16.dp),
         modifier = modifier
     ) {
-        Column(modifier = Modifier.padding(MaterialTheme.spacing.small)) {
+        Column(modifier = Modifier.padding(8.dp)) {
             Row(modifier = Modifier.fillMaxWidth()) {
                 Text(
                     text = "الطقس",
                     style = MaterialTheme.typography.title,
-                    fontSize = MaterialTheme.spacing.sp_16,
+                    fontSize = 16.sp,
                 )
                 Spacer(modifier = Modifier.weight(1f))
                 Text(
                     text = weather.firstInformation,
                     style = MaterialTheme.typography.body,
-                    fontSize = MaterialTheme.spacing.sp_11
+                    fontSize = 11.sp
                 )
             }
 
@@ -201,39 +202,39 @@ fun WeatherBox(
                     Text(
                         text = "جودة الهواء",
                         style = MaterialTheme.typography.body,
-                        fontSize = MaterialTheme.spacing.sp_11,
+                        fontSize = 11.sp,
                         fontWeight = FontWeight.Bold
                     )
                     Text(
                         text = "الرياح", style = MaterialTheme.typography.body,
-                        fontSize = MaterialTheme.spacing.sp_11,
+                        fontSize = 11.sp,
                         fontWeight = FontWeight.Bold
                     )
                     Text(
                         text = "هبات الرياح", style = MaterialTheme.typography.body,
-                        fontSize = MaterialTheme.spacing.sp_11,
+                        fontSize = 11.sp,
                         fontWeight = FontWeight.Bold
                     )
                 }
                 Column(
-                    modifier = Modifier.padding(horizontal = MaterialTheme.spacing.small)
+                    modifier = Modifier.padding(horizontal = 8.dp)
                 ) {
                     Text(
                         text = weather.air,
                         style = MaterialTheme.typography.body,
-                        fontSize = MaterialTheme.spacing.sp_11,
+                        fontSize = 11.sp,
                         fontWeight = FontWeight.Bold,
                     )
                     Text(
                         text = weather.wind,
                         style = MaterialTheme.typography.body,
-                        fontSize = MaterialTheme.spacing.sp_11,
+                        fontSize = 11.sp,
                         fontWeight = FontWeight.Bold,
                     )
                     Text(
                         text = weather.windGusts,
                         style = MaterialTheme.typography.body,
-                        fontSize = MaterialTheme.spacing.sp_11,
+                        fontSize = 11.sp,
                         fontWeight = FontWeight.Bold,
                     )
                 }
@@ -247,24 +248,24 @@ fun WeatherBox(
                     text = weather.air,
                     color = greenDark,
                     style = MaterialTheme.typography.body,
-                    fontSize = MaterialTheme.spacing.sp_11,
+                    fontSize = 11.sp,
                     fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(MaterialTheme.spacing.extraSmall)
+                    modifier = Modifier.padding(4.dp)
                 )
                 Text(
                     text = "${weather.degree.toInt()}°",
                     color = greenDark,
-                    fontSize = MaterialTheme.spacing.sp_30,
+                    fontSize = 30.sp,
                     fontWeight = FontWeight.SemiBold,
-                    modifier = Modifier.padding(MaterialTheme.spacing.extraSmall)
+                    modifier = Modifier.padding(4.dp)
                 )
                 Icon(
                     painter = painterResource(id = R.drawable.sunny),
                     contentDescription = null,
                     tint = greenDark,
                     modifier = Modifier
-                        .padding(MaterialTheme.spacing.extraSmall)
-                        .height(MaterialTheme.spacing.large)
+                        .padding(4.dp)
+                        .height(32.dp)
                 )
             }
         }
@@ -284,7 +285,7 @@ fun LatestNewsList(
             modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.Center)
-                .height(MaterialTheme.spacing.dp_80)
+                .height(80.dp)
                 .background(greenDark)
         )
         LazyRow(state = scrollState) {
@@ -292,19 +293,19 @@ fun LatestNewsList(
                 LatestNewsListItem(
                     news = news[it],
                     modifier = Modifier
-                        .padding(MaterialTheme.spacing.small)
-                        .height(MaterialTheme.spacing.dp_100)
-                        .width(MaterialTheme.spacing.dp_150)
+                        .padding(8.dp)
+                        .height(100.dp)
+                        .width(150.dp)
                 )
             }
         }
 
         // Go To First Button
         Surface(
-            shadowElevation = MaterialTheme.spacing.small,
+            shadowElevation = 8.dp,
             shape = CircleShape,
             modifier = Modifier
-                .padding(start = MaterialTheme.spacing.medium)
+                .padding(start = 16.dp)
                 .align(Alignment.CenterStart)
                 .clickable {
                     val firstVisibleItemIndex = scrollState.firstVisibleItemIndex
@@ -321,16 +322,16 @@ fun LatestNewsList(
                 painter = painterResource(id = R.drawable.baseline_arrow_back_ios_new_24),
                 contentDescription = null,
                 tint = greenLight,
-                modifier = Modifier.padding(MaterialTheme.spacing.small)
+                modifier = Modifier.padding(8.dp)
             )
         }
 
         // Go To Last Button
         Surface(
-            shadowElevation = MaterialTheme.spacing.small,
+            shadowElevation = 8.dp,
             shape = CircleShape,
             modifier = Modifier
-                .padding(end = MaterialTheme.spacing.medium)
+                .padding(end = 16.dp)
                 .align(Alignment.CenterEnd)
                 .clickable { scope.launch { scrollState.animateScrollToItem(news.size) } }
         ) {
@@ -338,7 +339,7 @@ fun LatestNewsList(
                 painter = painterResource(id = R.drawable.baseline_arrow_forward_ios_24),
                 contentDescription = null,
                 tint = greenLight,
-                modifier = Modifier.padding(MaterialTheme.spacing.small)
+                modifier = Modifier.padding(8.dp)
             )
         }
     }
@@ -350,8 +351,8 @@ fun LatestNewsListItem(
     modifier: Modifier = Modifier
 ) {
     Surface(
-        shadowElevation = MaterialTheme.spacing.medium,
-        shape = RoundedCornerShape(MaterialTheme.spacing.medium),
+        shadowElevation = 16.dp,
+        shape = RoundedCornerShape(16.dp),
         modifier = modifier
     ) {
         Column(
@@ -372,11 +373,11 @@ fun LatestNewsListItem(
                 color = greenDark,
                 maxLines = 1,
                 style = MaterialTheme.typography.body,
-                fontSize = MaterialTheme.spacing.sp_11,
+                fontSize = 11.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(MaterialTheme.spacing.small)
+                    .padding(8.dp)
                     .background(MaterialTheme.colorScheme.background)
             )
         }
@@ -393,20 +394,20 @@ fun BottomCard(
     body: @Composable () -> Unit = { }
 ) {
     Surface(
-        shape = RoundedCornerShape(MaterialTheme.spacing.medium),
-        shadowElevation = MaterialTheme.spacing.medium,
+        shape = RoundedCornerShape(16.dp),
+        shadowElevation = 16.dp,
         modifier = modifier.clickable { onItemClick() }
     ) {
         Column(
-            verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
-            modifier = Modifier.padding(MaterialTheme.spacing.medium)
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier.padding(16.dp)
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 // Card Title
                 Text(
                     text = stringResource(id = title),
                     style = MaterialTheme.typography.title,
-                    fontSize = MaterialTheme.spacing.sp_16
+                    fontSize = 16.sp
                 )
                 Spacer(modifier = Modifier.weight(1f))
                 // Card Icon
@@ -414,14 +415,14 @@ fun BottomCard(
                     painter = painterResource(id = icon),
                     contentDescription = null,
                     tint = greenDark,
-                    modifier = Modifier.size(MaterialTheme.spacing.dp_24)
+                    modifier = Modifier.size(24.dp)
                 )
             }
             // Card Description
             Text(
                 text = stringResource(id = description),
                 style = MaterialTheme.typography.body,
-                fontSize = MaterialTheme.spacing.sp_11,
+                fontSize = 11.sp,
                 fontWeight = FontWeight.Bold,
             )
             body()
@@ -437,7 +438,7 @@ fun ProblemImagesRow(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = modifier
-            .padding(vertical = MaterialTheme.spacing.small)
+            .padding(vertical = 8.dp)
             .fillMaxWidth()
     ) {
         ProblemImagesRowItem()
@@ -451,7 +452,7 @@ fun ProblemImagesRow(
             painter = painterResource(id = R.drawable.baseline_arrow_forward_ios_24),
             contentDescription = null,
             tint = greenDark,
-            modifier = Modifier.padding(MaterialTheme.spacing.small)
+            modifier = Modifier.padding(8.dp)
         )
         ProblemImagesRowItem()
     }
@@ -464,8 +465,8 @@ fun ProblemImagesRowItem(
     Box(
         contentAlignment = Alignment.Center,
         modifier = modifier
-            .size(MaterialTheme.spacing.dp_75)
-            .clip(RoundedCornerShape(MaterialTheme.spacing.medium))
+            .size(75.dp)
+            .clip(RoundedCornerShape(16.dp))
             .background(gray)
     ) {
         Text(text = "ico", color = white)

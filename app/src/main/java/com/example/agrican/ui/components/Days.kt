@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -15,8 +14,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
-import com.example.agrican.ui.theme.spacing
 import com.example.agrican.ui.theme.white
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 @Composable
 fun Days(
@@ -34,7 +34,7 @@ fun Days(
                     day = it + 1,
                     selected = selectedDays.contains(it + 1),
                     onItemClicked = onDayClicked,
-                    modifier = Modifier.padding(MaterialTheme.spacing.extraSmall)
+                    modifier = Modifier.padding(4.dp)
                 )
             }
         }
@@ -49,19 +49,19 @@ fun DayItem(
     modifier: Modifier = Modifier
 ) {
     Surface(
-        border = BorderStroke(MaterialTheme.spacing.dp_1, gray),
+        border = BorderStroke(1.dp, gray),
         color = if (selected) greenLight else white,
-        modifier = modifier.height(MaterialTheme.spacing.extraLarge).clickable {
+        modifier = modifier.height(64.dp).clickable {
             onItemClicked(day)
         }
     ) {
         Text(
             text = day.toString(),
             color = if (selected) white else greenDark,
-            fontSize = MaterialTheme.spacing.sp_15,
+            fontSize = 15.sp,
             modifier = Modifier.padding(
-                vertical = MaterialTheme.spacing.extraSmall,
-                horizontal = MaterialTheme.spacing.small
+                vertical = 4.dp,
+                horizontal = 8.dp
             )
         )
     }

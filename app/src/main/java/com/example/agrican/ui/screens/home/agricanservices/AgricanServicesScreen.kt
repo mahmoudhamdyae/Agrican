@@ -34,10 +34,11 @@ import com.example.agrican.ui.screens.home.agricanservices.treatment.TreatmentDe
 import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
-import com.example.agrican.ui.theme.spacing
 import com.example.agrican.ui.theme.textGray
 import com.example.agrican.ui.theme.title
 import com.example.agrican.ui.theme.white
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 object AgricanServicesDestination: NavigationDestination {
     override val route: String = "agrican_services"
@@ -52,7 +53,7 @@ fun AgricanServicesScreen(
     Column(
         modifier = modifier
             .verticalScroll(rememberScrollState())
-            .padding(bottom = MaterialTheme.spacing.dp_60)
+            .padding(bottom = 60.dp)
     ) {
         Box {
             Box(
@@ -66,7 +67,7 @@ fun AgricanServicesScreen(
                     modifier = Modifier
                         .weight(1.5f)
                         .fillMaxHeight()
-                        .padding(MaterialTheme.spacing.small)
+                        .padding(8.dp)
                         .clickable { openScreen(DefaultAgesDestination.route) },
                     isPrimaryMain = true
                 )
@@ -77,7 +78,7 @@ fun AgricanServicesScreen(
                     description = R.string.problem_images_description,
                     modifier = Modifier
                         .weight(1f)
-                        .padding(MaterialTheme.spacing.small)
+                        .padding(8.dp)
                         .clickable { openScreen(OrderDestination.route) },
                     isPrimaryMain = true
                 )
@@ -93,7 +94,7 @@ fun AgricanServicesScreen(
                         description = R.string.problem_images_description,
                         modifier = Modifier
                             .weight(1f)
-                            .padding(MaterialTheme.spacing.small)
+                            .padding(8.dp)
                             .clickable { openScreen(DiseasesDestination.route) }
                     )
 
@@ -104,7 +105,7 @@ fun AgricanServicesScreen(
                         modifier = Modifier
                             .weight(1.5f)
                             .fillMaxHeight()
-                            .padding(MaterialTheme.spacing.small)
+                            .padding(8.dp)
                             .clickable { openScreen(PestsDestination.route) }
                     )
                 }
@@ -113,7 +114,7 @@ fun AgricanServicesScreen(
                     Box(
                         modifier = Modifier
                             .fillMaxSize()
-                            .padding(vertical = MaterialTheme.spacing.large)
+                            .padding(vertical = 32.dp)
                             .background(greenDark)
                     )
                     // Treatment
@@ -121,7 +122,7 @@ fun AgricanServicesScreen(
                         title = R.string.treatment,
                         description = R.string.problem_images_description,
                         modifier = Modifier
-                            .padding(MaterialTheme.spacing.small)
+                            .padding(8.dp)
                             .clickable { openScreen(TreatmentDestination.route) }
                     )
                 }
@@ -133,7 +134,7 @@ fun AgricanServicesScreen(
             title = R.string.join_as_expert,
             description = R.string.problem_images_description,
             modifier = Modifier
-                .padding(MaterialTheme.spacing.medium)
+                .padding(16.dp)
                 .clickable { openScreen(JoinAsExpertDestination.route) }
         )
     }
@@ -150,18 +151,18 @@ fun Card(
     val secondaryColor = if (isPrimaryMain) white else greenDark
 
     Surface(
-        shape = RoundedCornerShape(MaterialTheme.spacing.medium),
-        shadowElevation = MaterialTheme.spacing.medium,
+        shape = RoundedCornerShape(16.dp),
+        shadowElevation = 16.dp,
         color = mainColor,
         modifier = modifier
     ) {
-        Column(modifier = Modifier.padding(MaterialTheme.spacing.small)) {
+        Column(modifier = Modifier.padding(8.dp)) {
             // Card Title
             Text(
                 text = stringResource(id = title),
                 color = secondaryColor,
                 style = MaterialTheme.typography.title,
-                fontSize = MaterialTheme.spacing.sp_16,
+                fontSize = 16.sp,
             )
 
             // Card Description
@@ -169,10 +170,10 @@ fun Card(
                 text = stringResource(id = description),
                 color = if (isPrimaryMain) white else textGray,
                 style = MaterialTheme.typography.body,
-                fontSize = MaterialTheme.spacing.sp_11
+                fontSize = 11.sp
             )
 
-            Spacer(modifier = Modifier.height(MaterialTheme.spacing.small))
+            Spacer(modifier = Modifier.height(8.dp))
 
             // Card Icon
             Row {
@@ -184,7 +185,7 @@ fun Card(
                     Text(
                         text = "ico",
                         color = mainColor,
-                        modifier = Modifier.padding(MaterialTheme.spacing.small)
+                        modifier = Modifier.padding(8.dp)
                     )
                 }
             }

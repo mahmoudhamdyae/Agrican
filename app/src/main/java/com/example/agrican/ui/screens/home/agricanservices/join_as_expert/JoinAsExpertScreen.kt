@@ -52,8 +52,9 @@ import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
-import com.example.agrican.ui.theme.spacing
 import com.example.agrican.ui.theme.white
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 object JoinAsExpertDestination: NavigationDestination {
     override val route: String = "join_as_expert"
@@ -85,19 +86,19 @@ fun JoinAsExpertScreen(
         modifier = modifier
             .verticalScroll(rememberScrollState())
             .padding(
-                start = MaterialTheme.spacing.medium,
-                end = MaterialTheme.spacing.medium,
-                bottom = MaterialTheme.spacing.large
+                start = 16.dp,
+                end = 16.dp,
+                bottom = 32.dp
             )
-            .padding(bottom = MaterialTheme.spacing.dp_60),
-        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
+            .padding(bottom = 60.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         // Header
         Surface(
-            shadowElevation = MaterialTheme.spacing.medium,
+            shadowElevation = 16.dp,
             shape = RoundedCornerShape(
-                bottomStart = MaterialTheme.spacing.medium,
-                bottomEnd = MaterialTheme.spacing.medium
+                bottomStart = 16.dp,
+                bottomEnd = 16.dp
             ),
             color = greenDark
         ) {
@@ -107,29 +108,29 @@ fun JoinAsExpertScreen(
                     textAlign = TextAlign.Center,
                     color = white,
                     style = MaterialTheme.typography.body,
-                    fontSize = MaterialTheme.spacing.sp_16,
+                    fontSize = 16.sp,
                     modifier = Modifier.padding(
-                        horizontal = MaterialTheme.spacing.medium,
-                        vertical = MaterialTheme.spacing.extraLarge
+                        horizontal = 16.dp,
+                        vertical = 64.dp
                     )
                 )
 
                 Box(
                     modifier = Modifier
-                        .padding(MaterialTheme.spacing.medium)
+                        .padding(16.dp)
                         .clip(CircleShape)
                         .background(MaterialTheme.colorScheme.background)
                         .align(Alignment.BottomStart)
-                        .size(MaterialTheme.spacing.extraSmall)
+                        .size(4.dp)
                 )
 
                 Box(
                     modifier = Modifier
-                        .padding(MaterialTheme.spacing.medium)
+                        .padding(16.dp)
                         .clip(CircleShape)
                         .background(MaterialTheme.colorScheme.background)
                         .align(Alignment.BottomEnd)
-                        .size(MaterialTheme.spacing.extraSmall)
+                        .size(4.dp)
                 )
             }
         }
@@ -138,7 +139,7 @@ fun JoinAsExpertScreen(
         Text(
             text = stringResource(id = R.string.full_name),
             style = MaterialTheme.typography.body,
-            fontSize = MaterialTheme.spacing.sp_14
+            fontSize = 14.sp
         )
         OutlinedTextField(
             value = fullName,
@@ -150,7 +151,7 @@ fun JoinAsExpertScreen(
             keyboardActions = KeyboardActions(
                 onNext = { focusManager.moveFocus(FocusDirection.Down) }
             ),
-            shape = RoundedCornerShape(MaterialTheme.spacing.medium),
+            shape = RoundedCornerShape(16.dp),
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 unfocusedBorderColor = greenLight,
                 textColor = greenLight
@@ -162,7 +163,7 @@ fun JoinAsExpertScreen(
         Text(
             text = stringResource(id = R.string.e_mail),
             style = MaterialTheme.typography.body,
-            fontSize = MaterialTheme.spacing.sp_14
+            fontSize = 14.sp
         )
         OutlinedTextField(
             value = email,
@@ -174,7 +175,7 @@ fun JoinAsExpertScreen(
             keyboardActions = KeyboardActions(
                 onNext = { focusManager.moveFocus(FocusDirection.Down) }
             ),
-            shape = RoundedCornerShape(MaterialTheme.spacing.medium),
+            shape = RoundedCornerShape(16.dp),
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 unfocusedBorderColor = greenLight,
                 textColor = greenLight
@@ -186,7 +187,7 @@ fun JoinAsExpertScreen(
         Text(
             text = stringResource(id = R.string.phone_number),
             style = MaterialTheme.typography.body,
-            fontSize = MaterialTheme.spacing.sp_14
+            fontSize = 14.sp
         )
         OutlinedTextField(
             value = phoneNumber,
@@ -198,7 +199,7 @@ fun JoinAsExpertScreen(
             keyboardActions = KeyboardActions(
                 onDone = { focusManager.clearFocus() }
             ),
-            shape = RoundedCornerShape(MaterialTheme.spacing.medium),
+            shape = RoundedCornerShape(16.dp),
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 unfocusedBorderColor = greenLight,
                 textColor = greenLight
@@ -210,7 +211,7 @@ fun JoinAsExpertScreen(
         Text(
             text = stringResource(id = R.string.image_of_certificate),
             style = MaterialTheme.typography.body,
-            fontSize = MaterialTheme.spacing.sp_14
+            fontSize = 14.sp
         )
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -224,7 +225,7 @@ fun JoinAsExpertScreen(
                             mediaType = ActivityResultContracts.PickVisualMedia.ImageOnly)
                     )
                 },
-                border = BorderStroke(MaterialTheme.spacing.dp_1, greenLight)
+                border = BorderStroke(1.dp, greenLight)
             ) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically
@@ -232,9 +233,9 @@ fun JoinAsExpertScreen(
                     Text(
                         text = stringResource(id = R.string.add_image),
                         color = greenLight,
-                        fontSize = MaterialTheme.spacing.sp_14,
+                        fontSize = 14.sp,
                         fontWeight = FontWeight.Bold,
-                        modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
+                        modifier = Modifier.padding(horizontal = 16.dp)
                     )
 
                     Icon(
@@ -248,13 +249,13 @@ fun JoinAsExpertScreen(
             Button(
                 onClick = { viewModel.send(fullName, email, phoneNumber, image, navigateUp) },
                 colors = ButtonDefaults.buttonColors(containerColor = greenDark),
-                modifier = Modifier.padding(MaterialTheme.spacing.large)
+                modifier = Modifier.padding(32.dp)
             ) {
                 Text(
                     text = stringResource(id = R.string.send),
-                    fontSize = MaterialTheme.spacing.sp_15,
+                    fontSize = 15.sp,
                     fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(horizontal = MaterialTheme.spacing.large)
+                    modifier = Modifier.padding(horizontal = 32.dp)
                 )
             }
         }

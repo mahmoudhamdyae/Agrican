@@ -21,7 +21,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.TextFieldDefaults
@@ -42,8 +41,8 @@ import com.example.agrican.common.ext.encodeImage
 import com.example.agrican.ui.screens.home.main.ask_expert.record.AndroidAudioRecorder
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenLight
-import com.example.agrican.ui.theme.spacing
 import com.example.agrican.ui.theme.white
+import androidx.compose.ui.unit.dp
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -97,13 +96,13 @@ fun BottomView(
     val mediaPlayer = MediaPlayer.create(context, R.raw.record_audio)
 
     Surface(
-        shadowElevation = MaterialTheme.spacing.medium,
-        shape = RoundedCornerShape(MaterialTheme.spacing.large),
+        shadowElevation = 16.dp,
+        shape = RoundedCornerShape(32.dp),
         modifier = modifier
     ) {
         Row(
-            horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.extraSmall),
-            modifier = Modifier.padding(MaterialTheme.spacing.small)
+            horizontalArrangement = Arrangement.spacedBy(4.dp),
+            modifier = Modifier.padding(8.dp)
         ) {
             // Send Button
             SendButton(
@@ -119,7 +118,7 @@ fun BottomView(
             OutlinedTextField(
                 value = message,
                 onValueChange = { message = it },
-                shape = RoundedCornerShape(MaterialTheme.spacing.large),
+                shape = RoundedCornerShape(32.dp),
                 colors = TextFieldDefaults.outlinedTextFieldColors(unfocusedBorderColor = greenLight,),
                 modifier = Modifier.weight(1f)
             )
@@ -181,7 +180,7 @@ fun ChatOutlinedButton(
     modifier: Modifier = Modifier
 ) {
     Surface(
-        border = BorderStroke(MaterialTheme.spacing.dp_1, gray),
+        border = BorderStroke(1.dp, gray),
         shape = CircleShape,
         modifier = modifier
     ) {

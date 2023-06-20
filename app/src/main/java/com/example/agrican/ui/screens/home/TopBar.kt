@@ -9,7 +9,6 @@ import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MenuDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -26,10 +25,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.agrican.R
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.iconGray
-import com.example.agrican.ui.theme.spacing
 import com.example.agrican.ui.theme.white
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -91,7 +91,7 @@ fun TopBar(
                 }
             }
         },
-        modifier = modifier.shadow(MaterialTheme.spacing.medium)
+        modifier = modifier.shadow(16.dp)
     )
 }
 
@@ -108,23 +108,23 @@ fun DropDownItem(
         text = {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 // Language Icon
                 Surface(shape = CircleShape, color = greenDark) {
                     Text(
                         text = "ico",
                         color = white,
-                        fontSize = MaterialTheme.spacing.sp_18,
+                        fontSize = 18.sp,
                         fontWeight = FontWeight.Bold,
-                        modifier = Modifier.padding(MaterialTheme.spacing.small)
+                        modifier = Modifier.padding(8.dp)
                     )
                 }
                 // Language Text
                 Text(
                     text = stringResource(id = text),
                     color = greenDark,
-                    fontSize = MaterialTheme.spacing.sp_14
+                    fontSize = 14.sp
                 )
             }
         }

@@ -18,8 +18,8 @@ import com.example.agrican.ui.components.BackButton
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.greenDark
-import com.example.agrican.ui.theme.spacing
 import com.example.agrican.ui.theme.title
+import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -56,13 +56,13 @@ fun AskExpertScreen(
             Text(
                 text = stringResource(id = R.string.ask_expert_text_one),
                 style = MaterialTheme.typography.title,
-                fontSize = MaterialTheme.spacing.sp_16
+                fontSize = 16.sp
             )
             Text(
                 text = stringResource(id = R.string.ask_expert_text_two),
                 color = greenDark,
                 style = MaterialTheme.typography.body,
-                fontSize = MaterialTheme.spacing.sp_14
+                fontSize = 14.sp
             )
         }
     }

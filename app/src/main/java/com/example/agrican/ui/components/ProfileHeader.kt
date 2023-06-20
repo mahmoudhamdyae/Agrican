@@ -11,8 +11,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.agrican.R
 import com.example.agrican.ui.theme.greenLight
-import com.example.agrican.ui.theme.spacing
 import com.example.agrican.ui.theme.title
+import androidx.compose.ui.unit.dp
 
 @Composable
 fun ProfileHeader(
@@ -27,10 +27,10 @@ fun ProfileHeader(
                 text = stringResource(id = headerText),
                 color = greenLight,
                 style = MaterialTheme.typography.title,
-                modifier = Modifier.padding(MaterialTheme.spacing.medium)
+                modifier = Modifier.padding(16.dp)
             )
 
-            Divider(modifier = Modifier.padding(MaterialTheme.spacing.medium))
+            Divider(modifier = Modifier.padding(16.dp))
 
             content()
         }

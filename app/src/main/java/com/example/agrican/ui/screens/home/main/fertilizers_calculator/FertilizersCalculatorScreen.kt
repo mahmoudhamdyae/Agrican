@@ -42,8 +42,9 @@ import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
-import com.example.agrican.ui.theme.spacing
 import com.example.agrican.ui.theme.title
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 object FertilizersCalculatorDestination: NavigationDestination {
     override val route: String = "fertilizers_calculator"
@@ -83,7 +84,7 @@ fun FertilizersCalculatorScreenContent(
     )
 
     LazyColumn(
-        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
         modifier = modifier.fillMaxWidth()
     ) {
         // Choose Crop Label
@@ -91,10 +92,10 @@ fun FertilizersCalculatorScreenContent(
             Text(
                 text = stringResource(id = R.string.choose_crop_label),
                 style = MaterialTheme.typography.title,
-                fontSize = MaterialTheme.spacing.sp_16,
+                fontSize = 16.sp,
                 modifier = Modifier.padding(
-                    start = MaterialTheme.spacing.medium,
-                    top = MaterialTheme.spacing.medium
+                    start = 16.dp,
+                    top = 16.dp
                 )
             )
         }
@@ -109,17 +110,17 @@ fun FertilizersCalculatorScreenContent(
             Text(
                 text = stringResource(id = R.string.measuring_unit),
                 style = MaterialTheme.typography.title,
-                fontSize = MaterialTheme.spacing.sp_16,
-                modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
+                fontSize = 16.sp,
+                modifier = Modifier.padding(horizontal = 16.dp)
             )
         }
 
         item {
             Row(
-                horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = MaterialTheme.spacing.medium)
+                    .padding(horizontal = 16.dp)
             ) {
                 repeat(units.size) {
                     Chip(
@@ -137,8 +138,8 @@ fun FertilizersCalculatorScreenContent(
             Text(
                 text = stringResource(id = R.string.land_size),
                 style = MaterialTheme.typography.title,
-                fontSize = MaterialTheme.spacing.sp_16,
-                modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
+                fontSize = 16.sp,
+                modifier = Modifier.padding(horizontal = 16.dp)
             )
         }
         item {
@@ -146,7 +147,7 @@ fun FertilizersCalculatorScreenContent(
                 size = uiState.landSize,
                 increaseSize = increaseSize,
                 decreaseSize = decreaseSize,
-                modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
+                modifier = Modifier.padding(horizontal = 16.dp)
             )
         }
 
@@ -160,7 +161,7 @@ fun FertilizersCalculatorScreenContent(
                 ) {
                     Text(
                         text = stringResource(id = R.string.calculate_fertilizer),
-                        fontSize = MaterialTheme.spacing.sp_15,
+                        fontSize = 15.sp,
                         fontWeight = FontWeight.Bold,
                     )
                 }
@@ -168,12 +169,12 @@ fun FertilizersCalculatorScreenContent(
         }
 
         items(3) {
-            FertilizerListItem(modifier = Modifier.padding(MaterialTheme.spacing.small))
+            FertilizerListItem(modifier = Modifier.padding(8.dp))
         }
 
         // Space fo Bottom Navigation Bar
         item {
-            Spacer(modifier = Modifier.height(MaterialTheme.spacing.dp_60))
+            Spacer(modifier = Modifier.height(60.dp))
         }
     }
 }
@@ -183,12 +184,12 @@ fun FertilizerListItem(
     modifier: Modifier = Modifier
 ) {
     Surface(
-        shadowElevation = MaterialTheme.spacing.medium,
-        shape = RoundedCornerShape(MaterialTheme.spacing.medium),
+        shadowElevation = 16.dp,
+        shape = RoundedCornerShape(16.dp),
         modifier = modifier
     ) {
         Row(
-            horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier
                 .fillMaxWidth()
                 .height(IntrinsicSize.Max)
@@ -197,10 +198,10 @@ fun FertilizerListItem(
                 .weight(1f)
                 .fillMaxHeight())
             Column(
-                verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
                 modifier = Modifier
                     .weight(3f)
-                    .padding(MaterialTheme.spacing.small)
+                    .padding(8.dp)
             ) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
@@ -210,13 +211,13 @@ fun FertilizerListItem(
                         Text(
                             text = "سماد رقم 1",
                             style = MaterialTheme.typography.title,
-                            fontSize = MaterialTheme.spacing.sp_16
+                            fontSize = 16.sp
                         )
                         Text(
                             text = "لمدة سنة",
                             color = greenDark,
                             style = MaterialTheme.typography.body,
-                            fontSize = MaterialTheme.spacing.sp_12
+                            fontSize = 12.sp
                         )
                     }
 
@@ -229,7 +230,7 @@ fun FertilizerListItem(
                     ) {
                         Text(
                             text = stringResource(id = R.string.know_more),
-                            fontSize = MaterialTheme.spacing.sp_12
+                            fontSize = 12.sp
                         )
                     }
                 }
@@ -238,7 +239,7 @@ fun FertilizerListItem(
                 Text(
                     text = "هذه هى الكمية المطلوب بنائها و يتم تسميد الأرض باستخدام المنتجات المخصصة لذلك هذه هى الكمية المطلوب بنائها و يتم تسميد الأرض باستخدام المنتجات المخصصة لذلك",
                     style = MaterialTheme.typography.body,
-                    fontSize = MaterialTheme.spacing.sp_11,
+                    fontSize = 11.sp,
                     fontWeight = FontWeight.SemiBold,
                 )
             }
@@ -254,11 +255,11 @@ fun LandSize(
     modifier: Modifier = Modifier
 ) {
     Surface(
-        border = BorderStroke(MaterialTheme.spacing.dp_1, gray),
-        shape = RoundedCornerShape(MaterialTheme.spacing.medium),
+        border = BorderStroke(1.dp, gray),
+        shape = RoundedCornerShape(16.dp),
         modifier = modifier
             .fillMaxWidth()
-            .height(MaterialTheme.spacing.dp_40)
+            .height(40.dp)
     ) {
         Row {
             // Decrease Button
@@ -279,13 +280,13 @@ fun LandSize(
                     text = stringResource(id = R.string.hectare),
                     color = greenLight,
                     textAlign = TextAlign.Center,
-                    fontSize = MaterialTheme.spacing.sp_14,
+                    fontSize = 14.sp,
                     fontWeight = FontWeight.Bold,
                 )
 
                 Surface(
-                    border = BorderStroke(MaterialTheme.spacing.dp_1, gray),
-                    shape = RoundedCornerShape(MaterialTheme.spacing.medium),
+                    border = BorderStroke(1.dp, gray),
+                    shape = RoundedCornerShape(16.dp),
                     modifier = Modifier.fillMaxHeight()
                 ) {
                     Column(
@@ -295,7 +296,7 @@ fun LandSize(
                         Text(
                             text = size.toString(),
                             color = greenLight,
-                            modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
+                            modifier = Modifier.padding(horizontal = 16.dp)
                         )
                     }
                 }

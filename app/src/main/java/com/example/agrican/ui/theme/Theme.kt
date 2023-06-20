@@ -3,7 +3,6 @@ package com.example.agrican.ui.theme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 
 private val colorScheme = lightColorScheme(
     primary = md_theme_light_primary,
@@ -41,13 +40,9 @@ private val colorScheme = lightColorScheme(
 fun AgricanTheme(
     content: @Composable () -> Unit
 ) {
-    CompositionLocalProvider(
-        LocalSpacing provides Spacing()
-    ) {
-        MaterialTheme(
-            colorScheme = colorScheme,
-            typography = typography,
-            content = content
-        )
-    }
+    MaterialTheme(
+        colorScheme = colorScheme,
+        typography = typography,
+        content = content
+    )
 }

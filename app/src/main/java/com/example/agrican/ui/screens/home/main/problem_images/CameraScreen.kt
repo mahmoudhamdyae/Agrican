@@ -30,7 +30,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -54,8 +53,8 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.agrican.R
 import com.example.agrican.ui.theme.black
-import com.example.agrican.ui.theme.spacing
 import com.example.agrican.ui.theme.white
+import androidx.compose.ui.unit.dp
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -189,8 +188,8 @@ fun CameraView(
 
                 // Images Captured
                 Row(
-                    horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
-                    modifier = Modifier.padding(MaterialTheme.spacing.medium)
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    modifier = Modifier.padding(16.dp)
                 ) {
                     ImageCaptured(image = uiState.image1)
                     ImageCaptured(image = uiState.image2)
@@ -206,7 +205,7 @@ fun CameraView(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(black)
-                .padding(vertical = MaterialTheme.spacing.large)
+                .padding(vertical = 32.dp)
         ) {
             // Navigate Back and Save Images
             IconButton(onClick = navigateUp) {
@@ -267,9 +266,9 @@ fun ImageCaptured(
     modifier: Modifier = Modifier
 ) {
     Surface(
-        border = BorderStroke(MaterialTheme.spacing.dp_2, white),
-        shape = RoundedCornerShape(MaterialTheme.spacing.medium),
-        modifier = modifier.size(MaterialTheme.spacing.dp_75)
+        border = BorderStroke(2.dp, white),
+        shape = RoundedCornerShape(16.dp),
+        modifier = modifier.size(75.dp)
     ) {
         AsyncImage(
             model = ImageRequest

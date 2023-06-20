@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -36,8 +35,9 @@ import com.example.agrican.ui.components.EmptyImage
 import com.example.agrican.ui.components.MainLabel
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.gray
-import com.example.agrican.ui.theme.spacing
 import com.example.agrican.ui.theme.white
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 object PestDestination: NavigationDestination {
     override val route: String = "pest"
@@ -61,7 +61,7 @@ fun PestScreen(
         PestScreenContent(
             pest = pest,
             navigateUp = navigateUp,
-            modifier = modifier.padding(bottom = MaterialTheme.spacing.dp_60)
+            modifier = modifier.padding(bottom = 60.dp)
         )
     }
 }
@@ -81,8 +81,8 @@ fun PestScreenContent(
         )
 
         Column(
-            verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
-            modifier = Modifier.padding(MaterialTheme.spacing.medium)
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier.padding(16.dp)
         ) {
 
             // Scientific Name Label
@@ -111,7 +111,7 @@ fun PestScreenContent(
 
             // Main Label
             MainLabel(text = R.string.main_host)
-            Row(modifier = Modifier.fillMaxWidth().height(MaterialTheme.spacing.dp_150)) {
+            Row(modifier = Modifier.fillMaxWidth().height(150.dp)) {
                 MainHostItem(
                     text = "نبات الأرز\nOryza sativa",
                     modifier = Modifier.weight(1f)
@@ -151,15 +151,15 @@ fun CategoryItem(
     modifier: Modifier = Modifier
 ) {
     Surface(
-        shape = RoundedCornerShape(MaterialTheme.spacing.small),
-        border = BorderStroke(MaterialTheme.spacing.dp_1, gray),
-        modifier = modifier.padding(MaterialTheme.spacing.small)
+        shape = RoundedCornerShape(8.dp),
+        border = BorderStroke(1.dp, gray),
+        modifier = modifier.padding(8.dp)
     ) {
         Text(
             text = categoryName,
-            fontSize = MaterialTheme.spacing.sp_13,
+            fontSize = 13.sp,
             fontWeight = FontWeight.SemiBold,
-            modifier = modifier.padding(MaterialTheme.spacing.small)
+            modifier = modifier.padding(8.dp)
         )
     }
 }
@@ -170,22 +170,22 @@ fun MainHostItem(
     modifier: Modifier = Modifier
 ) {
     Surface(
-        shape = RoundedCornerShape(MaterialTheme.spacing.medium),
+        shape = RoundedCornerShape(16.dp),
         color = gray,
         modifier = modifier
-            .clip(RoundedCornerShape(MaterialTheme.spacing.medium))
-            .padding(MaterialTheme.spacing.medium)
+            .clip(RoundedCornerShape(16.dp))
+            .padding(16.dp)
     ) {
         Box {
             EmptyImage(modifier = Modifier.fillMaxSize())
             Text(
                 text = text,
                 color = white,
-                fontSize = MaterialTheme.spacing.sp_14,
+                fontSize = 14.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier
                     .align(Alignment.BottomStart)
-                    .padding(MaterialTheme.spacing.small)
+                    .padding(8.dp)
             )
         }
     }

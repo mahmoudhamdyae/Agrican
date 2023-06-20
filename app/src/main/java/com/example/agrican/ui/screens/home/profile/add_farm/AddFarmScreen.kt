@@ -13,7 +13,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -37,8 +36,9 @@ import com.example.agrican.ui.components.LabelWithTextField
 import com.example.agrican.ui.components.ProfileHeader
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.greenDark
-import com.example.agrican.ui.theme.spacing
 import com.example.agrican.ui.theme.textGray
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 object AddFarmDestination: NavigationDestination {
     override val route: String = "add_farm"
@@ -85,11 +85,11 @@ fun AddFarmScreenContent(
     val focusManager = LocalFocusManager.current
 
     Column(
-        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
             .verticalScroll(rememberScrollState())
-            .padding(MaterialTheme.spacing.medium)
+            .padding(16.dp)
     ) {
         // Farm Name Text Field
         LabelWithTextField(
@@ -114,7 +114,7 @@ fun AddFarmScreenContent(
                 keyboardType = KeyboardType.Number,
                 modifier = Modifier.weight(1f)
             )
-            Spacer(modifier = Modifier.width(MaterialTheme.spacing.small))
+            Spacer(modifier = Modifier.width(8.dp))
             DropDown(
                 options = listOf(
                     SizeUnit.SQUARE_KILOMETER.title
@@ -122,7 +122,7 @@ fun AddFarmScreenContent(
                 onSelect = { updateSizeUnit(it) },
                 textColor = textGray,
                 modifier = Modifier
-                    .width(MaterialTheme.spacing.dp_130)
+                    .width(130.dp)
                     .fillMaxHeight()
             )
         }
@@ -130,7 +130,7 @@ fun AddFarmScreenContent(
         // Harvest Season Row
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier.height(IntrinsicSize.Max)
         ) {
             LabelItem(text = R.string.harvest_season)
@@ -178,7 +178,7 @@ fun AddFarmScreenContent(
         ) {
             Text(
                 text = stringResource(id = R.string.add_farm),
-                fontSize = MaterialTheme.spacing.sp_15,
+                fontSize = 15.sp,
                 fontWeight = FontWeight.Bold
             )
         }

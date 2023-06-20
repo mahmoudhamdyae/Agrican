@@ -50,7 +50,8 @@ import com.example.agrican.ui.screens.auth.signup.SignupDestination
 import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
-import com.example.agrican.ui.theme.spacing
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 object LoginDestination: NavigationDestination {
     override val route: String = "login"
@@ -115,7 +116,7 @@ fun LoginScreenContent(
                 modifier = Modifier
                     .fillMaxSize()
                     .verticalScroll(rememberScrollState())
-                    .padding(MaterialTheme.spacing.large)
+                    .padding(32.dp)
             ) {
                 // Profile Image
                 Icon(
@@ -123,8 +124,8 @@ fun LoginScreenContent(
                     contentDescription = null,
                     tint = gray,
                     modifier = Modifier
-                        .padding(bottom = MaterialTheme.spacing.medium)
-                        .size(MaterialTheme.spacing.dp_150)
+                        .padding(bottom = 16.dp)
+                        .size(150.dp)
                 )
 
                 UserNameField(
@@ -148,21 +149,21 @@ fun LoginScreenContent(
                     modifier = Modifier
                         .fillMaxWidth()
                         .align(Alignment.Start)
-                        .padding(MaterialTheme.spacing.small)
+                        .padding(8.dp)
                 ) {
                     Text(
                         text = stringResource(id = R.string.forgot_password_text),
                         style = MaterialTheme.typography.body,
-                        fontSize = MaterialTheme.spacing.sp_10,
+                        fontSize = 10.sp,
                         fontWeight = FontWeight.SemiBold,
-                        modifier = Modifier.padding(end = MaterialTheme.spacing.small)
+                        modifier = Modifier.padding(end = 8.dp)
                     )
                     Text(
                         text = stringResource(id = R.string.click_here),
                         textDecoration = TextDecoration.Underline,
                         color = Color.Blue,
                         style = MaterialTheme.typography.body,
-                        fontSize = MaterialTheme.spacing.sp_10,
+                        fontSize = 10.sp,
                         fontWeight = FontWeight.SemiBold,
                         modifier = Modifier.clickable {
                             onEvent(AuthFormEvent.ForgotPassword)
@@ -173,7 +174,7 @@ fun LoginScreenContent(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(MaterialTheme.spacing.large)
+                        .height(32.dp)
                 ) {
                     Spacer(modifier = Modifier.weight(2f))
 
@@ -200,7 +201,7 @@ fun LoginScreenContent(
                 Button(
                     onClick = { onEvent(AuthFormEvent.Submit) },
                     colors = ButtonDefaults.buttonColors(containerColor = greenDark),
-                    modifier = Modifier.padding(MaterialTheme.spacing.small)
+                    modifier = Modifier.padding(8.dp)
                 ) {
                     Text(text = stringResource(id = R.string.login_button))
                 }
@@ -210,20 +211,20 @@ fun LoginScreenContent(
                     Text(
                         text = stringResource(id = R.string.new_user_text),
                         style = MaterialTheme.typography.body,
-                        fontSize = MaterialTheme.spacing.sp_10,
+                        fontSize = 10.sp,
                         fontWeight = FontWeight.SemiBold,
-                        modifier = Modifier.padding(MaterialTheme.spacing.small)
+                        modifier = Modifier.padding(8.dp)
                     )
                     OutlinedButton(
                         onClick = {
                             openScreen(SignupDestination.route)
                             clearState() },
-                        border = BorderStroke(MaterialTheme.spacing.dp_1, gray)
+                        border = BorderStroke(1.dp, gray)
                     ) {
                         Text(
                             text = stringResource(id = R.string.signup_button),
                             color = greenDark,
-                            fontSize = MaterialTheme.spacing.sp_15,
+                            fontSize = 15.sp,
                             fontWeight = FontWeight.Bold,
                         )
                     }

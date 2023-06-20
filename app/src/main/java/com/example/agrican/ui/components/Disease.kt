@@ -30,9 +30,10 @@ import com.example.agrican.ui.theme.black
 import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
-import com.example.agrican.ui.theme.spacing
 import com.example.agrican.ui.theme.title
 import com.example.agrican.ui.theme.white
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 @Composable
 fun DiseaseHeader(
@@ -45,14 +46,14 @@ fun DiseaseHeader(
     Surface(
         color = gray,
         shape = RoundedCornerShape(
-            bottomStart = MaterialTheme.spacing.large,
-            bottomEnd = MaterialTheme.spacing.large,
+            bottomStart = 32.dp,
+            bottomEnd = 32.dp,
         ),
         modifier = modifier
     ) {
         Box(modifier = Modifier
             .fillMaxWidth()
-            .height(MaterialTheme.spacing.dp_150)) {
+            .height(150.dp)) {
             if (image == null) {
                 EmptyImage(modifier = Modifier.fillMaxSize())
             } else {
@@ -66,14 +67,14 @@ fun DiseaseHeader(
             Row(
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
-                    .padding(MaterialTheme.spacing.medium)
+                    .padding(16.dp)
             ) {
                 // Disease Name
                 Text(
                     text = diseaseName,
                     color = white,
                     style = MaterialTheme.typography.body,
-                    fontSize = MaterialTheme.spacing.sp_16,
+                    fontSize = 16.sp,
                     modifier = Modifier.weight(1f)
                 )
 
@@ -88,7 +89,7 @@ fun DiseaseHeader(
                             text = stringResource(id = buttonText),
                             color = greenDark,
                             style = MaterialTheme.typography.body,
-                            fontSize = MaterialTheme.spacing.sp_14
+                            fontSize = 14.sp
                         )
                         Icon(
                             painter = painterResource(id = R.drawable.baseline_keyboard_arrow_down_24),
@@ -111,7 +112,7 @@ fun MainLabel(
         text = stringResource(id = text),
         color = greenDark,
         style = MaterialTheme.typography.title,
-        fontSize = MaterialTheme.spacing.sp_14,
+        fontSize = 14.sp,
         modifier = modifier
     )
 }
@@ -126,10 +127,10 @@ fun DescriptionLabel(
             if (texts.size > 1) {
                 Box(
                     modifier = Modifier
-                        .padding(MaterialTheme.spacing.small)
+                        .padding(8.dp)
                         .clip(CircleShape)
                         .background(black)
-                        .size(MaterialTheme.spacing.extraSmall)
+                        .size(4.dp)
                 )
             }
             Text(

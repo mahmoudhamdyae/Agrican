@@ -46,9 +46,10 @@ import com.example.agrican.ui.screens.auth.ValidationEvent
 import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
-import com.example.agrican.ui.theme.spacing
 import com.example.agrican.ui.theme.title
 import com.example.agrican.ui.theme.white
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 object SignupDestination: NavigationDestination {
     override val route: String = "signup"
@@ -118,7 +119,7 @@ fun SignupScreenContent(
                     modifier = Modifier
                         .fillMaxSize()
                         .verticalScroll(rememberScrollState())
-                        .padding(MaterialTheme.spacing.large)
+                        .padding(32.dp)
                 )
             } else {
                 Signup(
@@ -129,7 +130,7 @@ fun SignupScreenContent(
                     modifier = Modifier
                         .fillMaxSize()
                         .verticalScroll(rememberScrollState())
-                        .padding(MaterialTheme.spacing.large)
+                        .padding(32.dp)
                 )
             }
         })
@@ -148,19 +149,19 @@ fun AccountType(
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             Surface(
-                shape = RoundedCornerShape(MaterialTheme.spacing.large),
-                border = BorderStroke(MaterialTheme.spacing.dp_1, gray)
+                shape = RoundedCornerShape(32.dp),
+                border = BorderStroke(1.dp, gray)
             ) {
                 Text(
                     text = stringResource(id = R.string.create_new_user),
                     style = MaterialTheme.typography.title,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(
-                        vertical = MaterialTheme.spacing.small,
-                        horizontal = MaterialTheme.spacing.medium
+                        vertical = 8.dp,
+                        horizontal = 16.dp
                     )
                 )
             }
@@ -169,7 +170,7 @@ fun AccountType(
                 text = stringResource(id = R.string.choose_user_account),
                 color = greenDark,
                 style = MaterialTheme.typography.body,
-                fontSize = MaterialTheme.spacing.sp_14,
+                fontSize = 14.sp,
                 fontWeight = FontWeight.Bold,
             )
 
@@ -204,7 +205,7 @@ fun AccountTypeItem(
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier.padding(MaterialTheme.spacing.medium)
+        modifier = modifier.padding(16.dp)
     ) {
         Button(
             onClick = { setAccountType(accountType) },
@@ -212,9 +213,9 @@ fun AccountTypeItem(
         ) {
             Text(
                 text = stringResource(id = accountType.title),
-                fontSize = MaterialTheme.spacing.sp_16,
+                fontSize = 16.sp,
                 fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(horizontal = MaterialTheme.spacing.small)
+                modifier = Modifier.padding(horizontal = 8.dp)
             )
         }
         Text(
@@ -223,7 +224,7 @@ fun AccountTypeItem(
             color = greenDark,
             style = MaterialTheme.typography.body,
             fontWeight = FontWeight.SemiBold,
-            modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
+            modifier = Modifier.padding(horizontal = 16.dp)
         )
     }
 }
@@ -245,16 +246,16 @@ fun Signup(
             val focusManager = LocalFocusManager.current
 
             Surface(
-                shape = RoundedCornerShape(MaterialTheme.spacing.medium),
+                shape = RoundedCornerShape(16.dp),
                 color = greenDark,
-                modifier = Modifier.padding(vertical = MaterialTheme.spacing.small)
+                modifier = Modifier.padding(vertical = 8.dp)
             ) {
                 Text(
                     text = stringResource(id = accountType.title),
                     color = white,
                     style = MaterialTheme.typography.body,
-                    fontSize = MaterialTheme.spacing.sp_18,
-                    modifier = Modifier.padding(horizontal = MaterialTheme.spacing.large)
+                    fontSize = 18.sp,
+                    modifier = Modifier.padding(horizontal = 32.dp)
                 )
             }
 
@@ -302,11 +303,11 @@ fun Signup(
             Button(
                 onClick = { onEvent(AuthFormEvent.Submit) },
                 colors = ButtonDefaults.buttonColors(containerColor = greenDark),
-                modifier = Modifier.padding(MaterialTheme.spacing.medium)
+                modifier = Modifier.padding(16.dp)
             ) {
                 Text(
                     text = stringResource(id = R.string.signup_button),
-                    fontSize = MaterialTheme.spacing.sp_15
+                    fontSize = 15.sp
                 )
             }
         }

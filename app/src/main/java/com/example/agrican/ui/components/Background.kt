@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -15,8 +14,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.agrican.ui.theme.greenDark
-import com.example.agrican.ui.theme.spacing
 import com.example.agrican.ui.theme.white
+import androidx.compose.ui.unit.dp
 
 @Composable
 fun Background(
@@ -36,8 +35,8 @@ fun Background(
                 .weight(if (body2 != null) 4f else 2f)
                 .clip(
                     RoundedCornerShape(
-                        bottomStart = MaterialTheme.spacing.extraLarge,
-                        bottomEnd = MaterialTheme.spacing.extraLarge
+                        bottomStart = 64.dp,
+                        bottomEnd = 64.dp
                     )
                 )
                 .background(white)

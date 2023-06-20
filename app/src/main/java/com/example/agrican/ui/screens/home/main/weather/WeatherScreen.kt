@@ -31,8 +31,9 @@ import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
-import com.example.agrican.ui.theme.spacing
 import com.example.agrican.ui.theme.white
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 object WeatherDestination : NavigationDestination {
     override val route: String = "weather"
@@ -58,18 +59,18 @@ fun WeatherScreenContent(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
             .verticalScroll(rememberScrollState())
-            .padding(MaterialTheme.spacing.medium)
-            .padding(bottom = MaterialTheme.spacing.dp_60)
+            .padding(16.dp)
+            .padding(bottom = 60.dp)
     ) {
         Row(
-            horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             // Weather Degree
             Text(
                 text = "${weather.degree.toInt()}°",
                 color = greenDark,
-                fontSize = MaterialTheme.spacing.sp_62,
+                fontSize = 62.sp,
                 fontWeight = FontWeight.SemiBold,
             )
             // Weather Icon
@@ -77,16 +78,16 @@ fun WeatherScreenContent(
                 painter = painterResource(id = R.drawable.sunny),
                 contentDescription = null,
                 tint = greenDark,
-                modifier = Modifier.size(MaterialTheme.spacing.extraLarge)
+                modifier = Modifier.size(64.dp)
             )
         }
         Text(
             text = weather.weatherDescription,
             color = greenDark,
             style = MaterialTheme.typography.body,
-            fontSize = MaterialTheme.spacing.sp_14,
+            fontSize = 14.sp,
             fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(bottom = MaterialTheme.spacing.small)
+            modifier = Modifier.padding(bottom = 8.dp)
         )
 
         Divider(modifier = Modifier.fillMaxWidth())
@@ -113,18 +114,18 @@ fun WeatherScreenContent(
 
         // Weather Information
         Surface(
-            shape = RoundedCornerShape(MaterialTheme.spacing.medium),
+            shape = RoundedCornerShape(16.dp),
             color = greenLight,
-            modifier = Modifier.padding(MaterialTheme.spacing.medium)
+            modifier = Modifier.padding(16.dp)
         ) {
             Text(
                 text = stringResource(id = R.string.air_information_button),
                 color = white,
                 style = MaterialTheme.typography.body,
-                fontSize = MaterialTheme.spacing.sp_14,
+                fontSize = 14.sp,
                 modifier = Modifier.padding(
-                    horizontal = MaterialTheme.spacing.medium,
-                    vertical = MaterialTheme.spacing.small,
+                    horizontal = 16.dp,
+                    vertical = 8.dp,
                 )
             )
         }
@@ -133,12 +134,12 @@ fun WeatherScreenContent(
             Text(
                 text = weather.firstInformation,
                 style = MaterialTheme.typography.body,
-                fontSize = MaterialTheme.spacing.sp_11
+                fontSize = 11.sp
             )
             Text(
                 text = weather.secondInformation,
                 style = MaterialTheme.typography.body,
-                fontSize = MaterialTheme.spacing.sp_11
+                fontSize = 11.sp
             )
         }
     }
@@ -153,18 +154,18 @@ fun WeatherRow(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(MaterialTheme.spacing.small)
+            .padding(8.dp)
     ) {
         Text(
             text = stringResource(id = weatherLabel),
             style = MaterialTheme.typography.body,
-            fontSize = MaterialTheme.spacing.sp_14
+            fontSize = 14.sp
         )
         Spacer(modifier = Modifier.weight(1f))
         Text(
             text = weatherData,
             style = MaterialTheme.typography.body,
-            fontSize = MaterialTheme.spacing.sp_14
+            fontSize = 14.sp
         )
     }
 }

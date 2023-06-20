@@ -28,8 +28,9 @@ import com.example.agrican.ui.components.CropsList
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
-import com.example.agrican.ui.theme.spacing
 import com.example.agrican.ui.theme.title
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 object TreatmentDestination : NavigationDestination {
     override val route: String = "treatment"
@@ -67,18 +68,18 @@ fun TreatmentScreenContent(
     modifier: Modifier = Modifier
 ) {
     Column(
-        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
         modifier = modifier
             .verticalScroll(rememberScrollState())
-            .padding(bottom = MaterialTheme.spacing.dp_60)
+            .padding(bottom = 60.dp)
     ) {
         // Choose Crop
         Text(
             text = stringResource(id = R.string.choose_crop),
             color = greenLight,
             style = MaterialTheme.typography.title,
-            fontSize = MaterialTheme.spacing.sp_16,
-            modifier = Modifier.padding(MaterialTheme.spacing.medium)
+            fontSize = 16.sp,
+            modifier = Modifier.padding(16.dp)
         )
 
         CropsList(
@@ -95,9 +96,9 @@ fun TreatmentScreenContent(
         ) {
             Text(
                 text = stringResource(id = R.string.continue_button),
-                fontSize = MaterialTheme.spacing.sp_15,
+                fontSize = 15.sp,
                 fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
+                modifier = Modifier.padding(horizontal = 16.dp)
             )
         }
     }

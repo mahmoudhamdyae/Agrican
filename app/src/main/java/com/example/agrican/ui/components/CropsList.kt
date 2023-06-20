@@ -19,7 +19,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.agrican.R
 import com.example.agrican.domain.model.Crop
 import com.example.agrican.ui.theme.body
-import com.example.agrican.ui.theme.spacing
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 @Composable
 fun CropsList(
@@ -32,7 +33,7 @@ fun CropsList(
             CropsListItem(
                 crop = crops[it],
                 modifier = Modifier
-                    .padding(MaterialTheme.spacing.small)
+                    .padding(8.dp)
                     .clickable { setSelectedCrop(crops[it]) }
             )
         }
@@ -45,9 +46,9 @@ fun CropsListItem(
     modifier: Modifier = Modifier
 ) {
     Surface(
-        shape = RoundedCornerShape(MaterialTheme.spacing.large),
-        shadowElevation = MaterialTheme.spacing.medium,
-        modifier = modifier.size(MaterialTheme.spacing.dp_75)
+        shape = RoundedCornerShape(32.dp),
+        shadowElevation = 16.dp,
+        modifier = modifier.size(75.dp)
     ) {
         Box {
             Icon(
@@ -58,7 +59,7 @@ fun CropsListItem(
             Text(
                 text = crop.name,
                 style = MaterialTheme.typography.body,
-                fontSize = MaterialTheme.spacing.sp_10,
+                fontSize = 10.sp,
                 modifier = Modifier.align(Alignment.BottomCenter)
             )
         }

@@ -42,8 +42,9 @@ import com.example.agrican.ui.components.EmptyImage
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.greenDark
-import com.example.agrican.ui.theme.spacing
 import com.example.agrican.ui.theme.title
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 object SelectedCropDestination: NavigationDestination {
     override val route: String = "selected_crop"
@@ -77,32 +78,32 @@ fun SelectedCropScreenContent(
     // Selected Crop
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
-        modifier = modifier.padding(bottom = MaterialTheme.spacing.dp_60)
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        modifier = modifier.padding(bottom = 60.dp)
     ) {
         Text(
             text = stringResource(id = R.string.selected_crop),
             style = MaterialTheme.typography.title,
-            fontSize = MaterialTheme.spacing.sp_16
+            fontSize = 16.sp
         )
 
-        Row(horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)) {
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             CropImage()
             Column(modifier = Modifier.width(IntrinsicSize.Max)) {
                 Surface(
-                    shape = RoundedCornerShape(MaterialTheme.spacing.large),
-                    shadowElevation = MaterialTheme.spacing.large,
+                    shape = RoundedCornerShape(32.dp),
+                    shadowElevation = 32.dp,
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(
                         text = "الأرز",
                         color = greenDark,
                         textAlign = TextAlign.Center,
-                        fontSize = MaterialTheme.spacing.sp_14,
+                        fontSize = 14.sp,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(
-                            horizontal = MaterialTheme.spacing.medium,
-                            vertical = MaterialTheme.spacing.small
+                            horizontal = 16.dp,
+                            vertical = 8.dp
                         )
                     )
                 }
@@ -115,9 +116,9 @@ fun SelectedCropScreenContent(
                 ) {
                     Text(
                         text = stringResource(id = R.string.configure),
-                        fontSize = MaterialTheme.spacing.sp_14,
+                        fontSize = 14.sp,
                         fontWeight = FontWeight.Bold,
-                        modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
+                        modifier = Modifier.padding(horizontal = 16.dp)
                     )
                 }
             }
@@ -127,7 +128,7 @@ fun SelectedCropScreenContent(
         Text(
             text = stringResource(id = R.string.choose_disease_type),
             style = MaterialTheme.typography.title,
-            fontSize = MaterialTheme.spacing.sp_16
+            fontSize = 16.sp
         )
 
         // Choose Disease Type Drop Down
@@ -137,7 +138,7 @@ fun SelectedCropScreenContent(
             ),
             onSelect = updateDiseaseType,
             textColor = greenDark,
-            modifier = Modifier.width(MaterialTheme.spacing.dp_150).height(MaterialTheme.spacing.large)
+            modifier = Modifier.width(150.dp).height(32.dp)
         )
 
         // Show Treatment Button
@@ -150,7 +151,7 @@ fun SelectedCropScreenContent(
         ) {
             Text(
                 text = stringResource(id = R.string.show_treatment_button),
-                fontSize = MaterialTheme.spacing.sp_15,
+                fontSize = 15.sp,
                 fontWeight = FontWeight.Bold,
             )
         }
@@ -166,9 +167,9 @@ fun CropImage(
     modifier: Modifier = Modifier
 ) {
     Surface(
-        shape = RoundedCornerShape(MaterialTheme.spacing.large),
-        shadowElevation = MaterialTheme.spacing.large,
-        modifier = modifier.size(MaterialTheme.spacing.dp_75)
+        shape = RoundedCornerShape(32.dp),
+        shadowElevation = 32.dp,
+        modifier = modifier.size(75.dp)
     ) {
         Icon(
             painter = painterResource(id = R.drawable.ic_visibility_on),
@@ -187,7 +188,7 @@ fun TreatmentList(
         items(treatments.size) {
             TreatmentListItem(
                 treatment = treatments[it],
-                modifier = Modifier.padding(MaterialTheme.spacing.small)
+                modifier = Modifier.padding(8.dp)
             )
         }
     }
@@ -199,22 +200,22 @@ fun TreatmentListItem(
     modifier: Modifier = Modifier
 ) {
     Surface(
-        shadowElevation = MaterialTheme.spacing.medium,
-        shape = RoundedCornerShape(MaterialTheme.spacing.medium),
+        shadowElevation = 16.dp,
+        shape = RoundedCornerShape(16.dp),
         modifier = modifier
     ) {
         Row(
-            horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Max)
         ) {
             EmptyImage(
                 modifier = Modifier.weight(1f).fillMaxHeight()
             )
             Column(
-                verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
                 modifier = Modifier
                     .weight(3f)
-                    .padding(MaterialTheme.spacing.small)
+                    .padding(8.dp)
             ) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
@@ -233,7 +234,7 @@ fun TreatmentListItem(
                     ) {
                         Text(
                             text = stringResource(id = R.string.know_more),
-                            fontSize = MaterialTheme.spacing.sp_12,
+                            fontSize = 12.sp,
                             fontWeight = FontWeight.Bold,
                         )
                     }

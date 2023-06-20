@@ -8,11 +8,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,11 +29,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.agrican.R
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.iconGray
-import com.example.agrican.ui.theme.spacing
 
 @Composable
 fun BottomNavigationBar(
@@ -44,25 +43,25 @@ fun BottomNavigationBar(
     bottomNavItems: List<BottomNavItem>,
     modifier: Modifier = Modifier
 ) {
-    Box(modifier = modifier.height(MaterialTheme.spacing.dp_90)) {
+    Box(modifier = modifier.height(80.dp)) {
 
         // Profile Item
         Surface(
             shape = CircleShape,
-            shadowElevation = MaterialTheme.spacing.large,
+            shadowElevation = 32.dp,
             modifier = Modifier.align(Alignment.TopCenter)
         ) {
             IconButton(
                 onClick = { setSelectedItem(1) },
-                modifier = Modifier.size(MaterialTheme.spacing.dp_60)
+                modifier = Modifier
             ) {
                 Icon(
                     painter = painterResource(id = bottomNavItems[1].icon),
                     contentDescription = null,
                     tint = if (selectedItem == 1) greenDark else iconGray,
                     modifier = Modifier
-                        .padding(bottom = MaterialTheme.spacing.small)
-                        .padding(MaterialTheme.spacing.small)
+                        .padding(bottom = 8.dp)
+                        .padding(8.dp)
                 )
             }
         }
@@ -70,9 +69,9 @@ fun BottomNavigationBar(
         // Main and Services Items
         Surface(
             shape = NavigationBarCustomShape(115f),
-            shadowElevation = MaterialTheme.spacing.large,
+            shadowElevation = 32.dp,
             modifier = Modifier
-                .height(MaterialTheme.spacing.dp_60)
+                .height(60.dp)
                 .align(Alignment.BottomCenter)
         ) {
             Row(
@@ -93,11 +92,11 @@ fun BottomNavigationBar(
                     text = stringResource(id = bottomNavItems[1].name),
                     color = if (selectedItem == 1) greenDark else iconGray,
                     textAlign = TextAlign.Center,
-                    fontSize = MaterialTheme.spacing.sp_10,
+                    fontSize = 10.sp,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier
                         .clickable { setSelectedItem(1) }
-                        .padding(bottom = MaterialTheme.spacing.extraSmall)
+                        .padding(bottom = 4.dp)
                         .weight(1f)
                         .align(Alignment.Bottom)
                 )
@@ -130,7 +129,7 @@ fun BottomNavigationItem(
         Text(
             text = stringResource(id = text),
             color = color,
-            fontSize = MaterialTheme.spacing.sp_10,
+            fontSize = 10.sp,
             fontWeight = FontWeight.Bold,
         )
     }

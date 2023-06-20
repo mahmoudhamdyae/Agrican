@@ -33,7 +33,8 @@ import com.example.agrican.ui.screens.home.profile.add_farm.AddFarmDestination
 import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
-import com.example.agrican.ui.theme.spacing
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 object AddTaskDestination: NavigationDestination {
     override val route: String = "add_task"
@@ -70,11 +71,11 @@ fun AddTaskScreenContent(
     addTask: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Column(modifier = modifier.padding(MaterialTheme.spacing.medium)) {
+    Column(modifier = modifier.padding(16.dp)) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
-            modifier = Modifier.height(MaterialTheme.spacing.dp_40)
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier.height(40.dp)
         ) {
             Text(
                 text = stringResource(id = R.string.task_name),
@@ -93,7 +94,7 @@ fun AddTaskScreenContent(
                             color = gray,
                             modifier = Modifier
                                 .align(Alignment.CenterStart)
-                                .padding(start = MaterialTheme.spacing.small)
+                                .padding(start = 8.dp)
                         )
                     } },
                 modifier = Modifier.weight(1f)
@@ -105,7 +106,7 @@ fun AddTaskScreenContent(
                 ),
                 onSelect = { /*TODO*/ },
                 textColor = greenDark,
-                modifier = Modifier.width(MaterialTheme.spacing.dp_130)
+                modifier = Modifier.width(130.dp)
             )
         }
         
@@ -113,7 +114,7 @@ fun AddTaskScreenContent(
             text = stringResource(id = R.string.task_dates_label),
             color = greenDark,
             style = MaterialTheme.typography.body,
-            modifier = Modifier.padding(vertical = MaterialTheme.spacing.medium)
+            modifier = Modifier.padding(vertical = 16.dp)
         )
 
         Days(selectedDays = days, onDayClicked = { flipDay(it) })
@@ -124,11 +125,11 @@ fun AddTaskScreenContent(
             colors = ButtonDefaults.buttonColors(containerColor = greenDark),
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
-                .padding(MaterialTheme.spacing.medium)
+                .padding(16.dp)
         ) {
             Text(
                 text = stringResource(id = R.string.add_task_button),
-                fontSize = MaterialTheme.spacing.sp_15
+                fontSize = 15.sp
             )
         }
     }

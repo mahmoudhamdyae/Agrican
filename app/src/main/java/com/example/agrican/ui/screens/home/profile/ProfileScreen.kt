@@ -58,9 +58,10 @@ import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
-import com.example.agrican.ui.theme.spacing
 import com.example.agrican.ui.theme.title
 import com.example.agrican.ui.theme.white
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 object ProfileDestination: NavigationDestination {
     override val route: String = "profile"
@@ -100,15 +101,15 @@ fun ProfileScreenContent(
                 Text(
                     text = stringResource(id = R.string.farms_label),
                     style = MaterialTheme.typography.title,
-                    fontSize = MaterialTheme.spacing.sp_16,
-                    modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
+                    fontSize = 16.sp,
+                    modifier = Modifier.padding(horizontal = 16.dp)
                 )
             }
 
             item {
                 Divider(modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = MaterialTheme.spacing.large))
+                    .padding(horizontal = 32.dp))
             }
 
             // Farms List
@@ -120,21 +121,21 @@ fun ProfileScreenContent(
             Text(
                 text = stringResource(id = R.string.my_crops),
                 style = MaterialTheme.typography.title,
-                fontSize = MaterialTheme.spacing.sp_16,
-                modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
+                fontSize = 16.sp,
+                modifier = Modifier.padding(horizontal = 16.dp)
             )
         }
         item {
             Divider(modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = MaterialTheme.spacing.large))
+                .padding(horizontal = 32.dp))
         }
 
         cropsList(crops = uiState.crops, openScreen = openScreen)
 
         // Space fo Bottom Navigation Bar
         item {
-            Spacer(modifier = Modifier.height(MaterialTheme.spacing.dp_60))
+            Spacer(modifier = Modifier.height(60.dp))
         }
     }
 }
@@ -148,14 +149,14 @@ fun UserHeaderAndItems(
     Column(modifier = modifier.height(IntrinsicSize.Min)) {
         Box(modifier = Modifier.fillMaxSize()) {
             Surface(
-                shadowElevation = MaterialTheme.spacing.medium,
+                shadowElevation = 16.dp,
                 shape = RoundedCornerShape(
-                    bottomEnd = MaterialTheme.spacing.extraLarge,
-                    bottomStart = MaterialTheme.spacing.extraLarge,
+                    bottomEnd = 64.dp,
+                    bottomStart = 64.dp,
                 ),
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(bottom = MaterialTheme.spacing.large)
+                    .padding(bottom = 32.dp)
             ) { }
             Column(modifier = Modifier.height(IntrinsicSize.Min)) {
                 UserHeader(user = user, openScreen = openScreen)
@@ -208,18 +209,18 @@ fun UserHeader(
     modifier: Modifier = Modifier
 ) {
     Surface(
-        shadowElevation = MaterialTheme.spacing.medium,
+        shadowElevation = 16.dp,
         modifier = modifier.fillMaxWidth()) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = modifier.padding(MaterialTheme.spacing.medium)
+            modifier = modifier.padding(16.dp)
         ) {
 
             // Profile Image
             Surface(
                 shape = CircleShape,
-                shadowElevation = MaterialTheme.spacing.small,
-                modifier = Modifier.size(MaterialTheme.spacing.dp_100).padding(MaterialTheme.spacing.small)
+                shadowElevation = 8.dp,
+                modifier = Modifier.size(100.dp).padding(8.dp)
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.default_image),
@@ -227,26 +228,26 @@ fun UserHeader(
                     tint = gray,
                     modifier = Modifier
                         .padding(
-                            start = MaterialTheme.spacing.small,
-                            end = MaterialTheme.spacing.small,
-                            bottom = MaterialTheme.spacing.small
+                            start = 8.dp,
+                            end = 8.dp,
+                            bottom = 8.dp
                         )
                 )
             }
 
             Column(
-                verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
-                modifier = Modifier.padding(MaterialTheme.spacing.small)
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                modifier = Modifier.padding(8.dp)
             ) {
                 // User Name
                 Text(
                     text = user.userName,
                     style = MaterialTheme.typography.title,
-                    fontSize = MaterialTheme.spacing.sp_15
+                    fontSize = 15.sp
                 )
 
                 Surface(
-                    shape = RoundedCornerShape(MaterialTheme.spacing.medium),
+                    shape = RoundedCornerShape(16.dp),
                     color = greenDark
                 ) {
                     // Account Type
@@ -254,8 +255,8 @@ fun UserHeader(
                         text = stringResource(id = user.userType.title),
                         color = white,
                         style = MaterialTheme.typography.body,
-                        fontSize = MaterialTheme.spacing.sp_14,
-                        modifier = Modifier.padding(MaterialTheme.spacing.small)
+                        fontSize = 14.sp,
+                        modifier = Modifier.padding(8.dp)
                     )
                 }
             }
@@ -268,7 +269,7 @@ fun UserHeader(
                         text = stringResource(id = R.string.modify_data),
                         color = greenDark,
                         style = MaterialTheme.typography.body,
-                        fontSize = MaterialTheme.spacing.sp_11
+                        fontSize = 11.sp
                     )
                 }
 
@@ -280,7 +281,7 @@ fun UserHeader(
                         text = stringResource(id = R.string.cost),
                         color = greenDark,
                         style = MaterialTheme.typography.body,
-                        fontSize = MaterialTheme.spacing.sp_11
+                        fontSize = 11.sp
                     )
                 }
             }
@@ -296,27 +297,27 @@ fun AddItem(
     modifier: Modifier = Modifier
 ) {
     Surface(
-        shape = RoundedCornerShape(MaterialTheme.spacing.medium),
-        shadowElevation = MaterialTheme.spacing.medium,
-        modifier = modifier.padding(MaterialTheme.spacing.medium)
+        shape = RoundedCornerShape(16.dp),
+        shadowElevation = 16.dp,
+        modifier = modifier.padding(16.dp)
     ) {
         Box(
-            modifier = Modifier.padding(MaterialTheme.spacing.small)
+            modifier = Modifier.padding(8.dp)
         ) {
-            Column(verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small)) {
+            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 // Add Title
                 Text(
                     text = stringResource(id = title),
                     style = MaterialTheme.typography.title,
-                    fontSize = MaterialTheme.spacing.sp_16
+                    fontSize = 16.sp
                 )
                 // Add Description
                 Text(
                     text = stringResource(id = description),
                     color = greenDark,
                     style = MaterialTheme.typography.body,
-                    fontSize = MaterialTheme.spacing.sp_10,
-                    modifier = Modifier.padding(end = MaterialTheme.spacing.large)
+                    fontSize = 10.sp,
+                    modifier = Modifier.padding(end = 32.dp)
                 )
             }
 
@@ -326,7 +327,7 @@ fun AddItem(
                     .align(Alignment.BottomEnd)
                     .clip(CircleShape)
                     .background(greenDark)
-                    .size(MaterialTheme.spacing.large)
+                    .size(32.dp)
             ) {
                 Icon(
                     imageVector = Icons.Default.Add,
@@ -357,19 +358,19 @@ fun FarmsListItem(
 ) {
 
     Column(modifier = modifier
-        .padding(MaterialTheme.spacing.small)
-        .width(MaterialTheme.spacing.dp_50)) {
+        .padding(8.dp)
+        .width(50.dp)) {
         Surface(
-            shape = RoundedCornerShape(MaterialTheme.spacing.medium),
-            shadowElevation = MaterialTheme.spacing.medium,
-            modifier = Modifier.size(MaterialTheme.spacing.dp_50)
+            shape = RoundedCornerShape(16.dp),
+            shadowElevation = 16.dp,
+            modifier = Modifier.size(50.dp)
         ) {
         }
         Text(
             text = farm.name,
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.body,
-            fontSize = MaterialTheme.spacing.sp_11
+            fontSize = 11.sp
         )
     }
 }
@@ -391,21 +392,21 @@ fun CropsListItem(
 ) {
     Surface(
         color = greenLight,
-        shape = RoundedCornerShape(MaterialTheme.spacing.medium),
-        modifier = modifier.padding(MaterialTheme.spacing.medium)
+        shape = RoundedCornerShape(16.dp),
+        modifier = modifier.padding(16.dp)
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(MaterialTheme.spacing.small)
+                .padding(8.dp)
         ) {
             // Crop Name
             Text(
                 text = crop.name,
                 color = white,
                 style = MaterialTheme.typography.title,
-                fontSize = MaterialTheme.spacing.sp_16,
-                modifier = Modifier.padding(MaterialTheme.spacing.small)
+                fontSize = 16.sp,
+                modifier = Modifier.padding(8.dp)
             )
 
             Spacer(modifier = Modifier.weight(1f))
@@ -417,7 +418,7 @@ fun CropsListItem(
                         imageVector = Icons.Default.Close,
                         contentDescription = null,
                         tint = white,
-                        modifier = Modifier.size(MaterialTheme.spacing.medium)
+                        modifier = Modifier.size(16.dp)
                     )
                 }
 
@@ -428,7 +429,7 @@ fun CropsListItem(
                 ) {
                     Text(
                         text = stringResource(id = R.string.observe_crop),
-                        fontSize = MaterialTheme.spacing.sp_10,
+                        fontSize = 10.sp,
                         fontWeight = FontWeight.Bold
                     )
                 }

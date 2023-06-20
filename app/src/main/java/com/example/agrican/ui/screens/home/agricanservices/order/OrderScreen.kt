@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -26,7 +25,8 @@ import com.example.agrican.ui.screens.home.agricanservices.order.new_order.NewOr
 import com.example.agrican.ui.screens.home.agricanservices.order.order_status.OrderStatusDestination
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
-import com.example.agrican.ui.theme.spacing
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 object OrderDestination: NavigationDestination {
     override val route: String = "order"
@@ -49,14 +49,14 @@ fun OrderScreen(
                 colors = ButtonDefaults.buttonColors(containerColor = greenLight),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clip(RoundedCornerShape(MaterialTheme.spacing.extraSmall))
-                    .padding(MaterialTheme.spacing.small)
+                    .clip(RoundedCornerShape(4.dp))
+                    .padding(8.dp)
             ) {
                 Text(
                     text = stringResource(id = R.string.order_status),
-                    fontSize = MaterialTheme.spacing.sp_14,
+                    fontSize = 14.sp,
                     fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(MaterialTheme.spacing.medium)
+                    modifier = Modifier.padding(16.dp)
                 )
             }
 
@@ -66,14 +66,14 @@ fun OrderScreen(
                 colors = ButtonDefaults.buttonColors(containerColor = greenDark),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clip(RoundedCornerShape(MaterialTheme.spacing.extraSmall))
-                    .padding(MaterialTheme.spacing.small)
+                    .clip(RoundedCornerShape(4.dp))
+                    .padding(8.dp)
             ) {
                 Text(
                     text = stringResource(id = R.string.new_order),
-                    fontSize = MaterialTheme.spacing.sp_14,
+                    fontSize = 14.sp,
                     fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(MaterialTheme.spacing.medium)
+                    modifier = Modifier.padding(16.dp)
                 )
             }
             if (showNewOrder) {

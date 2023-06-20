@@ -56,9 +56,10 @@ import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
-import com.example.agrican.ui.theme.spacing
 import com.example.agrican.ui.theme.title
 import com.example.agrican.ui.theme.white
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import java.time.LocalDate
 
 object DefaultAgesDestination: NavigationDestination {
@@ -81,7 +82,7 @@ fun DefaultAgeScreen(
         updateCurrentCrop = { viewModel.updateUiStates(currentCrop = it) },
         updateCurrentQuality = { viewModel.updateUiStates(currentQuality = it) },
         getResults = viewModel::getResults,
-        modifier = modifier.padding(bottom = MaterialTheme.spacing.dp_60)
+        modifier = modifier.padding(bottom = 60.dp)
     )
 }
 
@@ -116,8 +117,8 @@ fun DefaultAgeScreenContent(
         Text(
             text = stringResource(id = R.string.harvest_date),
             style = MaterialTheme.typography.title,
-            fontSize = MaterialTheme.spacing.sp_16,
-            modifier = Modifier.padding(MaterialTheme.spacing.small)
+            fontSize = 16.sp,
+            modifier = Modifier.padding(8.dp)
         )
 
         // Harvest Date
@@ -127,8 +128,8 @@ fun DefaultAgeScreenContent(
                     datePickerDialog.show()
                 },
                 modifier = Modifier
-                    .padding(MaterialTheme.spacing.small)
-                    .clip(RoundedCornerShape(MaterialTheme.spacing.medium))
+                    .padding(8.dp)
+                    .clip(RoundedCornerShape(16.dp))
                     .background(greenLight)
             ) {
                 Icon(
@@ -140,10 +141,10 @@ fun DefaultAgeScreenContent(
 
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
                 modifier = Modifier
-                    .padding(end = MaterialTheme.spacing.medium)
-                    .height(MaterialTheme.spacing.large)
+                    .padding(end = 16.dp)
+                    .height(32.dp)
                     .weight(1f)
             ) {
                 // Days Drop Down
@@ -180,8 +181,8 @@ fun DefaultAgeScreenContent(
         Text(
             text = stringResource(id = R.string.crop_choose),
             style = MaterialTheme.typography.title,
-            fontSize = MaterialTheme.spacing.sp_16,
-            modifier = Modifier.padding(MaterialTheme.spacing.small)
+            fontSize = 16.sp,
+            modifier = Modifier.padding(8.dp)
         )
 
         CropsList(crops = uiState.crops, setSelectedCrop = { updateCurrentCrop(it) })
@@ -190,8 +191,8 @@ fun DefaultAgeScreenContent(
         Text(
             text = stringResource(id = R.string.crop_quality),
             style = MaterialTheme.typography.title,
-            fontSize = MaterialTheme.spacing.sp_16,
-            modifier = Modifier.padding(MaterialTheme.spacing.small)
+            fontSize = 16.sp,
+            modifier = Modifier.padding(8.dp)
         )
 
         var selected by rememberSaveable { mutableStateOf(0) }
@@ -224,8 +225,8 @@ fun DefaultAgeScreenContent(
         ) {
             Text(
                 text = stringResource(id = R.string.get_results),
-                fontSize = MaterialTheme.spacing.sp_15,
-                modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
+                fontSize = 15.sp,
+                modifier = Modifier.padding(horizontal = 16.dp)
             )
         }
         AnimatedVisibility(visible = uiState.defaultAge != null && uiState.dangerDegree != null) {
@@ -250,26 +251,26 @@ fun DefaultAgeResponse(
 
         CircularProgress(
             percent = defaultAge!!,
-            modifier = Modifier.padding(MaterialTheme.spacing.medium)
+            modifier = Modifier.padding(16.dp)
         )
 
         Text(
             text = stringResource(id = R.string.default_age_title),
             style = MaterialTheme.typography.body,
-            fontSize = MaterialTheme.spacing.sp_14,
+            fontSize = 14.sp,
         )
 
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(
                 text = stringResource(id = R.string.danger_degree),
                 style = MaterialTheme.typography.body,
-                fontSize = MaterialTheme.spacing.sp_14,
-                modifier = Modifier.padding(MaterialTheme.spacing.small)
+                fontSize = 14.sp,
+                modifier = Modifier.padding(8.dp)
             )
 
             Indicators(
                 selectedItems = listOf(0, 1),
-                modifier = Modifier.padding(MaterialTheme.spacing.medium)
+                modifier = Modifier.padding(16.dp)
             )
 
             Spacer(modifier = Modifier.weight(1f))
@@ -279,7 +280,7 @@ fun DefaultAgeResponse(
         Text(
             text = dangerAdvice,
             style = MaterialTheme.typography.body,
-            fontSize = MaterialTheme.spacing.sp_11
+            fontSize = 11.sp
         )
     }
 }
@@ -301,24 +302,24 @@ fun CircularProgress(
         CircularProgressIndicator(
             progress = 1f,
             color = LightGray,
-            strokeWidth = MaterialTheme.spacing.dp_3,
-            modifier = Modifier.size(MaterialTheme.spacing.dp_130)
+            strokeWidth = 3.dp,
+            modifier = Modifier.size(130.dp)
         )
         // Progress Indicator
         CircularProgressIndicator(
             progress = animatedProgress,
             modifier = Modifier
-                .size(MaterialTheme.spacing.dp_130)
-                .clip(RoundedCornerShape(MaterialTheme.spacing.medium)),
+                .size(130.dp)
+                .clip(RoundedCornerShape(16.dp)),
             color = greenLight,
-            strokeWidth = MaterialTheme.spacing.dp_3
+            strokeWidth = 3.dp
         )
 
         // Progress Label
         Text(
             text = "${percent.toInt()}%",
             style = MaterialTheme.typography.body,
-            fontSize = MaterialTheme.spacing.sp_32,
+            fontSize = 32.sp,
             fontWeight = FontWeight.SemiBold,
             modifier = Modifier.Companion.align(Alignment.Center)
         )
@@ -332,7 +333,7 @@ fun Indicators(
     modifier: Modifier = Modifier
 ) {
     Row(
-        horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
         modifier = modifier
     ) {
         repeat(10) {
@@ -345,7 +346,7 @@ fun Indicators(
 fun Indicator(isSelected: Boolean) {
     Box(
         modifier = Modifier
-            .size(MaterialTheme.spacing.dp_10)
+            .size(10.dp)
             .clip(CircleShape)
             .background(
                 color = if (isSelected) Red else gray

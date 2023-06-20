@@ -28,8 +28,9 @@ import com.example.agrican.ui.components.BackButton
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.gray
-import com.example.agrican.ui.theme.spacing
 import com.example.agrican.ui.theme.white
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 object DiseasesDestination: NavigationDestination {
     override val route: String = "diseases"
@@ -62,7 +63,7 @@ fun DiseaseList(
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
-        modifier = modifier.padding(MaterialTheme.spacing.small)
+        modifier = modifier.padding(8.dp)
     ) {
         items(diseases) { disease ->
             DiseaseListItem(disease = disease, onItemClick = onItemClick)
@@ -70,7 +71,7 @@ fun DiseaseList(
 
         // Spacer for Bottom Navigation Bar
         item {
-            Spacer(modifier = Modifier.height(MaterialTheme.spacing.dp_60))
+            Spacer(modifier = Modifier.height(60.dp))
         }
     }
 }
@@ -82,14 +83,14 @@ fun DiseaseListItem(
     modifier: Modifier = Modifier
 ) {
     Surface(
-        shape = RoundedCornerShape(MaterialTheme.spacing.medium),
+        shape = RoundedCornerShape(16.dp),
         color = gray,
         modifier = modifier
-            .clip(RoundedCornerShape(MaterialTheme.spacing.medium))
+            .clip(RoundedCornerShape(16.dp))
             .clickable {
                 onItemClick(disease.diseaseId)
             }
-            .padding(MaterialTheme.spacing.medium)
+            .padding(16.dp)
     ) {
         Box {
             // Disease Image
@@ -100,10 +101,10 @@ fun DiseaseListItem(
                 text = disease.title,
                 color = white,
                 style = MaterialTheme.typography.body,
-                fontSize = MaterialTheme.spacing.sp_14,
+                fontSize = 14.sp,
                 modifier = Modifier
                     .align(Alignment.BottomStart)
-                    .padding(MaterialTheme.spacing.small)
+                    .padding(8.dp)
             )
         }
     }

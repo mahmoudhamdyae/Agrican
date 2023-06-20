@@ -47,8 +47,9 @@ import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
-import com.example.agrican.ui.theme.spacing
 import com.example.agrican.ui.theme.title
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 object OrderConfirmDestination: NavigationDestination {
     override val route: String = "order_confirm"
@@ -69,25 +70,25 @@ fun OrderConfirmScreen(
     BackButton(navigateUp = navigateUp) {
 
         Column(
-            verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
             modifier = modifier
                 .verticalScroll(rememberScrollState())
-                .padding(MaterialTheme.spacing.medium)
-                .padding(bottom = MaterialTheme.spacing.dp_60)
+                .padding(16.dp)
+                .padding(bottom = 60.dp)
         ) {
             Text(
                 text = stringResource(id = R.string.confirm_order),
                 color = greenLight,
                 style = MaterialTheme.typography.title,
-                fontSize = MaterialTheme.spacing.sp_15,
-                modifier = Modifier.padding(vertical = MaterialTheme.spacing.small)
+                fontSize = 15.sp,
+                modifier = Modifier.padding(vertical = 8.dp)
             )
 
             Divider(
                 modifier = Modifier
-                    .height(MaterialTheme.spacing.dp_2)
+                    .height(2.dp)
                     .background(gray)
-                    .padding(vertical = MaterialTheme.spacing.small)
+                    .padding(vertical = 8.dp)
             )
 
             OrderConfirmScreenContent(buy = viewModel::buy)
@@ -109,18 +110,18 @@ fun OrderConfirmScreenContent(
     var isCash by rememberSaveable { mutableStateOf(OrderWay.CASH) }
 
     Column(
-        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
         modifier = modifier.fillMaxWidth()
     ) {
         // Cash
         Surface(
-            shape = RoundedCornerShape(MaterialTheme.spacing.medium),
-            border = BorderStroke(MaterialTheme.spacing.dp_1, gray),
+            shape = RoundedCornerShape(16.dp),
+            border = BorderStroke(1.dp, gray),
             modifier = Modifier.fillMaxWidth()
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.padding(MaterialTheme.spacing.medium)
+                modifier = Modifier.padding(16.dp)
             ) {
                 RadioButton(
                     selected = isCash == OrderWay.CASH,
@@ -130,22 +131,22 @@ fun OrderConfirmScreenContent(
                     text = stringResource(id = R.string.cash),
                     color = Color(0xff5a5a5a),
                     style = MaterialTheme.typography.body,
-                    fontSize = MaterialTheme.spacing.sp_14,
-                    modifier = Modifier.padding(MaterialTheme.spacing.medium)
+                    fontSize = 14.sp,
+                    modifier = Modifier.padding(16.dp)
                 )
             }
         }
 
         // Visa
         Surface(
-            shape = RoundedCornerShape(MaterialTheme.spacing.medium),
-            border = BorderStroke(MaterialTheme.spacing.dp_1, gray),
+            shape = RoundedCornerShape(16.dp),
+            border = BorderStroke(1.dp, gray),
             modifier = Modifier.fillMaxWidth()
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
-                modifier = Modifier.padding(MaterialTheme.spacing.medium)
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
+                modifier = Modifier.padding(16.dp)
             ) {
                 RadioButton(
                     selected = isCash == OrderWay.VISA,
@@ -172,7 +173,7 @@ fun OrderConfirmScreenContent(
         Text(
             text = stringResource(id = R.string.card_id),
             color = Color(0xff5a5a5a),
-            fontSize = MaterialTheme.spacing.sp_12,
+            fontSize = 12.sp,
             style = MaterialTheme.typography.body,
         )
         SimpleTextField(
@@ -182,9 +183,9 @@ fun OrderConfirmScreenContent(
             focusManager = focusManager
         )
 
-        Row(horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium)) {
+        Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
             Column(
-                verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
                 modifier = Modifier.weight(1f)
             ) {
                 // Expired Date
@@ -192,7 +193,7 @@ fun OrderConfirmScreenContent(
                     text = stringResource(id = R.string.expire_date),
                     color = Color(0xff5a5a5a),
                     style = MaterialTheme.typography.body,
-                    fontSize = MaterialTheme.spacing.sp_12
+                    fontSize = 12.sp
                 )
                 SimpleTextField(
                     value = expireDate,
@@ -204,7 +205,7 @@ fun OrderConfirmScreenContent(
             }
 
             Column(
-                verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
                 modifier = Modifier.weight(1f)
             ) {
                 // CW/CVC
@@ -212,7 +213,7 @@ fun OrderConfirmScreenContent(
                     text = stringResource(id = R.string.cvc),
                     color = Color(0xff5a5a5a),
                     style = MaterialTheme.typography.body,
-                    fontSize = MaterialTheme.spacing.sp_14
+                    fontSize = 14.sp
                 )
                 SimpleTextField(
                     value = cvc,
@@ -242,20 +243,20 @@ fun OrderConfirmScreenContent(
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Text(
                         text = stringResource(id = R.string.sum),
-                        fontSize = MaterialTheme.spacing.sp_11,
+                        fontSize = 11.sp,
                         fontWeight = FontWeight.Bold,
                     )
 
                     Row {
                         Text(
                             text = "00.00",
-                            fontSize = MaterialTheme.spacing.sp_12,
+                            fontSize = 12.sp,
                             fontWeight = FontWeight.Bold,
                         )
-                        Spacer(modifier = Modifier.padding(end = MaterialTheme.spacing.small))
+                        Spacer(modifier = Modifier.padding(end = 8.dp))
                         Text(
                             text = stringResource(id = R.string.pound),
-                            fontSize = MaterialTheme.spacing.sp_12,
+                            fontSize = 12.sp,
                             fontWeight = FontWeight.Bold,
                         )
                     }
@@ -263,7 +264,7 @@ fun OrderConfirmScreenContent(
 
                 Text(
                     text = stringResource(id = R.string.complete_buying),
-                    fontSize = MaterialTheme.spacing.sp_16,
+                    fontSize = 16.sp,
                     fontWeight = FontWeight.Bold
                 )
 

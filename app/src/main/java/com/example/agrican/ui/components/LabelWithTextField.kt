@@ -25,7 +25,8 @@ import com.example.agrican.R
 import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
-import com.example.agrican.ui.theme.spacing
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 @Composable
 fun LabelWithTextField(
@@ -49,14 +50,14 @@ fun LabelWithTextField(
                     text = stringResource(hint),
                     color = gray,
                     textAlign = TextAlign.Center,
-                    fontSize = MaterialTheme.spacing.sp_12,
-                    modifier = Modifier.padding(MaterialTheme.spacing.small)
+                    fontSize = 12.sp,
+                    modifier = Modifier.padding(8.dp)
                 )
                           },
             focusManager = focusManager,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = MaterialTheme.spacing.dp_75),
+                .padding(start = 75.dp),
             keyboardType = keyboardType,
             imeAction = imeAction
         )
@@ -70,17 +71,17 @@ fun LabelItem(
     modifier: Modifier = Modifier
 ) {
     Surface(
-        shape = RoundedCornerShape(MaterialTheme.spacing.medium),
-        border = BorderStroke(MaterialTheme.spacing.dp_1, greenDark),
-        modifier = modifier.width(MaterialTheme.spacing.dp_100)
+        shape = RoundedCornerShape(16.dp),
+        border = BorderStroke(1.dp, greenDark),
+        modifier = modifier.width(100.dp)
     ) {
         Text(
             text = stringResource(id = text),
             textAlign = TextAlign.Center,
             color = greenDark,
             style = MaterialTheme.typography.body,
-            fontSize = MaterialTheme.spacing.sp_12,
-            modifier = Modifier.padding(vertical = MaterialTheme.spacing.small)
+            fontSize = 12.sp,
+            modifier = Modifier.padding(vertical = 8.dp)
         )
     }
 }

@@ -31,8 +31,9 @@ import com.example.agrican.ui.theme.black
 import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
-import com.example.agrican.ui.theme.spacing
 import com.example.agrican.ui.theme.textGray
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -59,10 +60,10 @@ fun DropDown(
                     Text(
                         text = stringResource(id = selectedOption),
                         color = textColor,
-                        fontSize = MaterialTheme.spacing.sp_11,
+                        fontSize = 11.sp,
                         fontWeight = FontWeight.SemiBold,
                         style = MaterialTheme.typography.body,
-                        modifier = Modifier.padding(start = MaterialTheme.spacing.small)
+                        modifier = Modifier.padding(start = 8.dp)
                     )
                     Spacer(modifier = Modifier.weight(1f))
                     ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
@@ -73,8 +74,8 @@ fun DropDown(
             modifier = Modifier
                 .menuAnchor()
                 .border(
-                    border = BorderStroke(MaterialTheme.spacing.dp_1, gray),
-                    shape = RoundedCornerShape(MaterialTheme.spacing.medium)
+                    border = BorderStroke(1.dp, gray),
+                    shape = RoundedCornerShape(16.dp)
                 )
                 .fillMaxHeight()
         )
@@ -125,8 +126,8 @@ fun DateDropDown(
                         text = if (selectedOption2 == options[0]) stringResource(id = selectedOption2)
                             else selectedOption2.toString(),
                         color = textGray,
-                        fontSize = MaterialTheme.spacing.sp_10,
-                        modifier = Modifier.padding(start = MaterialTheme.spacing.small)
+                        fontSize = 10.sp,
+                        modifier = Modifier.padding(start = 8.dp)
                     )
                     Spacer(modifier = Modifier.weight(1f))
                     ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
@@ -138,8 +139,8 @@ fun DateDropDown(
             modifier = Modifier
                 .menuAnchor()
                 .border(
-                    border = BorderStroke(MaterialTheme.spacing.dp_1, gray),
-                    shape = RoundedCornerShape(MaterialTheme.spacing.medium)
+                    border = BorderStroke(1.dp, gray),
+                    shape = RoundedCornerShape(16.dp)
                 )
                 .fillMaxHeight()
         )

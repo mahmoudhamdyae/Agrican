@@ -14,8 +14,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.greenLight
-import com.example.agrican.ui.theme.spacing
 import com.example.agrican.ui.theme.white
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -37,11 +38,11 @@ fun Chip(
                 text = stringResource(id = text),
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.body,
-                fontSize = MaterialTheme.spacing.sp_14,
+                fontSize = 14.sp,
                 modifier = Modifier.fillMaxWidth()
             )
         },
-        shape = RoundedCornerShape(MaterialTheme.spacing.large),
-        modifier = modifier.padding(MaterialTheme.spacing.small)
+        shape = RoundedCornerShape(32.dp),
+        modifier = modifier.padding(8.dp)
     )
 }

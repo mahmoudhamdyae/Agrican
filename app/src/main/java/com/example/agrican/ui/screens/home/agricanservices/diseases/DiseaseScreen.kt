@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -22,7 +21,7 @@ import com.example.agrican.ui.components.DescriptionLabel
 import com.example.agrican.ui.components.DiseaseHeader
 import com.example.agrican.ui.components.MainLabel
 import com.example.agrican.ui.navigation.NavigationDestination
-import com.example.agrican.ui.theme.spacing
+import androidx.compose.ui.unit.dp
 
 object DiseaseDestination: NavigationDestination {
     override val route: String = "disease"
@@ -61,7 +60,7 @@ fun DiseaseScreenContent(
     Column(
         modifier = modifier
             .verticalScroll(rememberScrollState())
-            .padding(bottom = MaterialTheme.spacing.dp_60)
+            .padding(bottom = 60.dp)
     ) {
         DiseaseHeader(
             image = null,
@@ -71,8 +70,8 @@ fun DiseaseScreenContent(
         )
 
         Column(
-            verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
-            modifier = Modifier.padding(MaterialTheme.spacing.medium)
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier.padding(16.dp)
         ) {
             // Naming
             MainLabel(text = R.string.naming)

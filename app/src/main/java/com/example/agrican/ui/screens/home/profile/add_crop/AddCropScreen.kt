@@ -28,8 +28,9 @@ import com.example.agrican.ui.components.DateDropDown
 import com.example.agrican.ui.components.ProfileHeader
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.greenDark
-import com.example.agrican.ui.theme.spacing
 import com.example.agrican.ui.theme.title
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 object AddCropDestination: NavigationDestination {
     override val route: String = "add_crop"
@@ -69,7 +70,7 @@ fun AddCropScreenContent(
     modifier: Modifier = Modifier
 ) {
     Column(
-        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.medium),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
         modifier = modifier.verticalScroll(rememberScrollState())
     ) {
         // Choose Crop Text
@@ -77,8 +78,8 @@ fun AddCropScreenContent(
             text = stringResource(id = R.string.choose_crop_label),
             color = greenDark,
             style = MaterialTheme.typography.title,
-            fontSize = MaterialTheme.spacing.sp_14,
-            modifier = Modifier.padding(start = MaterialTheme.spacing.small)
+            fontSize = 14.sp,
+            modifier = Modifier.padding(start = 8.dp)
         )
 
         CropsList(crops = uiState.crops, setSelectedCrop = updateSelectedCrop)
@@ -86,13 +87,13 @@ fun AddCropScreenContent(
         // Agri History
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
-            modifier = Modifier.padding(MaterialTheme.spacing.small)
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier.padding(8.dp)
         ) {
             Text(
                 text = stringResource(id = R.string.agri_history),
                 color = greenDark,
-                fontSize = MaterialTheme.spacing.sp_14,
+                fontSize = 14.sp,
                 style = MaterialTheme.typography.title
             )
             DateDropDown(
@@ -101,7 +102,7 @@ fun AddCropScreenContent(
                 selectedOption = uiState.day,
                 modifier = Modifier
                     .weight(1f)
-                    .height(MaterialTheme.spacing.large)
+                    .height(32.dp)
             )
             DateDropDown(
                 options = DateUtils().months,
@@ -109,7 +110,7 @@ fun AddCropScreenContent(
                 selectedOption = uiState.month,
                 modifier = Modifier
                     .weight(1f)
-                    .height(MaterialTheme.spacing.large)
+                    .height(32.dp)
             )
             DateDropDown(
                 options = DateUtils().years,
@@ -117,7 +118,7 @@ fun AddCropScreenContent(
                 selectedOption = uiState.year,
                 modifier = Modifier
                     .weight(1f)
-                    .height(MaterialTheme.spacing.large)
+                    .height(32.dp)
             )
         }
 
@@ -129,7 +130,7 @@ fun AddCropScreenContent(
         ) {
             Text(
                 text = stringResource(id = R.string.add_crop_button),
-                fontSize = MaterialTheme.spacing.sp_15,
+                fontSize = 15.sp,
                 fontWeight = FontWeight.Bold
             )
         }

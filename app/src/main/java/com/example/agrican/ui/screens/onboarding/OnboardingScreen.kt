@@ -40,12 +40,13 @@ import com.example.agrican.ui.theme.black
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
-import com.example.agrican.ui.theme.spacing
 import com.example.agrican.ui.theme.title
 import com.example.agrican.ui.theme.white
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.launch
 
 object OnboardingDestination: NavigationDestination {
@@ -93,7 +94,7 @@ fun OnboardingScreen(
                 size = OnBoardingItem.getData().size,
                 index = pageState.currentPage,
                 modifier = Modifier
-                    .padding(MaterialTheme.spacing.large)
+                    .padding(32.dp)
                     .align(Alignment.BottomCenter)
             )
         }
@@ -114,9 +115,9 @@ fun OnboardingScreen(
             Text(
                 text = stringResource(id = R.string.onboarding_button),
                 color = greenLight,
-                fontSize = MaterialTheme.spacing.sp_15,
+                fontSize = 15.sp,
                 fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(horizontal = MaterialTheme.spacing.medium)
+                modifier = Modifier.padding(horizontal = 16.dp)
             )
         }
     }, modifier = modifier)
@@ -142,10 +143,10 @@ fun OnBoardingItem(
             text = stringResource(id = item.text),
             textAlign = TextAlign.Center,
             color = black,
-            fontSize = MaterialTheme.spacing.sp_20,
+            fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
             style = MaterialTheme.typography.title,
-            modifier = Modifier.padding(MaterialTheme.spacing.medium)
+            modifier = Modifier.padding(16.dp)
         )
     }
 }
@@ -158,7 +159,7 @@ fun Indicators(
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
         modifier = modifier
     ) {
         repeat(size) {
@@ -170,13 +171,13 @@ fun Indicators(
 @Composable
 fun Indicator(isSelected: Boolean) {
     val width = animateDpAsState(
-        targetValue = MaterialTheme.spacing.dp_24,
+        targetValue = 24.dp,
         animationSpec = spring(dampingRatio = Spring.DampingRatioMediumBouncy)
     )
 
     Box(
         modifier = Modifier
-            .height(MaterialTheme.spacing.small)
+            .height(8.dp)
             .width(width.value)
             .clip(CircleShape)
             .background(

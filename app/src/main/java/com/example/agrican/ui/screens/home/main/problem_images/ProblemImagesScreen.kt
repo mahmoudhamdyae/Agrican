@@ -51,9 +51,10 @@ import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
-import com.example.agrican.ui.theme.spacing
 import com.example.agrican.ui.theme.title
 import com.example.agrican.ui.theme.white
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 object ProblemImagesDestination: NavigationDestination {
     override val route: String = "problem_images"
@@ -126,24 +127,24 @@ fun ProblemImageScreenContent(
     modifier: Modifier = Modifier
 ) {
     Column(
-        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
         modifier = modifier
             .verticalScroll(rememberScrollState())
-            .padding(top = MaterialTheme.spacing.large)
-            .padding(bottom = MaterialTheme.spacing.dp_60)
+            .padding(top = 32.dp)
+            .padding(bottom = 60.dp)
     ) {
         Text(
             text = stringResource(id = R.string.choose_plant_type),
             style = MaterialTheme.typography.title,
-            fontSize = MaterialTheme.spacing.sp_14,
-            modifier = Modifier.padding(start = MaterialTheme.spacing.medium)
+            fontSize = 14.sp,
+            modifier = Modifier.padding(start = 16.dp)
         )
         CropsList(crops = uiState.crops, setSelectedCrop = { updateSelectedCrop(it) })
         Text(
             text = stringResource(id = R.string.choose_problem_image_way),
             style = MaterialTheme.typography.title,
-            fontSize = MaterialTheme.spacing.sp_14,
-            modifier = Modifier.padding(start = MaterialTheme.spacing.medium)
+            fontSize = 14.sp,
+            modifier = Modifier.padding(start = 16.dp)
         )
         Row(modifier = Modifier.fillMaxWidth()) {
             // Choose Image From Gallery
@@ -171,12 +172,12 @@ fun ProblemImageScreenContent(
             Button(
                 onClick = onSearch,
                 colors = ButtonDefaults.buttonColors(containerColor = greenDark),
-                modifier = Modifier.weight(1f).padding(start = MaterialTheme.spacing.medium)
+                modifier = Modifier.weight(1f).padding(start = 16.dp)
             ) {
                 Text(
                     text = stringResource(id = R.string.start_searching),
                     textAlign = TextAlign.Center,
-                    fontSize = MaterialTheme.spacing.sp_14,
+                    fontSize = 14.sp,
                     fontWeight = FontWeight.Bold,
                 )
             }
@@ -193,18 +194,18 @@ fun ProblemImageScreenContent(
                 painter = painterResource(id = R.drawable.advices),
                 contentDescription = null,
                 contentScale = ContentScale.FillWidth,
-                modifier = Modifier.fillMaxWidth().height(MaterialTheme.spacing.dp_100)
+                modifier = Modifier.fillMaxWidth().height(100.dp)
             )
 
             // Advices Label
             Text(
                 text = stringResource(id = R.string.advices_label),
                 color = white,
-                fontSize = MaterialTheme.spacing.sp_25,
+                fontSize = 25.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier
                     .align(Alignment.BottomStart)
-                    .padding(MaterialTheme.spacing.medium)
+                    .padding(16.dp)
             )
         }
 
@@ -212,9 +213,9 @@ fun ProblemImageScreenContent(
         Text(
             text = stringResource(id = R.string.advices),
             style = MaterialTheme.typography.body,
-            fontSize = MaterialTheme.spacing.sp_14,
+            fontSize = 14.sp,
             fontWeight = FontWeight.SemiBold,
-            modifier = Modifier.padding(start = MaterialTheme.spacing.medium)
+            modifier = Modifier.padding(start = 16.dp)
         )
     }
 }
@@ -227,18 +228,18 @@ fun WayChoose(
     modifier: Modifier = Modifier
 ) {
     Surface(
-        shape = RoundedCornerShape(MaterialTheme.spacing.small),
-        border = BorderStroke(MaterialTheme.spacing.dp_1, greenDark),
+        shape = RoundedCornerShape(8.dp),
+        border = BorderStroke(1.dp, greenDark),
         modifier = modifier
-            .padding(MaterialTheme.spacing.medium)
+            .padding(16.dp)
             .clickable {
                 onItemClick()
             }
     ) {
         Column(
-            verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.small),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.padding(vertical = MaterialTheme.spacing.large,)
+            modifier = Modifier.padding(vertical = 32.dp,)
         ) {
             // Choose Icon
             Image(
@@ -250,7 +251,7 @@ fun WayChoose(
                 text = stringResource(id = text),
                 color = greenDark,
                 style = MaterialTheme.typography.body,
-                fontSize = MaterialTheme.spacing.sp_16
+                fontSize = 16.sp
             )
         }
     }
@@ -266,9 +267,9 @@ fun ImageView(
             tint = white,
             background = greenLight,
             modifier = modifier
-                .size(MaterialTheme.spacing.dp_75)
-                .padding(MaterialTheme.spacing.small)
-                .clip(RoundedCornerShape(MaterialTheme.spacing.small))
+                .size(75.dp)
+                .padding(8.dp)
+                .clip(RoundedCornerShape(8.dp))
         )
     } else {
         AsyncImage(
@@ -281,9 +282,9 @@ fun ImageView(
             contentDescription = null,
             contentScale = ContentScale.FillBounds,
             modifier = modifier
-                .size(MaterialTheme.spacing.dp_75)
-                .padding(MaterialTheme.spacing.small)
-                .clip(RoundedCornerShape(MaterialTheme.spacing.small))
+                .size(75.dp)
+                .padding(8.dp)
+                .clip(RoundedCornerShape(8.dp))
         )
     }
 }
