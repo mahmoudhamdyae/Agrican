@@ -68,11 +68,11 @@ class OrderConfirmViewModel @Inject constructor(
 
                         val requestModel = PaymentRequest(
                             _uiState.value.order.price.toString(), token.toString(),
-                            BillingData( // "NA" if empty
-                                "803", "8028", "Jask", "CR",
-                                _uiState.value.currentUser.email, _uiState.value.currentUser.userName.trim(), "42",
-                                _uiState.value.currentUser.userName.trim(), _uiState.value.currentUser.phoneNumber, "01898", "NA",
-                                "Uta", "NA"
+                            BillingData(
+                                "NA", "NA", "NA", "NA",
+                                _uiState.value.currentUser.email, _uiState.value.currentUser.userName.trim(), "NA",
+                                _uiState.value.currentUser.userName.trim(), _uiState.value.currentUser.phoneNumber, "NA", "NA",
+                                "NA", "NA"
                             ), _uiState.value.order.currency, 3600, Constant.INTEGRATION_ID_CARD,
                             "true",
                             orderId.toString()
@@ -84,7 +84,7 @@ class OrderConfirmViewModel @Inject constructor(
                             Log.d(TAG, "paymentRequest done ${paymentResponse.body()?.token}")
 
                             val finalToken = paymentResponse.body()?.token
-                            Constant.finalToken = finalToken.toString()
+//                            Constant.finalToken = finalToken.toString()
                         }
                         else {
                             Log.d(

@@ -66,7 +66,7 @@ fun HomeScreen(
                     title = {
                         if (topBarIcon) {
                             Image(
-                                painter = painterResource(id = R.drawable.logo),
+                                painter = painterResource(id = R.drawable.agrican_logo),
                                 contentDescription = null
                             )
                         } else {

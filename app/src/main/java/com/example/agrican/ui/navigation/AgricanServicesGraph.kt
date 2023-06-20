@@ -71,7 +71,7 @@ fun AgricanServicesGraph(
         }
 
         composable(route = OrderStatusDestination.route) {
-            OrderStatusScreen(navigateUp = navigateUp, openScreen = openScreen)
+            OrderStatusScreen(navigateUp = navigateUp)
         }
 
         composable(

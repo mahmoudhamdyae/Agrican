@@ -122,7 +122,7 @@ fun DropDownItem(
                 }
                 // Language Text
                 Text(
-                    text = stringResource(id = text ),
+                    text = stringResource(id = text),
                     color = greenDark,
                     fontSize = MaterialTheme.spacing.sp_14
                 )

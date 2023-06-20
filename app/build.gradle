@@ -118,6 +118,10 @@ dependencies {
 
     // Date Time
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.3'
+
+    // Paymob
+    implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
+//    implementation 'morxander.editcard:EditCard:1.0.1'
 }
 
 // Allow references to generated code
