@@ -29,9 +29,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavType
@@ -47,8 +48,6 @@ import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.title
 import com.example.agrican.ui.theme.white
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 
 object ObserveCropDestination: NavigationDestination {
     override val route: String = "observe_crop"
@@ -88,7 +87,7 @@ fun ObserveCropScreenContent(
 
     Column(
         verticalArrangement = Arrangement.spacedBy(16.dp),
-        modifier = modifier.padding(8.dp)
+        modifier = modifier.padding(16.dp)
     ) {
         CropSurface(crop = crop)
 
@@ -127,7 +126,7 @@ fun CropSurface(
         color = greenLight,
         modifier = modifier.fillMaxWidth()
     ) {
-        Column(modifier = Modifier.padding(8.dp)) {
+        Column(modifier = Modifier.padding(12.dp)) {
             Text(
                 text = crop.name,
                 color = white,
@@ -164,7 +163,7 @@ fun AddTakSurface(
         shape = RoundedCornerShape(16.dp),
         modifier = modifier.fillMaxWidth()
     ) {
-        Column(modifier = Modifier.padding(8.dp)) {
+        Column(modifier = Modifier.padding(12.dp)) {
             // Add Task Label
             Text(
                 text = stringResource(id = R.string.add_task),
@@ -207,20 +206,16 @@ fun ExpandableItem(
 
     Column(modifier = modifier) {
         Surface(
-            shadowElevation = 8.dp,
-            shape = RoundedCornerShape(16.dp),
+            shadowElevation = 16.dp,
+            shape = RoundedCornerShape(32.dp),
             color = greenDark
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                modifier = Modifier.padding(16.dp)
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+                modifier = Modifier.padding(12.dp)
             ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_visibility_on),
-                    contentDescription = null,
-                    modifier = Modifier.clip(CircleShape)
-                )
+                IcoView()
                 Text(
                     text = stringResource(id = label),
                     color = white,
@@ -249,8 +244,26 @@ fun ExpandableItem(
     }
 }
 
+@Composable
+fun IcoView(
+    modifier: Modifier = Modifier
+) {
+    Surface(
+        shape = CircleShape,
+        color = white,
+        modifier = modifier
+    ) {
+        Text(
+            text = "ico",
+            color = greenDark,
+            fontSize = 15.sp,
+            modifier = Modifier.padding(8.dp)
+        )
+    }
+}
+
 @Preview(showBackground = true)
 @Composable
 fun ObserveCropScreenPreview() {
-    ObserveCropScreenContent(crop = Crop(name = "الأرز"), openScreen = { })
+    ObserveCropScreenContent(crop = Crop(name = "الأرز", date = "30/05/2023"), openScreen = { })
 }

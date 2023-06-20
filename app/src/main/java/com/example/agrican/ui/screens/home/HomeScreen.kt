@@ -49,7 +49,7 @@ fun HomeScreen(
     var selectedItem by rememberSaveable { mutableStateOf(0) }
     val bottomNavItems = listOf(
         BottomNavItem(name = R.string.navigation_main, icon = R.drawable.main),
-        BottomNavItem(name = R.string.navigation_profile, icon = R.drawable.default_image),
+        BottomNavItem(name = R.string.navigation_profile, icon = R.drawable.profile),
         BottomNavItem(name = R.string.navigation_agrican_services, icon = R.drawable.services)
     )
 

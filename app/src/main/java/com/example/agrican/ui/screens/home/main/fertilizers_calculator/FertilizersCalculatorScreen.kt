@@ -1,6 +1,7 @@
 package com.example.agrican.ui.screens.home.main.fertilizers_calculator
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,8 +14,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Remove
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -25,10 +30,13 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
@@ -43,8 +51,7 @@ import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.title
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import com.example.agrican.ui.theme.white
 
 object FertilizersCalculatorDestination: NavigationDestination {
     override val route: String = "fertilizers_calculator"
@@ -127,6 +134,7 @@ fun FertilizersCalculatorScreenContent(
                         text = units[it].title,
                         selected = it == selected,
                         onSelect = { selected = it },
+                        textColor = if (it == selected) white else greenDark,
                         modifier = Modifier.weight(1f)
                     )
                 }
@@ -147,7 +155,7 @@ fun FertilizersCalculatorScreenContent(
                 size = uiState.landSize,
                 increaseSize = increaseSize,
                 decreaseSize = decreaseSize,
-                modifier = Modifier.padding(horizontal = 16.dp)
+                modifier = Modifier.padding(horizontal = 40.dp)
             )
         }
 
@@ -157,7 +165,9 @@ fun FertilizersCalculatorScreenContent(
                 Button(
                     onClick = calculateFertilizers,
                     colors = ButtonDefaults.buttonColors(containerColor = greenDark),
-                    modifier = Modifier.align(Alignment.Center)
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .padding(8.dp)
                 ) {
                     Text(
                         text = stringResource(id = R.string.calculate_fertilizer),
@@ -183,66 +193,76 @@ fun FertilizersCalculatorScreenContent(
 fun FertilizerListItem(
     modifier: Modifier = Modifier
 ) {
-    Surface(
-        shadowElevation = 16.dp,
-        shape = RoundedCornerShape(16.dp),
-        modifier = modifier
-    ) {
+    Box(modifier = modifier.height(IntrinsicSize.Max)) {
+        Surface(
+            shadowElevation = 16.dp,
+            shape = RoundedCornerShape(24.dp),
+            modifier = Modifier.fillMaxWidth().padding(vertical = 2.dp)
+        ) {
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Spacer(modifier = Modifier.weight(2f))
+
+                Column(
+                    modifier = Modifier
+                        .padding(vertical = 4.dp)
+                        .clip(RoundedCornerShape(16.dp))
+                        .weight(5f)
+                ) {
+                    Row(modifier = Modifier.fillMaxWidth()) {
+                        Column {
+                            Text(
+                                text = "سماد رقم 1",
+                                style = MaterialTheme.typography.title,
+                                fontSize = 16.sp
+                            )
+                            Text(
+                                text = "لمدة سنة",
+                                color = greenDark,
+                                style = MaterialTheme.typography.body,
+                                fontSize = 12.sp
+                            )
+                        }
+
+                        Spacer(modifier = Modifier.weight(1f))
+
+                        // Know More Button
+                        Surface(
+                            shape = RoundedCornerShape(24.dp),
+                            color = greenDark,
+                            modifier = Modifier.padding(4.dp).clickable { /* TODO */ }
+                        ) {
+                            Text(
+                                text = stringResource(id = R.string.know_more),
+                                fontSize = 12.sp,
+                                color = white,
+                                modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp)
+                            )
+                        }
+                    }
+
+                    // Fertilizer Description
+                    Text(
+                        text = "هذه هى الكمية المطلوب بنائها و يتم تسميد الأرض باستخدام المنتجات المخصصة لذلك هذه هى الكمية المطلوب بنائها و يتم تسميد الأرض باستخدام المنتجات المخصصة لذلك",
+                        style = MaterialTheme.typography.body,
+                        fontSize = 11.sp,
+                        fontWeight = FontWeight.SemiBold,
+                    )
+                }
+            }
+        }
         Row(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(IntrinsicSize.Max)
+            modifier = Modifier.fillMaxHeight()
         ) {
             EmptyImage(modifier = Modifier
-                .weight(1f)
-                .fillMaxHeight())
-            Column(
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-                modifier = Modifier
-                    .weight(3f)
-                    .padding(8.dp)
-            ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Column {
-                        Text(
-                            text = "سماد رقم 1",
-                            style = MaterialTheme.typography.title,
-                            fontSize = 16.sp
-                        )
-                        Text(
-                            text = "لمدة سنة",
-                            color = greenDark,
-                            style = MaterialTheme.typography.body,
-                            fontSize = 12.sp
-                        )
-                    }
-
-                    Spacer(modifier = Modifier.weight(1f))
-
-                    // Know More Button
-                    Button(
-                        onClick = { /*TODO*/ },
-                        colors = ButtonDefaults.buttonColors(containerColor = greenDark),
-                    ) {
-                        Text(
-                            text = stringResource(id = R.string.know_more),
-                            fontSize = 12.sp
-                        )
-                    }
-                }
-
-                // Fertilizer Description
-                Text(
-                    text = "هذه هى الكمية المطلوب بنائها و يتم تسميد الأرض باستخدام المنتجات المخصصة لذلك هذه هى الكمية المطلوب بنائها و يتم تسميد الأرض باستخدام المنتجات المخصصة لذلك",
-                    style = MaterialTheme.typography.body,
-                    fontSize = 11.sp,
-                    fontWeight = FontWeight.SemiBold,
-                )
-            }
+                .fillMaxHeight()
+                .clip(RoundedCornerShape(24.dp))
+                .weight(2f)
+            )
+            Spacer(modifier = Modifier.weight(5f))
         }
     }
 }
@@ -262,12 +282,12 @@ fun LandSize(
             .height(40.dp)
     ) {
         Row {
-            // Decrease Button
+            // Increase Button
             Button(
-                onClick = decreaseSize,
+                onClick = increaseSize,
                 colors = ButtonDefaults.buttonColors(containerColor = greenLight),
             ) {
-                Text(text = "-")
+                Icon(imageVector = Icons.Default.Add, contentDescription = null)
             }
 
             // Unit Label
@@ -287,7 +307,9 @@ fun LandSize(
                 Surface(
                     border = BorderStroke(1.dp, gray),
                     shape = RoundedCornerShape(16.dp),
-                    modifier = Modifier.fillMaxHeight()
+                    modifier = Modifier
+                        .padding(vertical = 3.dp)
+                        .fillMaxHeight()
                 ) {
                     Column(
                         verticalArrangement = Arrangement.Center,
@@ -302,12 +324,12 @@ fun LandSize(
                 }
             }
 
-            // Increase Button
+            // Decrease Button
             Button(
-                onClick = increaseSize,
+                onClick = decreaseSize,
                 colors = ButtonDefaults.buttonColors(containerColor = greenLight),
             ) {
-                Text(text = "+")
+                Icon(imageVector = Icons.Default.Remove, contentDescription = null)
             }
         }
     }

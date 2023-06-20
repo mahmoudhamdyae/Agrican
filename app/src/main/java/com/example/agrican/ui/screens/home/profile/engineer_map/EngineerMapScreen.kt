@@ -3,10 +3,11 @@ package com.example.agrican.ui.screens.home.profile.engineer_map
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -17,6 +18,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.agrican.R
 import com.example.agrican.ui.components.DropDown
 import com.example.agrican.ui.navigation.NavigationDestination
@@ -24,8 +27,6 @@ import com.example.agrican.ui.theme.black
 import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 
 object EngineerMapDestination: NavigationDestination {
     override val route: String = "engineer_map"
@@ -44,15 +45,17 @@ fun EngineerMapScreen(
             .padding(bottom = 60.dp)
     ) {
         // Choose Farm Drop Down
-        DropDown(
-            options = listOf(
-                R.string.choose_farm),
-            onSelect = { /*TODO*/ },
-            textColor = greenDark,
-            modifier = Modifier
-                .width(150.dp)
-                .height(32.dp)
-        )
+        Row {
+            DropDown(
+                options = listOf(
+                    R.string.choose_farm
+                ),
+                onSelect = { /*TODO*/ },
+                textColor = greenDark,
+                modifier = Modifier.weight(1f).height(32.dp)
+            )
+            Spacer(modifier = Modifier.weight(1f))
+        }
 
         // Choose Size Text
         Text(
@@ -62,18 +65,24 @@ fun EngineerMapScreen(
             fontSize = 15.sp
         )
 
-        MapScreen(modifier = Modifier.fillMaxWidth().weight(1f).background(black))
+        MapScreen(modifier = Modifier
+            .fillMaxWidth()
+            .weight(1f)
+            .background(black))
 
         // Continue Button
         Button(
             onClick = { /*TODO*/ },
             colors = ButtonDefaults.buttonColors(containerColor = greenDark),
-            modifier = Modifier.padding(bottom = 32.dp).align(Alignment.CenterHorizontally)
+            modifier = Modifier
+                .padding(bottom = 32.dp)
+                .align(Alignment.CenterHorizontally)
         ) {
             Text(
                 text = stringResource(id = R.string.continue_button),
                 fontSize = 15.sp,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(horizontal = 24.dp)
             )
         }
     }

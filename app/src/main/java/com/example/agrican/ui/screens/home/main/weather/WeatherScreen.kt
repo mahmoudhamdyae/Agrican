@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -23,6 +24,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
@@ -32,8 +35,6 @@ import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.white
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 
 object WeatherDestination : NavigationDestination {
     override val route: String = "weather"
@@ -59,7 +60,7 @@ fun WeatherScreenContent(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
             .verticalScroll(rememberScrollState())
-            .padding(16.dp)
+            .padding(32.dp)
             .padding(bottom = 60.dp)
     ) {
         Row(
@@ -73,6 +74,7 @@ fun WeatherScreenContent(
                 fontSize = 62.sp,
                 fontWeight = FontWeight.SemiBold,
             )
+
             // Weather Icon
             Icon(
                 painter = painterResource(id = R.drawable.sunny),
@@ -81,13 +83,14 @@ fun WeatherScreenContent(
                 modifier = Modifier.size(64.dp)
             )
         }
+
         Text(
             text = weather.weatherDescription,
             color = greenDark,
             style = MaterialTheme.typography.body,
             fontSize = 14.sp,
             fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(bottom = 8.dp)
+            modifier = Modifier.padding(bottom = 24.dp)
         )
 
         Divider(modifier = Modifier.fillMaxWidth())
@@ -100,7 +103,7 @@ fun WeatherScreenContent(
         Divider(modifier = Modifier.fillMaxWidth())
         // Gusts of Wind
         WeatherRow(weatherLabel = R.string.gusts_of_wind, weatherData = weather.windGusts)
-        Divider(modifier = Modifier.fillMaxWidth())
+        Divider(modifier = Modifier.fillMaxWidth().height(2.dp))
 
         // Air Quality
         WeatherRow(weatherLabel = R.string.air_quality, weatherData = weather.air)
@@ -116,7 +119,7 @@ fun WeatherScreenContent(
         Surface(
             shape = RoundedCornerShape(16.dp),
             color = greenLight,
-            modifier = Modifier.padding(16.dp)
+            modifier = Modifier.padding(top = 32.dp, bottom = 16.dp)
         ) {
             Text(
                 text = stringResource(id = R.string.air_information_button),

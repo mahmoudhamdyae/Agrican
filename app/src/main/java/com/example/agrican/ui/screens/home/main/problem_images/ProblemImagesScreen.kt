@@ -38,6 +38,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
@@ -53,8 +55,6 @@ import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.title
 import com.example.agrican.ui.theme.white
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 
 object ProblemImagesDestination: NavigationDestination {
     override val route: String = "problem_images"
@@ -146,7 +146,10 @@ fun ProblemImageScreenContent(
             fontSize = 14.sp,
             modifier = Modifier.padding(start = 16.dp)
         )
-        Row(modifier = Modifier.fillMaxWidth()) {
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp)
+        ) {
             // Choose Image From Gallery
             WayChoose(
                 image = R.drawable.gallery,
@@ -167,18 +170,18 @@ fun ProblemImageScreenContent(
 
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.fillMaxWidth()
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp)
         ) {
             Button(
                 onClick = onSearch,
                 colors = ButtonDefaults.buttonColors(containerColor = greenDark),
-                modifier = Modifier.weight(1f).padding(start = 16.dp)
+                modifier = Modifier.weight(1f)
             ) {
                 Text(
                     text = stringResource(id = R.string.start_searching),
                     textAlign = TextAlign.Center,
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Bold,
+                    fontSize = 14.sp
                 )
             }
             ImageView(image = uiState.image1)
@@ -187,7 +190,7 @@ fun ProblemImageScreenContent(
 
         }
 
-        Box(modifier = Modifier.fillMaxWidth()) {
+        Box(modifier = Modifier.padding(vertical = 8.dp).fillMaxWidth()) {
 
             // Advices Background
             Image(
@@ -228,10 +231,10 @@ fun WayChoose(
     modifier: Modifier = Modifier
 ) {
     Surface(
-        shape = RoundedCornerShape(8.dp),
+        shape = RoundedCornerShape(16.dp),
         border = BorderStroke(1.dp, greenDark),
         modifier = modifier
-            .padding(16.dp)
+            .padding(vertical = 16.dp)
             .clickable {
                 onItemClick()
             }
@@ -239,7 +242,7 @@ fun WayChoose(
         Column(
             verticalArrangement = Arrangement.spacedBy(8.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.padding(vertical = 32.dp,)
+            modifier = Modifier.padding(vertical = 50.dp,)
         ) {
             // Choose Icon
             Image(
@@ -267,9 +270,8 @@ fun ImageView(
             tint = white,
             background = greenLight,
             modifier = modifier
-                .size(75.dp)
-                .padding(8.dp)
-                .clip(RoundedCornerShape(8.dp))
+                .size(60.dp)
+                .clip(RoundedCornerShape(16.dp))
         )
     } else {
         AsyncImage(
@@ -282,9 +284,8 @@ fun ImageView(
             contentDescription = null,
             contentScale = ContentScale.FillBounds,
             modifier = modifier
-                .size(75.dp)
-                .padding(8.dp)
-                .clip(RoundedCornerShape(8.dp))
+                .size(60.dp)
+                .clip(RoundedCornerShape(16.dp))
         )
     }
 }

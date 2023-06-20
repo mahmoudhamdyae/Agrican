@@ -1,5 +1,6 @@
 package com.example.agrican.ui.screens.home.profile.cost
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -21,14 +22,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.agrican.R
 import com.example.agrican.ui.components.SimpleTextField
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenLight
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 
 object CostDestination: NavigationDestination {
     override val route: String = "cost"
@@ -46,13 +47,14 @@ fun CostScreen(
     var cropManagerCode by rememberSaveable { mutableStateOf("") }
 
     Column(
+        verticalArrangement = Arrangement.spacedBy(16.dp),
         modifier = modifier
             .verticalScroll(rememberScrollState())
-            .padding(8.dp)
+            .padding(16.dp)
             .padding(bottom = 60.dp)
     ) {
         // Main Table Row
-        Row(modifier = Modifier.padding(16.dp)) {
+        Row(modifier = Modifier.padding(horizontal = 16.dp)) {
             Text(
                 text = stringResource(id = R.string.services),
                 style = MaterialTheme.typography.body,
@@ -119,29 +121,29 @@ fun CostScreen(
         Divider(modifier = Modifier.height(2.dp), color = gray)
 
         // Total Sum Row
-        Row(modifier = modifier.padding(16.dp)) {
+        Row(modifier = modifier.padding(horizontal = 16.dp)) {
             Text(
                 text = stringResource(id = R.string.sum),
                 style = MaterialTheme.typography.body,
-                fontSize = 17.sp,
-                modifier = Modifier.weight(1f)
+                fontSize = 17.sp
             )
 
-            Row(modifier = Modifier.weight(1f)) {
-                // Price
-                Text(
-                    text = "00.00",
-                    style = MaterialTheme.typography.body,
-                    fontSize = 17.sp
-                )
-                Spacer(modifier = Modifier.padding(end = 8.dp))
-                // Pound Label
-                Text(
-                    text = stringResource(id = R.string.pound),
-                    style = MaterialTheme.typography.body,
-                    fontSize = 17.sp
-                )
-            }
+            Spacer(modifier = Modifier.weight(1f))
+
+            // Price
+            Text(
+                text = "00.00",
+                style = MaterialTheme.typography.body,
+                fontSize = 17.sp
+            )
+            Spacer(modifier = Modifier.padding(end = 8.dp))
+            // Pound Label
+            Text(
+                text = stringResource(id = R.string.pound),
+                style = MaterialTheme.typography.body,
+                fontSize = 17.sp,
+                modifier = Modifier.padding(end = 16.dp)
+            )
         }
     }
 }
@@ -156,7 +158,7 @@ fun CostRow(
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier
+        modifier = modifier.padding(vertical = 8.dp)
     ) {
         // Services Text
         Text(
@@ -187,9 +189,7 @@ fun CostRow(
             ) },
             imeAction = ImeAction.Done,
             borderColor = greenLight,
-            modifier = Modifier
-                .weight(1f)
-                .padding(vertical = 16.dp)
+            modifier = Modifier.weight(1f).height(32.dp)
         )
     }
 }

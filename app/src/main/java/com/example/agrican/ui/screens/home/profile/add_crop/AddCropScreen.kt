@@ -18,6 +18,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
@@ -29,8 +31,6 @@ import com.example.agrican.ui.components.ProfileHeader
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.title
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 
 object AddCropDestination: NavigationDestination {
     override val route: String = "add_crop"
@@ -79,7 +79,7 @@ fun AddCropScreenContent(
             color = greenDark,
             style = MaterialTheme.typography.title,
             fontSize = 14.sp,
-            modifier = Modifier.padding(start = 8.dp)
+            modifier = Modifier.padding(start = 16.dp)
         )
 
         CropsList(crops = uiState.crops, setSelectedCrop = updateSelectedCrop)
@@ -88,7 +88,7 @@ fun AddCropScreenContent(
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(8.dp),
-            modifier = Modifier.padding(8.dp)
+            modifier = Modifier.padding(16.dp)
         ) {
             Text(
                 text = stringResource(id = R.string.agri_history),

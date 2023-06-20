@@ -21,6 +21,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
@@ -33,8 +35,6 @@ import com.example.agrican.ui.screens.home.profile.add_farm.AddFarmDestination
 import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 
 object AddTaskDestination: NavigationDestination {
     override val route: String = "add_task"
@@ -129,7 +129,8 @@ fun AddTaskScreenContent(
         ) {
             Text(
                 text = stringResource(id = R.string.add_task_button),
-                fontSize = 15.sp
+                fontSize = 15.sp,
+                modifier = Modifier.padding(horizontal = 16.dp)
             )
         }
     }

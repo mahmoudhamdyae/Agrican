@@ -11,12 +11,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.white
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 
 @Composable
 fun Days(
@@ -34,7 +34,7 @@ fun Days(
                     day = it + 1,
                     selected = selectedDays.contains(it + 1),
                     onItemClicked = onDayClicked,
-                    modifier = Modifier.padding(4.dp)
+                    modifier = Modifier.padding(2.dp)
                 )
             }
         }
@@ -51,7 +51,7 @@ fun DayItem(
     Surface(
         border = BorderStroke(1.dp, gray),
         color = if (selected) greenLight else white,
-        modifier = modifier.height(64.dp).clickable {
+        modifier = modifier.height(55.dp).clickable {
             onItemClicked(day)
         }
     ) {

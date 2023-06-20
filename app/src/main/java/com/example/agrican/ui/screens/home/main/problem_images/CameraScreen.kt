@@ -45,6 +45,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Lifecycle
@@ -54,7 +55,6 @@ import coil.request.ImageRequest
 import com.example.agrican.R
 import com.example.agrican.ui.theme.black
 import com.example.agrican.ui.theme.white
-import androidx.compose.ui.unit.dp
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -205,7 +205,7 @@ fun CameraView(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(black)
-                .padding(vertical = 32.dp)
+                .padding(vertical = 32.dp, horizontal = 16.dp)
         ) {
             // Navigate Back and Save Images
             IconButton(onClick = navigateUp) {

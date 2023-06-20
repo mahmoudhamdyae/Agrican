@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -43,27 +42,24 @@ fun BottomNavigationBar(
     bottomNavItems: List<BottomNavItem>,
     modifier: Modifier = Modifier
 ) {
-    Box(modifier = modifier.height(80.dp)) {
+    Box(modifier = modifier.height(95.dp)) {
 
         // Profile Item
         Surface(
             shape = CircleShape,
             shadowElevation = 32.dp,
-            modifier = Modifier.align(Alignment.TopCenter)
+            modifier = Modifier
+                .align(Alignment.TopCenter)
+                .clickable { setSelectedItem(1) }
         ) {
-            IconButton(
-                onClick = { setSelectedItem(1) },
+            Icon(
+                painter = painterResource(id = bottomNavItems[1].icon),
+                contentDescription = null,
+                tint = if (selectedItem == 1) greenDark else iconGray,
                 modifier = Modifier
-            ) {
-                Icon(
-                    painter = painterResource(id = bottomNavItems[1].icon),
-                    contentDescription = null,
-                    tint = if (selectedItem == 1) greenDark else iconGray,
-                    modifier = Modifier
-                        .padding(bottom = 8.dp)
-                        .padding(8.dp)
-                )
-            }
+                    .padding(bottom = 8.dp)
+                    .padding(10.dp)
+            )
         }
 
         // Main and Services Items

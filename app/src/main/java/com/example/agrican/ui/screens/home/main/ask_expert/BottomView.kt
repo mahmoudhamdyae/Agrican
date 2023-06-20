@@ -33,16 +33,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import com.example.agrican.R
 import com.example.agrican.common.ext.encodeImage
 import com.example.agrican.ui.screens.home.main.ask_expert.record.AndroidAudioRecorder
-import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.white
-import androidx.compose.ui.unit.dp
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -180,7 +180,7 @@ fun ChatOutlinedButton(
     modifier: Modifier = Modifier
 ) {
     Surface(
-        border = BorderStroke(1.dp, gray),
+        border = BorderStroke(1.dp, greenLight),
         shape = CircleShape,
         modifier = modifier
     ) {
@@ -214,6 +214,12 @@ fun SendButton(
             tint = white,
         )
     }
+}
+
+@Preview
+@Composable
+fun BottomViewPreview() {
+    BottomView(sendMessage = { }, sendImage = { }, sendFile = { })
 }
 
 fun checkRecordAudioPermission(context: Context): Boolean {

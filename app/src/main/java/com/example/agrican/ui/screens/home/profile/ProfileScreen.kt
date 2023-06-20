@@ -41,6 +41,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
@@ -55,13 +57,11 @@ import com.example.agrican.ui.screens.home.profile.cost.CostDestination
 import com.example.agrican.ui.screens.home.profile.engineer_map.EngineerMapDestination
 import com.example.agrican.ui.screens.home.profile.observe_crop.ObserveCropDestination
 import com.example.agrican.ui.theme.body
-import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
+import com.example.agrican.ui.theme.iconGray
 import com.example.agrican.ui.theme.title
 import com.example.agrican.ui.theme.white
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 
 object ProfileDestination: NavigationDestination {
     override val route: String = "profile"
@@ -146,7 +146,7 @@ fun UserHeaderAndItems(
     openScreen: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Column(modifier = modifier.height(IntrinsicSize.Min)) {
+    Column(modifier = modifier) {
         Box(modifier = Modifier.fillMaxSize()) {
             Surface(
                 shadowElevation = 16.dp,
@@ -158,12 +158,13 @@ fun UserHeaderAndItems(
                     .fillMaxSize()
                     .padding(bottom = 32.dp)
             ) { }
-            Column(modifier = Modifier.height(IntrinsicSize.Min)) {
+            Column {
                 UserHeader(user = user, openScreen = openScreen)
 
                 Row(modifier = Modifier
                     .fillMaxWidth()
-                    .height(IntrinsicSize.Max)) {
+                    .height(IntrinsicSize.Max)
+                ) {
 
                     // Add Farm Surface
                     if (user.userType != UserType.FARMER) {
@@ -174,6 +175,7 @@ fun UserHeaderAndItems(
                             modifier = Modifier
                                 .weight(1f)
                                 .fillMaxHeight()
+                                .padding(16.dp)
                         )
                     }
 
@@ -185,6 +187,7 @@ fun UserHeaderAndItems(
                         modifier = Modifier
                             .weight(1f)
                             .fillMaxHeight()
+                            .padding(16.dp)
                     )
                 }
 
@@ -194,7 +197,7 @@ fun UserHeaderAndItems(
                         title = R.string.engineer_map,
                         description = R.string.engineer_map_description,
                         onIconClick = { openScreen(EngineerMapDestination.route) },
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth().padding(16.dp)
                     )
                 }
             }
@@ -220,16 +223,16 @@ fun UserHeader(
             Surface(
                 shape = CircleShape,
                 shadowElevation = 8.dp,
-                modifier = Modifier.size(100.dp).padding(8.dp)
+                modifier = Modifier.padding(16.dp)
             ) {
                 Icon(
                     painter = painterResource(id = R.drawable.default_image),
                     contentDescription = null,
-                    tint = gray,
+                    tint = iconGray,
                     modifier = Modifier
                         .padding(
-                            start = 8.dp,
-                            end = 8.dp,
+//                            start = 8.dp,
+//                            end = 8.dp,
                             bottom = 8.dp
                         )
                 )
@@ -256,7 +259,7 @@ fun UserHeader(
                         color = white,
                         style = MaterialTheme.typography.body,
                         fontSize = 14.sp,
-                        modifier = Modifier.padding(8.dp)
+                        modifier = Modifier.padding(horizontal = 16.dp)
                     )
                 }
             }
@@ -299,10 +302,10 @@ fun AddItem(
     Surface(
         shape = RoundedCornerShape(16.dp),
         shadowElevation = 16.dp,
-        modifier = modifier.padding(16.dp)
+        modifier = modifier
     ) {
         Box(
-            modifier = Modifier.padding(8.dp)
+            modifier = Modifier.padding(12.dp)
         ) {
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 // Add Title
