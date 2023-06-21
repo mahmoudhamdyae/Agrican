@@ -31,15 +31,17 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.core.os.LocaleListCompat
 import com.example.agrican.R
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.screens.onboarding.OnboardingDestination
 import com.example.agrican.ui.theme.body
+import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import com.example.agrican.ui.theme.white
 
 object WelcomeDestination: NavigationDestination {
     override val route: String = "welcome"
@@ -63,7 +65,7 @@ fun WelcomeScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .align(Alignment.Center)
-                .padding(32.dp)
+                .padding(24.dp)
         ) {
             // Welcome Text
             Text(
@@ -85,15 +87,17 @@ fun WelcomeScreen(
                 FilterChip(
                     selected = isEnglish == true,
                     onClick = { isEnglish = true },
-                    colors = FilterChipDefaults.elevatedFilterChipColors(),
+                    border = FilterChipDefaults.filterChipBorder(borderColor = gray),
+                    colors = FilterChipDefaults.elevatedFilterChipColors(
+                        selectedContainerColor = greenLight
+                    ),
                     label = {
                         Text(
                             text = "English",
                             textAlign = TextAlign.Center,
-                            color = greenLight,
+                            color = if (isEnglish == true) white else greenLight,
                             fontSize = 16.sp,
-                            fontWeight = FontWeight.Bold,
-                            modifier = Modifier.fillMaxWidth()
+                            modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)
                         )
                     },
                     shape = RoundedCornerShape(32.dp),
@@ -106,14 +110,17 @@ fun WelcomeScreen(
                 FilterChip(
                     selected = isEnglish == false,
                     onClick = { isEnglish = false },
+                    border = FilterChipDefaults.filterChipBorder(borderColor = gray),
+                    colors = FilterChipDefaults.elevatedFilterChipColors(
+                        selectedContainerColor = greenLight
+                    ),
                     label = {
                         Text(
                             text = "العربية",
                             textAlign = TextAlign.Center,
-                            color = greenLight,
                             fontSize = 16.sp,
-                            fontWeight = FontWeight.Bold,
-                            modifier = Modifier.fillMaxWidth()
+                            color = if (isEnglish == false) white else greenLight,
+                            modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)
                         )
                     },
                     shape = RoundedCornerShape(32.dp),

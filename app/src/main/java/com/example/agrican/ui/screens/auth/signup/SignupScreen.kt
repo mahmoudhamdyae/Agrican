@@ -3,8 +3,10 @@ package com.example.agrican.ui.screens.auth.signup
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -28,6 +30,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
@@ -48,8 +52,6 @@ import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.title
 import com.example.agrican.ui.theme.white
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 
 object SignupDestination: NavigationDestination {
     override val route: String = "signup"
@@ -174,6 +176,8 @@ fun AccountType(
                 fontWeight = FontWeight.Bold,
             )
 
+            Spacer(modifier = Modifier.height(24.dp))
+
             // Farmer
             AccountTypeItem(
                 setAccountType = setAccountType,
@@ -205,7 +209,7 @@ fun AccountTypeItem(
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier.padding(16.dp)
+        modifier = modifier.padding(horizontal = 16.dp, vertical = 12.dp)
     ) {
         Button(
             onClick = { setAccountType(accountType) },
@@ -344,5 +348,16 @@ fun SignupPreview() {
         onEvent = { },
         accountType = UserType.FARMER,
         confirmAccount = false
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun SignupConfirmAccountPreview() {
+    Signup(
+        state = AuthFormState(),
+        onEvent = { },
+        accountType = UserType.FARMER,
+        confirmAccount = true
     )
 }

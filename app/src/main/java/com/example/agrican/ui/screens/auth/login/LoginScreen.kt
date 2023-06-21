@@ -35,6 +35,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.agrican.R
 import com.example.agrican.domain.model.UserType
@@ -50,8 +52,6 @@ import com.example.agrican.ui.screens.auth.signup.SignupDestination
 import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 
 object LoginDestination: NavigationDestination {
     override val route: String = "login"
@@ -122,7 +122,7 @@ fun LoginScreenContent(
                 Icon(
                     painter = painterResource(id = R.drawable.default_image),
                     contentDescription = null,
-                    tint = gray,
+                    tint = Color(0xffe5e5e5),
                     modifier = Modifier
                         .padding(bottom = 16.dp)
                         .size(150.dp)
@@ -174,7 +174,7 @@ fun LoginScreenContent(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(32.dp)
+                        .height(40.dp)
                 ) {
                     Spacer(modifier = Modifier.weight(2f))
 
@@ -250,6 +250,20 @@ fun LoginScreenPreview() {
         onEvent = { },
         openScreen = { },
         confirmResetScreen = false,
+        setConfirmResetScreen = { }
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun LoginResetPasswordScreenPreview() {
+    LoginScreenContent(
+        changeAccountType = { },
+        state = AuthFormState(),
+        clearState = { },
+        onEvent = { },
+        openScreen = { },
+        confirmResetScreen = true,
         setConfirmResetScreen = { }
     )
 }
