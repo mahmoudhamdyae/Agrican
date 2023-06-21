@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -102,7 +103,7 @@ fun ProfileScreenContent(
                     text = stringResource(id = R.string.farms_label),
                     style = MaterialTheme.typography.title,
                     fontSize = 16.sp,
-                    modifier = Modifier.padding(horizontal = 16.dp)
+                    modifier = Modifier.padding(horizontal = 32.dp)
                 )
             }
 
@@ -113,7 +114,7 @@ fun ProfileScreenContent(
             }
 
             // Farms List
-            item { FarmsList(farms = uiState.farms) }
+            item { FarmsList(farms = uiState.farms, modifier = Modifier.padding(top = 8.dp)) }
         }
 
         // Crops Label
@@ -122,7 +123,7 @@ fun ProfileScreenContent(
                 text = stringResource(id = R.string.my_crops),
                 style = MaterialTheme.typography.title,
                 fontSize = 16.sp,
-                modifier = Modifier.padding(horizontal = 16.dp)
+                modifier = Modifier.padding(horizontal = 32.dp)
             )
         }
         item {
@@ -146,10 +147,10 @@ fun UserHeaderAndItems(
     openScreen: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Column(modifier = modifier) {
+    Column(modifier = modifier.height(IntrinsicSize.Min)) {
         Box(modifier = Modifier.fillMaxSize()) {
             Surface(
-                shadowElevation = 16.dp,
+                shadowElevation = 32.dp,
                 shape = RoundedCornerShape(
                     bottomEnd = 64.dp,
                     bottomStart = 64.dp,
@@ -158,12 +159,16 @@ fun UserHeaderAndItems(
                     .fillMaxSize()
                     .padding(bottom = 32.dp)
             ) { }
+
             Column {
                 UserHeader(user = user, openScreen = openScreen)
 
-                Row(modifier = Modifier
-                    .fillMaxWidth()
-                    .height(IntrinsicSize.Max)
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(IntrinsicSize.Max)
+                        .padding(top = 18.dp, start = 18.dp, end = 18.dp)
                 ) {
 
                     // Add Farm Surface
@@ -172,10 +177,7 @@ fun UserHeaderAndItems(
                             title = R.string.add_farm,
                             description = R.string.add_farm_description,
                             onIconClick = { openScreen(AddFarmDestination.route) },
-                            modifier = Modifier
-                                .weight(1f)
-                                .fillMaxHeight()
-                                .padding(16.dp)
+                            modifier = Modifier.weight(1f).fillMaxHeight()
                         )
                     }
 
@@ -184,10 +186,7 @@ fun UserHeaderAndItems(
                         title = R.string.add_crop,
                         description = R.string.add_crop_description,
                         onIconClick = { openScreen(AddCropDestination.route) },
-                        modifier = Modifier
-                            .weight(1f)
-                            .fillMaxHeight()
-                            .padding(16.dp)
+                        modifier = Modifier.weight(1f).fillMaxHeight()
                     )
                 }
 
@@ -197,7 +196,10 @@ fun UserHeaderAndItems(
                         title = R.string.engineer_map,
                         description = R.string.engineer_map_description,
                         onIconClick = { openScreen(EngineerMapDestination.route) },
-                        modifier = Modifier.fillMaxWidth().padding(16.dp)
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp)
+                            .padding(top = 12.dp, bottom = 16.dp)
                     )
                 }
             }
@@ -213,7 +215,8 @@ fun UserHeader(
 ) {
     Surface(
         shadowElevation = 16.dp,
-        modifier = modifier.fillMaxWidth()) {
+        modifier = modifier.fillMaxWidth()
+    ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = modifier.padding(16.dp)
@@ -229,12 +232,7 @@ fun UserHeader(
                     painter = painterResource(id = R.drawable.default_image),
                     contentDescription = null,
                     tint = iconGray,
-                    modifier = Modifier
-                        .padding(
-//                            start = 8.dp,
-//                            end = 8.dp,
-                            bottom = 8.dp
-                        )
+                    modifier = Modifier.padding(bottom = 8.dp)
                 )
             }
 
@@ -301,11 +299,11 @@ fun AddItem(
 ) {
     Surface(
         shape = RoundedCornerShape(16.dp),
-        shadowElevation = 16.dp,
+        shadowElevation = 8.dp,
         modifier = modifier
     ) {
         Box(
-            modifier = Modifier.padding(12.dp)
+            modifier = Modifier.padding(10.dp)
         ) {
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 // Add Title
@@ -362,11 +360,12 @@ fun FarmsListItem(
 
     Column(modifier = modifier
         .padding(8.dp)
-        .width(50.dp)) {
+        .width(60.dp)
+    ) {
         Surface(
-            shape = RoundedCornerShape(16.dp),
-            shadowElevation = 16.dp,
-            modifier = Modifier.size(50.dp)
+            shape = RoundedCornerShape(24.dp),
+            shadowElevation = 12.dp,
+            modifier = Modifier.size(60.dp)
         ) {
         }
         Text(
@@ -383,7 +382,10 @@ fun LazyListScope.cropsList(
     openScreen: (String) -> Unit
 ) {
     items(crops.size) {
-        CropsListItem(crop = crops[it], onClick = { openScreen("${ObserveCropDestination.route}/$it") })
+        CropsListItem(
+            crop = crops[it],
+            onClick = { openScreen("${ObserveCropDestination.route}/$it") }
+        )
     }
 }
 
@@ -395,13 +397,14 @@ fun CropsListItem(
 ) {
     Surface(
         color = greenLight,
-        shape = RoundedCornerShape(16.dp),
+        shadowElevation = 16.dp,
+        shape = RoundedCornerShape(24.dp),
         modifier = modifier.padding(16.dp)
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(8.dp)
+                .padding(4.dp)
         ) {
             // Crop Name
             Text(
@@ -409,26 +412,35 @@ fun CropsListItem(
                 color = white,
                 style = MaterialTheme.typography.title,
                 fontSize = 16.sp,
-                modifier = Modifier.padding(8.dp)
+                modifier = Modifier.padding(vertical = 4.dp, horizontal = 6.dp)
             )
 
             Spacer(modifier = Modifier.weight(1f))
 
-            Column(horizontalAlignment = Alignment.End) {
+            Column(
+                horizontalAlignment = Alignment.End,
+                verticalArrangement = Arrangement.spacedBy(4.dp),
+                modifier = Modifier.padding(start = 12.dp)
+            ) {
                 // Remove Button
-                IconButton(onClick =  { /*TODO*/ } ) {
+                IconButton(
+                    onClick =  { /*TODO*/ },
+                    modifier = Modifier.size(24.dp)
+                ) {
                     Icon(
                         imageVector = Icons.Default.Close,
                         contentDescription = null,
                         tint = white,
-                        modifier = Modifier.size(16.dp)
+                        modifier = Modifier.size(24.dp)
                     )
                 }
 
                 // Observe Crop Button
                 Button(
                     onClick = { onClick(crop.cropId) },
-                    colors = ButtonDefaults.buttonColors(containerColor = greenDark),
+                    contentPadding = PaddingValues(horizontal = 12.dp),
+                    shape = RoundedCornerShape(32.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = greenDark)
                 ) {
                     Text(
                         text = stringResource(id = R.string.observe_crop),
@@ -441,6 +453,12 @@ fun CropsListItem(
     }
 }
 
+@Preview(showBackground = true, name = "Engineer Users")
+@Composable
+fun ProfileScreenEngineerPreview() {
+    ProfileScreenContent(uiState = fakeUiState, openScreen = { })
+}
+
 @Preview(showBackground = true, name = "Farm Users")
 @Composable
 fun ProfileScreenFarmPreview() {
@@ -451,12 +469,6 @@ fun ProfileScreenFarmPreview() {
 @Composable
 fun ProfileScreenFarmerPreview() {
     ProfileScreenContent(uiState = fakeUiState.copy(currentUser = fakeUiState.currentUser.copy(userType = UserType.FARMER)), openScreen = { })
-}
-
-@Preview(showBackground = true, name = "Engineer Users")
-@Composable
-fun ProfileScreenEngineerPreview() {
-    ProfileScreenContent(uiState = fakeUiState, openScreen = { })
 }
 
 val fakeUiState = ProfileUiState(
