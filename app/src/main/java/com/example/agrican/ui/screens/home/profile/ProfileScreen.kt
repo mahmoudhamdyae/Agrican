@@ -19,6 +19,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -37,6 +38,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -177,7 +179,9 @@ fun UserHeaderAndItems(
                             title = R.string.add_farm,
                             description = R.string.add_farm_description,
                             onIconClick = { openScreen(AddFarmDestination.route) },
-                            modifier = Modifier.weight(1f).fillMaxHeight()
+                            modifier = Modifier
+                                .weight(1f)
+                                .fillMaxHeight()
                         )
                     }
 
@@ -186,7 +190,9 @@ fun UserHeaderAndItems(
                         title = R.string.add_crop,
                         description = R.string.add_crop_description,
                         onIconClick = { openScreen(AddCropDestination.route) },
-                        modifier = Modifier.weight(1f).fillMaxHeight()
+                        modifier = Modifier
+                            .weight(1f)
+                            .fillMaxHeight()
                     )
                 }
 
@@ -213,32 +219,41 @@ fun UserHeader(
     openScreen: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Surface(
-        shadowElevation = 16.dp,
-        modifier = modifier.fillMaxWidth()
+    Box(modifier = modifier
+        .fillMaxWidth()
+        .padding(bottom = 8.dp)
+        .height(IntrinsicSize.Min)
     ) {
+        // Shadow Element
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .shadow(24.dp, CutCornerShape(88.dp))
+        )
+
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = modifier.padding(16.dp)
+            modifier = modifier.fillMaxWidth().background(white).padding(16.dp)
         ) {
 
             // Profile Image
             Surface(
                 shape = CircleShape,
-                shadowElevation = 8.dp,
-                modifier = Modifier.padding(16.dp)
+                shadowElevation = 8.dp
             ) {
                 Icon(
-                    painter = painterResource(id = R.drawable.default_image),
+                    painter = painterResource(id = R.drawable.profile),
                     contentDescription = null,
                     tint = iconGray,
-                    modifier = Modifier.padding(bottom = 8.dp)
+                    modifier = Modifier
+                        .padding(bottom = 8.dp)
+                        .padding(12.dp)
                 )
             }
 
             Column(
                 verticalArrangement = Arrangement.spacedBy(8.dp),
-                modifier = Modifier.padding(8.dp)
+                modifier = Modifier.padding(12.dp)
             ) {
                 // User Name
                 Text(
@@ -247,11 +262,11 @@ fun UserHeader(
                     fontSize = 15.sp
                 )
 
+                // Account Type
                 Surface(
                     shape = RoundedCornerShape(16.dp),
                     color = greenDark
                 ) {
-                    // Account Type
                     Text(
                         text = stringResource(id = user.userType.title),
                         color = white,
@@ -264,6 +279,7 @@ fun UserHeader(
 
             Spacer(modifier = Modifier.weight(1f))
 
+            // Modify Data Button
             Column(modifier = Modifier.width(IntrinsicSize.Max)) {
                 OutlinedButton(onClick = { /*TODO*/ },) {
                     Text(
@@ -274,6 +290,7 @@ fun UserHeader(
                     )
                 }
 
+                // Cost Button
                 OutlinedButton(
                     onClick = { openScreen(CostDestination.route) },
                     modifier = Modifier.fillMaxWidth()
@@ -412,7 +429,7 @@ fun CropsListItem(
                 color = white,
                 style = MaterialTheme.typography.title,
                 fontSize = 16.sp,
-                modifier = Modifier.padding(vertical = 4.dp, horizontal = 6.dp)
+                modifier = Modifier.padding(6.dp)
             )
 
             Spacer(modifier = Modifier.weight(1f))
@@ -420,7 +437,7 @@ fun CropsListItem(
             Column(
                 horizontalAlignment = Alignment.End,
                 verticalArrangement = Arrangement.spacedBy(4.dp),
-                modifier = Modifier.padding(start = 12.dp)
+                modifier = Modifier.padding(end = 6.dp)
             ) {
                 // Remove Button
                 IconButton(
