@@ -149,8 +149,7 @@ fun JoinAsExpertScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .wrapContentHeight()
-                        .padding(10.dp),
-                    contentAlignment = Alignment.Center
+                        .padding(10.dp)
                 ) {
                     innerTextField()
                 }
@@ -185,8 +184,7 @@ fun JoinAsExpertScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .wrapContentHeight()
-                        .padding(10.dp),
-                    contentAlignment = Alignment.Center
+                        .padding(10.dp)
                 ) {
                     innerTextField()
                 }
@@ -221,8 +219,7 @@ fun JoinAsExpertScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .wrapContentHeight()
-                        .padding(10.dp),
-                    contentAlignment = Alignment.Center
+                        .padding(10.dp)
                 ) {
                     innerTextField()
                 }
