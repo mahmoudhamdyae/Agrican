@@ -3,7 +3,8 @@ package com.example.agrican.ui.screens.home.agricanservices.order.order_status
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import com.example.agrican.R
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.compose.ui.graphics.toArgb
 import com.example.agrican.common.utils.Constant
 import com.example.agrican.data.remote.PaymobApiService
 import com.example.agrican.data.remote.model.ApiKeyModel
@@ -13,12 +14,14 @@ import com.example.agrican.data.remote.model.PaymentRequest
 import com.example.agrican.domain.model.Order
 import com.example.agrican.domain.use_case.BaseUseCase
 import com.example.agrican.ui.screens.BaseViewModel
+import com.example.agrican.ui.theme.greenDark
 import com.paymob.acceptsdk.PayActivity
 import com.paymob.acceptsdk.PayActivityIntentKeys
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
+
 
 private const val TAG = "OrderViewModel"
 
@@ -77,7 +80,7 @@ class OrderViewModel @Inject constructor(
 
                             val finalToken = paymentResponse.body()?.token
                             _uiState.value = _uiState.value.copy(token = finalToken)
-                            confirmOrder(context, order, launchPayment)
+                            confirmOrder(context, launchPayment)
                         }
                         else {
                             Log.d(
@@ -107,34 +110,16 @@ class OrderViewModel @Inject constructor(
         }
     }
 
-    private fun confirmOrder(context: Context, order: Order, launchPayment: (Intent) -> Unit) {
+    private fun confirmOrder(context: Context, launchPayment: (Intent) -> Unit) {
         val payIntent = Intent(context, PayActivity::class.java)
 
         payIntent.putExtra(PayActivityIntentKeys.PAYMENT_KEY, _uiState.value.token)
         payIntent.putExtra(PayActivityIntentKeys.THREE_D_SECURE_ACTIVITY_TITLE, "Verification")
-
-        payIntent.putExtra("language", "en")
-        payIntent.putExtra(PayActivityIntentKeys.TOKEN, "6088c38c19705a495f1727561d4f4814b2ed7e45e9cd80c72f233253")
-        payIntent.putExtra(PayActivityIntentKeys.MASKED_PAN_NUMBER, "5123-4567-8901-2346")
         payIntent.putExtra(PayActivityIntentKeys.SAVE_CARD_DEFAULT, false)
         payIntent.putExtra(PayActivityIntentKeys.SHOW_SAVE_CARD, false)
-        payIntent.putExtra("ActionBar", true)
-        payIntent.putExtra(
-            PayActivityIntentKeys.THEME_COLOR,
-            context.getColor(R.color.purple_500)
-        )
-
-        payIntent.putExtra(PayActivityIntentKeys.FIRST_NAME, _uiState.value.currentUser.userName)
-        payIntent.putExtra(PayActivityIntentKeys.LAST_NAME, _uiState.value.currentUser.userName)
-        payIntent.putExtra(PayActivityIntentKeys.BUILDING, "NA")
-        payIntent.putExtra(PayActivityIntentKeys.FLOOR, "NA")
-        payIntent.putExtra(PayActivityIntentKeys.APARTMENT, "NA")
-        payIntent.putExtra(PayActivityIntentKeys.CITY, "NA")
-        payIntent.putExtra(PayActivityIntentKeys.STATE, "NA")
-        payIntent.putExtra(PayActivityIntentKeys.COUNTRY, "NA")
-        payIntent.putExtra(PayActivityIntentKeys.EMAIL, _uiState.value.currentUser.email)
-        payIntent.putExtra(PayActivityIntentKeys.PHONE_NUMBER, _uiState.value.currentUser.phoneNumber)
-        payIntent.putExtra(PayActivityIntentKeys.POSTAL_CODE, "NA")
+        payIntent.putExtra(PayActivityIntentKeys.THEME_COLOR, greenDark.toArgb())
+        payIntent.putExtra("ActionBar", false)
+        payIntent.putExtra("language", AppCompatDelegate.getApplicationLocales().toLanguageTags())
 
         launchPayment(payIntent)
     }
