@@ -31,7 +31,6 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.agrican.R
-import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.iconGray
 
@@ -79,7 +78,7 @@ fun BottomNavigationBar(
                 BottomNavigationItem(
                     text = bottomNavItems[2].name,
                     icon = bottomNavItems[2].icon,
-                    color = if (selectedItem == 2) greenDark else gray,
+                    color = if (selectedItem == 2) greenDark else iconGray,
                     modifier = Modifier.weight(1f).clickable { setSelectedItem(2) }
                 )
 

@@ -17,6 +17,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
 import com.android.volley.DefaultRetryPolicy
@@ -61,20 +65,34 @@ class PayActivity : AppCompatActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
+                    var cardNameEditText by rememberSaveable { mutableStateOf("") }
+                    var cardIdEditText by rememberSaveable { mutableStateOf("") }
+                    var yearEditText by rememberSaveable { mutableStateOf("") }
+                    var monthEditText by rememberSaveable { mutableStateOf("") }
+                    var cvcEditText by rememberSaveable { mutableStateOf("") }
+
                     OrderConfirmScreen(
                         navigateUp = this::finish,
-                        cardName = cardName,
-                        changeCardName = { cardName = it },
-                        cardId = cardId,
-                        changeCardId = { cardId = it },
-                        year = year,
-                        changeYear = { year = it },
-                        month = month,
-                        changeMonth = { month = it },
-                        cvc = cvv,
-                        changeCvc = { cvv = it },
+                        cardName = cardNameEditText,
+                        changeCardName = { cardNameEditText = it },
+                        cardId = cardIdEditText,
+                        changeCardId = { cardIdEditText = it },
+                        year = yearEditText,
+                        changeYear = { yearEditText = it },
+                        month = monthEditText,
+                        changeMonth = { monthEditText = it },
+                        cvc = cvcEditText,
+                        changeCvc = { cvcEditText = it },
                         orderPrice = orderPrice ?: 0.0,
-                        buy = { handlePayment() }
+                        buy = {
+                            cardName = cardNameEditText
+                            cardId = cardIdEditText
+                            year = yearEditText
+                            month = monthEditText
+                            cvv = cvcEditText
+
+                            handlePayment()
+                        }
                     )
                 }
             }
