@@ -25,7 +25,6 @@ import com.android.volley.toolbox.Volley
 import com.example.agrican.R
 import com.example.agrican.ui.theme.AgricanTheme
 import com.example.agrican.ui.theme.greenDark
-import com.paymob.acceptsdk.LocaleManager
 import com.paymob.acceptsdk.ThreeDSecureWebViewActivty
 import com.paymob.acceptsdk.helper.StringPOSTRequest
 import org.json.JSONException
@@ -88,7 +87,7 @@ class PayActivity : AppCompatActivity() {
 
     private fun initUiTheme() {
         val intent = this.intent
-        setLocale(language)
+//        setLocale(language)
         themeColor = intent.getIntExtra(
             "theme_color",
             this.applicationContext.resources.getColor(R.color.colorPrimaryDark)
@@ -463,13 +462,11 @@ class PayActivity : AppCompatActivity() {
     }
 
     override fun attachBaseContext(newBase: Context) {
-        localeManager = LocaleManager(newBase)
-        super.attachBaseContext(localeManager!!.setLocale(newBase))
+        super.attachBaseContext(newBase)
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
-        localeManager!!.setLocale(this)
         super.onConfigurationChanged(newConfig)
         if (newConfig.locale === Locale.ENGLISH) {
             Toast.makeText(this, "English", Toast.LENGTH_SHORT).show()
@@ -483,7 +480,6 @@ class PayActivity : AppCompatActivity() {
     }
 
     companion object {
-        var localeManager: LocaleManager? = null
         val PAY_DICT_KEYS = arrayOf(
             "amount_cents",
             "is_refunded",

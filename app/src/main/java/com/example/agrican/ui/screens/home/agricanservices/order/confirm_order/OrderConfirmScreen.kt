@@ -123,7 +123,7 @@ fun OrderConfirmScreenContent(
 ) {
     val focusManager = LocalFocusManager.current
 
-    var isCash by rememberSaveable { mutableStateOf(OrderWay.CASH) }
+    var isCash by rememberSaveable { mutableStateOf(true) }
 
     Column(
         verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -132,7 +132,7 @@ fun OrderConfirmScreenContent(
         // Cash
         Surface(
             shape = RoundedCornerShape(16.dp),
-            border = BorderStroke(1.dp, if (isCash == OrderWay.CASH) greenDark else gray),
+            border = BorderStroke(1.dp, if (isCash) greenDark else gray),
             modifier = Modifier.fillMaxWidth()
         ) {
             Row(
@@ -140,8 +140,8 @@ fun OrderConfirmScreenContent(
                 modifier = Modifier.padding(16.dp)
             ) {
                 RadioButton(
-                    selected = isCash == OrderWay.CASH,
-                    onClick = { isCash = OrderWay.CASH }
+                    selected = isCash,
+                    onClick = { isCash = true }
                 )
                 Text(
                     text = stringResource(id = R.string.cash),
@@ -156,7 +156,7 @@ fun OrderConfirmScreenContent(
         // Visa
         Surface(
             shape = RoundedCornerShape(16.dp),
-            border = BorderStroke(1.dp, if (isCash == OrderWay.VISA) greenDark else gray),
+            border = BorderStroke(1.dp, if (!isCash) greenDark else gray),
             modifier = Modifier.fillMaxWidth()
         ) {
             Row(
@@ -165,8 +165,8 @@ fun OrderConfirmScreenContent(
                 modifier = Modifier.padding(16.dp)
             ) {
                 RadioButton(
-                    selected = isCash == OrderWay.VISA,
-                    onClick = { isCash = OrderWay.VISA }
+                    selected = !isCash,
+                    onClick = { isCash = false }
                 )
 
                 // Visa Image
