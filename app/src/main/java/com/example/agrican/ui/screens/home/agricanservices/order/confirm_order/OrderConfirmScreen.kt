@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -38,34 +37,31 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavType
-import androidx.navigation.navArgument
 import com.example.agrican.R
 import com.example.agrican.ui.components.BackButton
 import com.example.agrican.ui.components.SimpleTextField
-import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.title
 
-object OrderConfirmDestination: NavigationDestination {
-    override val route: String = "order_confirm"
-    override val titleRes: Int = R.string.confirm_order
-    const val orderIdArg = "order_id"
-    val routeWithArgs = "$route/{$orderIdArg}"
-    val arguments = listOf(
-        navArgument(orderIdArg) { type = NavType.StringType },
-    )
-}
-
 @Composable
 fun OrderConfirmScreen(
     navigateUp: () -> Unit,
-    modifier: Modifier = Modifier,
-    viewModel: OrderConfirmViewModel = hiltViewModel()
+    cardName: String,
+    changeCardName: (String) -> Unit,
+    cardId: String,
+    changeCardId: (String) -> Unit,
+    year: String,
+    changeYear: (String) -> Unit,
+    month: String,
+    changeMonth: (String) -> Unit,
+    cvc: String,
+    changeCvc: (String) -> Unit,
+    orderPrice: Double,
+    buy: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     BackButton(navigateUp = navigateUp) {
 
@@ -91,20 +87,40 @@ fun OrderConfirmScreen(
                     .padding(vertical = 8.dp)
             )
 
-            OrderConfirmScreenContent(buy = viewModel::buy)
+            OrderConfirmScreenContent(
+                cardName = cardName,
+                changeCardName = changeCardName,
+                cardId = cardId,
+                changeCardId = changeCardId,
+                year = year,
+                changeYear = changeYear,
+                month = month,
+                changeMonth = changeMonth,
+                cvc = cvc,
+                changeCvc = changeCvc,
+                buy = buy,
+                orderPrice = orderPrice
+            )
         }
     }
 }
 
 @Composable
 fun OrderConfirmScreenContent(
-    buy: (OrderRequest) -> Unit,
+    cardName: String,
+    changeCardName: (String) -> Unit,
+    cardId: String,
+    changeCardId: (String) -> Unit,
+    year: String,
+    changeYear: (String) -> Unit,
+    month: String,
+    changeMonth: (String) -> Unit,
+    cvc: String,
+    changeCvc: (String) -> Unit,
+    buy: () -> Unit,
+    orderPrice: Double,
     modifier: Modifier = Modifier
 ) {
-    var cardId by rememberSaveable { mutableStateOf("") }
-    var expireDate by rememberSaveable { mutableStateOf("") }
-    var cvc by rememberSaveable { mutableStateOf("") }
-
     val focusManager = LocalFocusManager.current
 
     var isCash by rememberSaveable { mutableStateOf(OrderWay.CASH) }
@@ -169,6 +185,20 @@ fun OrderConfirmScreenContent(
             }
         }
 
+        // Card Name
+        Text(
+            text = stringResource(id = R.string.card_name),
+            color = Color(0xff5a5a5a),
+            fontSize = 12.sp,
+            style = MaterialTheme.typography.body,
+        )
+        SimpleTextField(
+            value = cardName,
+            onNewValue = changeCardName,
+            placeHolder = { },
+            focusManager = focusManager
+        )
+
         // Personal Id
         Text(
             text = stringResource(id = R.string.card_number),
@@ -178,7 +208,9 @@ fun OrderConfirmScreenContent(
         )
         SimpleTextField(
             value = cardId,
-            onNewValue = { cardId = it },
+            onNewValue = {
+                if (cvc.length < 17) { changeCardId(it) }
+            },
             placeHolder = { },
             focusManager = focusManager
         )
@@ -195,13 +227,36 @@ fun OrderConfirmScreenContent(
                     style = MaterialTheme.typography.body,
                     fontSize = 12.sp
                 )
-                SimpleTextField(
-                    value = expireDate,
-                    onNewValue = { expireDate = it },
-                    placeHolder = { },
-                    focusManager = focusManager,
-                    imeAction = ImeAction.Done
-                )
+
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    // Year
+                    SimpleTextField(
+                        value = year,
+                        onNewValue = {
+                            if (cvc.length < 3) { changeYear(it) }
+                        },
+                        placeHolder = {
+                            Text(text = "YY")
+                        },
+                        focusManager = focusManager,
+                        imeAction = ImeAction.Done,
+                        modifier = Modifier.weight(1f)
+                    )
+
+                    // Month
+                    SimpleTextField(
+                        value = month,
+                        onNewValue = {
+                            if (cvc.length < 3) { changeMonth(it) }
+                        },
+                        placeHolder = {
+                            Text(text = "MM")
+                        },
+                        focusManager = focusManager,
+                        imeAction = ImeAction.Done,
+                        modifier = Modifier.weight(1f)
+                    )
+                }
             }
 
             Column(
@@ -217,7 +272,9 @@ fun OrderConfirmScreenContent(
                 )
                 SimpleTextField(
                     value = cvc,
-                    onNewValue = { cvc = it },
+                    onNewValue = {
+                        if (cvc.length < 4) { changeCvc(it) }
+                    },
                     placeHolder = { },
                     focusManager = focusManager,
                     imeAction = ImeAction.Done
@@ -227,12 +284,8 @@ fun OrderConfirmScreenContent(
 
         // Confirm Order Button
         Button(
-            onClick = { buy(OrderRequest(
-                orderWay = isCash,
-                cardId = cardId,
-                expireDate = expireDate,
-                cvc = cvc
-            )) }, colors = ButtonDefaults.buttonColors(containerColor = greenDark) ,
+            onClick = buy,
+            colors = ButtonDefaults.buttonColors(containerColor = greenDark) ,
             modifier = Modifier.fillMaxWidth()
         ) {
             Row(
@@ -249,7 +302,7 @@ fun OrderConfirmScreenContent(
 
                     Row {
                         Text(
-                            text = "00.00",
+                            text = orderPrice.toString(),
                             fontSize = 12.sp,
                             fontWeight = FontWeight.Bold,
                         )
@@ -277,5 +330,18 @@ fun OrderConfirmScreenContent(
 @Preview(showBackground = true)
 @Composable
 fun OrderConfirmScreenContent() {
-    OrderConfirmScreenContent(buy = { }, modifier = Modifier.fillMaxSize())
+    OrderConfirmScreenContent(
+        cardName = "",
+        changeCardName = { },
+        cardId = "",
+        changeCardId = { },
+        year = "",
+        changeYear = { },
+        month = "",
+        changeMonth = { },
+        cvc = "",
+        changeCvc = { },
+        buy = { },
+        orderPrice = 100.0
+    )
 }

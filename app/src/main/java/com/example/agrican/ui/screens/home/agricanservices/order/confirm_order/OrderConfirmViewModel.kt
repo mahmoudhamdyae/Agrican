@@ -41,12 +41,12 @@ class OrderConfirmViewModel @Inject constructor(
     init {
         getToken()
 
-        val orderId: String = checkNotNull(savedStateHandle[OrderConfirmDestination.orderIdArg])
-        launchCatching {
-            _uiState.value = _uiState.value.copy(
-                order = useCase.getOrderUseCase(orderId),
-                currentUser = useCase.getCurrentUserUseCase())
-        }
+//        val orderId: String = checkNotNull(savedStateHandle[OrderConfirmDestination.orderIdArg])
+//        launchCatching {
+//            _uiState.value = _uiState.value.copy(
+//                order = useCase.getOrderUseCase(orderId),
+//                currentUser = useCase.getCurrentUserUseCase())
+//        }
     }
 
     private fun getToken() {

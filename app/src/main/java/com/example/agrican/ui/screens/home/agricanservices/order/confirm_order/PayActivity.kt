@@ -7,75 +7,88 @@ import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
 import android.view.MenuItem
-import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.toArgb
 import com.android.volley.DefaultRetryPolicy
 import com.android.volley.toolbox.Volley
 import com.example.agrican.R
+import com.example.agrican.ui.theme.AgricanTheme
+import com.example.agrican.ui.theme.greenDark
 import com.paymob.acceptsdk.LocaleManager
 import com.paymob.acceptsdk.ThreeDSecureWebViewActivty
 import com.paymob.acceptsdk.helper.StringPOSTRequest
-import morxander.editcard.EditCard
 import org.json.JSONException
 import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class PayActivity : AppCompatActivity(), View.OnClickListener {
+class PayActivity : AppCompatActivity() {
     private var hasBilling = false
-    var billingData: JSONObject? = null
+    private var billingData: JSONObject? = null
     private var paymentKey: String? = null
-    var token: String? = null
-    var maskedPanNumber: String? = null
-    var saveCardDefault: Boolean? = null
-    var showSaveCard: Boolean? = null
-    var themeColor = 0
-    var language: String = "en"
-    var nameText: EditText? = null
-    var cardNumberText: EditCard? = null
-    var monthText: EditText? = null
-    var yearText: EditText? = null
-    var cvvText: EditText? = null
-    var payBtn: Button? = null
-    private var cardNameLinearLayout: LinearLayout? = null
-    private var expirationLinearLayout: LinearLayout? = null
-    var mProgressDialog: ProgressDialog? = null
-    private var verificationActivityTitle: String? = null
+    private var token: String? = null
+    private var orderPrice: Double? = null
+    private var maskedPanNumber: String? = null
+    private var themeColor = greenDark.toArgb()
+    private var language: String = AppCompatDelegate.getApplicationLocales().toLanguageTags()
+    private var cardName: String = ""
+    private var cardId: String = ""
+    private var month: String = ""
+    private var year: String = ""
+    private var cvv: String = ""
+    private var mProgressDialog: ProgressDialog? = null
+    private var verificationActivityTitle: String = "Verification"
     private var status: Status? = null
-    var payDict: JSONObject? = null
+    private var payDict: JSONObject? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
-
-
-        Toast.makeText(this, "hahahaha", Toast.LENGTH_SHORT).show()
-
-
-
         resetVariables()
         initUiTheme()
-        this.setContentView(R.layout.activity_card_information)
+
+        setContent {
+            AgricanTheme {
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    OrderConfirmScreen(
+                        navigateUp = this::finish,
+                        cardName = cardName,
+                        changeCardName = { cardName = it },
+                        cardId = cardId,
+                        changeCardId = { cardId = it },
+                        year = year,
+                        changeYear = { year = it },
+                        month = month,
+                        changeMonth = { month = it },
+                        cvc = cvv,
+                        changeCvc = { cvv = it },
+                        orderPrice = orderPrice ?: 0.0,
+                        buy = { handlePayment() }
+                    )
+                }
+            }
+        }
+
         init()
     }
 
     private fun initUiTheme() {
         val intent = this.intent
-        if (intent.hasExtra("language")) {
-            language = intent.getStringExtra("language") ?: "en"
-            setLocale(language)
-        }
+        setLocale(language)
         themeColor = intent.getIntExtra(
             "theme_color",
             this.applicationContext.resources.getColor(R.color.colorPrimaryDark)
@@ -84,11 +97,8 @@ class PayActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun init() {
         acceptParameters
-        val intent = this.intent
-        language = intent.getStringExtra("language") ?: "en"
         linkViews()
         updateLayout()
-        Log.d("test", "onCreate: $themeColor")
     }
 
     private fun setLocale(lang: String) {
@@ -113,12 +123,6 @@ class PayActivity : AppCompatActivity(), View.OnClickListener {
         return true
     }
 
-    override fun onClick(v: View) {
-        if (v.id == R.id.pay) {
-            handlePayment()
-        }
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == 16908332) {
             onCancelPress()
@@ -135,46 +139,42 @@ class PayActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun handlePayment() {
-        val nameString = nameText!!.text.toString()
-        val numberString = cardNumberText!!.cardNumber
-        val monthString = monthText!!.text.toString()
-        val yearString = yearText!!.text.toString()
-        val cvvString = cvvText!!.text.toString()
         val cardData = JSONObject()
+
         if (token != null) {
             try {
                 cardData.put("identifier", token)
                 cardData.put("subtype", "TOKEN")
-                cardData.put("cvn", cvvString)
+                cardData.put("cvn", cvv)
             } catch (var10: JSONException) {
                 return
             }
         } else {
-            if (!FormChecker.checkCardName(nameString)) {
+            if (!FormChecker.checkCardName(cardName)) {
                 Toast.makeText(this, this.getString(R.string.Empty_name_check), Toast.LENGTH_SHORT)
                     .show()
                 return
             }
-            if (!FormChecker.checkCardNumber(numberString)) {
+            if (!FormChecker.checkCardNumber(cardId)) {
                 Toast.makeText(this, this.getString(R.string.Card_Number_check), Toast.LENGTH_SHORT)
                     .show()
                 return
             }
-            if (!FormChecker.checkDate(monthString, yearString)) {
+            if (!FormChecker.checkDate(month, year)) {
                 Toast.makeText(this, this.getString(R.string.Date_check), Toast.LENGTH_SHORT).show()
                 return
             }
-            if (!FormChecker.checkCVV(cvvString)) {
+            if (!FormChecker.checkCVV(cvv)) {
                 Toast.makeText(this, this.getString(R.string.Cvv_check), Toast.LENGTH_SHORT).show()
                 return
             }
             try {
-                cardData.put("identifier", numberString)
-                cardData.put("sourceholder_name", nameString)
+                cardData.put("identifier", cardId)
+                cardData.put("sourceholder_name", cardName)
                 cardData.put("subtype", "CARD")
-                cardData.put("expiry_month", monthString)
-                cardData.put("expiry_year", yearString)
-                cardData.put("cvn", cvvString)
+                cardData.put("expiry_month", month)
+                cardData.put("expiry_year", year)
+                cardData.put("cvn", cvv)
             } catch (var9: JSONException) {
                 return
             }
@@ -376,36 +376,10 @@ class PayActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun linkViews() {
-        val intent = this.intent
-        val showActionBar = intent.getBooleanExtra("ActionBar", false)
-        if (showActionBar) {
-            val actionBar = this.supportActionBar
-            actionBar?.setDisplayHomeAsUpEnabled(true)
-            val colorDrawable = ColorDrawable(themeColor)
-            actionBar!!.setBackgroundDrawable(colorDrawable)
-        } else {
-            Log.d("actionBar", "no actionBar")
-        }
         val window = this.window
         window.addFlags(Int.MIN_VALUE)
         window.clearFlags(67108864)
         window.statusBarColor = themeColor
-        nameText = findViewById(R.id.cardName)
-        cardNumberText = findViewById(R.id.cardNumber)
-        monthText = findViewById(R.id.expiryMonth)
-        yearText = findViewById(R.id.expiryYear)
-        cvvText = findViewById(R.id.cvv)
-
-        payBtn = findViewById(R.id.pay)
-        if (intent.getStringExtra("PAY_BUTTON_TEXT") != null && intent.getStringExtra("PAY_BUTTON_TEXT")!!
-                .isNotEmpty()
-        ) {
-            payBtn?.text = intent.getStringExtra("PAY_BUTTON_TEXT")
-        }
-        payBtn?.setBackgroundColor(themeColor)
-        payBtn?.setOnClickListener(this)
-        cardNameLinearLayout = findViewById(R.id.cardName_linearLayout)
-        expirationLinearLayout = findViewById(R.id.expiration_linearLayout)
     }
 
     private val acceptParameters: Unit
@@ -419,15 +393,10 @@ class PayActivity : AppCompatActivity(), View.OnClickListener {
             paymentKey = intent.getStringExtra("payment_key")
             checkIfPassed("payment_key", paymentKey)
             token = intent.getStringExtra("token")
+            orderPrice = intent.getDoubleExtra("price", 0.0)
             maskedPanNumber = intent.getStringExtra("masked_pan_number")
             if (token != null) {
                 checkIfPassed("masked_pan_number", maskedPanNumber)
-            }
-            saveCardDefault = intent.getBooleanExtra("save_card_default", false)
-            showSaveCard = intent.getBooleanExtra("show_save_card", true)
-            verificationActivityTitle = intent.getStringExtra("three_d_secure_activity_title")
-            if (verificationActivityTitle == null) {
-                verificationActivityTitle = ""
             }
         }
 
@@ -473,12 +442,10 @@ class PayActivity : AppCompatActivity(), View.OnClickListener {
         billingData = null
         paymentKey = null
         token = null
+        orderPrice = null
         maskedPanNumber = null
-        showSaveCard = true
-        saveCardDefault = false
         mProgressDialog = null
         payDict = null
-        verificationActivityTitle = null
         status = Status.IDLE
         hasBilling = false
     }
@@ -487,11 +454,6 @@ class PayActivity : AppCompatActivity(), View.OnClickListener {
     private fun updateLayout() {
         if (token != null) {
             invalidateOptionsMenu()
-            expirationLinearLayout!!.visibility = View.GONE
-            cardNumberText!!.hint = maskedPanNumber
-            cardNumberText!!.setHintTextColor(this.resources.getColor(R.color.colorText))
-            cardNumberText!!.isEnabled = false
-            cardNumberText!!.isFocusable = false
             val intent = this.intent
             themeColor = intent.getIntExtra(
                 "theme_color",

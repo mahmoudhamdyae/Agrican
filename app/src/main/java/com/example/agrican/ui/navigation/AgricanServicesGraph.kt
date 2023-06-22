@@ -16,8 +16,6 @@ import com.example.agrican.ui.screens.home.agricanservices.join_as_expert.JoinAs
 import com.example.agrican.ui.screens.home.agricanservices.join_as_expert.JoinAsExpertScreen
 import com.example.agrican.ui.screens.home.agricanservices.order.OrderDestination
 import com.example.agrican.ui.screens.home.agricanservices.order.OrderScreen
-import com.example.agrican.ui.screens.home.agricanservices.order.confirm_order.OrderConfirmDestination
-import com.example.agrican.ui.screens.home.agricanservices.order.confirm_order.OrderConfirmScreen
 import com.example.agrican.ui.screens.home.agricanservices.order.order_status.OrderStatusDestination
 import com.example.agrican.ui.screens.home.agricanservices.order.order_status.OrderStatusScreen
 import com.example.agrican.ui.screens.home.agricanservices.pests.PestDestination
@@ -72,13 +70,6 @@ fun AgricanServicesGraph(
 
         composable(route = OrderStatusDestination.route) {
             OrderStatusScreen(navigateUp = navigateUp)
-        }
-
-        composable(
-            route = OrderConfirmDestination.routeWithArgs,
-            arguments = OrderConfirmDestination.arguments
-        ) {
-            OrderConfirmScreen(navigateUp = navigateUp)
         }
 
         composable(route = DiseasesDestination.route) {

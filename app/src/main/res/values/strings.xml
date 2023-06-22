@@ -140,6 +140,7 @@
     <!-- Order Confirm -->
     <string name="cash">كاش عند الوصول</string>
     <string name="card_number">رقم البطاقة</string>
+    <string name="card_name">اسم البطاقة</string>
     <string name="Expiration">تاريخ الانتهاء</string>
     <string name="cvv">cw/cvc</string>
     <string name="pay_button">إكمال عملية الشراء</string>

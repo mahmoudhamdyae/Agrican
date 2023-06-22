@@ -41,6 +41,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
+import com.example.agrican.common.utils.IntentConstants
 import com.example.agrican.domain.model.Order
 import com.example.agrican.ui.components.BackButton
 import com.example.agrican.ui.components.EmptyImage
@@ -51,7 +52,6 @@ import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.textGray
 import com.example.agrican.ui.theme.title
-import com.paymob.acceptsdk.IntentConstants
 import com.paymob.acceptsdk.PayResponseKeys
 import com.paymob.acceptsdk.SaveCardResponseKeys
 import com.paymob.acceptsdk.ToastMaker
@@ -302,7 +302,9 @@ fun OrdersListItem(
 
         // Confirm Button
         Button(
-            onClick = { confirmOrder(context, order) { paymentLauncher.launch(it) } },
+            onClick = { confirmOrder(context, order) {
+                paymentLauncher.launch(it)
+            } },
             colors = ButtonDefaults.buttonColors(containerColor = greenDark),
             modifier = Modifier.align(Alignment.BottomCenter)
         ) {
