@@ -4,19 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:orientation="vertical"
-    android:theme="@style/Theme.AppCompat.NoActionBar" >
+    tools:context="com.paymob.acceptsdk.PayActivity">
+
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_above="@+id/PoweredByLinearLayout"
         android:layout_alignParentTop="true"
-        android:paddingLeft="@dimen/large_padding_value"
-        android:paddingTop="@dimen/small_padding_value"
-        android:paddingRight="@dimen/large_padding_value"
-        android:paddingBottom="@dimen/normal_padding_value"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/PoweredByLinearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -30,7 +31,7 @@
                 android:id="@+id/cardName_linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/large_padding_value"
+                android:layout_marginTop="20dp"
                 android:orientation="vertical">
 
 
@@ -38,25 +39,25 @@
                     android:id="@+id/fullname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/tiny_padding_value"
+                    android:layout_marginBottom="5dp"
                     android:text="@string/card_holder_name"
                     android:textColor="@color/colorText"
-                    android:textSize="@dimen/normal_text_size" />
+                    android:textSize="14sp" />
 
                 <EditText
                     android:id="@+id/cardName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/edit_text_field"
-                    android:gravity="left"
                     android:hint="JOHN DOE"
+                    android:textDirection="anyRtl"
                     android:imeOptions="actionNext"
                     android:inputType="textCapCharacters"
-                    android:padding="@dimen/normal_padding_value"
+                    android:gravity="left"
+                    android:padding="15dp"
                     android:textColor="@color/colorText"
                     android:textColorHint="@color/colorHint"
-                    android:textDirection="anyRtl"
-                    android:textSize="@dimen/normal_text_size"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -64,32 +65,32 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/large_padding_value"
+                android:layout_marginTop="20dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/cardnumber"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/tiny_padding_value"
+                    android:layout_marginBottom="5dp"
                     android:text="@string/card_number"
                     android:textColor="@color/colorText"
-                    android:textSize="@dimen/normal_text_size" />
+                    android:textSize="14sp" />
 
                 <morxander.editcard.EditCard
                     android:id="@+id/cardNumber"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/edit_text_field"
-                    android:gravity="left"
                     android:hint="XXXX-XXXX-XXXX-XXXX"
                     android:imeOptions="actionNext"
                     android:inputType="number"
-                    android:padding="@dimen/normal_padding_value"
+                    android:textDirection="anyRtl"
+                    android:gravity="left"
+                    android:padding="15dp"
                     android:textColor="@color/colorText"
                     android:textColorHint="@color/colorHint"
-                    android:textDirection="anyRtl"
-                    android:textSize="@dimen/normal_text_size"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -97,17 +98,17 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/large_padding_value"
-                android:baselineAligned="false"
+                android:layout_marginTop="20dp"
+                android:weightSum="2"
                 android:orientation="horizontal"
-                android:weightSum="2">
+                android:baselineAligned="false">
 
                 <LinearLayout
                     android:id="@+id/expiration_linearLayout"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/large_padding_value"
-                    android:layout_marginRight="@dimen/large_padding_value"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
                     android:layout_weight="1.3"
                     android:orientation="vertical">
 
@@ -115,10 +116,10 @@
                         android:id="@+id/expiry"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/tiny_padding_value"
+                        android:layout_marginBottom="5dp"
                         android:text="@string/Expiration"
                         android:textColor="@color/colorText"
-                        android:textSize="@dimen/normal_text_size" />
+                        android:textSize="14sp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -132,18 +133,18 @@
                             android:layout_gravity="start"
                             android:layout_weight="2"
                             android:background="@drawable/edit_text_field"
-                            android:gravity="left"
                             android:hint="MM"
                             android:imeOptions="actionNext"
                             android:inputType="number"
-                            android:maxLength="2"
+                            android:textDirection="locale"
+                            android:gravity="left"
 
+                            android:maxLength="2"
                             android:maxLines="1"
-                            android:padding="@dimen/normal_padding_value"
+                            android:padding="15dp"
                             android:textColor="@color/colorText"
                             android:textColorHint="@color/colorHint"
-                            android:textDirection="locale"
-                            android:textSize="@dimen/normal_text_size"
+                            android:textSize="14sp"
                             android:textStyle="bold" />
 
                         <TextView
@@ -151,11 +152,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/edit_text_field"
-                            android:padding="@dimen/normal_padding_value"
+                            android:padding="15dp"
                             android:text=" / "
                             android:textColor="@color/colorText"
                             android:textColorHint="@color/colorHint"
-                            android:textSize="@dimen/normal_text_size"
+                            android:textSize="14sp"
                             android:textStyle="bold" />
 
                         <EditText
@@ -165,17 +166,17 @@
                             android:layout_gravity="right"
                             android:layout_weight="2"
                             android:background="@drawable/edit_text_field"
-                            android:gravity="left"
                             android:hint="YY"
                             android:imeOptions="actionNext"
                             android:inputType="number"
                             android:maxLength="2"
                             android:maxLines="1"
-                            android:padding="@dimen/normal_padding_value"
+                            android:textDirection="anyRtl"
+                            android:gravity="left"
+                            android:padding="15dp"
                             android:textColor="@color/colorText"
                             android:textColorHint="@color/colorHint"
-                            android:textDirection="anyRtl"
-                            android:textSize="@dimen/normal_text_size"
+                            android:textSize="14sp"
                             android:textStyle="bold" />
 
                     </LinearLayout>
@@ -192,26 +193,26 @@
                         android:id="@+id/cvvnum"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/tiny_padding_value"
+                        android:layout_marginBottom="5dp"
                         android:text="@string/cvv"
                         android:textColor="@color/colorText"
-                        android:textSize="@dimen/normal_text_size" />
+                        android:textSize="14sp" />
 
                     <EditText
                         android:id="@+id/cvv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/edit_text_field"
-                        android:gravity="left"
                         android:hint="123"
                         android:inputType="number"
                         android:maxLength="3"
                         android:maxLines="1"
-                        android:padding="@dimen/normal_padding_value"
+                        android:gravity="left"
+                        android:padding="15dp"
                         android:textColor="@color/colorText"
                         android:textColorHint="@color/colorHint"
+                        android:textSize="14sp"
                         android:textDirection="anyRtl"
-                        android:textSize="@dimen/normal_text_size"
 
                         android:textStyle="bold" />
 
@@ -223,9 +224,9 @@
                 android:id="@+id/saveCard_linearLayout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/normal_padding_value"
                 android:gravity="top|center_horizontal"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginTop="15dp">
 
                 <androidx.appcompat.widget.AppCompatCheckBox
                     android:id="@+id/saveCardCheckBox"
@@ -249,12 +250,46 @@
                 android:id="@+id/pay"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/normal_padding_value"
+                android:layout_marginTop="15dp"
                 android:background="@drawable/button_shape"
                 android:text="@string/pay_button"
                 android:textColor="#FFFFFF"
-                android:textSize="@dimen/large_text_size" />
+                android:textSize="15sp" />
 
         </LinearLayout>
+
     </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/PoweredByLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="end"
+            android:text="Powered by"
+            android:textColor="@color/colorText"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/pm_logo_2" />
+
+    </LinearLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
