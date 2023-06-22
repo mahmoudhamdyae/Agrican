@@ -34,6 +34,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -212,7 +213,9 @@ fun OrderConfirmScreenContent(
                 if (cvc.length < 17) { changeCardId(it) }
             },
             placeHolder = { },
-            focusManager = focusManager
+            focusManager = focusManager,
+            imeAction = ImeAction.Go,
+            keyboardType = KeyboardType.Number
         )
 
         Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
@@ -229,20 +232,6 @@ fun OrderConfirmScreenContent(
                 )
 
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    // Year
-                    SimpleTextField(
-                        value = year,
-                        onNewValue = {
-                            if (cvc.length < 3) { changeYear(it) }
-                        },
-                        placeHolder = {
-                            Text(text = "YY")
-                        },
-                        focusManager = focusManager,
-                        imeAction = ImeAction.Done,
-                        modifier = Modifier.weight(1f)
-                    )
-
                     // Month
                     SimpleTextField(
                         value = month,
@@ -253,7 +242,23 @@ fun OrderConfirmScreenContent(
                             Text(text = "MM")
                         },
                         focusManager = focusManager,
-                        imeAction = ImeAction.Done,
+                        imeAction = ImeAction.Go,
+                        keyboardType = KeyboardType.Number,
+                        modifier = Modifier.weight(1f)
+                    )
+
+                    // Year
+                    SimpleTextField(
+                        value = year,
+                        onNewValue = {
+                            if (cvc.length < 3) { changeYear(it) }
+                        },
+                        placeHolder = {
+                            Text(text = "YY")
+                        },
+                        focusManager = focusManager,
+                        imeAction = ImeAction.Go,
+                        keyboardType = KeyboardType.Number,
                         modifier = Modifier.weight(1f)
                     )
                 }
@@ -277,7 +282,8 @@ fun OrderConfirmScreenContent(
                     },
                     placeHolder = { },
                     focusManager = focusManager,
-                    imeAction = ImeAction.Done
+                    imeAction = ImeAction.Done,
+                    keyboardType = KeyboardType.Number
                 )
             }
         }

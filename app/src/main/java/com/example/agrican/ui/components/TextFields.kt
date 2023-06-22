@@ -37,10 +37,10 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import com.example.agrican.R
-import com.example.agrican.ui.theme.gray
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.agrican.R
+import com.example.agrican.ui.theme.gray
 
 @Composable
 fun UserNameField(
@@ -310,7 +310,8 @@ fun SimpleTextField(
         ),
         keyboardActions = KeyboardActions(
             onNext = { focusManager?.moveFocus(FocusDirection.Down) },
-            onDone = { focusManager?.clearFocus() }
+            onDone = { focusManager?.clearFocus() },
+            onGo = { focusManager?.moveFocus(FocusDirection.Next) }
         ),
         modifier = modifier
             .border(
