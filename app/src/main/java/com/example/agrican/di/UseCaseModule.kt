@@ -12,14 +12,14 @@ import com.example.agrican.domain.use_case.GetCropUseCase
 import com.example.agrican.domain.use_case.GetCropsUseCase
 import com.example.agrican.domain.use_case.GetCurrentUserUseCase
 import com.example.agrican.domain.use_case.GetDefaultAgeUseCase
-import com.example.agrican.domain.use_case.GetDisease
-import com.example.agrican.domain.use_case.GetDiseases
+import com.example.agrican.domain.use_case.GetDiseaseUseCase
+import com.example.agrican.domain.use_case.GetDiseasesUseCase
 import com.example.agrican.domain.use_case.GetFarmsUseCase
 import com.example.agrican.domain.use_case.GetNewsUseCase
 import com.example.agrican.domain.use_case.GetOrderUseCase
 import com.example.agrican.domain.use_case.GetOrdersUseCase
-import com.example.agrican.domain.use_case.GetPest
-import com.example.agrican.domain.use_case.GetPests
+import com.example.agrican.domain.use_case.GetPestUseCase
+import com.example.agrican.domain.use_case.GetPestsUseCase
 import com.example.agrican.domain.use_case.GetTreatmentsUseCase
 import com.example.agrican.domain.use_case.GetWeatherUseCase
 import com.example.agrican.domain.use_case.JoinUsUseCase
@@ -92,10 +92,10 @@ object UseCaseModule {
             getTreatmentsUseCase = GetTreatmentsUseCase(mainRepository),
             joinUsUseCase = JoinUsUseCase(mainRepository),
 
-            getDisease = GetDisease(mainRepository),
-            getDiseases = GetDiseases(mainRepository),
-            getPest = GetPest(mainRepository),
-            getPests = GetPests(mainRepository),
+            getDiseaseUseCase = GetDiseaseUseCase(mainRepository),
+            getDiseasesUseCase = GetDiseasesUseCase(mainRepository),
+            getPestUseCase = GetPestUseCase(mainRepository),
+            getPestsUseCase = GetPestsUseCase(mainRepository),
         )
     }
 }

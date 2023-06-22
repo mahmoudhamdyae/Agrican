@@ -53,8 +53,8 @@ data class BaseUseCase (
     val getTreatmentsUseCase: GetTreatmentsUseCase,
     val joinUsUseCase: JoinUsUseCase,
 
-    val getDisease: GetDisease,
-    val getDiseases: GetDiseases,
-    val getPest: GetPest,
-    val getPests: GetPests,
+    val getDiseaseUseCase: GetDiseaseUseCase,
+    val getDiseasesUseCase: GetDiseasesUseCase,
+    val getPestUseCase: GetPestUseCase,
+    val getPestsUseCase: GetPestsUseCase,
 )

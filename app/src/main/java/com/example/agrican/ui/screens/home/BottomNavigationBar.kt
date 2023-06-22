@@ -64,7 +64,7 @@ fun BottomNavigationBar(
 
         // Main and Services Items
         Surface(
-            shape = NavigationBarCustomShape(115f),
+            shape = NavigationBarCustomShape(120f),
             shadowElevation = 32.dp,
             modifier = Modifier
                 .height(60.dp)

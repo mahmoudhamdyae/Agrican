@@ -11,8 +11,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -34,6 +36,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
@@ -51,8 +55,6 @@ import com.paymob.acceptsdk.IntentConstants
 import com.paymob.acceptsdk.PayResponseKeys
 import com.paymob.acceptsdk.SaveCardResponseKeys
 import com.paymob.acceptsdk.ToastMaker
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 
 object OrderStatusDestination: NavigationDestination {
     override val route: String = "order_status"
@@ -95,6 +97,7 @@ fun OrderStatusScreenContent(
 
         Divider(
             modifier = Modifier
+                .padding(horizontal = 16.dp)
                 .height(2.dp)
                 .background(gray)
         )
@@ -155,8 +158,8 @@ fun OrdersListItem(
             border = BorderStroke(1.dp, gray),
             modifier = Modifier.padding(bottom = 24.dp)
         ) {
-            Row(modifier = Modifier.padding(16.dp)) {
-                Column(modifier = Modifier.weight(3f)) {
+            Row(modifier = Modifier.height(IntrinsicSize.Max)) {
+                Column(modifier = Modifier.padding(16.dp).weight(2f)) {
                     Row {
                         // Order Name
                         Text(
@@ -169,7 +172,8 @@ fun OrdersListItem(
                         Spacer(modifier = Modifier.weight(1f))
                         Surface(
                             shape = RoundedCornerShape(16.dp),
-                            border = BorderStroke(1.dp, gray)
+                            border = BorderStroke(1.dp, gray),
+                            modifier = Modifier.padding(top = 8.dp)
                         ) {
                             // Title
                             Text(
@@ -177,7 +181,7 @@ fun OrdersListItem(
                                 color = greenDark,
                                 style = MaterialTheme.typography.body,
                                 fontSize = 10.sp,
-                                modifier = Modifier.padding(horizontal = 8.dp)
+                                modifier = Modifier.padding(horizontal = 4.dp)
                             )
                         }
 
@@ -201,9 +205,10 @@ fun OrdersListItem(
 
                 EmptyImage(
                     modifier = Modifier
+                        .padding(10.dp)
                         .clip(RoundedCornerShape(16.dp))
                         .width(50.dp)
-                        .height(100.dp)
+                        .fillMaxHeight()
                         .weight(1f)
                 )
             }

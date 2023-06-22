@@ -89,7 +89,7 @@ fun AddFarmScreenContent(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
             .verticalScroll(rememberScrollState())
-            .padding(16.dp)
+            .padding(start = 16.dp, end = 16.dp, bottom = 16.dp, top = 8.dp)
     ) {
         // Farm Name Text Field
         LabelWithTextField(

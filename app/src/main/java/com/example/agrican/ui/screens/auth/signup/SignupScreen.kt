@@ -155,7 +155,8 @@ fun AccountType(
         ) {
             Surface(
                 shape = RoundedCornerShape(32.dp),
-                border = BorderStroke(1.dp, gray)
+                border = BorderStroke(1.dp, gray),
+                modifier = Modifier.padding(top = 32.dp)
             ) {
                 Text(
                     text = stringResource(id = R.string.create_new_user),
@@ -176,7 +177,7 @@ fun AccountType(
                 fontWeight = FontWeight.Bold,
             )
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(32.dp))
 
             // Farmer
             AccountTypeItem(
@@ -194,7 +195,8 @@ fun AccountType(
             AccountTypeItem(
                 setAccountType = setAccountType,
                 accountType = UserType.ENGINEER,
-                accountTypeDescription = R.string.engineer_description
+                accountTypeDescription = R.string.engineer_description,
+                modifier = Modifier.padding(bottom = 16.dp)
             )
         }
     }
@@ -245,14 +247,14 @@ fun Signup(
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
-            modifier = modifier
+            modifier = modifier.padding(top = 32.dp)
         ) {
             val focusManager = LocalFocusManager.current
 
             Surface(
                 shape = RoundedCornerShape(16.dp),
                 color = greenDark,
-                modifier = Modifier.padding(vertical = 8.dp)
+                modifier = Modifier.padding(vertical = 8.dp).padding(bottom = 16.dp)
             ) {
                 Text(
                     text = stringResource(id = accountType.title),

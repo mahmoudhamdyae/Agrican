@@ -27,6 +27,8 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.agrican.R
 import com.example.agrican.common.enums.Quantity
@@ -35,8 +37,6 @@ import com.example.agrican.ui.components.LabelItem
 import com.example.agrican.ui.components.LabelWithTextField
 import com.example.agrican.ui.components.NotesField
 import com.example.agrican.ui.theme.greenDark
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 
 @Composable
 fun NewOrderScreen(
@@ -55,7 +55,7 @@ fun NewOrderScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(8.dp),
         modifier = modifier
-            .padding(8.dp)
+            .padding(vertical = 8.dp, horizontal = 16.dp)
             .padding(bottom = 60.dp)
             .verticalScroll(rememberScrollState())
     ) {
@@ -70,7 +70,9 @@ fun NewOrderScreen(
                 R.string.insecticide
             ),
                 onSelect = { viewModel.updateUiState(productType = it) },
-                modifier = Modifier.width(130.dp).fillMaxHeight()
+                modifier = Modifier
+                    .width(130.dp)
+                    .fillMaxHeight()
             )
             Spacer(modifier = Modifier.weight(1f))
         }
@@ -103,7 +105,9 @@ fun NewOrderScreen(
                 Quantity.KILOGRAM.title
             ),
                 onSelect = { viewModel.updateUiState(quantityUnit = it) },
-                modifier = Modifier.width(130.dp).fillMaxHeight())
+                modifier = Modifier
+                    .width(130.dp)
+                    .fillMaxHeight())
         }
 
         // Receiving Address Row
@@ -150,7 +154,9 @@ fun NewOrderScreen(
             value = notes,
             onNewValue = { notes = it },
             focusManager = focusManager,
-            modifier = Modifier.fillMaxWidth().height(100.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(100.dp)
         )
 
         // Order Button
@@ -166,5 +172,8 @@ fun NewOrderScreen(
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
         }
+
+        // Spacer for bottom navigation bar
+        Spacer(modifier = Modifier.height(30.dp))
     }
 }

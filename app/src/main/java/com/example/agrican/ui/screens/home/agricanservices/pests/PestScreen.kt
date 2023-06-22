@@ -4,8 +4,10 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -22,11 +24,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import com.example.agrican.R
+import com.example.agrican.domain.model.Crop
 import com.example.agrican.domain.model.Pest
 import com.example.agrican.ui.components.BackButton
 import com.example.agrican.ui.components.DescriptionLabel
@@ -36,8 +41,6 @@ import com.example.agrican.ui.components.MainLabel
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.white
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 
 object PestDestination: NavigationDestination {
     override val route: String = "pest"
@@ -82,7 +85,7 @@ fun PestScreenContent(
 
         Column(
             verticalArrangement = Arrangement.spacedBy(8.dp),
-            modifier = Modifier.padding(16.dp)
+            modifier = Modifier.padding(24.dp)
         ) {
 
             // Scientific Name Label
@@ -98,20 +101,26 @@ fun PestScreenContent(
                 )
                 Spacer(modifier = Modifier.weight(1f))
             }
-            Row(modifier = Modifier.fillMaxWidth()) {
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+                modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Max)
+            ) {
                 CategoryItem(
                     categoryName = "Family Crambidae (العواكس)",
                     modifier = Modifier.weight(1f)
                 )
                 CategoryItem(
                     categoryName = "Superfamily Pyraloidea",
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier.weight(1f).fillMaxHeight()
                 )
             }
 
             // Main Label
             MainLabel(text = R.string.main_host)
-            Row(modifier = Modifier.fillMaxWidth().height(150.dp)) {
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+                modifier = Modifier.fillMaxWidth().height(150.dp)
+            ) {
                 MainHostItem(
                     text = "نبات الأرز\nOryza sativa",
                     modifier = Modifier.weight(1f)
@@ -153,13 +162,13 @@ fun CategoryItem(
     Surface(
         shape = RoundedCornerShape(8.dp),
         border = BorderStroke(1.dp, gray),
-        modifier = modifier.padding(8.dp)
+        modifier = modifier.padding(vertical = 8.dp)
     ) {
         Text(
             text = categoryName,
             fontSize = 13.sp,
             fontWeight = FontWeight.SemiBold,
-            modifier = modifier.padding(8.dp)
+            modifier = modifier.padding(vertical = 8.dp, horizontal = 16.dp)
         )
     }
 }
@@ -172,9 +181,7 @@ fun MainHostItem(
     Surface(
         shape = RoundedCornerShape(16.dp),
         color = gray,
-        modifier = modifier
-            .clip(RoundedCornerShape(16.dp))
-            .padding(16.dp)
+        modifier = modifier.clip(RoundedCornerShape(16.dp))
     ) {
         Box {
             EmptyImage(modifier = Modifier.fillMaxSize())
@@ -194,5 +201,37 @@ fun MainHostItem(
 @Preview(showBackground = true)
 @Composable
 fun PestScreenPreview() {
-    PestScreenContent(pest = Pest(), navigateUp = { })
+    PestScreenContent(pest = Pest(
+        title = "تبقع الأوراق السيركسبورى أو (التيكا) فى الفول السودانى",
+        name = "Scirpophaga inceertulas-Chilo suppressalis",
+        categories = listOf(
+            "Order Lepidoptera (فراشات)",
+            "Family Crambidae (العواكس)",
+            "Superfamily Pyraloidea"
+        ),
+        mainHosts = listOf(
+            Crop(name = "نبات الأرز\nOryza sativa"),
+            Crop(name = "نبات الأرز\nOryza sativa")
+        ),
+        lifeCycle = listOf(
+            "اليرقات: تتغذى على سيقان الأرز الشابة والأوراق",
+            "البلابل (الفراشات): تضع بيضها على أوراق الأرز",
+            "اليرقات الجديدة: تحفر فى سيقان النبات وتتغذى داخلها"
+        ),
+        damages = listOf(
+            "القلب الميت: تسبب جفاف البرعم المركزى للشتلات وتموت بعد ذلك",
+            "السنابل البيضاء: تتلف الحبوب فى المراكز المبكرة وتسبب تدهور جودة السنابل"
+        ),
+        symptoms = listOf(
+            "وجود كتلة بيضاء بالقرب من طرف الورقة",
+            "جفاف البراعم المركزية (القلب الميت)",
+            "تصبح العناقيد الكاملة مجففة (السنابل البيضاء)",
+            "تظهر بقع بيضاء طولية على أغماد الورقة"
+        ),
+        injurySeason = "يهاجم الأرز خلال جميع مراحل نموه، بدءًا من طور البادرة و حتى تكوين السنابل",
+        controlTiming = listOf(
+            "فى الأرز الصيفى: يبدأ المكافحة عند عمر 25 يوم وقبل وصول نسبة القلب الميت إلى 5%",
+            "فى الأرز الشتوى: تبدأ المكافحة بعد حوالى 40 يومًا من الشتل وقبل وصول نسبة القلب الميت إلى 5%"
+        )
+    ), navigateUp = { })
 }

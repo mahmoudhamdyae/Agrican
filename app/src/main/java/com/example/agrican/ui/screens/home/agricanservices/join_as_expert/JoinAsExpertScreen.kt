@@ -5,29 +5,30 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -45,6 +46,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.agrican.R
 import com.example.agrican.common.ext.encodeImage
@@ -53,15 +56,12 @@ import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.white
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 
 object JoinAsExpertDestination: NavigationDestination {
     override val route: String = "join_as_expert"
     override val titleRes: Int = R.string.join_as_expert
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun JoinAsExpertScreen(
     navigateUp: () -> Unit,
@@ -141,9 +141,20 @@ fun JoinAsExpertScreen(
             style = MaterialTheme.typography.body,
             fontSize = 14.sp
         )
-        OutlinedTextField(
+        BasicTextField(
             value = fullName,
             onValueChange = { fullName = it },
+            decorationBox = { innerTextField ->
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentHeight()
+                        .padding(10.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    innerTextField()
+                }
+            },
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Text,
                 imeAction = ImeAction.Next
@@ -151,12 +162,13 @@ fun JoinAsExpertScreen(
             keyboardActions = KeyboardActions(
                 onNext = { focusManager.moveFocus(FocusDirection.Down) }
             ),
-            shape = RoundedCornerShape(16.dp),
-            colors = TextFieldDefaults.outlinedTextFieldColors(
-                unfocusedBorderColor = greenLight,
-                textColor = greenLight
-            ),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(40.dp)
+                .border(
+                    border = BorderStroke(1.dp, greenLight),
+                    shape = RoundedCornerShape(16.dp)
+                )
         )
 
         // Email TextField
@@ -165,9 +177,20 @@ fun JoinAsExpertScreen(
             style = MaterialTheme.typography.body,
             fontSize = 14.sp
         )
-        OutlinedTextField(
+        BasicTextField(
             value = email,
             onValueChange = { email = it },
+            decorationBox = { innerTextField ->
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentHeight()
+                        .padding(10.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    innerTextField()
+                }
+            },
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Email,
                 imeAction = ImeAction.Next
@@ -175,12 +198,13 @@ fun JoinAsExpertScreen(
             keyboardActions = KeyboardActions(
                 onNext = { focusManager.moveFocus(FocusDirection.Down) }
             ),
-            shape = RoundedCornerShape(16.dp),
-            colors = TextFieldDefaults.outlinedTextFieldColors(
-                unfocusedBorderColor = greenLight,
-                textColor = greenLight
-            ),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(40.dp)
+                .border(
+                    border = BorderStroke(1.dp, greenLight),
+                    shape = RoundedCornerShape(16.dp)
+                )
         )
 
         // Phone Number Text Field
@@ -189,9 +213,20 @@ fun JoinAsExpertScreen(
             style = MaterialTheme.typography.body,
             fontSize = 14.sp
         )
-        OutlinedTextField(
+        BasicTextField(
             value = phoneNumber,
             onValueChange = { phoneNumber = it },
+            decorationBox = { innerTextField ->
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentHeight()
+                        .padding(10.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    innerTextField()
+                }
+            },
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Number,
                 imeAction = ImeAction.Done
@@ -199,12 +234,13 @@ fun JoinAsExpertScreen(
             keyboardActions = KeyboardActions(
                 onDone = { focusManager.clearFocus() }
             ),
-            shape = RoundedCornerShape(16.dp),
-            colors = TextFieldDefaults.outlinedTextFieldColors(
-                unfocusedBorderColor = greenLight,
-                textColor = greenLight
-            ),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(40.dp)
+                .border(
+                    border = BorderStroke(1.dp, greenLight),
+                    shape = RoundedCornerShape(16.dp)
+                )
         )
 
         // Image to Upload

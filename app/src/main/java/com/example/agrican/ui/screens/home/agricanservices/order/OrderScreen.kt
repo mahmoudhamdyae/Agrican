@@ -14,10 +14,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.agrican.R
 import com.example.agrican.ui.components.BackButton
 import com.example.agrican.ui.navigation.NavigationDestination
@@ -25,8 +26,6 @@ import com.example.agrican.ui.screens.home.agricanservices.order.new_order.NewOr
 import com.example.agrican.ui.screens.home.agricanservices.order.order_status.OrderStatusDestination
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 
 object OrderDestination: NavigationDestination {
     override val route: String = "order"
@@ -46,11 +45,11 @@ fun OrderScreen(
             // Order Status Button
             Button(
                 onClick = { openScreen(OrderStatusDestination.route) },
+                shape = RoundedCornerShape(16.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = greenLight),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clip(RoundedCornerShape(4.dp))
-                    .padding(8.dp)
+                    .padding(top = 8.dp, bottom = 12.dp, start = 16.dp, end = 16.dp)
             ) {
                 Text(
                     text = stringResource(id = R.string.order_status),
@@ -63,11 +62,11 @@ fun OrderScreen(
             // New Order Button
             Button(
                 onClick = { showNewOrder = true },
+                shape = RoundedCornerShape(16.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = greenDark),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clip(RoundedCornerShape(4.dp))
-                    .padding(8.dp)
+                    .padding(bottom = 4.dp, start = 16.dp, end = 16.dp)
             ) {
                 Text(
                     text = stringResource(id = R.string.new_order),
@@ -76,6 +75,8 @@ fun OrderScreen(
                     modifier = Modifier.padding(16.dp)
                 )
             }
+
+            // New Order Screen
             if (showNewOrder) {
                 NewOrderScreen()
             }

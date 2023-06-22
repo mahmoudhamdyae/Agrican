@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -23,6 +22,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.agrican.R
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.screens.home.agricanservices.default_age.DefaultAgesDestination
@@ -37,8 +38,6 @@ import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.textGray
 import com.example.agrican.ui.theme.title
 import com.example.agrican.ui.theme.white
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 
 object AgricanServicesDestination: NavigationDestination {
     override val route: String = "agrican_services"
@@ -55,19 +54,22 @@ fun AgricanServicesScreen(
             .verticalScroll(rememberScrollState())
             .padding(bottom = 60.dp)
     ) {
-        Box {
+        Box(modifier = Modifier.height(IntrinsicSize.Max).padding(vertical = 16.dp)) {
             Box(
-                modifier = Modifier.fillMaxWidth().background(greenLight)
+                modifier = Modifier
+                    .padding(vertical = 16.dp)
+                    .fillMaxSize()
+                    .background(greenLight)
             )
-            Row(modifier = Modifier.height(IntrinsicSize.Max)) {
+            Row(modifier = Modifier.height(IntrinsicSize.Max).padding(horizontal = 16.dp)) {
                 // Default Age
                 Card(
                     title = R.string.default_age,
                     description = R.string.problem_images_description,
                     modifier = Modifier
-                        .weight(1.5f)
+                        .weight(1.3f)
                         .fillMaxHeight()
-                        .padding(8.dp)
+                        .padding(end = 16.dp)
                         .clickable { openScreen(DefaultAgesDestination.route) },
                     isPrimaryMain = true
                 )
@@ -78,7 +80,6 @@ fun AgricanServicesScreen(
                     description = R.string.problem_images_description,
                     modifier = Modifier
                         .weight(1f)
-                        .padding(8.dp)
                         .clickable { openScreen(OrderDestination.route) },
                     isPrimaryMain = true
                 )
@@ -87,14 +88,14 @@ fun AgricanServicesScreen(
 
         Box(modifier = Modifier.background(greenLight)) {
             // Diseases
-            Column(modifier = Modifier) {
-                Row(modifier = Modifier.height(IntrinsicSize.Max)) {
+            Column(modifier = Modifier.padding(top = 16.dp)) {
+                Row(modifier = Modifier.height(IntrinsicSize.Max).padding(horizontal = 16.dp)) {
                     Card(
                         title = R.string.disease,
                         description = R.string.problem_images_description,
                         modifier = Modifier
                             .weight(1f)
-                            .padding(8.dp)
+                            .padding(end = 16.dp)
                             .clickable { openScreen(DiseasesDestination.route) }
                     )
 
@@ -103,9 +104,8 @@ fun AgricanServicesScreen(
                         title = R.string.pests,
                         description = R.string.problem_images_description,
                         modifier = Modifier
-                            .weight(1.5f)
+                            .weight(1.3f)
                             .fillMaxHeight()
-                            .padding(8.dp)
                             .clickable { openScreen(PestsDestination.route) }
                     )
                 }
@@ -114,7 +114,7 @@ fun AgricanServicesScreen(
                     Box(
                         modifier = Modifier
                             .fillMaxSize()
-                            .padding(vertical = 32.dp)
+                            .padding(vertical = 35.dp)
                             .background(greenDark)
                     )
                     // Treatment
@@ -122,7 +122,7 @@ fun AgricanServicesScreen(
                         title = R.string.treatment,
                         description = R.string.problem_images_description,
                         modifier = Modifier
-                            .padding(8.dp)
+                            .padding(16.dp)
                             .clickable { openScreen(TreatmentDestination.route) }
                     )
                 }
@@ -156,13 +156,14 @@ fun Card(
         color = mainColor,
         modifier = modifier
     ) {
-        Column(modifier = Modifier.padding(8.dp)) {
+        Column(modifier = Modifier.padding(8.dp).fillMaxHeight()) {
             // Card Title
             Text(
                 text = stringResource(id = title),
                 color = secondaryColor,
                 style = MaterialTheme.typography.title,
                 fontSize = 16.sp,
+                modifier = Modifier.padding(bottom = 4.dp)
             )
 
             // Card Description
@@ -173,7 +174,7 @@ fun Card(
                 fontSize = 11.sp
             )
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.weight(1f))
 
             // Card Icon
             Row {

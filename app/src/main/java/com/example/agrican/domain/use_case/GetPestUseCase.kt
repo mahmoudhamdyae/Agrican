@@ -5,7 +5,7 @@ import com.example.agrican.domain.model.Pest
 import com.example.agrican.domain.repository.MainRepository
 import javax.inject.Inject
 
-class GetPest @Inject constructor(
+class GetPestUseCase @Inject constructor(
     private val mainRepository: MainRepository
 ) {
 

@@ -36,6 +36,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
@@ -48,8 +50,6 @@ import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.title
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 
 object OrderConfirmDestination: NavigationDestination {
     override val route: String = "order_confirm"
@@ -116,7 +116,7 @@ fun OrderConfirmScreenContent(
         // Cash
         Surface(
             shape = RoundedCornerShape(16.dp),
-            border = BorderStroke(1.dp, gray),
+            border = BorderStroke(1.dp, if (isCash == OrderWay.CASH) greenDark else gray),
             modifier = Modifier.fillMaxWidth()
         ) {
             Row(
@@ -140,7 +140,7 @@ fun OrderConfirmScreenContent(
         // Visa
         Surface(
             shape = RoundedCornerShape(16.dp),
-            border = BorderStroke(1.dp, gray),
+            border = BorderStroke(1.dp, if (isCash == OrderWay.VISA) greenDark else gray),
             modifier = Modifier.fillMaxWidth()
         ) {
             Row(

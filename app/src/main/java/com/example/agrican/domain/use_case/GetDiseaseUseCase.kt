@@ -4,7 +4,7 @@ import com.example.agrican.domain.model.Disease
 import com.example.agrican.domain.repository.MainRepository
 import javax.inject.Inject
 
-class GetDisease @Inject constructor(
+class GetDiseaseUseCase @Inject constructor(
     private val mainRepository: MainRepository
 ) {
 

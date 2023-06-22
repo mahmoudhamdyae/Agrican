@@ -173,6 +173,7 @@ fun LoginScreenContent(
                 }
                 Row(
                     modifier = Modifier
+                        .padding(8.dp)
                         .fillMaxWidth()
                         .height(40.dp)
                 ) {

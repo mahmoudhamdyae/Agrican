@@ -21,7 +21,7 @@ class DiseaseViewModel @Inject constructor(
     init {
         val diseaseId: String = checkNotNull(savedStateHandle[DiseaseDestination.diseaseIdArg])
         launchCatching {
-            _disease.value = useCase.getDisease(diseaseId)
+            _disease.value = useCase.getDiseaseUseCase(diseaseId)
         }
     }
 }

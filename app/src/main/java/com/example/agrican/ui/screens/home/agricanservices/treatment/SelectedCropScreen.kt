@@ -1,6 +1,8 @@
 package com.example.agrican.ui.screens.home.agricanservices.treatment
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
@@ -27,11 +29,14 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
@@ -43,8 +48,7 @@ import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.title
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import com.example.agrican.ui.theme.white
 
 object SelectedCropDestination: NavigationDestination {
     override val route: String = "selected_crop"
@@ -78,7 +82,7 @@ fun SelectedCropScreenContent(
     // Selected Crop
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(8.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
         modifier = modifier.padding(bottom = 60.dp)
     ) {
         Text(
@@ -87,9 +91,18 @@ fun SelectedCropScreenContent(
             fontSize = 16.sp
         )
 
-        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            CropImage()
-            Column(modifier = Modifier.width(IntrinsicSize.Max)) {
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier.height(IntrinsicSize.Max)
+        ) {
+            CropImage(modifier = Modifier.fillMaxHeight())
+            Column(
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                modifier = Modifier
+                    .padding(vertical = 4.dp)
+                    .width(IntrinsicSize.Max)
+                    .fillMaxHeight()
+            ) {
                 Surface(
                     shape = RoundedCornerShape(32.dp),
                     shadowElevation = 32.dp,
@@ -138,7 +151,7 @@ fun SelectedCropScreenContent(
             ),
             onSelect = updateDiseaseType,
             textColor = greenDark,
-            modifier = Modifier.width(150.dp).height(32.dp)
+            modifier = Modifier.width(225.dp).height(40.dp)
         )
 
         // Show Treatment Button
@@ -167,14 +180,13 @@ fun CropImage(
     modifier: Modifier = Modifier
 ) {
     Surface(
-        shape = RoundedCornerShape(32.dp),
+        shape = RoundedCornerShape(24.dp),
         shadowElevation = 32.dp,
-        modifier = modifier.size(75.dp)
+        modifier = modifier.size(90.dp)
     ) {
         Icon(
-            painter = painterResource(id = R.drawable.ic_visibility_on),
-            contentDescription = null,
-            modifier = Modifier.fillMaxWidth()
+            painter = painterResource(id = R.drawable.sunny),
+            contentDescription = null
         )
     }
 }
@@ -188,70 +200,143 @@ fun TreatmentList(
         items(treatments.size) {
             TreatmentListItem(
                 treatment = treatments[it],
-                modifier = Modifier.padding(8.dp)
+                modifier = Modifier.padding(16.dp)
             )
         }
     }
 }
+
+//@Composable
+//fun TreatmentListItem(
+//    treatment: Treatment,
+//    modifier: Modifier = Modifier
+//) {
+//    Surface(
+//        shadowElevation = 16.dp,
+//        shape = RoundedCornerShape(16.dp),
+//        modifier = modifier
+//    ) {
+//        Row(
+//            horizontalArrangement = Arrangement.spacedBy(8.dp),
+//            modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Max)
+//        ) {
+//            EmptyImage(
+//                modifier = Modifier.weight(1f).fillMaxHeight()
+//            )
+//            Column(
+//                verticalArrangement = Arrangement.spacedBy(8.dp),
+//                modifier = Modifier
+//                    .weight(3f)
+//                    .padding(8.dp)
+//            ) {
+//                Row(
+//                    verticalAlignment = Alignment.CenterVertically,
+//                    modifier = Modifier.fillMaxWidth()
+//                ) {
+//                    // Treatment Name
+//                    Text(
+//                        text = treatment.name,
+//                        style = MaterialTheme.typography.title
+//                    )
+//                    Spacer(modifier = Modifier.weight(1f))
+//                    // Know More Button
+//                    Button(
+//                        onClick = { /*TODO*/ },
+//                        colors = ButtonDefaults.buttonColors(containerColor = greenDark),
+//                    ) {
+//                        Text(
+//                            text = stringResource(id = R.string.know_more),
+//                            fontSize = 12.sp,
+//                            fontWeight = FontWeight.Bold,
+//                        )
+//                    }
+//                }
+//
+//                // Treatment Description
+//                Text(
+//                    text = treatment.description,
+//                    style = MaterialTheme.typography.body,
+//                    fontWeight = FontWeight.SemiBold
+//                )
+//            }
+//        }
+//    }
+//}
 
 @Composable
 fun TreatmentListItem(
     treatment: Treatment,
     modifier: Modifier = Modifier
 ) {
-    Surface(
-        shadowElevation = 16.dp,
-        shape = RoundedCornerShape(16.dp),
-        modifier = modifier
-    ) {
+    Box(modifier = modifier.height(IntrinsicSize.Max)) {
+        Surface(
+            shadowElevation = 16.dp,
+            shape = RoundedCornerShape(24.dp),
+            modifier = Modifier.fillMaxWidth().padding(vertical = 2.dp)
+        ) {
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Spacer(modifier = Modifier.weight(2f))
+
+                Column(
+                    modifier = Modifier
+                        .padding(vertical = 4.dp)
+                        .clip(RoundedCornerShape(16.dp))
+                        .weight(5f)
+                ) {
+                    Row(modifier = Modifier.fillMaxWidth()) {
+                        Text(
+                            text = treatment.name,
+                            style = MaterialTheme.typography.title,
+                            fontSize = 16.sp
+                        )
+
+                        Spacer(modifier = Modifier.weight(1f))
+
+                        // Know More Button
+                        Surface(
+                            shape = RoundedCornerShape(24.dp),
+                            color = greenDark,
+                            modifier = Modifier
+                                .padding(vertical = 4.dp, horizontal = 8.dp)
+                                .clickable { /* TODO */ }
+                        ) {
+                            Text(
+                                text = stringResource(id = R.string.know_more),
+                                fontSize = 12.sp,
+                                color = white,
+                                modifier = Modifier.padding(horizontal = 6.dp, vertical = 3.dp)
+                            )
+                        }
+                    }
+
+                    // Fertilizer Description
+                    Text(
+                        text = treatment.description,
+                        style = MaterialTheme.typography.body,
+                        fontSize = 11.sp,
+                        fontWeight = FontWeight.SemiBold,
+                    )
+                }
+            }
+        }
         Row(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
-            modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Max)
+            modifier = Modifier.fillMaxHeight()
         ) {
-            EmptyImage(
-                modifier = Modifier.weight(1f).fillMaxHeight()
+            EmptyImage(modifier = Modifier
+                .fillMaxHeight()
+                .clip(RoundedCornerShape(24.dp))
+                .weight(2f)
             )
-            Column(
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-                modifier = Modifier
-                    .weight(3f)
-                    .padding(8.dp)
-            ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    // Treatment Name
-                    Text(
-                        text = treatment.name,
-                        style = MaterialTheme.typography.title
-                    )
-                    Spacer(modifier = Modifier.weight(1f))
-                    // Know More Button
-                    Button(
-                        onClick = { /*TODO*/ },
-                        colors = ButtonDefaults.buttonColors(containerColor = greenDark),
-                    ) {
-                        Text(
-                            text = stringResource(id = R.string.know_more),
-                            fontSize = 12.sp,
-                            fontWeight = FontWeight.Bold,
-                        )
-                    }
-                }
-
-                // Treatment Description
-                Text(
-                    text = treatment.description,
-                    style = MaterialTheme.typography.body,
-                    fontWeight = FontWeight.SemiBold
-                )
-            }
+            Spacer(modifier = Modifier.weight(5f))
         }
     }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun SelectedCropScreenPreview() {
     SelectedCropScreenContent(uiState = TreatmentUiState(), updateDiseaseType = { }, getTreatments = { })
@@ -260,5 +345,12 @@ fun SelectedCropScreenPreview() {
 @Preview(showBackground = true)
 @Composable
 fun TreatmentListPreview() {
-    TreatmentList(treatments = listOf())
+    TreatmentList(
+        treatments = listOf(
+            Treatment(
+                name = "علاج 1",
+                description = "هذه هى الكمية المطلوبة بناء و يتم تسميد الأرض باستخدام المنتجات المخصصة لذلك هذه هى الكمية المطلوبة بناء و يتم تسميد الأرض باستخدام المنتجات المخصصة لذلك"
+            )
+        )
+    )
 }

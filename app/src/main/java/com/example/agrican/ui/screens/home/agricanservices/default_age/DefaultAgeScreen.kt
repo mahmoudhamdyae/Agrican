@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
@@ -36,12 +37,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color.Companion.LightGray
-import androidx.compose.ui.graphics.Color.Companion.Red
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
@@ -56,10 +58,10 @@ import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
+import com.example.agrican.ui.theme.red
+import com.example.agrican.ui.theme.textGray
 import com.example.agrican.ui.theme.title
 import com.example.agrican.ui.theme.white
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import java.time.LocalDate
 
 object DefaultAgesDestination: NavigationDestination {
@@ -118,7 +120,7 @@ fun DefaultAgeScreenContent(
             text = stringResource(id = R.string.harvest_date),
             style = MaterialTheme.typography.title,
             fontSize = 16.sp,
-            modifier = Modifier.padding(8.dp)
+            modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp)
         )
 
         // Harvest Date
@@ -128,7 +130,7 @@ fun DefaultAgeScreenContent(
                     datePickerDialog.show()
                 },
                 modifier = Modifier
-                    .padding(8.dp)
+                    .padding(vertical = 8.dp, horizontal = 16.dp)
                     .clip(RoundedCornerShape(16.dp))
                     .background(greenLight)
             ) {
@@ -182,7 +184,7 @@ fun DefaultAgeScreenContent(
             text = stringResource(id = R.string.crop_choose),
             style = MaterialTheme.typography.title,
             fontSize = 16.sp,
-            modifier = Modifier.padding(8.dp)
+            modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp)
         )
 
         CropsList(crops = uiState.crops, setSelectedCrop = { updateCurrentCrop(it) })
@@ -192,7 +194,7 @@ fun DefaultAgeScreenContent(
             text = stringResource(id = R.string.crop_quality),
             style = MaterialTheme.typography.title,
             fontSize = 16.sp,
-            modifier = Modifier.padding(8.dp)
+            modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp)
         )
 
         var selected by rememberSaveable { mutableStateOf(0) }
@@ -204,15 +206,17 @@ fun DefaultAgeScreenContent(
         )
 
         // Qualities Lazy Row
-        LazyRow {
+        LazyRow(modifier = Modifier.padding(horizontal = 8.dp)) {
             items(qualities.size) {
                 Chip(
                     text = qualities[it].title,
                     selected = it == selected,
+                    textColor = if (selected == it) white else textGray,
                     onSelect = {
                         updateCurrentQuality(it)
                         selected = it
-                    }
+                    },
+                    modifier=  Modifier.width(100.dp).padding(8.dp)
                 )
             }
         }
@@ -265,7 +269,7 @@ fun DefaultAgeResponse(
                 text = stringResource(id = R.string.danger_degree),
                 style = MaterialTheme.typography.body,
                 fontSize = 14.sp,
-                modifier = Modifier.padding(8.dp)
+                modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp)
             )
 
             Indicators(
@@ -349,7 +353,7 @@ fun Indicator(isSelected: Boolean) {
             .size(10.dp)
             .clip(CircleShape)
             .background(
-                color = if (isSelected) Red else gray
+                color = if (isSelected) red else gray
             )
     )
 }

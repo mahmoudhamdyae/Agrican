@@ -184,8 +184,7 @@ fun CostRow(
             placeHolder = { Text(
                 text = stringResource(R.string.add_code),
                 color = gray,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.padding(8.dp)
+                textAlign = TextAlign.Center
             ) },
             imeAction = ImeAction.Done,
             borderColor = greenLight,

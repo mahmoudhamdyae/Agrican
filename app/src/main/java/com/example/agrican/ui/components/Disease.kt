@@ -4,11 +4,13 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -25,6 +27,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.agrican.R
 import com.example.agrican.ui.theme.black
 import com.example.agrican.ui.theme.body
@@ -32,8 +36,6 @@ import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.title
 import com.example.agrican.ui.theme.white
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 
 @Composable
 fun DiseaseHeader(
@@ -53,7 +55,7 @@ fun DiseaseHeader(
     ) {
         Box(modifier = Modifier
             .fillMaxWidth()
-            .height(150.dp)) {
+            .height(225.dp)) {
             if (image == null) {
                 EmptyImage(modifier = Modifier.fillMaxSize())
             } else {
@@ -65,6 +67,7 @@ fun DiseaseHeader(
             }
 
             Row(
+                verticalAlignment = Alignment.Bottom,
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
                     .padding(16.dp)
@@ -81,8 +84,7 @@ fun DiseaseHeader(
                 // Search for more Button
                 Button(
                     onClick = onButtonClick,
-                    colors = ButtonDefaults.buttonColors(containerColor = white),
-                    modifier = Modifier.weight(1f)
+                    colors = ButtonDefaults.buttonColors(containerColor = white)
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Text(
@@ -91,6 +93,7 @@ fun DiseaseHeader(
                             style = MaterialTheme.typography.body,
                             fontSize = 14.sp
                         )
+                        Spacer(modifier = Modifier.width(8.dp))
                         Icon(
                             painter = painterResource(id = R.drawable.baseline_keyboard_arrow_down_24),
                             contentDescription = null,
@@ -127,7 +130,7 @@ fun DescriptionLabel(
             if (texts.size > 1) {
                 Box(
                     modifier = Modifier
-                        .padding(8.dp)
+                        .padding(end = 8.dp, top = 12.dp)
                         .clip(CircleShape)
                         .background(black)
                         .size(4.dp)
@@ -148,7 +151,7 @@ fun DescriptionLabel(
 fun DiseaseHeaderPreview() {
     DiseaseHeader(
         image = null,
-        diseaseName = "تيكا",
+        diseaseName = "تبقع الأوراق السيركسبورى أو (التيكا) فى الفول السودانى",
         buttonText = R.string.search_for_another_disease,
         onButtonClick = { })
 }

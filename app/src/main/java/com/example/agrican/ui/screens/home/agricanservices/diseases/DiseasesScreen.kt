@@ -1,6 +1,5 @@
 package com.example.agrican.ui.screens.home.agricanservices.diseases
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
@@ -18,19 +17,19 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
 import com.example.agrican.domain.model.Disease
 import com.example.agrican.ui.components.BackButton
+import com.example.agrican.ui.components.EmptyImage
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.white
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 
 object DiseasesDestination: NavigationDestination {
     override val route: String = "diseases"
@@ -86,15 +85,16 @@ fun DiseaseListItem(
         shape = RoundedCornerShape(16.dp),
         color = gray,
         modifier = modifier
+            .height(200.dp)
             .clip(RoundedCornerShape(16.dp))
             .clickable {
                 onItemClick(disease.diseaseId)
             }
-            .padding(16.dp)
+            .padding(8.dp)
     ) {
         Box {
             // Disease Image
-            Image(painter = painterResource(id = R.drawable.ic_sunny), contentDescription = null)
+            EmptyImage()
 
             // Disease Title
             Text(
@@ -113,5 +113,12 @@ fun DiseaseListItem(
 @Preview(showBackground = true)
 @Composable
 fun DiseasesScreenPreview() {
-    DiseaseList(diseases = listOf(), onItemClick = { })
+    DiseaseList(
+        diseases = listOf(
+            Disease(title = "تبقع الأوراق السيركسبورى أو (التيكا) فى الفول السودانى"),
+            Disease(title = "تبقع الأوراق السيركسبورى أو (التيكا) فى الفول السودانى"),
+            Disease(title = "تبقع الأوراق السيركسبورى أو (التيكا) فى الفول السودانى")
+        ),
+        onItemClick = { }
+    )
 }

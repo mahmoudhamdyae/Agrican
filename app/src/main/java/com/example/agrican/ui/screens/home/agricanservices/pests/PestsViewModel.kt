@@ -18,7 +18,7 @@ class PestsViewModel @Inject constructor(
 
     init {
         launchCatching {
-            _pests.value = useCase.getPests()
+            _pests.value = useCase.getPestsUseCase()
         }
     }
 }

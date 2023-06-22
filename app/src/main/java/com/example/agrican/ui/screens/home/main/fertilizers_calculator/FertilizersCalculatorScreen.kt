@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -155,7 +156,7 @@ fun FertilizersCalculatorScreenContent(
                 size = uiState.landSize,
                 increaseSize = increaseSize,
                 decreaseSize = decreaseSize,
-                modifier = Modifier.padding(horizontal = 40.dp)
+                modifier = Modifier.padding(horizontal = 30.dp)
             )
         }
 
@@ -197,7 +198,9 @@ fun FertilizerListItem(
         Surface(
             shadowElevation = 16.dp,
             shape = RoundedCornerShape(24.dp),
-            modifier = Modifier.fillMaxWidth().padding(vertical = 2.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 2.dp)
         ) {
             Row(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -232,7 +235,9 @@ fun FertilizerListItem(
                         Surface(
                             shape = RoundedCornerShape(24.dp),
                             color = greenDark,
-                            modifier = Modifier.padding(4.dp).clickable { /* TODO */ }
+                            modifier = Modifier
+                                .padding(4.dp)
+                                .clickable { /* TODO */ }
                         ) {
                             Text(
                                 text = stringResource(id = R.string.know_more),
@@ -274,14 +279,57 @@ fun LandSize(
     decreaseSize: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Surface(
-        border = BorderStroke(1.dp, gray),
-        shape = RoundedCornerShape(16.dp),
+    Row(
         modifier = modifier
             .fillMaxWidth()
             .height(40.dp)
     ) {
-        Row {
+        Box {
+            // Unit Label
+            Surface(
+                border = BorderStroke(1.dp, gray),
+                shape = RoundedCornerShape(16.dp),
+                modifier = Modifier
+                    .padding(horizontal = 10.dp)
+                    .fillMaxWidth()
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center,
+                    modifier = Modifier
+                ) {
+                    Surface(
+                        border = BorderStroke(1.dp, gray),
+                        shape = RoundedCornerShape(16.dp),
+                        modifier = Modifier
+                            .padding(vertical = 3.dp)
+                            .fillMaxHeight()
+                    ) {
+                        Column(
+                            verticalArrangement = Arrangement.Center,
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Text(
+                                text = size.toString(),
+                                color = greenLight,
+                                modifier = Modifier.padding(horizontal = 16.dp)
+                            )
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.width(24.dp))
+
+                    Text(
+                        text = stringResource(id = R.string.hectare),
+                        color = greenLight,
+                        textAlign = TextAlign.Center,
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Bold,
+                    )
+
+                }
+            }
+
             // Increase Button
             Button(
                 onClick = increaseSize,
@@ -290,44 +338,11 @@ fun LandSize(
                 Icon(imageVector = Icons.Default.Add, contentDescription = null)
             }
 
-            // Unit Label
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceAround,
-                modifier = Modifier.weight(1f)
-            ) {
-                Text(
-                    text = stringResource(id = R.string.hectare),
-                    color = greenLight,
-                    textAlign = TextAlign.Center,
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Bold,
-                )
-
-                Surface(
-                    border = BorderStroke(1.dp, gray),
-                    shape = RoundedCornerShape(16.dp),
-                    modifier = Modifier
-                        .padding(vertical = 3.dp)
-                        .fillMaxHeight()
-                ) {
-                    Column(
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Text(
-                            text = size.toString(),
-                            color = greenLight,
-                            modifier = Modifier.padding(horizontal = 16.dp)
-                        )
-                    }
-                }
-            }
-
             // Decrease Button
             Button(
                 onClick = decreaseSize,
                 colors = ButtonDefaults.buttonColors(containerColor = greenLight),
+                modifier = Modifier.align(Alignment.CenterEnd)
             ) {
                 Icon(imageVector = Icons.Default.Remove, contentDescription = null)
             }

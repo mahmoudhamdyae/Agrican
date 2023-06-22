@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavType
@@ -21,7 +22,6 @@ import com.example.agrican.ui.components.DescriptionLabel
 import com.example.agrican.ui.components.DiseaseHeader
 import com.example.agrican.ui.components.MainLabel
 import com.example.agrican.ui.navigation.NavigationDestination
-import androidx.compose.ui.unit.dp
 
 object DiseaseDestination: NavigationDestination {
     override val route: String = "disease"
@@ -64,7 +64,7 @@ fun DiseaseScreenContent(
     ) {
         DiseaseHeader(
             image = null,
-            diseaseName = disease.name,
+            diseaseName = disease.title,
             buttonText = R.string.search_for_another_disease,
             onButtonClick = navigateUp
         )
@@ -99,5 +99,30 @@ fun DiseaseScreenContent(
 @Preview(showBackground = true)
 @Composable
 fun DiseaseScreenPreview() {
-    DiseaseScreenContent(disease = Disease(), navigateUp = { })
+    DiseaseScreenContent(
+        disease = Disease(
+            title = "تبقع الأوراق السيركسبورى أو (التيكا) فى الفول السودانى",
+            name = "تيكا",
+            description = listOf(
+                "تظهر بقع سوداء أو بنيةعلى الأوراق السفلية لنبات الفول السودانى",
+                "البقع قد تكون صغيرة أو كبيرة و تتواجد بشكل منتشر أو متجمع"
+            ),
+            reasons = listOf(
+                "جفاف أو نقص الماء: نقص الماء فى التربة يؤدى إلى ضعف النبات و ظهور تبقع الأوراق",
+                "تربة غير مناسبة: تربة فقيرة بالعناصر الغذائية أو غير متوازنة تؤثر على صحة النبات و تزيد من احتمالية ظهور التيكا",
+                "الأمراض الفطرية: بعض الفطريات المسببة للأمراض تسبب تبقع الأوراق فى الفول السودانى"
+            ),
+            effects = listOf(
+                "تقليل النمو و ضعف النبات",
+                "تأثير سلبى على إنتاجية النبات وجودة المحصول النهائى"
+            ),
+            cure = listOf(
+                "ضمان رى منتظم ومناسب للنبات",
+                "نحسين جودة التربة وتوفير العناصر الغذائية اللازمة",
+                "استخدام مبيدات فطرية للسيطرة على الأمراض الفطرية",
+                "إجراء مراقبة دورية للنباتات والتدخل المبكر فى حالة ظهور التيكا"
+            )
+        ),
+        navigateUp = { }
+    )
 }

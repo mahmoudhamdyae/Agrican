@@ -21,7 +21,7 @@ class PestViewModel @Inject constructor(
     init {
         val pestId: String = checkNotNull(savedStateHandle[PestDestination.pestIdArg])
         launchCatching {
-            _pest.value = useCase.getPest(pestId)
+            _pest.value = useCase.getPestUseCase(pestId)
         }
     }
 }

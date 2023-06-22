@@ -18,7 +18,7 @@ class DiseasesViewModel @Inject constructor(
 
     init {
         launchCatching {
-            _diseases.value = useCase.getDiseases()
+            _diseases.value = useCase.getDiseasesUseCase()
         }
     }
 }
