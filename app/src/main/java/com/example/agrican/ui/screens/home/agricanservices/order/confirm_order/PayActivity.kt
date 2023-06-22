@@ -14,7 +14,6 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -41,7 +40,6 @@ class PayActivity : AppCompatActivity() {
     private var orderPrice: Double? = null
     private var maskedPanNumber: String? = null
     private var themeColor = greenDark.toArgb()
-    private var language: String = AppCompatDelegate.getApplicationLocales().toLanguageTags()
     private var cardName: String = ""
     private var cardId: String = ""
     private var month: String = ""
@@ -87,7 +85,6 @@ class PayActivity : AppCompatActivity() {
 
     private fun initUiTheme() {
         val intent = this.intent
-//        setLocale(language)
         themeColor = intent.getIntExtra(
             "theme_color",
             this.applicationContext.resources.getColor(R.color.colorPrimaryDark)
@@ -98,16 +95,6 @@ class PayActivity : AppCompatActivity() {
         acceptParameters
         linkViews()
         updateLayout()
-    }
-
-    private fun setLocale(lang: String) {
-        val myLocale = Locale(lang)
-        val res = this.resources
-        val dm = res.displayMetrics
-        val conf = res.configuration
-        conf.locale = myLocale
-        res.updateConfiguration(conf, dm)
-        onConfigurationChanged(conf)
     }
 
     @Deprecated("Deprecated in Java")
