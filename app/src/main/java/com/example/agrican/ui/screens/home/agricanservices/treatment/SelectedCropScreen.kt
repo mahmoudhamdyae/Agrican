@@ -206,63 +206,6 @@ fun TreatmentList(
     }
 }
 
-//@Composable
-//fun TreatmentListItem(
-//    treatment: Treatment,
-//    modifier: Modifier = Modifier
-//) {
-//    Surface(
-//        shadowElevation = 16.dp,
-//        shape = RoundedCornerShape(16.dp),
-//        modifier = modifier
-//    ) {
-//        Row(
-//            horizontalArrangement = Arrangement.spacedBy(8.dp),
-//            modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Max)
-//        ) {
-//            EmptyImage(
-//                modifier = Modifier.weight(1f).fillMaxHeight()
-//            )
-//            Column(
-//                verticalArrangement = Arrangement.spacedBy(8.dp),
-//                modifier = Modifier
-//                    .weight(3f)
-//                    .padding(8.dp)
-//            ) {
-//                Row(
-//                    verticalAlignment = Alignment.CenterVertically,
-//                    modifier = Modifier.fillMaxWidth()
-//                ) {
-//                    // Treatment Name
-//                    Text(
-//                        text = treatment.name,
-//                        style = MaterialTheme.typography.title
-//                    )
-//                    Spacer(modifier = Modifier.weight(1f))
-//                    // Know More Button
-//                    Button(
-//                        onClick = { /*TODO*/ },
-//                        colors = ButtonDefaults.buttonColors(containerColor = greenDark),
-//                    ) {
-//                        Text(
-//                            text = stringResource(id = R.string.know_more),
-//                            fontSize = 12.sp,
-//                            fontWeight = FontWeight.Bold,
-//                        )
-//                    }
-//                }
-//
-//                // Treatment Description
-//                Text(
-//                    text = treatment.description,
-//                    style = MaterialTheme.typography.body,
-//                    fontWeight = FontWeight.SemiBold
-//                )
-//            }
-//        }
-//    }
-//}
-
 @Composable
 fun TreatmentListItem(
     treatment: Treatment,

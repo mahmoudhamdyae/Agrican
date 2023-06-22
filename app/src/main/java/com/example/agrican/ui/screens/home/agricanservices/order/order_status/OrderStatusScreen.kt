@@ -300,10 +300,7 @@ fun OrdersListItem(
 
         // Confirm Button
         Button(
-            onClick = { confirmOrder(context, order) {
-                // todo payment
-//                paymentLauncher.launch(it)
-            } },
+            onClick = { confirmOrder(context, order) { paymentLauncher.launch(it) } },
             colors = ButtonDefaults.buttonColors(containerColor = greenDark),
             modifier = Modifier.align(Alignment.BottomCenter)
         ) {

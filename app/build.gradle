@@ -125,7 +125,7 @@ dependencies {
 
     // Paymob
     implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
-//    implementation 'morxander.editcard:EditCard:1.0.1'
+    implementation 'morxander.editcard:EditCard:1.0.1'
 }
 
 // Allow references to generated code
