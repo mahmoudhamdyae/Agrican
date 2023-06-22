@@ -118,7 +118,7 @@ class OrderViewModel @Inject constructor(
         payIntent.putExtra(PayActivityIntentKeys.SAVE_CARD_DEFAULT, false)
         payIntent.putExtra(PayActivityIntentKeys.SHOW_SAVE_CARD, false)
         payIntent.putExtra(PayActivityIntentKeys.THEME_COLOR, greenDark.toArgb())
-        payIntent.putExtra("ActionBar", false)
+        payIntent.putExtra("ActionBar", true)
         payIntent.putExtra("language", AppCompatDelegate.getApplicationLocales().toLanguageTags())
 
         launchPayment(payIntent)
