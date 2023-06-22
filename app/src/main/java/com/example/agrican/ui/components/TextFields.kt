@@ -282,7 +282,8 @@ fun SimpleTextField(
     borderColor: Color = gray,
     focusManager: FocusManager? = null,
     keyboardType: KeyboardType = KeyboardType.Text,
-    imeAction: ImeAction = ImeAction.Next
+    imeAction: ImeAction = ImeAction.Next,
+    contentAlignment: Alignment = Alignment.Center
 ) {
     BasicTextField(
         singleLine = true,
@@ -299,7 +300,7 @@ fun SimpleTextField(
                     .fillMaxWidth()
                     .wrapContentHeight()
                     .padding(10.dp),
-            contentAlignment = Alignment.Center
+            contentAlignment = contentAlignment
             ) {
                 innerTextField()
             }

@@ -139,11 +139,11 @@
     
     <!-- Order Confirm -->
     <string name="cash">كاش عند الوصول</string>
-    <string name="card_number">رقم البطاقة</string>
+    <string name="card_id">رقم البطاقة</string>
     <string name="card_name">اسم البطاقة</string>
-    <string name="Expiration">تاريخ الانتهاء</string>
-    <string name="cvv">cw/cvc</string>
-    <string name="pay_button">إكمال عملية الشراء</string>
+    <string name="expire_date">تاريخ الانتهاء</string>
+    <string name="cvc">cw/cvc</string>
+    <string name="pay">إكمال عملية الشراء</string>
 
     <!-- Treatment Screen -->
     <string name="choose_crop">اختار المحصول المصاب</string>

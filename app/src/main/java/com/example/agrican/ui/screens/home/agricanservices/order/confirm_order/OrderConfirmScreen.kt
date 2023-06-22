@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -46,6 +47,7 @@ import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.title
+import com.example.agrican.ui.theme.white
 
 @Composable
 fun OrderConfirmScreen(
@@ -134,6 +136,7 @@ fun OrderConfirmScreenContent(
         Surface(
             shape = RoundedCornerShape(16.dp),
             border = BorderStroke(1.dp, if (isCash) greenDark else gray),
+            color = white,
             modifier = Modifier.fillMaxWidth()
         ) {
             Row(
@@ -158,6 +161,7 @@ fun OrderConfirmScreenContent(
         Surface(
             shape = RoundedCornerShape(16.dp),
             border = BorderStroke(1.dp, if (!isCash) greenDark else gray),
+            color = white,
             modifier = Modifier.fillMaxWidth()
         ) {
             Row(
@@ -197,12 +201,13 @@ fun OrderConfirmScreenContent(
             value = cardName,
             onNewValue = changeCardName,
             placeHolder = { },
-            focusManager = focusManager
+            focusManager = focusManager,
+            contentAlignment = Alignment.CenterStart
         )
 
         // Personal Id
         Text(
-            text = stringResource(id = R.string.card_number),
+            text = stringResource(id = R.string.card_id),
             color = Color(0xff5a5a5a),
             fontSize = 12.sp,
             style = MaterialTheme.typography.body,
@@ -215,77 +220,89 @@ fun OrderConfirmScreenContent(
             placeHolder = { },
             focusManager = focusManager,
             imeAction = ImeAction.Go,
-            keyboardType = KeyboardType.Number
+            keyboardType = KeyboardType.Number,
+            contentAlignment = Alignment.CenterStart
         )
 
-        Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-            Column(
-                verticalArrangement = Arrangement.spacedBy(8.dp),
+        Row {
+            // Expired Date
+            Text(
+                text = stringResource(id = R.string.expire_date),
+                color = Color(0xff5a5a5a),
+                style = MaterialTheme.typography.body,
+                fontSize = 12.sp,
                 modifier = Modifier.weight(1f)
-            ) {
-                // Expired Date
-                Text(
-                    text = stringResource(id = R.string.Expiration),
-                    color = Color(0xff5a5a5a),
-                    style = MaterialTheme.typography.body,
-                    fontSize = 12.sp
-                )
+            )
 
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    // Month
-                    SimpleTextField(
-                        value = month,
-                        onNewValue = {
-                            if (cvc.length < 3) { changeMonth(it) }
-                        },
-                        placeHolder = {
-                            Text(text = "MM")
-                        },
-                        focusManager = focusManager,
-                        imeAction = ImeAction.Go,
-                        keyboardType = KeyboardType.Number,
-                        modifier = Modifier.weight(1f)
-                    )
+            // CW/CVC
+            Text(
+                text = stringResource(id = R.string.cvc),
+                color = Color(0xff5a5a5a),
+                style = MaterialTheme.typography.body,
+                fontSize = 12.sp,
+                modifier = Modifier.weight(1f).padding(start = 4.dp)
+            )
+        }
 
-                    // Year
-                    SimpleTextField(
-                        value = year,
-                        onNewValue = {
-                            if (cvc.length < 3) { changeYear(it) }
-                        },
-                        placeHolder = {
-                            Text(text = "YY")
-                        },
-                        focusManager = focusManager,
-                        imeAction = ImeAction.Go,
-                        keyboardType = KeyboardType.Number,
-                        modifier = Modifier.weight(1f)
-                    )
-                }
-            }
-
-            Column(
-                verticalArrangement = Arrangement.spacedBy(8.dp),
+        Row(modifier = Modifier.height(35.dp)) {
+            // Month
+            SimpleTextField(
+                value = month,
+                onNewValue = {
+                    if (cvc.length < 3) { changeMonth(it) }
+                },
+                placeHolder = {
+                    Text(
+                        text = "MM",
+                        color = gray,
+                        modifier = Modifier.padding(start = 10.dp)
+                    ) },
+                focusManager = focusManager,
+                imeAction = ImeAction.Go,
+                keyboardType = KeyboardType.Number,
+                contentAlignment = Alignment.CenterStart,
                 modifier = Modifier.weight(1f)
-            ) {
-                // CW/CVC
-                Text(
-                    text = stringResource(id = R.string.cvv),
-                    color = Color(0xff5a5a5a),
-                    style = MaterialTheme.typography.body,
-                    fontSize = 14.sp
-                )
-                SimpleTextField(
-                    value = cvc,
-                    onNewValue = {
-                        if (cvc.length < 4) { changeCvc(it) }
-                    },
-                    placeHolder = { },
-                    focusManager = focusManager,
-                    imeAction = ImeAction.Done,
-                    keyboardType = KeyboardType.Number
-                )
-            }
+            )
+
+            Spacer(modifier = Modifier.width(8.dp))
+
+            // Year
+            SimpleTextField(
+                value = year,
+                onNewValue = {
+                    if (cvc.length < 3) {
+                        changeYear(it)
+                    }
+                },
+                placeHolder = {
+                    Text(
+                        text = "YY",
+                        color = gray,
+                        modifier = Modifier.padding(start = 10.dp)
+                    )
+                },
+                focusManager = focusManager,
+                imeAction = ImeAction.Go,
+                keyboardType = KeyboardType.Number,
+                contentAlignment = Alignment.CenterStart,
+                modifier = Modifier.padding(end = 16.dp).weight(1f)
+            )
+
+            // CVC Text Field
+            SimpleTextField(
+                value = cvc,
+                onNewValue = {
+                    if (cvc.length < 4) {
+                        changeCvc(it)
+                    }
+                },
+                placeHolder = { },
+                focusManager = focusManager,
+                imeAction = ImeAction.Done,
+                keyboardType = KeyboardType.Number,
+                contentAlignment = Alignment.CenterStart,
+                modifier = Modifier.weight(2f)
+            )
         }
 
         // Confirm Order Button
@@ -322,7 +339,7 @@ fun OrderConfirmScreenContent(
                 }
 
                 Text(
-                    text = stringResource(id = R.string.pay_button),
+                    text = stringResource(id = R.string.pay),
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold
                 )
