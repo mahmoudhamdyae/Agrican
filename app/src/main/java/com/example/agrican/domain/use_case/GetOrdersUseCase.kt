@@ -16,6 +16,7 @@ class GetOrdersUseCase @Inject constructor(
                 name = "سماد عالى الفسفور",
                 t = "تقاوي",
                 price = 500.0,
+                currency = "EGP",
                 description = "سماد عضوى لتغذية النباتات سماد عضوى لتغذية النباتات سماد عضوى لتغذية النباتات"
             )
         )

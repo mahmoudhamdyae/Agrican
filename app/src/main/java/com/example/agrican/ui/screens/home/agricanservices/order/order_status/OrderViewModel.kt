@@ -50,33 +50,22 @@ class OrderViewModel @Inject constructor(
                     val token = tokenResponse.body()?.token
 
                     val orderResponse =  apiService.getOrder(
-//                        OrderModel(token.toString(), "false", order.price.toString(), order.currency)
-                        OrderModel(token.toString(), "false", "100", "EGP")
+                        OrderModel(token.toString(), "false", order.price.toString(), order.currency)
+//                        OrderModel(token.toString(), "false", order.price.toString(), "EGP")
                     )
 
                     if (orderResponse.isSuccessful) {
                         Log.d(TAG, "getOrder done ${orderResponse.body()?.id}")
                         val orderId = orderResponse.body()?.id
 
-//                        val requestModel = PaymentRequest(
-//                            order.price.toString(), token.toString(),
-//                            BillingData(
-//                                "NA", "NA", "NA", "NA",
-//                                _uiState.value.currentUser.email, _uiState.value.currentUser.userName.trim(), "NA",
-//                                _uiState.value.currentUser.userName.trim(), _uiState.value.currentUser.phoneNumber, "NA", "NA",
-//                                "NA", "NA"
-//                            ), order.currency, 3600, Constant.INTEGRATION_ID_CARD,
-//                            "true",
-//                            orderId.toString()
-//                        )
                         val requestModel = PaymentRequest(
-                            "100", token.toString(),
-                            BillingData( // "NA" if empty
-                                "803", "8028", "Jask", "CR",
-                                "claudette09@exa.com", "Test", "42",
-                                "Account", "+86(8)9135210487", "01898", "NA",
-                                "Uta", "NA"
-                            ), "EGP", 3600, Constant.INTEGRATION_ID_CARD,
+                            order.price.toString(), token.toString(),
+                            BillingData(
+                                "NA", "NA", "NA", "NA",
+                                _uiState.value.currentUser.email, _uiState.value.currentUser.userName.trim(), "NA",
+                                _uiState.value.currentUser.userName.trim(), _uiState.value.currentUser.phoneNumber, "NA", "NA",
+                                "NA", "NA"
+                            ), order.currency, 3600, Constant.INTEGRATION_ID_CARD,
                             "true",
                             orderId.toString()
                         )
