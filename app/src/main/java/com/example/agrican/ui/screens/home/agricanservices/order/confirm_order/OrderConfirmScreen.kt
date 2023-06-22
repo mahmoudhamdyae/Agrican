@@ -171,7 +171,7 @@ fun OrderConfirmScreenContent(
 
         // Personal Id
         Text(
-            text = stringResource(id = R.string.card_id),
+            text = stringResource(id = R.string.card_number),
             color = Color(0xff5a5a5a),
             fontSize = 12.sp,
             style = MaterialTheme.typography.body,
@@ -190,7 +190,7 @@ fun OrderConfirmScreenContent(
             ) {
                 // Expired Date
                 Text(
-                    text = stringResource(id = R.string.expire_date),
+                    text = stringResource(id = R.string.Expiration),
                     color = Color(0xff5a5a5a),
                     style = MaterialTheme.typography.body,
                     fontSize = 12.sp
@@ -210,7 +210,7 @@ fun OrderConfirmScreenContent(
             ) {
                 // CW/CVC
                 Text(
-                    text = stringResource(id = R.string.cvc),
+                    text = stringResource(id = R.string.cvv),
                     color = Color(0xff5a5a5a),
                     style = MaterialTheme.typography.body,
                     fontSize = 14.sp
@@ -263,7 +263,7 @@ fun OrderConfirmScreenContent(
                 }
 
                 Text(
-                    text = stringResource(id = R.string.complete_buying),
+                    text = stringResource(id = R.string.pay_button),
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold
                 )

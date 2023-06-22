@@ -14,14 +14,12 @@ import com.example.agrican.data.remote.model.PaymentRequest
 import com.example.agrican.domain.model.Order
 import com.example.agrican.domain.use_case.BaseUseCase
 import com.example.agrican.ui.screens.BaseViewModel
+import com.example.agrican.ui.screens.home.agricanservices.order.confirm_order.PayActivity
 import com.example.agrican.ui.theme.greenDark
-import com.paymob.acceptsdk.PayActivity
-import com.paymob.acceptsdk.PayActivityIntentKeys
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
-
 
 private const val TAG = "OrderViewModel"
 
@@ -113,11 +111,11 @@ class OrderViewModel @Inject constructor(
     private fun confirmOrder(context: Context, launchPayment: (Intent) -> Unit) {
         val payIntent = Intent(context, PayActivity::class.java)
 
-        payIntent.putExtra(PayActivityIntentKeys.PAYMENT_KEY, _uiState.value.token)
-        payIntent.putExtra(PayActivityIntentKeys.THREE_D_SECURE_ACTIVITY_TITLE, "Verification")
-        payIntent.putExtra(PayActivityIntentKeys.SAVE_CARD_DEFAULT, false)
-        payIntent.putExtra(PayActivityIntentKeys.SHOW_SAVE_CARD, false)
-        payIntent.putExtra(PayActivityIntentKeys.THEME_COLOR, greenDark.toArgb())
+        payIntent.putExtra("payment_key", _uiState.value.token)
+        payIntent.putExtra("three_d_secure_activity_title", "Verification")
+        payIntent.putExtra("save_card_default", false)
+        payIntent.putExtra("show_save_card", false)
+        payIntent.putExtra("theme_color", greenDark.toArgb())
         payIntent.putExtra("ActionBar", false)
         payIntent.putExtra("language", AppCompatDelegate.getApplicationLocales().toLanguageTags())
 

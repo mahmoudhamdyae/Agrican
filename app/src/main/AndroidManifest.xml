@@ -57,6 +57,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".ui.screens.home.agricanservices.order.confirm_order.PayActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat">
+        </activity>
     </application>
 
 </manifest>
