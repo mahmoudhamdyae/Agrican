@@ -7,7 +7,7 @@ class SignOutUseCase @Inject constructor(
     private val accountService: AccountService
 ) {
 
-    suspend operator fun invoke(onSuccess: () -> Unit) {
-        accountService.signOut(onSuccess)
+    suspend operator fun invoke(onSuccess: () -> Unit, onError: () -> Unit) {
+        accountService.signOut(onSuccess, onError)
     }
 }

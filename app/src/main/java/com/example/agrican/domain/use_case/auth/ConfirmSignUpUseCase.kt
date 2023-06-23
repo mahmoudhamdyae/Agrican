@@ -7,7 +7,13 @@ class ConfirmSignUpUseCase @Inject constructor(
     private val accountService: AccountService
 ) {
 
-    suspend operator fun invoke(userName: String, code: String, password: String, onSuccess: () -> Unit) {
-        accountService.confirmSignUp(userName, code, password, onSuccess)
+    suspend operator fun invoke(
+        userName: String,
+        code: String,
+        password: String,
+        onSuccess: () -> Unit,
+        onError: () -> Unit
+    ) {
+        accountService.confirmSignUp(userName, code, password, onSuccess, onError)
     }
 }

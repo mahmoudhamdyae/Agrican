@@ -30,6 +30,9 @@ class SignupViewModel @Inject constructor(
     private val validationEventChannel = Channel<ValidationEvent>()
     val validationEvents = validationEventChannel.receiveAsFlow()
 
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading = _isLoading.asStateFlow()
+
     fun setAccountType(accountType: UserType?) {
         _accountType.value = accountType
     }
@@ -125,13 +128,20 @@ class SignupViewModel @Inject constructor(
 
     fun onSignUpClick(accountType: UserType, onSuccess: () -> Unit) {
         launchCatching {
+            _isLoading.value = true
             useCase.signupUseCase(
                 userName = state.userName,
                 password = state.password,
                 phoneNumber = state.phoneNumber,
                 email = state.email,
                 accountType = accountType,
-                onSuccess = onSuccess
+                onSuccess = {
+                    onSuccess()
+                    _isLoading.value = false
+                },
+                onError = {
+                    _isLoading.value = false
+                }
             )
         }
     }
@@ -141,8 +151,15 @@ class SignupViewModel @Inject constructor(
             useCase.confirmSignUpUseCase(
                 userName = state.userName,
                 code = state.confirmCode,
-                password = state.password
-            ) { navigate(HomeDestination.route) }
+                password = state.password,
+                onSuccess = {
+                    navigate(HomeDestination.route)
+                    _isLoading.value = false
+                },
+                onError = {
+                    _isLoading.value = false
+                }
+            )
         }
     }
 }

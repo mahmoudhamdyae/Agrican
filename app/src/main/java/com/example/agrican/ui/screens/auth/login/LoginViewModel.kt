@@ -12,6 +12,8 @@ import com.example.agrican.ui.screens.auth.ValidationEvent
 import com.example.agrican.ui.screens.home.HomeDestination
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import javax.inject.Inject
 
@@ -25,6 +27,9 @@ class LoginViewModel @Inject constructor(
 
     private val validationEventChannel = Channel<ValidationEvent>()
     val validationEvents = validationEventChannel.receiveAsFlow()
+
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading = _isLoading.asStateFlow()
 
     fun setAccountType(accountType: UserType) {
         this.accountType.value = accountType
@@ -89,10 +94,18 @@ class LoginViewModel @Inject constructor(
 
     fun onSignInClick(navigate: (String) -> Unit) {
         launchCatching {
+            _isLoading.value = true
             useCase.loginUseCase(
                 userName = state.userName,
-                password = state.password
-            ) { navigate(HomeDestination.route) }
+                password = state.password,
+                onSuccess = {
+                    navigate(HomeDestination.route)
+                    _isLoading.value = false
+                },
+                onError = {
+                    _isLoading.value = false
+                }
+            )
         }
     }
 
@@ -105,7 +118,11 @@ class LoginViewModel @Inject constructor(
         }
 
         launchCatching {
-            useCase.forgotPasswordUseCase(userName = state.userName) { }
+            useCase.forgotPasswordUseCase(
+                userName = state.userName,
+                onSuccess = { },
+                onError = { }
+            )
         }
     }
 
@@ -132,11 +149,19 @@ class LoginViewModel @Inject constructor(
 
     fun onConfirmResetPassword(navigate: (String) -> Unit) {
         launchCatching {
+            _isLoading.value = true
             useCase.confirmResetPasswordUseCase(
                 userName = state.userName,
                 newPassword = state.repeatedPassword,
                 code = state.confirmCode,
-            ) { navigate(HomeDestination.route) }
+                onSuccess = {
+                    navigate(HomeDestination.route)
+                    _isLoading.value = false
+                },
+                onError = {
+                    _isLoading.value = false
+                }
+            )
         }
     }
 }

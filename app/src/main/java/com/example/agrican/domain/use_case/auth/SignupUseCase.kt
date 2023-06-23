@@ -4,6 +4,7 @@ import com.example.agrican.domain.model.User
 import com.example.agrican.domain.model.UserType
 import com.example.agrican.domain.repository.AccountService
 import com.example.agrican.domain.repository.MainRepository
+import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 class SignupUseCase @Inject constructor(
@@ -17,25 +18,32 @@ class SignupUseCase @Inject constructor(
         phoneNumber: String,
         email: String,
         accountType: UserType,
-        onSuccess: () -> Unit
+        onSuccess: () -> Unit,
+        onError: () -> Unit
     ) {
         accountService.signup(
             userName = userName,
             email = email,
             phoneNumber = phoneNumber,
             password = password,
-            onSuccess = onSuccess
-        )
+            onSuccess = {
 
-        val userId = accountService.getCurrentUserId()
-        val user = User(
-            userName = userName,
-            phoneNumber = phoneNumber,
-            email = email,
-            userType = accountType,
-            userId = userId
-        )
+                runBlocking {
+                    val userId = accountService.getCurrentUserId()
+                    val user = User(
+                        userName = userName,
+                        phoneNumber = phoneNumber,
+                        email = email,
+                        userType = accountType,
+                        userId = userId
+                    )
 
-        mainRepository.createUser(user)
+                    mainRepository.createUser(user)
+                }
+
+                onSuccess()
+            },
+            onError = onError
+        )
     }
 }

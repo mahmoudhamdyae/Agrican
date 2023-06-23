@@ -1,5 +1,6 @@
 package com.example.agrican.ui.screens.auth.signup
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -38,6 +39,7 @@ import com.example.agrican.R
 import com.example.agrican.domain.model.UserType
 import com.example.agrican.ui.components.BackButton
 import com.example.agrican.ui.components.Background
+import com.example.agrican.ui.components.DialogBoxLoading
 import com.example.agrican.ui.components.EmailField
 import com.example.agrican.ui.components.PasswordField
 import com.example.agrican.ui.components.PhoneNumberField
@@ -67,6 +69,7 @@ fun SignupScreen(
 ) {
 
     val state = viewModel.state
+    val isLoading by viewModel.isLoading.collectAsStateWithLifecycle()
     val context = LocalContext.current
 
     val accountType by viewModel.accountType.collectAsStateWithLifecycle()
@@ -96,6 +99,10 @@ fun SignupScreen(
         confirmAccount = confirmAccount,
         modifier = modifier
     )
+
+    AnimatedVisibility(isLoading) {
+        DialogBoxLoading()
+    }
 }
 
 @Composable

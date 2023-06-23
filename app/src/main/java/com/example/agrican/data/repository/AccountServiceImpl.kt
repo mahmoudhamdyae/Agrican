@@ -23,7 +23,12 @@ class AccountServiceImpl @Inject constructor(
         return auth.getCurrentUser().userId
     }
 
-    override suspend fun login(userName: String, password: String, onSuccess: () -> Unit) {
+    override suspend fun login(
+        userName: String,
+        password: String,
+        onSuccess: () -> Unit,
+        onError: () -> Unit
+    ) {
         try {
             val result = auth.signIn(userName, password)
             if (result.isSignedIn) {
@@ -31,10 +36,12 @@ class AccountServiceImpl @Inject constructor(
                 onSuccess()
             } else {
                 Log.e("AuthQuickstart", "Sign in not complete")
+                onError()
             }
         } catch (error: AuthException) {
             Log.e("AuthQuickstart", "Sign in failed", error)
             SnackBarManager.showMessage(error.toSnackBarMessage())
+            onError()
         }
     }
 
@@ -43,11 +50,11 @@ class AccountServiceImpl @Inject constructor(
         email: String,
         phoneNumber: String,
         password: String,
-        onSuccess: () -> Unit
+        onSuccess: () -> Unit,
+        onError: () -> Unit
     ) {
         val options = AuthSignUpOptions.builder()
             .userAttribute(AuthUserAttributeKey.email(), email)
-//            .userAttribute(AuthUserAttributeKey.phoneNumber(), "+2$phoneNumber")
             .build()
         try {
             val result = auth.signUp(userName, password, options)
@@ -56,25 +63,34 @@ class AccountServiceImpl @Inject constructor(
         } catch (error: AuthException) {
             Log.e("AuthQuickStart", "Sign up failed", error)
             SnackBarManager.showMessage(error.toSnackBarMessage())
+            onError()
         }
     }
 
-    override suspend fun confirmSignUp(userName: String, code: String, password: String, onSuccess: () -> Unit) {
+    override suspend fun confirmSignUp(
+        userName: String,
+        code: String,
+        password: String,
+        onSuccess: () -> Unit,
+        onError: () -> Unit
+    ) {
         try {
             val result = auth.confirmSignUp(userName, code)
             if (result.isSignUpComplete) {
                 Log.i("AuthQuickstart", "Signup confirmed")
-                login(userName, password, onSuccess)
+                login(userName, password, onSuccess, onError)
             } else {
                 Log.i("AuthQuickstart", "Signup confirmation not yet complete")
+                onError()
             }
         } catch (error: AuthException) {
             Log.e("AuthQuickstart", "Failed to confirm signup", error)
             SnackBarManager.showMessage(error.toSnackBarMessage())
+            onError()
         }
     }
 
-    override suspend fun signOut(onSuccess: () -> Unit) {
+    override suspend fun signOut(onSuccess: () -> Unit, onError: () -> Unit) {
         when(val signOutResult = auth.signOut()) {
             is AWSCognitoAuthSignOutResult.CompleteSignOut -> {
                 // Sign Out completed fully and without errors.
@@ -82,6 +98,8 @@ class AccountServiceImpl @Inject constructor(
                 onSuccess()
             }
             is AWSCognitoAuthSignOutResult.PartialSignOut -> {
+                onError()
+
                 // Sign Out completed with some errors. User is signed out of the device.
                 signOutResult.hostedUIError?.let {
                     Log.e("AuthQuickStart", "HostedUI Error", it.exception)
@@ -98,6 +116,8 @@ class AccountServiceImpl @Inject constructor(
                 }
             }
             is AWSCognitoAuthSignOutResult.FailedSignOut -> {
+                onError()
+
                 // Sign Out failed with an exception, leaving the user signed in.
                 Log.e("AuthQuickStart", "Sign out Failed", signOutResult.exception)
                 SnackBarManager.showMessage(signOutResult.exception.toSnackBarMessage())
@@ -105,7 +125,11 @@ class AccountServiceImpl @Inject constructor(
         }
     }
 
-    override suspend fun resetPassword(userName: String, onSuccess: () -> Unit) {
+    override suspend fun resetPassword(
+        userName: String,
+        onSuccess: () -> Unit,
+        onError: () -> Unit
+    ) {
         try {
             val result = auth.resetPassword(userName)
             Log.i("AuthQuickstart", "Password reset OK: $result")
@@ -113,6 +137,7 @@ class AccountServiceImpl @Inject constructor(
         } catch (error: AuthException) {
             Log.e("AuthQuickstart", "Password reset failed", error)
             SnackBarManager.showMessage(error.toSnackBarMessage())
+            onError()
         }
     }
 
@@ -120,15 +145,17 @@ class AccountServiceImpl @Inject constructor(
         userName: String,
         newPassword: String,
         confirmationCode: String,
-        onSuccess: () -> Unit
+        onSuccess: () -> Unit,
+        onError: () -> Unit
     ) {
         try {
             auth.confirmResetPassword(userName, newPassword, confirmationCode)
             Log.i("AuthQuickstart", "New password confirmed")
-            login(userName, newPassword, onSuccess)
+            login(userName, newPassword, onSuccess, onError)
         } catch (error: AuthException) {
             Log.e("AuthQuickstart", "Failed to confirm password reset", error)
             SnackBarManager.showMessage(error.toSnackBarMessage())
+            onError()
         }
     }
 }

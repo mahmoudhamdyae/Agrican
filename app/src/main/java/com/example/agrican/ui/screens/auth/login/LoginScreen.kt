@@ -1,5 +1,6 @@
 package com.example.agrican.ui.screens.auth.login
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -38,9 +39,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
 import com.example.agrican.domain.model.UserType
 import com.example.agrican.ui.components.Background
+import com.example.agrican.ui.components.DialogBoxLoading
 import com.example.agrican.ui.components.DropDown
 import com.example.agrican.ui.components.PasswordField
 import com.example.agrican.ui.components.UserNameField
@@ -66,6 +69,7 @@ fun LoginScreen(
     viewModel: LoginViewModel = hiltViewModel()
 ) {
     val state = viewModel.state
+    val isLoading by viewModel.isLoading.collectAsStateWithLifecycle()
     val context = LocalContext.current
 
     var confirmResetScreen by rememberSaveable { mutableStateOf(false) }
@@ -93,6 +97,10 @@ fun LoginScreen(
         setConfirmResetScreen = { confirmResetScreen = true },
         modifier = modifier
     )
+
+    AnimatedVisibility(isLoading) {
+        DialogBoxLoading()
+    }
 }
 
 @Composable

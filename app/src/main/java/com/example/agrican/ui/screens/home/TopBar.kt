@@ -1,6 +1,7 @@
 package com.example.agrican.ui.screens.home
 
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -29,7 +30,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.os.LocaleListCompat
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
+import com.example.agrican.ui.components.DialogBoxLoading
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.iconGray
 import com.example.agrican.ui.theme.white
@@ -43,6 +46,7 @@ fun TopBar(
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     var showMenu by remember { mutableStateOf(false) }
+    val isLoading by viewModel.isLoading.collectAsStateWithLifecycle()
 
     TopAppBar(
         title = title,
@@ -99,6 +103,10 @@ fun TopBar(
         },
         modifier = modifier.shadow(16.dp)
     )
+
+    AnimatedVisibility(isLoading) {
+        DialogBoxLoading()
+    }
 }
 
 private fun toggleLanguage() {

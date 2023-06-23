@@ -10,8 +10,9 @@ class LoginUseCase @Inject constructor(
     suspend operator fun invoke(
         userName: String,
         password: String,
-        onSuccess: () -> Unit
+        onSuccess: () -> Unit,
+        onError: () -> Unit
     ) {
-        accountService.login(userName, password, onSuccess)
+        accountService.login(userName, password, onSuccess, onError)
     }
 }

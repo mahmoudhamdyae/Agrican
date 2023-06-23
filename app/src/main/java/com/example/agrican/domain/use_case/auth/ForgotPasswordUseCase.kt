@@ -7,7 +7,7 @@ class ForgotPasswordUseCase @Inject constructor(
     private val accountService: AccountService
 ) {
 
-    suspend operator fun invoke(userName: String, onSuccess: () -> Unit) {
-        accountService.resetPassword(userName, onSuccess)
+    suspend operator fun invoke(userName: String, onSuccess: () -> Unit, onError: () -> Unit) {
+        accountService.resetPassword(userName, onSuccess, onError)
     }
 }
