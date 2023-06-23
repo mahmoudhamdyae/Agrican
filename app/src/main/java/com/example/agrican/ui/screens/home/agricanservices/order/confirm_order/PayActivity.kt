@@ -30,12 +30,14 @@ import com.example.agrican.ui.theme.AgricanTheme
 import com.example.agrican.ui.theme.greenDark
 import com.paymob.acceptsdk.ThreeDSecureWebViewActivty
 import com.paymob.acceptsdk.helper.StringPOSTRequest
+import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONException
 import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
+@AndroidEntryPoint
 class PayActivity : AppCompatActivity() {
     private var hasBilling = false
     private var billingData: JSONObject? = null
@@ -92,7 +94,8 @@ class PayActivity : AppCompatActivity() {
                             cvv = cvcEditText
 
                             handlePayment()
-                        }
+                        },
+                        openAndClear = { this.finish() }
                     )
                 }
             }
