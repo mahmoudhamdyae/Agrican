@@ -1,5 +1,6 @@
 package com.example.agrican.ui.screens.home
 
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -24,9 +25,9 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.os.LocaleListCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.agrican.R
 import com.example.agrican.ui.theme.greenDark
@@ -54,7 +55,10 @@ fun TopBar(
                 // Language Item
                 DropDownItem(
                     text = R.string.language,
-                    onItemClick = { showMenu = false }
+                    onItemClick = {
+                        toggleLanguage()
+                        showMenu = false
+                    }
                 )
 
                 // About Us Item
@@ -73,8 +77,8 @@ fun TopBar(
                 )
             }
 
+            // Notifications Icon
             Row {
-                // Notifications Icon
                 IconButton(onClick = { /*TODO*/ }) {
                     Icon(
                         painter = painterResource(id = R.drawable.notifications),
@@ -95,6 +99,14 @@ fun TopBar(
         },
         modifier = modifier.shadow(16.dp)
     )
+}
+
+private fun toggleLanguage() {
+    if (AppCompatDelegate.getApplicationLocales().toLanguageTags() == "en") {
+        AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("ar"))
+    } else {
+        AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags("en"))
+    }
 }
 
 @Composable
@@ -131,10 +143,4 @@ fun DropDownItem(
             }
         }
     )
-}
-
-@Preview
-@Composable
-fun TopBarPreview() {
-    TopBar(title = { Text(text = "Preview") }, openAndClear = { })
 }
