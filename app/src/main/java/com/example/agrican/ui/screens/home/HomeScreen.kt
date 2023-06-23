@@ -26,6 +26,7 @@ import com.example.agrican.ui.navigation.AgricanServicesGraph
 import com.example.agrican.ui.navigation.MainGraph
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.navigation.ProfileGraph
+import com.example.agrican.ui.screens.auth.login.LoginDestination
 import com.example.agrican.ui.theme.textGray
 import com.example.agrican.ui.theme.title
 
@@ -117,7 +118,10 @@ fun HomeScreen(
                     )
                 }
                 2 -> {
-                    AgricanServicesGraph(setTopBarTitle = { topBarTitle = it })
+                    AgricanServicesGraph(
+                        setTopBarTitle = { topBarTitle = it },
+                        navigateToLoginScreen = { openAndClear(LoginDestination.route) }
+                    )
                     shouldShowTopBar = true
                     topBarIcon = false
                 }

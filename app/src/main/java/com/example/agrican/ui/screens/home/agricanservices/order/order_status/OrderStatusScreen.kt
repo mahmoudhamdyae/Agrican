@@ -64,6 +64,7 @@ object OrderStatusDestination: NavigationDestination {
 @Composable
 fun OrderStatusScreen(
     navigateUp: () -> Unit,
+    navigateToLoginScreen: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: OrderViewModel = hiltViewModel()
 ) {
@@ -73,6 +74,7 @@ fun OrderStatusScreen(
         OrderStatusScreenContent(
             uiState = uiState,
             confirmOrder = viewModel::getTokenAndConfirmOrder,
+            navigateToLoginScreen = navigateToLoginScreen,
             modifier = modifier
         )
     }
@@ -82,6 +84,7 @@ fun OrderStatusScreen(
 fun OrderStatusScreenContent(
     uiState: OrderUiState,
     confirmOrder: (Context, Order, (Intent) -> Unit) -> Unit,
+    navigateToLoginScreen: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -102,7 +105,11 @@ fun OrderStatusScreenContent(
                 .background(gray)
         )
 
-        OrdersList(orders = uiState.orders, confirmOrder = confirmOrder)
+        OrdersList(
+            orders = uiState.orders,
+            confirmOrder = confirmOrder,
+            navigateToLoginScreen = navigateToLoginScreen
+        )
     }
 }
 
@@ -126,6 +133,7 @@ fun EmptyView(
 fun OrdersList(
     orders: List<Order>,
     confirmOrder: (Context, Order, (Intent) -> Unit) -> Unit,
+    navigateToLoginScreen: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     if (orders.isEmpty()) {
@@ -133,7 +141,11 @@ fun OrdersList(
     } else {
         LazyColumn(modifier = modifier) {
             items(orders.size) {
-                OrdersListItem(order = orders[it], confirmOrder = confirmOrder)
+                OrdersListItem(
+                    order = orders[it],
+                    confirmOrder = confirmOrder,
+                    navigateToLoginScreen = navigateToLoginScreen
+                )
             }
 
             // Spacer for Bottom Navigation Bar
@@ -148,6 +160,7 @@ fun OrdersList(
 fun OrdersListItem(
     order: Order,
     confirmOrder: (Context, Order, (Intent) -> Unit) -> Unit,
+    navigateToLoginScreen: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Box(
@@ -296,6 +309,11 @@ fun OrdersListItem(
                             extras!!.getString(IntentConstants.RAW_PAY_RESPONSE)
                         )
                     }
+                    99 -> {
+                        if (extras!!.getBoolean("openAndClearKey")) {
+                            navigateToLoginScreen()
+                        }
+                    }
                 }
             }
         )
@@ -318,18 +336,26 @@ fun OrdersListItem(
 @Preview(showBackground = true)
 @Composable
 fun OrderStatusPreview() {
-    OrdersList(orders = listOf(
-        Order(
-            name = "سماد عالى الفسفور",
-            t = "تقاوي",
-            price = 500.0,
-            description = "سماد عضوى لتغذية النباتات سماد عضوى لتغذية النباتات سماد عضوى لتغذية النباتات"
-        )
-    ), confirmOrder = { _, _, _ -> })
+    OrdersList(
+        orders = listOf(
+            Order(
+                name = "سماد عالى الفسفور",
+                t = "تقاوي",
+                price = 500.0,
+                description = "سماد عضوى لتغذية النباتات سماد عضوى لتغذية النباتات سماد عضوى لتغذية النباتات"
+            )
+        ),
+        confirmOrder = { _, _, _ -> },
+        navigateToLoginScreen = { }
+    )
 }
 
 @Preview(showBackground = true)
 @Composable
 fun OrderListItemPreview() {
-    OrderStatusScreenContent(uiState = OrderUiState(), confirmOrder = { _, _, _ -> })
+    OrderStatusScreenContent(
+        uiState = OrderUiState(),
+        confirmOrder = { _, _, _ -> },
+        navigateToLoginScreen = { }
+    )
 }

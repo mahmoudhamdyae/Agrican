@@ -30,6 +30,7 @@ import com.example.agrican.ui.screens.home.agricanservices.treatment.TreatmentSc
 @Composable
 fun AgricanServicesGraph(
     setTopBarTitle: (Int) -> Unit,
+    navigateToLoginScreen: () -> Unit,
 ) {
     val navController = rememberNavController()
 
@@ -69,7 +70,7 @@ fun AgricanServicesGraph(
         }
 
         composable(route = OrderStatusDestination.route) {
-            OrderStatusScreen(navigateUp = navigateUp)
+            OrderStatusScreen(navigateUp = navigateUp, navigateToLoginScreen = navigateToLoginScreen)
         }
 
         composable(route = DiseasesDestination.route) {

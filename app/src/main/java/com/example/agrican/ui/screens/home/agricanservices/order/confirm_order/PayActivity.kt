@@ -95,7 +95,11 @@ class PayActivity : AppCompatActivity() {
 
                             handlePayment()
                         },
-                        openAndClear = { this.finish() }
+                        openAndClear = {
+                            val intent = Intent().putExtra("openAndClearKey", true)
+                            this.setResult(99, intent)
+                            this.finish()
+                        }
                     )
                 }
             }
