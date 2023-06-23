@@ -27,6 +27,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.agrican.R
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.iconGray
@@ -36,8 +37,9 @@ import com.example.agrican.ui.theme.white
 @Composable
 fun TopBar(
     title: @Composable () -> Unit,
-    signOutAction: () -> Unit,
-    modifier: Modifier = Modifier
+    openAndClear: (String) -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: HomeViewModel = hiltViewModel()
 ) {
     var showMenu by remember { mutableStateOf(false) }
 
@@ -66,7 +68,7 @@ fun TopBar(
                     text = R.string.sign_out,
                     onItemClick = {
                         showMenu = false
-                        signOutAction()
+                        viewModel.signOut(openAndClear)
                     }
                 )
             }
@@ -134,5 +136,5 @@ fun DropDownItem(
 @Preview
 @Composable
 fun TopBarPreview() {
-    TopBar(title = { Text(text = "Preview") }, signOutAction = { })
+    TopBar(title = { Text(text = "Preview") }, openAndClear = { })
 }

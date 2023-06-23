@@ -44,11 +44,9 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.agrican.R
 import com.example.agrican.ui.components.BackButton
 import com.example.agrican.ui.components.SimpleTextField
-import com.example.agrican.ui.screens.home.HomeViewModel
 import com.example.agrican.ui.screens.home.TopBar
 import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.gray
@@ -75,8 +73,7 @@ fun OrderConfirmScreen(
     orderPrice: Double,
     buy: () -> Unit,
     openAndClear: (String) -> Unit,
-    modifier: Modifier = Modifier,
-    viewModel: HomeViewModel = hiltViewModel()
+    modifier: Modifier = Modifier
 ) {
     Scaffold(
         modifier = modifier,
@@ -89,9 +86,7 @@ fun OrderConfirmScreen(
                         style = MaterialTheme.typography.title
                     )
                 },
-                signOutAction = {
-                    viewModel.signOut(openAndClear)
-                }
+                openAndClear = openAndClear,
             )
         }
     ) { contentPadding ->
