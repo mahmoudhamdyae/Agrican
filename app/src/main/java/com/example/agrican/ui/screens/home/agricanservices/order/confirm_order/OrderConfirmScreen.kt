@@ -217,7 +217,7 @@ fun OrderConfirmScreenContent(
         )
         SimpleTextField(
             value = cardId,
-            onNewValue = { if (it.length <= 16) { changeCardId(it) } },
+            onNewValue = {changeCardId(it.take(16)) },
             placeHolder = { },
             focusManager = focusManager,
             imeAction = ImeAction.Go,
@@ -226,7 +226,7 @@ fun OrderConfirmScreenContent(
         )
 
         Row {
-            // Expired Date
+            // Expired Date Label
             Text(
                 text = stringResource(id = R.string.expire_date),
                 color = Color(0xff5a5a5a),
@@ -235,7 +235,7 @@ fun OrderConfirmScreenContent(
                 modifier = Modifier.weight(1f)
             )
 
-            // CW/CVC
+            // CW/CVC Label
             Text(
                 text = stringResource(id = R.string.cvc),
                 color = Color(0xff5a5a5a),
@@ -248,10 +248,10 @@ fun OrderConfirmScreenContent(
         }
 
         Row(modifier = Modifier.height(35.dp)) {
-            // Month
+            // Month Text Field
             SimpleTextField(
                 value = month,
-                onNewValue = { if (it.length <= 2) { changeMonth(it) } },
+                onNewValue = { changeMonth(it.take(2)) },
                 placeHolder = {
                     Box(
                         modifier = Modifier
@@ -268,10 +268,10 @@ fun OrderConfirmScreenContent(
 
             Spacer(modifier = Modifier.width(8.dp))
 
-            // Year
+            // Year Text Field
             SimpleTextField(
                 value = year,
-                onNewValue = { if (it.length <= 2) { changeYear(it) } },
+                onNewValue = { changeYear(it.take(2)) },
                 placeHolder = {
                     Box(
                         modifier = Modifier
@@ -292,7 +292,7 @@ fun OrderConfirmScreenContent(
             // CVC Text Field
             SimpleTextField(
                 value = cvc,
-                onNewValue = { if (it.length <= 3) { changeCvc(it) } },
+                onNewValue = { changeCvc(it.take(3)) },
                 placeHolder = { },
                 focusManager = focusManager,
                 imeAction = ImeAction.Done,
