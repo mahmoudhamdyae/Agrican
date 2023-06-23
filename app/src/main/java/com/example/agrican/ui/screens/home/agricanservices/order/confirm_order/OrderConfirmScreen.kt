@@ -20,9 +20,11 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -45,13 +47,16 @@ import androidx.compose.ui.unit.sp
 import com.example.agrican.R
 import com.example.agrican.ui.components.BackButton
 import com.example.agrican.ui.components.SimpleTextField
+import com.example.agrican.ui.screens.home.TopBar
 import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
+import com.example.agrican.ui.theme.textGray
 import com.example.agrican.ui.theme.title
 import com.example.agrican.ui.theme.white
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun OrderConfirmScreen(
     navigateUp: () -> Unit,
@@ -69,44 +74,64 @@ fun OrderConfirmScreen(
     buy: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    BackButton(navigateUp = navigateUp) {
-
-        Column(
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-            modifier = modifier
-                .verticalScroll(rememberScrollState())
-                .padding(16.dp)
-                .padding(bottom = 60.dp)
-        ) {
-            Text(
-                text = stringResource(id = R.string.confirm_order),
-                color = greenLight,
-                style = MaterialTheme.typography.title,
-                fontSize = 15.sp,
-                modifier = Modifier.padding(vertical = 8.dp)
+    Scaffold(
+        modifier = modifier,
+        topBar = {
+            TopBar(
+                title = {
+                    Text(
+                        text = stringResource(id = R.string.order),
+                        color = textGray,
+                        style = MaterialTheme.typography.title
+                    )
+                },
+                signOutAction = {
+                    // todo: Add sign out action
+//                    viewModel.signOut(openAndClear)
+                }
             )
+        }
+    ) { contentPadding ->
+        BackButton(navigateUp = navigateUp) {
 
-            Divider(
+            Column(
+                verticalArrangement = Arrangement.spacedBy(16.dp),
                 modifier = Modifier
-                    .height(2.dp)
-                    .background(gray)
-                    .padding(vertical = 8.dp)
-            )
+                    .verticalScroll(rememberScrollState())
+                    .padding(contentPadding)
+                    .padding(16.dp)
+                    .padding(bottom = 60.dp)
+            ) {
+                Text(
+                    text = stringResource(id = R.string.confirm_order),
+                    color = greenLight,
+                    style = MaterialTheme.typography.title,
+                    fontSize = 15.sp,
+                    modifier = Modifier.padding(vertical = 8.dp)
+                )
 
-            OrderConfirmScreenContent(
-                cardName = cardName,
-                changeCardName = changeCardName,
-                cardId = cardId,
-                changeCardId = changeCardId,
-                year = year,
-                changeYear = changeYear,
-                month = month,
-                changeMonth = changeMonth,
-                cvc = cvc,
-                changeCvc = changeCvc,
-                buy = buy,
-                orderPrice = orderPrice
-            )
+                Divider(
+                    modifier = Modifier
+                        .height(2.dp)
+                        .background(gray)
+                        .padding(vertical = 8.dp)
+                )
+
+                OrderConfirmScreenContent(
+                    cardName = cardName,
+                    changeCardName = changeCardName,
+                    cardId = cardId,
+                    changeCardId = changeCardId,
+                    year = year,
+                    changeYear = changeYear,
+                    month = month,
+                    changeMonth = changeMonth,
+                    cvc = cvc,
+                    changeCvc = changeCvc,
+                    buy = buy,
+                    orderPrice = orderPrice
+                )
+            }
         }
     }
 }
@@ -140,7 +165,9 @@ fun OrderConfirmScreenContent(
             shape = RoundedCornerShape(16.dp),
             border = BorderStroke(1.dp, if (isCash) greenDark else gray),
             color = white,
-            modifier = Modifier.padding(bottom = 8.dp).fillMaxWidth()
+            modifier = Modifier
+                .padding(bottom = 8.dp)
+                .fillMaxWidth()
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -306,7 +333,9 @@ fun OrderConfirmScreenContent(
         Button(
             onClick = buy,
             colors = ButtonDefaults.buttonColors(containerColor = greenDark) ,
-            modifier = Modifier.padding(top = 8.dp).fillMaxWidth()
+            modifier = Modifier
+                .padding(top = 8.dp)
+                .fillMaxWidth()
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
