@@ -132,7 +132,7 @@ fun OrderConfirmScreenContent(
     var isCash by rememberSaveable { mutableStateOf(true) }
 
     Column(
-        verticalArrangement = Arrangement.spacedBy(16.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
         modifier = modifier.fillMaxWidth()
     ) {
         // Cash
@@ -140,7 +140,7 @@ fun OrderConfirmScreenContent(
             shape = RoundedCornerShape(16.dp),
             border = BorderStroke(1.dp, if (isCash) greenDark else gray),
             color = white,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.padding(bottom = 8.dp).fillMaxWidth()
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -306,7 +306,7 @@ fun OrderConfirmScreenContent(
         Button(
             onClick = buy,
             colors = ButtonDefaults.buttonColors(containerColor = greenDark) ,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.padding(top = 8.dp).fillMaxWidth()
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
