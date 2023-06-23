@@ -4,13 +4,16 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -214,9 +217,7 @@ fun OrderConfirmScreenContent(
         )
         SimpleTextField(
             value = cardId,
-            onNewValue = {
-                if (cvc.length < 17) { changeCardId(it) }
-            },
+            onNewValue = { if (it.length <= 16) { changeCardId(it) } },
             placeHolder = { },
             focusManager = focusManager,
             imeAction = ImeAction.Go,
@@ -240,7 +241,9 @@ fun OrderConfirmScreenContent(
                 color = Color(0xff5a5a5a),
                 style = MaterialTheme.typography.body,
                 fontSize = 12.sp,
-                modifier = Modifier.weight(1f).padding(start = 4.dp)
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(start = 4.dp)
             )
         }
 
@@ -248,15 +251,14 @@ fun OrderConfirmScreenContent(
             // Month
             SimpleTextField(
                 value = month,
-                onNewValue = {
-                    if (cvc.length < 3) { changeMonth(it) }
-                },
+                onNewValue = { if (it.length <= 2) { changeMonth(it) } },
                 placeHolder = {
-                    Text(
-                        text = "MM",
-                        color = gray,
-                        modifier = Modifier.padding(start = 10.dp)
-                    ) },
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .wrapContentHeight(),
+                        contentAlignment = Alignment.Center
+                    ) { Text(text = "MM", color = gray) } },
                 focusManager = focusManager,
                 imeAction = ImeAction.Go,
                 keyboardType = KeyboardType.Number,
@@ -269,33 +271,28 @@ fun OrderConfirmScreenContent(
             // Year
             SimpleTextField(
                 value = year,
-                onNewValue = {
-                    if (cvc.length < 3) {
-                        changeYear(it)
-                    }
-                },
+                onNewValue = { if (it.length <= 2) { changeYear(it) } },
                 placeHolder = {
-                    Text(
-                        text = "YY",
-                        color = gray,
-                        modifier = Modifier.padding(start = 10.dp)
-                    )
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .wrapContentHeight(),
+                        contentAlignment = Alignment.Center
+                    ) { Text(text = "YY", color = gray) }
                 },
                 focusManager = focusManager,
                 imeAction = ImeAction.Go,
                 keyboardType = KeyboardType.Number,
                 contentAlignment = Alignment.CenterStart,
-                modifier = Modifier.padding(end = 16.dp).weight(1f)
+                modifier = Modifier
+                    .padding(end = 16.dp)
+                    .weight(1f)
             )
 
             // CVC Text Field
             SimpleTextField(
                 value = cvc,
-                onNewValue = {
-                    if (cvc.length < 4) {
-                        changeCvc(it)
-                    }
-                },
+                onNewValue = { if (it.length <= 3) { changeCvc(it) } },
                 placeHolder = { },
                 focusManager = focusManager,
                 imeAction = ImeAction.Done,
@@ -348,6 +345,8 @@ fun OrderConfirmScreenContent(
             }
         }
     }
+
+    Spacer(modifier = Modifier.height(100.dp))
 }
 
 @Preview(showBackground = true)

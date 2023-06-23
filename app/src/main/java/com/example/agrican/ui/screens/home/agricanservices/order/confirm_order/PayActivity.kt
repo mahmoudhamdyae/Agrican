@@ -102,8 +102,7 @@ class PayActivity : AppCompatActivity() {
     }
 
     private fun initUiTheme() {
-        val intent = this.intent
-        themeColor = intent.getIntExtra(
+        themeColor = this.intent.getIntExtra(
             "theme_color",
             this.applicationContext.resources.getColor(R.color.colorPrimaryDark)
         )
