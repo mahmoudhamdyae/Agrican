@@ -90,13 +90,15 @@ fun OrderConfirmScreen(
             )
         }
     ) { contentPadding ->
-        BackButton(navigateUp = navigateUp) {
+        BackButton(
+            navigateUp = navigateUp,
+            modifier = modifier.padding(contentPadding)
+        ) {
 
             Column(
                 verticalArrangement = Arrangement.spacedBy(16.dp),
                 modifier = Modifier
                     .verticalScroll(rememberScrollState())
-                    .padding(contentPadding)
                     .padding(16.dp)
                     .padding(bottom = 60.dp)
             ) {
