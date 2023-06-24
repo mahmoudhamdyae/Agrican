@@ -92,7 +92,7 @@ fun MainScreenContent(
             .verticalScroll(rememberScrollState())
             .padding(bottom = 60.dp)
     ) {
-        WeatherBox(
+        WeatherBoxLoading(
             uiState = uiState,
             modifier = Modifier
                 .fillMaxWidth()
@@ -169,12 +169,61 @@ fun MainScreenContent(
 }
 
 @Composable
-fun WeatherBox(
+fun WeatherBoxLoading(
     uiState: MainUiState,
     modifier: Modifier = Modifier
 ) {
-    val weather = uiState.weather
+    if (uiState.isLoading) {
+        Surface(
+            border = BorderStroke(1.dp, gray),
+            shape = RoundedCornerShape(16.dp),
+            modifier = modifier
+        ) {
+            Box(modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp)) {
+                Column {
 
+                    Text(
+                        text = "الطقس",
+                        style = MaterialTheme.typography.title,
+                        fontSize = 16.sp,
+                    )
+
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(6.dp),
+                        modifier = Modifier.padding(vertical = 8.dp)
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .height(15.dp)
+                                .fillMaxWidth()
+                                .shimmerEffect()
+                        )
+                        Box(
+                            modifier = Modifier
+                                .height(15.dp)
+                                .fillMaxWidth()
+                                .shimmerEffect()
+                        )
+                        Box(
+                            modifier = Modifier
+                                .height(15.dp)
+                                .fillMaxWidth()
+                                .shimmerEffect()
+                        )
+                    }
+                }
+            }
+        }
+    } else {
+        WeatherBox(weather = uiState.weather, modifier = modifier)
+    }
+}
+
+@Composable
+fun WeatherBox(
+    weather: Weather,
+    modifier: Modifier = Modifier
+) {
     Surface(
         border = BorderStroke(1.dp, gray),
         shape = RoundedCornerShape(16.dp),
@@ -294,14 +343,20 @@ fun LatestNewsList(
             if (uiState.isLoading) {
                 items(10) {
                     LatestNewsListItemLoading(
-                        modifier = Modifier.padding(8.dp).height(120.dp).width(160.dp)
+                        modifier = Modifier
+                            .padding(8.dp)
+                            .height(120.dp)
+                            .width(160.dp)
                     )
                 }
             } else {
                 items(uiState.news.size) {
                     LatestNewsListItem(
                         news = uiState.news[it],
-                        modifier = Modifier.padding(8.dp).height(120.dp).width(160.dp)
+                        modifier = Modifier
+                            .padding(8.dp)
+                            .height(120.dp)
+                            .width(160.dp)
                     )
                 }
             }
