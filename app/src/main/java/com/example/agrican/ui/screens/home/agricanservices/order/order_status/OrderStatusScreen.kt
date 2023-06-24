@@ -44,6 +44,7 @@ import com.example.agrican.R
 import com.example.agrican.domain.model.Order
 import com.example.agrican.ui.components.BackButton
 import com.example.agrican.ui.components.EmptyImage
+import com.example.agrican.ui.components.LoadingAnimation
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.gray
@@ -105,11 +106,16 @@ fun OrderStatusScreenContent(
                 .background(gray)
         )
 
-        OrdersList(
-            orders = uiState.orders,
-            confirmOrder = confirmOrder,
-            navigateToLoginScreen = navigateToLoginScreen
-        )
+        if (uiState.orders != null) {
+            OrdersList(
+                orders = uiState.orders,
+                confirmOrder = confirmOrder,
+                navigateToLoginScreen = navigateToLoginScreen
+            )
+        }
+    }
+    if (uiState.isLoading) {
+        LoadingAnimation()
     }
 }
 

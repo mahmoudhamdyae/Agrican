@@ -33,13 +33,16 @@ class OrderViewModel @Inject constructor(
         launchCatching {
             _uiState.value = _uiState.value.copy(
                 orders = useCase.getOrdersUseCase(),
-                currentUser = useCase.getCurrentUserUseCase()
+                currentUser = useCase.getCurrentUserUseCase(),
+                isLoading = false
             )
         }
     }
 
     fun getTokenAndConfirmOrder(context: Context, order: Order, launchPayment: (Intent) -> Unit) {
         launchCatching {
+            _uiState.value = _uiState.value.copy(isLoading = true)
+
             try {
                 val tokenResponse = apiService.getToken(ApiKeyModel(Constant.PAYMENT_KEY))
 
@@ -77,6 +80,7 @@ class OrderViewModel @Inject constructor(
                             confirmOrder(context, order, launchPayment)
                         }
                         else {
+                            _uiState.value = _uiState.value.copy(isLoading = false)
                             Log.d(
                                 TAG, "paymentRequest error body ${paymentResponse.code()}" +
                                         " ${paymentResponse.message()}"
@@ -84,6 +88,7 @@ class OrderViewModel @Inject constructor(
                         }
                     }
                     else {
+                        _uiState.value = _uiState.value.copy(isLoading = false)
                         Log.d(
                             TAG, "getOrder error body ${orderResponse.code()}" +
                                     " ${orderResponse.message()}"
@@ -91,6 +96,7 @@ class OrderViewModel @Inject constructor(
                     }
                 }
                 else {
+                    _uiState.value = _uiState.value.copy(isLoading = false)
                     Log.d(
                         TAG,
                         "getToken error body ${tokenResponse.code()} ${tokenResponse.message()}"
@@ -99,6 +105,7 @@ class OrderViewModel @Inject constructor(
 
             }
             catch (e:Exception) {
+                _uiState.value = _uiState.value.copy(isLoading = false)
                 Log.d(TAG, "getToken error: ${e.message}")
             }
         }
@@ -109,6 +116,8 @@ class OrderViewModel @Inject constructor(
 
         payIntent.putExtra("payment_key", _uiState.value.token)
         payIntent.putExtra("price", order.price)
+
+        _uiState.value = _uiState.value.copy(isLoading = false)
 
         launchPayment(payIntent)
     }

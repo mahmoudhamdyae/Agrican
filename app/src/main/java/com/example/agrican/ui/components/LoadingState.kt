@@ -9,8 +9,10 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -127,6 +129,7 @@ fun ProgressIndicatorLoading(progressIndicatorSize: Dp, progressIndicatorColor: 
 
 @Composable
 fun LoadingAnimation(
+    modifier: Modifier = Modifier,
     indicatorSize: Dp = 100.dp,
     circleColors: List<Color> = listOf(
         Color(0xFF5851D8),
@@ -156,19 +159,24 @@ fun LoadingAnimation(
         )
     )
 
-    CircularProgressIndicator(
-        modifier = Modifier
-            .size(size = indicatorSize)
-            .rotate(degrees = rotateAnimation)
-            .border(
-                width = 4.dp,
-                brush = Brush.sweepGradient(circleColors),
-                shape = CircleShape
-            ),
-        progress = 1f,
-        strokeWidth = 1.dp,
-        color = white
-    )
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = modifier.fillMaxSize()
+    ) {
+        CircularProgressIndicator(
+            modifier = Modifier
+                .size(size = indicatorSize)
+                .rotate(degrees = rotateAnimation)
+                .border(
+                    width = 4.dp,
+                    brush = Brush.sweepGradient(circleColors),
+                    shape = CircleShape
+                ),
+            progress = 1f,
+            strokeWidth = 1.dp,
+            color = white
+        )
+    }
 }
 
 fun Modifier.shimmerEffect(): Modifier = composed {
