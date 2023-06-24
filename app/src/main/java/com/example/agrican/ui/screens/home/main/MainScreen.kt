@@ -47,6 +47,7 @@ import com.example.agrican.R
 import com.example.agrican.domain.model.News
 import com.example.agrican.domain.model.Weather
 import com.example.agrican.ui.components.EmptyImage
+import com.example.agrican.ui.components.shimmerEffect
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.screens.home.main.ask_expert.AskExpertDestination
 import com.example.agrican.ui.screens.home.main.fertilizers_calculator.FertilizersCalculatorDestination
@@ -74,8 +75,7 @@ fun MainScreen(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     MainScreenContent(
-        weather = uiState.weather,
-        news = uiState.news,
+        uiState = uiState,
         openScreen = openScreen,
         modifier = modifier
     )
@@ -83,8 +83,7 @@ fun MainScreen(
 
 @Composable
 fun MainScreenContent(
-    weather: Weather,
-    news: List<News>,
+    uiState: MainUiState,
     openScreen: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -94,7 +93,7 @@ fun MainScreenContent(
             .padding(bottom = 60.dp)
     ) {
         WeatherBox(
-            weather = weather,
+            uiState = uiState,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(18.dp)
@@ -129,7 +128,7 @@ fun MainScreenContent(
             }
         }
 
-        LatestNewsList(news = news, modifier = Modifier.padding(top = 12.dp))
+        LatestNewsList(uiState = uiState, modifier = Modifier.padding(top = 12.dp))
 
         // Problem Images Card
         BottomCard(
@@ -171,9 +170,11 @@ fun MainScreenContent(
 
 @Composable
 fun WeatherBox(
-    weather: Weather,
+    uiState: MainUiState,
     modifier: Modifier = Modifier
 ) {
+    val weather = uiState.weather
+
     Surface(
         border = BorderStroke(1.dp, gray),
         shape = RoundedCornerShape(16.dp),
@@ -274,7 +275,7 @@ fun WeatherBox(
 
 @Composable
 fun LatestNewsList(
-    news: List<News>,
+    uiState: MainUiState,
     modifier: Modifier = Modifier
 ) {
     val scope = rememberCoroutineScope()
@@ -288,15 +289,21 @@ fun LatestNewsList(
                 .height(100.dp)
                 .background(greenLight)
         )
+
         LazyRow(state = scrollState) {
-            items(news.size) {
-                LatestNewsListItem(
-                    news = news[it],
-                    modifier = Modifier
-                        .padding(8.dp)
-                        .height(120.dp)
-                        .width(160.dp)
-                )
+            if (uiState.isLoading) {
+                items(10) {
+                    LatestNewsListItemLoading(
+                        modifier = Modifier.padding(8.dp).height(120.dp).width(160.dp)
+                    )
+                }
+            } else {
+                items(uiState.news.size) {
+                    LatestNewsListItem(
+                        news = uiState.news[it],
+                        modifier = Modifier.padding(8.dp).height(120.dp).width(160.dp)
+                    )
+                }
             }
         }
 
@@ -333,13 +340,46 @@ fun LatestNewsList(
             modifier = Modifier
                 .padding(end = 16.dp)
                 .align(Alignment.CenterEnd)
-                .clickable { scope.launch { scrollState.animateScrollToItem(news.size) } }
+                .clickable { scope.launch { scrollState.animateScrollToItem(uiState.news.size) } }
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.baseline_arrow_forward_ios_24),
                 contentDescription = null,
                 tint = greenLight,
                 modifier = Modifier.padding(8.dp)
+            )
+        }
+    }
+}
+
+@Composable
+fun LatestNewsListItemLoading(
+    modifier: Modifier = Modifier
+) {
+    Surface(
+        shadowElevation = 16.dp,
+        shape = RoundedCornerShape(16.dp),
+        modifier = modifier
+    ) {
+        Column(
+            horizontalAlignment = Alignment.Start,
+            modifier = Modifier.fillMaxSize()
+        ) {
+            // Item Image
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .weight(1f)
+                    .shimmerEffect()
+            )
+
+            // Item Title
+            Box(
+                modifier = Modifier
+                    .padding(vertical = 8.dp, horizontal = 14.dp)
+                    .height(10.dp)
+                    .fillMaxWidth()
+                    .shimmerEffect()
             )
         }
     }
@@ -375,10 +415,7 @@ fun LatestNewsListItem(
                 maxLines = 1,
                 style = MaterialTheme.typography.body,
                 fontSize = 11.sp,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier
-                    .padding(vertical = 8.dp, horizontal = 14.dp)
-                    .background(MaterialTheme.colorScheme.background)
+                modifier = Modifier.padding(vertical = 8.dp, horizontal = 14.dp)
             )
         }
     }
@@ -436,7 +473,9 @@ fun ProblemImagesRow(
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center,
-        modifier = modifier.fillMaxWidth().padding(vertical = 16.dp)
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(vertical = 16.dp)
     ) {
         ProblemImagesRowItem()
         Icon(
@@ -473,20 +512,40 @@ fun ProblemImagesRowItem(
 
 @Preview(showBackground = true)
 @Composable
-fun MainScreenContentPreview() {
-    val weather = Weather(
-        air = "مقبول",
-        degree = 31.0,
-        weatherDescription = "مشمس",
-        wind = "جنوبية غربية 33 كم/س",
-        windGusts = "47 كم/س",
-        firstInformation = "جو مناسب لرى نبات العنب",
-        secondInformation = "من المتوقع حدوث عواصف شديدة غدا"
+fun MainScreenContentLoadingPreview() {
+    MainScreenContent(
+        uiState = MainUiState(
+            weather = fakeWeather,
+            news = fakeNews
+        ),
+        openScreen = { }
     )
-    val news = listOf(
-        News(title = "ابتكار طرق رى جديدة"),
-        News(title = "ابتكار طرق رى جديدة"),
-        News(title = "ابتكار طرق رى جديدة"),
-    )
-    MainScreenContent(weather = weather, news = news, openScreen = { })
 }
+
+@Preview(showBackground = true)
+@Composable
+fun MainScreenContentPreview() {
+    MainScreenContent(
+        uiState = MainUiState(
+            weather = fakeWeather,
+            news = fakeNews,
+            isLoading = false
+        ),
+        openScreen = { }
+    )
+}
+
+val fakeWeather = Weather(
+    air = "مقبول",
+    degree = 31.0,
+    weatherDescription = "مشمس",
+    wind = "جنوبية غربية 33 كم/س",
+    windGusts = "47 كم/س",
+    firstInformation = "جو مناسب لرى نبات العنب",
+    secondInformation = "من المتوقع حدوث عواصف شديدة غدا"
+)
+val fakeNews = listOf(
+    News(title = "ابتكار طرق رى جديدة"),
+    News(title = "ابتكار طرق رى جديدة"),
+    News(title = "ابتكار طرق رى جديدة"),
+)

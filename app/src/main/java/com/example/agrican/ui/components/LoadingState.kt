@@ -1,9 +1,12 @@
 package com.example.agrican.ui.components
 
+import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.keyframes
 import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -18,17 +21,25 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.composed
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import com.example.agrican.ui.theme.white
 
 @Composable
 fun DialogBoxLoading(
@@ -114,8 +125,89 @@ fun ProgressIndicatorLoading(progressIndicatorSize: Dp, progressIndicatorColor: 
     )
 }
 
+@Composable
+fun LoadingAnimation(
+    indicatorSize: Dp = 100.dp,
+    circleColors: List<Color> = listOf(
+        Color(0xFF5851D8),
+        Color(0xFF833AB4),
+        Color(0xFFC13584),
+        Color(0xFFE1306C),
+        Color(0xFFFD1D1D),
+        Color(0xFFF56040),
+        Color(0xFFF77737),
+        Color(0xFFFCAF45),
+        Color(0xFFFFDC80),
+        Color(0xFF5851D8)
+    ),
+    animationDuration: Int = 360
+) {
+
+    val infiniteTransition = rememberInfiniteTransition()
+
+    val rotateAnimation by infiniteTransition.animateFloat(
+        initialValue = 0f,
+        targetValue = 360f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(
+                durationMillis = animationDuration,
+                easing = LinearEasing
+            )
+        )
+    )
+
+    CircularProgressIndicator(
+        modifier = Modifier
+            .size(size = indicatorSize)
+            .rotate(degrees = rotateAnimation)
+            .border(
+                width = 4.dp,
+                brush = Brush.sweepGradient(circleColors),
+                shape = CircleShape
+            ),
+        progress = 1f,
+        strokeWidth = 1.dp,
+        color = white
+    )
+}
+
+fun Modifier.shimmerEffect(): Modifier = composed {
+    var size by remember {
+        mutableStateOf(IntSize.Zero)
+    }
+    val transition = rememberInfiniteTransition()
+    val startOffsetX by transition.animateFloat(
+        initialValue = -2 * size.width.toFloat(),
+        targetValue = 2 * size.width.toFloat(),
+        animationSpec = infiniteRepeatable(
+            animation = tween(1000)
+        )
+    )
+
+    background(
+        brush = Brush.linearGradient(
+            colors = listOf(
+                Color(0xFFB8B5B5),
+                Color(0xFF8F8B8B),
+                Color(0xFFB8B5B5),
+            ),
+            start = Offset(startOffsetX, 0f),
+            end = Offset(startOffsetX + size.width.toFloat(), size.height.toFloat())
+        )
+    )
+        .onGloballyPositioned {
+            size = it.size
+        }
+}
+
 @Preview(showBackground = true)
 @Composable
-fun LoadingScreenPreview() {
+fun DialogBoxLoadingPreview() {
     DialogBoxLoading()
+}
+
+@Preview(showBackground = true)
+@Composable
+fun LoadingAnimationPreview() {
+    LoadingAnimation()
 }
