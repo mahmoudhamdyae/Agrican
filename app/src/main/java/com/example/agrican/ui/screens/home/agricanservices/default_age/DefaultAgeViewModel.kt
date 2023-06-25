@@ -18,7 +18,10 @@ class DefaultAgeViewModel @Inject constructor(
 
     init {
         launchCatching {
-            _uiState.value = _uiState.value.copy(crops = useCase.getCropsUseCase())
+            _uiState.value = _uiState.value.copy(
+                crops = useCase.getCropsUseCase(),
+                isLoading = false
+            )
         }
     }
 
@@ -40,6 +43,8 @@ class DefaultAgeViewModel @Inject constructor(
 
     fun getResults() {
         launchCatching {
+            _uiState.value = _uiState.value.copy(isLoading = true)
+
              val defaultAgeResponse = useCase.getDefaultAgeUseCase(
                 day = _uiState.value.day,
                 month = _uiState.value.month,
@@ -51,7 +56,8 @@ class DefaultAgeViewModel @Inject constructor(
             _uiState.value = _uiState.value.copy(
                 defaultAge = defaultAgeResponse.defaultAge,
                 dangerDegree = defaultAgeResponse.dangerDegree,
-                dangerAdvice = defaultAgeResponse.dangerAdvice
+                dangerAdvice = defaultAgeResponse.dangerAdvice,
+                isLoading = false
             )
         }
     }

@@ -84,6 +84,7 @@ fun TreatmentScreenContent(
         )
 
         CropsList(
+            isLoading = uiState.isLoading,
             crops = uiState.crops,
             setSelectedCrop = onSelectCrop,
             modifier = Modifier.fillMaxWidth().background(greenLight)

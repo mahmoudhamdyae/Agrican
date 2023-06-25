@@ -18,16 +18,23 @@ class TreatmentViewModel @Inject constructor(
 
     fun getCrops() {
         launchCatching {
-            _uiState.value = _uiState.value.copy(crops = useCase.getCropsUseCase())
+            _uiState.value = _uiState.value.copy(
+                crops = useCase.getCropsUseCase(),
+                isLoading = false
+            )
         }
     }
 
     fun getTreatments() {
         launchCatching {
-            _uiState.value = _uiState.value.copy(treatments = useCase.getTreatmentsUseCase(
-                crop = _uiState.value.selectedCrop,
-                diseaseType = _uiState.value.diseaseType
-            ))
+            _uiState.value = _uiState.value.copy(isLoading = true)
+            _uiState.value = _uiState.value.copy(
+                treatments = useCase.getTreatmentsUseCase(
+                    crop = _uiState.value.selectedCrop,
+                    diseaseType = _uiState.value.diseaseType
+                ),
+                isLoading = false
+            )
         }
     }
 

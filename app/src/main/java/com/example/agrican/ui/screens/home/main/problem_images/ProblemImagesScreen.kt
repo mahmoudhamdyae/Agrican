@@ -139,7 +139,11 @@ fun ProblemImageScreenContent(
             fontSize = 14.sp,
             modifier = Modifier.padding(start = 16.dp)
         )
-        CropsList(crops = uiState.crops, setSelectedCrop = { updateSelectedCrop(it) })
+        CropsList(
+            isLoading = uiState.isLoading,
+            crops = uiState.crops,
+            setSelectedCrop = { updateSelectedCrop(it) }
+        )
         Text(
             text = stringResource(id = R.string.choose_problem_image_way),
             style = MaterialTheme.typography.title,

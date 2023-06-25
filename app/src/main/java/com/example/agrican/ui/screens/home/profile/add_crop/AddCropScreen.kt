@@ -82,7 +82,11 @@ fun AddCropScreenContent(
             modifier = Modifier.padding(start = 16.dp)
         )
 
-        CropsList(crops = uiState.crops, setSelectedCrop = updateSelectedCrop)
+        CropsList(
+            isLoading = uiState.isLoading,
+            crops = uiState.crops,
+            setSelectedCrop = updateSelectedCrop
+        )
 
         // Agri History
         Row(

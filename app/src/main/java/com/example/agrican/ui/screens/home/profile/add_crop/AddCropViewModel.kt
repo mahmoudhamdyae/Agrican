@@ -18,7 +18,10 @@ class AddCropViewModel @Inject constructor(
 
     init {
         launchCatching {
-            _uiState.value = _uiState.value.copy(crops = useCase.getCropsUseCase())
+            _uiState.value = _uiState.value.copy(
+                crops = useCase.getCropsUseCase(),
+                isLoading = false
+            )
         }
     }
 

@@ -187,7 +187,11 @@ fun DefaultAgeScreenContent(
             modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp)
         )
 
-        CropsList(crops = uiState.crops, setSelectedCrop = { updateCurrentCrop(it) })
+        CropsList(
+            isLoading = uiState.isLoading,
+            crops = uiState.crops,
+            setSelectedCrop = { updateCurrentCrop(it) }
+        )
 
         // Crop Quality Label
         Text(

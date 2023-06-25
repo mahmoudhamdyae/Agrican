@@ -4,7 +4,8 @@ import android.net.Uri
 import com.example.agrican.domain.model.Crop
 
 data class ProblemImagesUiState(
-    val crops: List<Crop> = emptyList(),
+    val isLoading: Boolean = true,
+    val crops: List<Crop>? = null,
     val selectedCrop: Crop = Crop(),
     val image1: Uri? = null,
     val image2: Uri? = null,

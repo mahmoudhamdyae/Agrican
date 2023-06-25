@@ -110,7 +110,11 @@ fun FertilizersCalculatorScreenContent(
 
         // Crops List
         item {
-            CropsList(crops = uiState.crops, setSelectedCrop = onSelectCrop)
+            CropsList(
+                isLoading = uiState.isLoading,
+                crops = uiState.crops,
+                setSelectedCrop = onSelectCrop
+            )
         }
 
         // Measuring Unit Label

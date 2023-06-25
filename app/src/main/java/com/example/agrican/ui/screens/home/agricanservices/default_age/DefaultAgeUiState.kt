@@ -4,10 +4,11 @@ import com.example.agrican.common.enums.Quality
 import com.example.agrican.domain.model.Crop
 
 data class DefaultAgeUiState(
+    val isLoading: Boolean = true,
     val day: Int = 0,
     val month: Int = 0,
     val year: Int = 0,
-    val crops: List<Crop> = emptyList(),
+    val crops: List<Crop>? = null,
     val currentCrop: Crop = Crop(),
     val currentQuality: Int = Quality.VERY_GOOD.title,
     val defaultAge: Float? = null,

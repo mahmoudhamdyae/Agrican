@@ -18,7 +18,10 @@ class FertilizersCalculatorViewModel @Inject constructor(
 
     init {
         launchCatching {
-            _uiState.value = _uiState.value.copy(crops = useCase.getCropsUseCase())
+            _uiState.value = _uiState.value.copy(
+                crops = useCase.getCropsUseCase(),
+                isLoading = false
+            )
         }
     }
 
@@ -43,7 +46,7 @@ class FertilizersCalculatorViewModel @Inject constructor(
             useCase.calculateFertilizersUseCase(
                 crop = _uiState.value.selectedCrop,
                 measuringUnit = _uiState.value.measuringUnit,
-                landSize = _uiState.value.landSize
+                landSize = _uiState.value.landSize,
             )
         }
     }
