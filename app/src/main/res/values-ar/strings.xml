@@ -3,42 +3,42 @@
     <string name="generic_error">Something wrong happened. Please try again.</string>
 
     <!-- Onboarding Screen -->
-    <string name="onboarding_text_1">Your smart assistant in your hands</string>
-    <string name="onboarding_text_2">Manage your crops efficiently using AI</string>
-    <string name="onboarding_text_3">With Agrican your land is safe</string>
-    <string name="onboarding_button">Next</string>
+    <string name="onboarding_text_1">مساعدك الذكى بين يديك</string>
+    <string name="onboarding_text_2">إدارة محاصيلك بكفاءة باستخدام الذكاء الاصطناعى</string>
+    <string name="onboarding_text_3">مع أجريكان أرضك فى أمان</string>
+    <string name="onboarding_button">التالى</string>
 
     <!-- Auth -->
     <string name="email_error">Please insert a valid email</string>
     <string name="empty_password_error">Password cannot be empty</string>
     <string name="password_length_error">Your password should have at least six digits</string>
     <string name="password_error">Your password should include one digit, one lower case letter and one upper case letter</string>
-    <string name="farmer">Farmer</string>
-    <string name="farms_description">You can choose to create a farmer account from enjoyment with many characteristics</string>
-    <string name="farm">Farm</string>
-    <string name="farm_description">You can choose to create a farmer account from enjoyment with many characteristics</string>
-    <string name="engineer">Engineer</string>
-    <string name="engineer_description">You can choose to create a farmer account from enjoyment with many characteristics</string>
-    <string name="user_name_text_field">Username</string>
-    <string name="password_text_field">Password</string>
-    <string name="new_password_text_field">New Password</string>
-    <string name="signup_button">Create Account</string>
+    <string name="farmer">مزارع</string>
+    <string name="farms_description">يمكنك اختيار عمل حساب مزارع من التمتع بالخصاءص العديدة</string>
+    <string name="farm">مزرعة</string>
+    <string name="farm_description">يمكنك اختيار عمل حساب كمستخدة مزرعة من التمتع بالخصائص العديدة</string>
+    <string name="engineer">مهندس</string>
+    <string name="engineer_description">يمكنك اختيار عمل حساب كمهندس من التمتع بالخصائص العديدة</string>
+    <string name="user_name_text_field">اسم المستخدم</string>
+    <string name="password_text_field">كلمة المرور</string>
+    <string name="new_password_text_field">كلمة المرور الجديدة</string>
+    <string name="signup_button">إنشاء حساب</string>
     <!-- Login Screen -->
-    <string name="forgot_password_text">Did You Forget Password?</string>
-    <string name="click_here">Press Here</string>
-    <string name="login_button">Login</string>
-    <string name="new_user_text">New Agrican User ?</string>
+    <string name="forgot_password_text">هل نسيت كلمة المرور؟</string>
+    <string name="click_here">اضغط هنا</string>
+    <string name="login_button">تسجيل الدخول</string>
+    <string name="new_user_text">مستخدم جديد لأجريكان؟</string>
     <string name="confirm_reset_password_button">Reset Password</string>
     <!-- Signup Screen -->
-    <string name="create_new_user">Create New Account</string>
-    <string name="choose_user_account">Choose Account Type</string>
+    <string name="create_new_user">إنشاء حساب جديد</string>
+    <string name="choose_user_account">اختار نوع الحساب</string>
     <string name="user_name_error">Please insert a valid name</string>
     <string name="code_error">Please insert a valid code</string>
     <string name="phone_number_error">Please insert a valid phone number</string>
     <string name="password_match_error">Passwords do not match</string>
-    <string name="repeat_password_text_field">Repeat Password</string>
-    <string name="phone_number_text_field">Phone Number</string>
-    <string name="email_text_field">Email</string>
+    <string name="repeat_password_text_field">تأكيد كلمة المرور</string>
+    <string name="phone_number_text_field">رقم الهاتف المحمول</string>
+    <string name="email_text_field">البريد الإلكترونى</string>
     <string name="confirm_sign_up_text_field">Code that sent to Email</string>
     <string name="confirm_signup_button">Confirm Sign Up</string>
 
@@ -84,7 +84,7 @@
 
     <!-- Chat Screen -->
     <string name="finish_chat">إنهاء المحادثة</string>
-    
+
     <!-- Weather Screen -->
     <string name="air_quality">جودة الهواء</string>
     <string name="wind">الرياح</string>
@@ -98,7 +98,7 @@
     <string name="pests">الآفات</string>
     <string name="treatment">العلاج</string>
     <string name="join_as_expert">انضم كخبير زراعى</string>
-    
+
     <!-- Default Age Screen -->
     <string name="harvest_date">موعد الحصاد</string>
     <string name="crop_choose">اختار المحصول</string>
@@ -118,7 +118,7 @@
     <string name="order_status_title">اطلب منتجك</string>
     <string name="order_status">اعرف حالة طلبك</string>
     <string name="new_order">طلب منتج جديد</string>
-    
+
     <!-- New Order -->
     <string name="product_kind">نوع المنتج</string>
     <string name="insecticide">مبيد حشرى</string>
@@ -132,11 +132,11 @@
     <string name="governorate">المحافظة</string>
     <string name="notes">ملاحظات</string>
     <string name="order_button">اطلب</string>
-    
+
     <!-- Order Status -->
     <string name="empty_orders">لا يوجد عروض حتى الآن</string>
     <string name="confirm_order">تأكيد الطلب</string>
-    
+
     <!-- Order Confirm -->
     <string name="cash">كاش عند الوصول</string>
     <string name="card_id">رقم البطاقة</string>
@@ -171,7 +171,7 @@
     <string name="reasons">الأسباب المحتملة</string>
     <string name="effect_on_plants">التأثير على النباتات</string>
     <string name="cure">العلاج و الوقاية</string>
-    
+
     <!-- Pests -->
     <string name="search_for_another_pest">ابحث عن آفة أخرى</string>
     <string name="scientific_name">الاسم العلمى</string>
@@ -214,16 +214,16 @@
     <string name="tasks">المهام</string>
     <string name="watering_crop">رى المحصول</string>
     <string name="composting">التسميد</string>
-    
+
     <!-- Add Task Screen -->
     <string name="task_name">اسم المهمة</string>
     <string name="task_dates_label">اختار مواعيد المهمة</string>
     <string name="add_task_button">إضافة المهمة</string>
-    
+
     <!-- Engineer Map Screen -->
     <string name="choose_farm">اختار المزرعة</string>
     <string name="choose_farm_size">حدد أبعاد الأرض</string>
-    
+
     <!-- Cost Screen -->
     <string name="services">الخدمات</string>
     <string name="cost_in_month">المبلغ/شهريا</string>
