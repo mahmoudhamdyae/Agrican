@@ -55,7 +55,7 @@ import com.example.agrican.domain.model.weather.WeatherInfo
 import com.example.agrican.ui.components.EmptyImage
 import com.example.agrican.ui.components.shimmerEffect
 import com.example.agrican.ui.navigation.NavigationDestination
-import com.example.agrican.ui.screens.home.TopBar
+import com.example.agrican.ui.components.TopBar
 import com.example.agrican.ui.screens.home.main.ask_expert.AskExpertDestination
 import com.example.agrican.ui.screens.home.main.fertilizers_calculator.FertilizersCalculatorDestination
 import com.example.agrican.ui.screens.home.main.problem_images.ProblemImagesDestination

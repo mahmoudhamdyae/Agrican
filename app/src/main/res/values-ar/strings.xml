@@ -270,4 +270,7 @@
     <!-- Notifications Screen -->
     <string name="notifications">التنبيهات</string>
     <string name="notifications_empty">لا يوجد تنبيهات</string>
+
+    <!-- Top Bar -->
+    <string name="settings">الاعدادات</string>
 </resources>
