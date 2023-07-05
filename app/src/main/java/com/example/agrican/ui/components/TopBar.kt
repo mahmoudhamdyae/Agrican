@@ -5,9 +5,11 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -67,31 +69,47 @@ fun TopBar(
 
     Box {
         Column {
-            TopAppBar(
-                title = title,
-                actions = {
-                    // Notifications Icon
-                    Row {
-                        IconButton(onClick = openNotificationsScreen) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.notifications),
-                                contentDescription = stringResource(id = R.string.notifications),
-                                tint = iconGray
-                            )
-                        }
+            Box(modifier = Modifier.height(IntrinsicSize.Max)) {
+                TopAppBar(
+                    title = title,
+                    actions = {
+                        // Notifications Icon
+                        Row {
+                            IconButton(onClick = openNotificationsScreen) {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.notifications),
+                                    contentDescription = stringResource(id = R.string.notifications),
+                                    tint = iconGray
+                                )
+                            }
 
-                        // Menu Item
-                        IconButton(onClick = { showMenu = true }) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.menu),
-                                contentDescription = null,
-                                tint = if (showMenu) greenDark else iconGray
-                            )
+                            // Menu Item
+                            IconButton(onClick = { showMenu = true }) {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.menu),
+                                    contentDescription = null,
+                                    tint = if (showMenu) greenDark else iconGray
+                                )
+                            }
                         }
-                    }
-                },
-                modifier = modifier.shadow(16.dp)
-            )
+                    },
+                    modifier = modifier
+                        .shadow(16.dp)
+                        .clickable(
+                            interactionSource = remember { MutableInteractionSource() },
+                            indication = null
+                        ) { showMenu = false }
+                )
+
+                if (showMenu) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(Color(0x63AAA6A6))
+                            .clickable { showMenu = false }
+                    )
+                }
+            }
 
             Box {
                 content()
