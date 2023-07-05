@@ -16,6 +16,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.agrican.R
+import com.example.agrican.ui.components.BottomNavigationBar
 import com.example.agrican.ui.navigation.AgricanServicesGraph
 import com.example.agrican.ui.navigation.MainGraph
 import com.example.agrican.ui.navigation.NavigationDestination
@@ -84,7 +85,8 @@ fun HomeScreen(
                 2 -> {
                     AgricanServicesGraph(
                         setTopBarTitle = { topBarTitle = it },
-                        navigateToLoginScreen = { openAndClear(LoginDestination.route) }
+                        navigateToLoginScreen = { openAndClear(LoginDestination.route) },
+                        showBottomBar = { shouldShowBottomBar = it }
                     )
                 }
             }

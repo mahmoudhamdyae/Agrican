@@ -32,6 +32,7 @@ import com.example.agrican.ui.screens.notifications.NotificationsScreen
 @Composable
 fun AgricanServicesGraph(
     setTopBarTitle: (Int) -> Unit,
+    showBottomBar: (Boolean) -> Unit,
     navigateToLoginScreen: () -> Unit,
 ) {
     val navController = rememberNavController()
@@ -62,21 +63,20 @@ fun AgricanServicesGraph(
         }
 
         composable(route = DefaultAgesDestination.route) {
-            setTopBarTitle(DefaultAgesDestination.titleRes)
             DefaultAgeScreen(navigateUp = navigateUp)
         }
 
         composable(route = OrderDestination.route) {
-            setTopBarTitle(OrderDestination.titleRes)
+            showBottomBar(true)
             OrderScreen(openScreen = openScreen, navigateUp = navigateUp)
         }
 
         composable(route = OrderStatusDestination.route) {
+            showBottomBar(false)
             OrderStatusScreen(navigateUp = navigateUp, navigateToLoginScreen = navigateToLoginScreen)
         }
 
         composable(route = DiseasesDestination.route) {
-            setTopBarTitle(DiseasesDestination.titleRes)
             DiseasesScreen(navigateUp = navigateUp, openScreen = openScreen)
         }
 
@@ -88,7 +88,6 @@ fun AgricanServicesGraph(
         }
 
         composable(route = PestsDestination.route) {
-            setTopBarTitle(PestsDestination.titleRes)
             PestsScreen(navigateUp = navigateUp, openScreen = openScreen)
         }
 
@@ -100,7 +99,6 @@ fun AgricanServicesGraph(
         }
 
         composable(route = TreatmentDestination.route) {
-            setTopBarTitle(TreatmentDestination.titleRes)
             TreatmentScreen(navigateUp = navigateUp, openScreen = openScreen)
         }
 
@@ -109,7 +107,6 @@ fun AgricanServicesGraph(
         }
 
         composable(route = JoinAsExpertDestination.route) {
-            setTopBarTitle(JoinAsExpertDestination.titleRes)
             JoinAsExpertScreen(navigateUp = navigateUp)
         }
 

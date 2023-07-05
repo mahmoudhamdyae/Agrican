@@ -125,6 +125,12 @@
     <string name="pests">الآفات</string>
     <string name="treatment">العلاج</string>
     <string name="join_as_expert">انضم كخبير زراعى</string>
+    <string name="default_age_description">التنبؤ بقدرة المحصول على البقاء بعد الحصاد باستخدام الذكاء الاصطناعى</string>
+    <string name="order_description">اكتب تفاصيل المنتج اللى محتاجه بالسعر اللى يناسبك</string>
+    <string name="disease_description">تصفح أبرز الأمراض النباتية المتوقعة لمحصولك</string>
+    <string name="pests_description">تعرف على أهم الآفات الموسمية لمحصولك وتحكم فى السيطرى عليها قبل انتشارها</string>
+    <string name="treatment_description">اكتب اسم المرض واحصل على العلاج المناسب بضغطة زر واحدة</string>
+    <string name="join_as_expert_description">انضم كاستشارى زراعى. حدد تخصصك فى المحاصيل وكن مستعدا للزيارات الميدانية إذا لزم الأمر</string>
     
     <!-- Default Age Screen -->
     <string name="harvest_date">موعد الحصاد</string>

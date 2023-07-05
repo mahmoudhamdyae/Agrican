@@ -42,7 +42,7 @@ import com.example.agrican.ui.theme.white
 
 object AgricanServicesDestination: NavigationDestination {
     override val route: String = "agrican_services"
-    override val titleRes: Int = R.string.default_age_title
+    override val titleRes: Int = R.string.navigation_agrican_services
 }
 
 @Composable
@@ -91,7 +91,7 @@ fun AgricanServicesContent(
                 // Default Age
                 Card(
                     title = R.string.default_age,
-                    description = R.string.problem_images_description,
+                    description = R.string.default_age_description,
                     modifier = Modifier
                         .weight(1.3f)
                         .fillMaxHeight()
@@ -103,7 +103,7 @@ fun AgricanServicesContent(
                 // Orders
                 Card(
                     title = R.string.order,
-                    description = R.string.problem_images_description,
+                    description = R.string.order_description,
                     modifier = Modifier
                         .weight(1f)
                         .clickable { openScreen(OrderDestination.route) },
@@ -120,7 +120,7 @@ fun AgricanServicesContent(
                     .padding(horizontal = 16.dp)) {
                     Card(
                         title = R.string.disease,
-                        description = R.string.problem_images_description,
+                        description = R.string.disease_description,
                         modifier = Modifier
                             .weight(1f)
                             .padding(end = 16.dp)
@@ -130,7 +130,7 @@ fun AgricanServicesContent(
                     // Pests
                     Card(
                         title = R.string.pests,
-                        description = R.string.problem_images_description,
+                        description = R.string.pests_description,
                         modifier = Modifier
                             .weight(1.3f)
                             .fillMaxHeight()
@@ -148,7 +148,7 @@ fun AgricanServicesContent(
                     // Treatment
                     Card(
                         title = R.string.treatment,
-                        description = R.string.problem_images_description,
+                        description = R.string.treatment_description,
                         modifier = Modifier
                             .padding(16.dp)
                             .clickable { openScreen(TreatmentDestination.route) }
@@ -160,7 +160,7 @@ fun AgricanServicesContent(
         // Join As Expert
         Card(
             title = R.string.join_as_expert,
-            description = R.string.problem_images_description,
+            description = R.string.join_as_expert_description,
             modifier = Modifier
                 .padding(16.dp)
                 .clickable { openScreen(JoinAsExpertDestination.route) }

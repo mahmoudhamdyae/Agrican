@@ -1,4 +1,4 @@
-package com.example.agrican.ui.screens.home
+package com.example.agrican.ui.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.agrican.R
+import com.example.agrican.ui.screens.home.BottomNavItem
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.iconGray
 
@@ -150,11 +151,11 @@ class NavigationBarCustomShape(private val cornerRadius: Float) : Shape {
     ): Outline {
         return Outline.Generic(
             // Draw your custom path here
-            path = drawTicketPath(size = size, cornerRadius = cornerRadius)
+            path = drawPath(size = size, cornerRadius = cornerRadius)
         )
     }
 
-    private fun drawTicketPath(size: Size, cornerRadius: Float): Path {
+    private fun drawPath(size: Size, cornerRadius: Float): Path {
         return Path().apply {
             reset()
             val r2 = 16f
