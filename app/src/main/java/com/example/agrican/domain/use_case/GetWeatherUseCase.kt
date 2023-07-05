@@ -1,24 +1,14 @@
 package com.example.agrican.domain.use_case
 
-import com.example.agrican.domain.model.Weather
-import com.example.agrican.domain.repository.MainRepository
+import com.example.agrican.domain.model.weather.WeatherInfo
+import com.example.agrican.domain.repository.WeatherRepository
 import javax.inject.Inject
 
 class GetWeatherUseCase @Inject constructor(
-    private val mainRepository: MainRepository
+    private val repository: WeatherRepository
 ) {
 
-    suspend operator fun invoke(): Weather {
-//        return mainRepository.getWeather()
-
-        return Weather(
-            air = "مقبول",
-            degree = 31.0,
-            weatherDescription = "مشمس",
-            wind = "جنوبية غربية 33 كم/س",
-            windGusts = "47 كم/س",
-            firstInformation = "جو مناسب لرى نبات العنب",
-            secondInformation = "من المتوقع حدوث عواصف شديدة غدا"
-        )
+    suspend operator fun invoke(): WeatherInfo {
+        return repository.getWeather(32.0, 32.0)
     }
 }

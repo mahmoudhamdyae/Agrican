@@ -1,4 +1,4 @@
-package com.example.agrican.data.remote.model
+package com.example.agrican.data.remote.model.paymob
 
 data class PaymentKeyClaims(
     val amount_cents: Int,

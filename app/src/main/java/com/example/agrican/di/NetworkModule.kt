@@ -2,8 +2,10 @@ package com.example.agrican.di
 
 import com.example.agrican.common.utils.Constant.BASE_URL
 import com.example.agrican.common.utils.Constant.PAYMOB_BASE_URL
+import com.example.agrican.common.utils.Constant.WEATHER_BASE_URL
 import com.example.agrican.data.remote.ApiService
 import com.example.agrican.data.remote.PaymobApiService
+import com.example.agrican.data.remote.WeatherApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -36,6 +38,17 @@ object NetworkModule {
             .baseUrl(BASE_URL)
             .build()
         return retrofit.create(ApiService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideWeatherApiService(okHttpClient: OkHttpClient): WeatherApiService {
+        val retrofit = Retrofit.Builder()
+            .client(okHttpClient)
+            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl(WEATHER_BASE_URL)
+            .build()
+        return retrofit.create(WeatherApiService::class.java)
     }
 
     @Provides

@@ -55,7 +55,7 @@ fun WeatherScreen(
         navigateUp = navigateUp,
         modifier = modifier
     ) {
-        WeatherScreenContent(weather = weather)
+//        WeatherScreenContent(weather = weather)
     }
 }
 

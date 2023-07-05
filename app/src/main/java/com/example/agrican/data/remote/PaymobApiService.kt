@@ -1,10 +1,10 @@
 package com.example.agrican.data.remote
 
-import com.example.agrican.data.remote.model.ApiKeyModel
-import com.example.agrican.data.remote.model.GetTokenResponse
-import com.example.agrican.data.remote.model.OrderModel
-import com.example.agrican.data.remote.model.OrderResponse
-import com.example.agrican.data.remote.model.PaymentRequest
+import com.example.agrican.data.remote.model.paymob.ApiKeyModel
+import com.example.agrican.data.remote.model.paymob.GetTokenResponse
+import com.example.agrican.data.remote.model.paymob.OrderModel
+import com.example.agrican.data.remote.model.paymob.OrderResponse
+import com.example.agrican.data.remote.model.paymob.PaymentRequest
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST

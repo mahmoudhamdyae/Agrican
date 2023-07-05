@@ -2,6 +2,7 @@ package com.example.agrican.di
 
 import com.example.agrican.domain.repository.AccountService
 import com.example.agrican.domain.repository.MainRepository
+import com.example.agrican.domain.repository.WeatherRepository
 import com.example.agrican.domain.use_case.AddCropUseCase
 import com.example.agrican.domain.use_case.AddFarmUseCase
 import com.example.agrican.domain.use_case.AddTaskUseCase
@@ -51,6 +52,7 @@ object UseCaseModule {
     fun provideUseCase(
         accountService: AccountService,
         mainRepository: MainRepository,
+        weatherRepository: WeatherRepository
     ): BaseUseCase {
         return BaseUseCase(
             forgotPasswordUseCase = ForgotPasswordUseCase(accountService),
@@ -69,7 +71,7 @@ object UseCaseModule {
 
             getCurrentUserUseCase = GetCurrentUserUseCase(accountService, mainRepository),
 
-            getWeatherUseCase = GetWeatherUseCase(mainRepository),
+            getWeatherUseCase = GetWeatherUseCase(weatherRepository),
             getNewsUseCase = GetNewsUseCase(mainRepository),
             searchUseCase = SearchUseCase(mainRepository),
             calculateFertilizersUseCase = CalculateFertilizersUseCase(mainRepository),

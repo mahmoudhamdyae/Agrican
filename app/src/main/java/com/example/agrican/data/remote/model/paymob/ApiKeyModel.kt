@@ -1,4 +1,4 @@
-package com.example.agrican.data.remote.model
+package com.example.agrican.data.remote.model.paymob
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName

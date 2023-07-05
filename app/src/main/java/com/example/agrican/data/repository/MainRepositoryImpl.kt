@@ -13,7 +13,6 @@ import com.example.agrican.domain.model.Pest
 import com.example.agrican.domain.model.Task
 import com.example.agrican.domain.model.Treatment
 import com.example.agrican.domain.model.User
-import com.example.agrican.domain.model.Weather
 import com.example.agrican.domain.repository.MainRepository
 import com.example.agrican.domain.use_case.GetDefaultAgeResponse
 import kotlinx.coroutines.flow.Flow
@@ -30,10 +29,6 @@ class MainRepositoryImpl @Inject constructor(
 
     override suspend fun createUser(user: User) {
         apiService.createUser(user)
-    }
-
-    override suspend fun getWeather(): Weather {
-        return apiService.getWeather()
     }
 
     override suspend fun getNews(): List<News> {

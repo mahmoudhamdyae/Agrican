@@ -5,10 +5,10 @@ import android.content.Intent
 import android.util.Log
 import com.example.agrican.common.utils.Constant
 import com.example.agrican.data.remote.PaymobApiService
-import com.example.agrican.data.remote.model.ApiKeyModel
-import com.example.agrican.data.remote.model.BillingData
-import com.example.agrican.data.remote.model.OrderModel
-import com.example.agrican.data.remote.model.PaymentRequest
+import com.example.agrican.data.remote.model.paymob.ApiKeyModel
+import com.example.agrican.data.remote.model.paymob.BillingData
+import com.example.agrican.data.remote.model.paymob.OrderModel
+import com.example.agrican.data.remote.model.paymob.PaymentRequest
 import com.example.agrican.domain.model.Order
 import com.example.agrican.domain.use_case.BaseUseCase
 import com.example.agrican.ui.screens.BaseViewModel

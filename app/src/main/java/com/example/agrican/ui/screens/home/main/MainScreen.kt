@@ -51,7 +51,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
 import com.example.agrican.domain.model.News
-import com.example.agrican.domain.model.Weather
+import com.example.agrican.domain.model.weather.WeatherInfo
 import com.example.agrican.ui.components.EmptyImage
 import com.example.agrican.ui.components.shimmerEffect
 import com.example.agrican.ui.navigation.NavigationDestination
@@ -187,7 +187,9 @@ fun MainScreenContent(
 
         Row(
             horizontalArrangement = Arrangement.spacedBy(16.dp),
-            modifier = Modifier.padding(horizontal = 18.dp, vertical = 8.dp).height(130.dp)
+            modifier = Modifier
+                .padding(horizontal = 18.dp, vertical = 8.dp)
+                .height(130.dp)
         ) {
             // Fertilizers Calculator Card
             BottomCard(
@@ -195,7 +197,9 @@ fun MainScreenContent(
                 description = R.string.fertilizers_calculator_description,
                 icon = R.drawable.calculator,
                 onItemClick = { openScreen(FertilizersCalculatorDestination.route) },
-                modifier = Modifier.weight(1f).fillMaxHeight()
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxHeight()
             )
 
             // Ask An Expert Card
@@ -204,7 +208,9 @@ fun MainScreenContent(
                 description = R.string.ask_expert_description,
                 icon = R.drawable.ask_expert,
                 onItemClick = { openScreen(AskExpertDestination.route) },
-                modifier = Modifier.weight(1f).fillMaxHeight()
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxHeight()
             )
         }
     }
@@ -263,7 +269,7 @@ fun WeatherBoxLoading(
 
 @Composable
 fun WeatherBox(
-    weather: Weather,
+    weather: WeatherInfo?,
     modifier: Modifier = Modifier
 ) {
     Surface(
@@ -273,7 +279,7 @@ fun WeatherBox(
     ) {
         Box(modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp)) {
             Text(
-                text = weather.firstInformation,
+                text = "جو مناسب لرى نبات العنب",
                 style = MaterialTheme.typography.body,
                 fontSize = 11.sp,
                 modifier = Modifier.align(Alignment.TopEnd)
@@ -312,19 +318,19 @@ fun WeatherBox(
                         modifier = Modifier.padding(horizontal = 8.dp)
                     ) {
                         Text(
-                            text = weather.air,
+                            text = "مقبول",
                             style = MaterialTheme.typography.body,
                             fontSize = 11.sp,
                             fontWeight = FontWeight.Bold,
                         )
                         Text(
-                            text = weather.wind,
+                            text = weather?.currentWeatherData?.windSpeed.toString(),
                             style = MaterialTheme.typography.body,
                             fontSize = 11.sp,
                             fontWeight = FontWeight.Bold,
                         )
                         Text(
-                            text = weather.windGusts,
+                            text = weather?.currentWeatherData?.windSpeed.toString(),
                             style = MaterialTheme.typography.body,
                             fontSize = 11.sp,
                             fontWeight = FontWeight.Bold,
@@ -340,7 +346,7 @@ fun WeatherBox(
                 modifier = Modifier.align(Alignment.BottomEnd)
             ) {
                 Text(
-                    text = weather.weatherDescription,
+                    text = stringResource(id = weather?.currentWeatherData?.weatherType?.weatherDesc!!),
                     color = greenDark,
                     style = MaterialTheme.typography.body,
                     fontSize = 11.sp,
@@ -348,13 +354,13 @@ fun WeatherBox(
                     modifier = Modifier.padding(bottom = 4.dp)
                 )
                 Text(
-                    text = "${weather.degree.toInt()}°",
+                    text = "${weather.currentWeatherData.temperatureCelsius.toInt()}°",
                     color = greenDark,
                     fontSize = 30.sp,
                     fontWeight = FontWeight.SemiBold
                 )
                 Icon(
-                    painter = painterResource(id = R.drawable.sunny),
+                    painter = painterResource(id = weather.currentWeatherData.weatherType.iconRes),
                     contentDescription = null,
                     tint = greenDark,
                     modifier = Modifier.height(40.dp)
@@ -615,7 +621,7 @@ fun ProblemImagesRowItem(
 fun MainScreenContentLoadingPreview() {
     MainScreenContent(
         uiState = MainUiState(
-            weather = fakeWeather,
+            weather = null,
             news = fakeNews
         ),
         openScreen = { }
@@ -627,7 +633,7 @@ fun MainScreenContentLoadingPreview() {
 fun MainScreenContentPreview() {
     MainScreenContent(
         uiState = MainUiState(
-            weather = fakeWeather,
+            weather = null,
             news = fakeNews,
             isLoading = false
         ),
@@ -635,15 +641,6 @@ fun MainScreenContentPreview() {
     )
 }
 
-val fakeWeather = Weather(
-    air = "مقبول",
-    degree = 31.0,
-    weatherDescription = "مشمس",
-    wind = "جنوبية غربية 33 كم/س",
-    windGusts = "47 كم/س",
-    firstInformation = "جو مناسب لرى نبات العنب",
-    secondInformation = "من المتوقع حدوث عواصف شديدة غدا"
-)
 val fakeNews = listOf(
     News(title = "ابتكار طرق رى جديدة"),
     News(title = "ابتكار طرق رى جديدة"),
