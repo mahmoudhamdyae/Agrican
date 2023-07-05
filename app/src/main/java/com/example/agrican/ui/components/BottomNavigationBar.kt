@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.agrican.R
+import com.example.agrican.common.utils.toPx
 import com.example.agrican.ui.screens.home.BottomNavItem
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.iconGray
@@ -64,7 +65,10 @@ fun BottomNavigationBar(
 
         // Main and Services Items
         Surface(
-            shape = NavigationBarCustomShape(120f),
+            shape = NavigationBarCustomShape(
+                radius1 = 42.dp.toPx(),
+                radius2 = 6.dp.toPx()
+            ),
             shadowElevation = 32.dp,
             modifier = Modifier
                 .height(60.dp)
@@ -80,7 +84,9 @@ fun BottomNavigationBar(
                     text = bottomNavItems[2].name,
                     icon = bottomNavItems[2].icon,
                     color = if (selectedItem == 2) greenDark else iconGray,
-                    modifier = Modifier.weight(1f).clickable { setSelectedItem(2) }
+                    modifier = Modifier
+                        .weight(1f)
+                        .clickable { setSelectedItem(2) }
                 )
 
                 // Profile Text
@@ -102,7 +108,9 @@ fun BottomNavigationBar(
                     text = bottomNavItems[0].name,
                     icon = bottomNavItems[0].icon,
                     color = if (selectedItem == 0) greenDark else iconGray,
-                    modifier = Modifier.weight(1f).clickable { setSelectedItem(0) }
+                    modifier = Modifier
+                        .weight(1f)
+                        .clickable { setSelectedItem(0) }
                 )
             }
         }
@@ -142,7 +150,10 @@ fun BottomNavigationBarPreview() {
     BottomNavigationBar(selectedItem = 0, setSelectedItem = { }, bottomNavItems = bottomNavItems)
 }
 
-class NavigationBarCustomShape(private val cornerRadius: Float) : Shape {
+class NavigationBarCustomShape(
+    private val radius1: Float,
+    private val radius2: Float
+    ) : Shape {
 
     override fun createOutline(
         size: Size,
@@ -151,17 +162,23 @@ class NavigationBarCustomShape(private val cornerRadius: Float) : Shape {
     ): Outline {
         return Outline.Generic(
             // Draw your custom path here
-            path = drawPath(size = size, cornerRadius = cornerRadius)
+            path = drawPath(size = size, radius1 = radius1, radius2 = radius2)
         )
     }
 
-    private fun drawPath(size: Size, cornerRadius: Float): Path {
+    private fun drawPath(
+        size: Size,
+        radius1: Float,
+        radius2: Float
+    ): Path {
         return Path().apply {
             reset()
-            val r2 = 16f
-            val r1 = cornerRadius
+            val r1 = radius1
+            val r2 = radius2
             val w = size.width
             lineTo(x = w / 2 - r1 - r2, y = 0f)
+            
+            // Right Small Circle
             arcTo(
                 rect = Rect(
                     left = w / 2 - r1 - 2 * r2,
@@ -173,6 +190,8 @@ class NavigationBarCustomShape(private val cornerRadius: Float) : Shape {
                 sweepAngleDegrees = 180.0f,
                 forceMoveTo = false
             )
+
+            // Large Circle
             arcTo(
                 rect = Rect(
                     left = w / 2 - r1,
@@ -184,6 +203,8 @@ class NavigationBarCustomShape(private val cornerRadius: Float) : Shape {
                 sweepAngleDegrees = -180.0f,
                 forceMoveTo = false
             )
+
+            // Left Small Circle
             arcTo(
                 rect = Rect(
                     left = w / 2 + r1,
