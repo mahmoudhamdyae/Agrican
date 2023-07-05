@@ -1,32 +1,26 @@
 package com.example.agrican.ui.screens.home.profile.engineer_map
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
-import com.example.agrican.ui.components.DropDown
+import com.example.agrican.domain.model.Farm
+import com.example.agrican.ui.components.BackButtonTopBar
+import com.example.agrican.ui.components.FarmsListItem
 import com.example.agrican.ui.navigation.NavigationDestination
-import com.example.agrican.ui.theme.black
-import com.example.agrican.ui.theme.body
-import com.example.agrican.ui.theme.greenDark
-import com.example.agrican.ui.theme.greenLight
+import com.example.agrican.ui.screens.home.profile.engineer_map.add_map.AddMapDestination
 
 object EngineerMapDestination: NavigationDestination {
     override val route: String = "engineer_map"
@@ -35,55 +29,62 @@ object EngineerMapDestination: NavigationDestination {
 
 @Composable
 fun EngineerMapScreen(
+    navigateUp: () -> Unit,
+    openScreen: (String) -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: EngineerMapViewModel = hiltViewModel()
+) {
+    val farms by viewModel.farms.collectAsStateWithLifecycle()
+
+    BackButtonTopBar(
+        title = EngineerMapDestination.titleRes,
+        navigateUp = navigateUp,
+        modifier = modifier
+    ) {
+        EngineerMapScreenContent(
+            farms = farms,
+            openScreen = openScreen
+        )
+    }
+}
+
+@Composable
+fun EngineerMapScreenContent(
+    farms: List<Farm>,
+    openScreen: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-
-    Column(
-        verticalArrangement = Arrangement.spacedBy(16.dp),
-        modifier = modifier
-            .padding(16.dp)
-            .padding(bottom = 60.dp)
-    ) {
-        // Choose Farm Drop Down
-        Row {
-            DropDown(
-                options = listOf(
-                    R.string.choose_farm
-                ),
-                onSelect = { /*TODO*/ },
-                textColor = greenDark,
-                modifier = Modifier.weight(1f).height(32.dp)
-            )
-            Spacer(modifier = Modifier.weight(1f))
+    Column(modifier = modifier) {
+        Button(
+            onClick = { openScreen(AddMapDestination.route) }
+        ) {
+            Text(text = stringResource(id = R.string.add_map))
         }
 
-        // Choose Size Text
-        Text(
-            text = stringResource(id = R.string.choose_farm_size),
-            color = greenLight,
-            style = MaterialTheme.typography.body,
-            fontSize = 15.sp
-        )
+        Text(text = stringResource(id = R.string.current_maps))
 
-        MapScreen(modifier = Modifier
-            .fillMaxWidth()
-            .weight(1f)
-            .background(black))
+        Divider(modifier = Modifier.padding(horizontal = 16.dp))
 
-        // Continue Button
-        Button(
-            onClick = { /*TODO*/ },
-            colors = ButtonDefaults.buttonColors(containerColor = greenDark),
-            modifier = Modifier
-                .padding(bottom = 32.dp)
-                .align(Alignment.CenterHorizontally)
-        ) {
-            Text(
-                text = stringResource(id = R.string.continue_button),
-                fontSize = 15.sp,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(horizontal = 24.dp)
-            )
+        FarmsList(farms = farms)
+    }
+}
+
+@Composable
+fun FarmsList(
+    farms: List<Farm>,
+    modifier: Modifier = Modifier
+) {
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(4),
+        modifier = modifier
+    ) {
+        repeat(farms.size) {
+            item {
+                FarmsListItem(
+                    farm = farms[it],
+                    modifier = Modifier.padding(8.dp)
+                )
+            }
         }
     }
 }
@@ -91,5 +92,5 @@ fun EngineerMapScreen(
 @Preview(showBackground = true)
 @Composable
 fun EngineerMapScreenPreview() {
-    EngineerMapScreen()
+    EngineerMapScreenContent(openScreen = { }, farms = listOf())
 }

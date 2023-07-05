@@ -17,16 +17,17 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
 import com.example.agrican.domain.model.Chat
 import com.example.agrican.domain.model.Message
 import com.example.agrican.domain.model.MessageType
+import com.example.agrican.ui.components.BackButtonTopBar
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.greenDark
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.launch
 import java.io.File
 
@@ -49,31 +50,36 @@ fun ChatScreen(
     val scrollState =
         rememberLazyListState(initialFirstVisibleItemIndex = uiState.chat.messages.size - 1)
 
-    ChatScreenContent(
+    BackButtonTopBar(
+        title = ChatDestination.titleRes,
         navigateUp = navigateUp,
-        userId = userId,
-        chat = uiState.chat,
-        sendMessage = {
-            viewModel.sendMessage(messageBody = it, messageType = MessageType.TEXT)
-            scope.launch {
-                scrollState.animateScrollToItem(uiState.chat.messages.size - 1)
-            }
-        },
-        sendImage = {
-            viewModel.sendMessage(image = it, messageType = MessageType.IMAGE)
-            scope.launch {
-                scrollState.animateScrollToItem(uiState.chat.messages.size - 1)
-            }
-        },
-        sendFile = {
-            viewModel.sendMessage(file = it, messageType = MessageType.VOICE)
-            scope.launch {
-                scrollState.animateScrollToItem(uiState.chat.messages.size - 1)
-            }
-        },
-        scrollState = scrollState,
         modifier = modifier
-    )
+    ) {
+        ChatScreenContent(
+            navigateUp = navigateUp,
+            userId = userId,
+            chat = uiState.chat,
+            sendMessage = {
+                viewModel.sendMessage(messageBody = it, messageType = MessageType.TEXT)
+                scope.launch {
+                    scrollState.animateScrollToItem(uiState.chat.messages.size - 1)
+                }
+            },
+            sendImage = {
+                viewModel.sendMessage(image = it, messageType = MessageType.IMAGE)
+                scope.launch {
+                    scrollState.animateScrollToItem(uiState.chat.messages.size - 1)
+                }
+            },
+            sendFile = {
+                viewModel.sendMessage(file = it, messageType = MessageType.VOICE)
+                scope.launch {
+                    scrollState.animateScrollToItem(uiState.chat.messages.size - 1)
+                }
+            },
+            scrollState = scrollState
+        )
+    }
 }
 
 @Composable

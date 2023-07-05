@@ -117,6 +117,7 @@
     <!-- Order Screen -->
     <string name="order_status_title">اطلب منتجك</string>
     <string name="order_status">اعرف حالة طلبك</string>
+    <string name="available_offers">العروض المتاحة</string>
     <string name="new_order">طلب منتج جديد</string>
     
     <!-- New Order -->
@@ -194,7 +195,9 @@
     <string name="engineer_map">خريطة المهندس</string>
     <string name="engineer_map_description">يمكنك تحديد أماكن المشكلة فى الأرض و متابعتها من خلال خريطة المهندس</string>
     <string name="farms_label">المزارع</string>
-    <string name="my_crops">محاصيلى</string>
+    <string name="del_farm">حذف مزرعة</string>
+    <string name="del_crop">حذف محصول</string>
+    <string name="farms_crops">محاصيل المزرعة</string>
     <string name="observe_crop">متابعة المحصول</string>
     <string name="add_task">إضافة مهمة</string>
 
@@ -221,6 +224,9 @@
     <string name="add_task_button">إضافة المهمة</string>
     
     <!-- Engineer Map Screen -->
+    <string name="add_map">إضافة خريطة</string>
+    <string name="add_progress">إضافة تقدم</string>
+    <string name="current_maps">الخرائط الحالية</string>
     <string name="choose_farm">اختار المزرعة</string>
     <string name="choose_farm_size">حدد أبعاد الأرض</string>
     
@@ -233,4 +239,8 @@
     <string name="sum">الإجمالى</string>
     <string name="pound">جنيهاً</string>
     <string name="add_code">أضف كود</string>
+
+    <!-- Notifications Screen -->
+    <string name="notifications">التنبيهات</string>
+    <string name="notifications_empty">لا يوجد تنبيهات</string>
 </resources>

@@ -24,7 +24,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
 import com.example.agrican.domain.model.Pest
-import com.example.agrican.ui.components.BackButton
+import com.example.agrican.ui.components.BackButtonTopBar
 import com.example.agrican.ui.components.EmptyImage
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.body
@@ -45,11 +45,14 @@ fun PestsScreen(
 ) {
     val pests by viewModel.pests.collectAsStateWithLifecycle()
 
-    BackButton(navigateUp = navigateUp) {
+    BackButtonTopBar(
+        title = PestsDestination.titleRes,
+        navigateUp = navigateUp,
+        modifier = modifier
+    ) {
         PestList(
             pests = pests,
-            onItemClick = { openScreen("${PestDestination.route}/$it") },
-            modifier = modifier
+            onItemClick = { openScreen("${PestDestination.route}/$it") }
         )
     }
 }

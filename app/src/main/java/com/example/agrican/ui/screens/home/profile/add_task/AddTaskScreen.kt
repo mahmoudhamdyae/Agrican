@@ -26,12 +26,11 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
+import com.example.agrican.ui.components.BackButtonTopBar
 import com.example.agrican.ui.components.Days
 import com.example.agrican.ui.components.DropDown
-import com.example.agrican.ui.components.ProfileHeader
 import com.example.agrican.ui.components.SimpleTextField
 import com.example.agrican.ui.navigation.NavigationDestination
-import com.example.agrican.ui.screens.home.profile.add_farm.AddFarmDestination
 import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
@@ -50,14 +49,17 @@ fun AddTaskScreen(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     var taskName by rememberSaveable { mutableStateOf("") }
 
-    ProfileHeader(navigateUp = navigateUp, headerText = AddFarmDestination.titleRes) {
+    BackButtonTopBar(
+        title = AddTaskDestination.titleRes,
+        navigateUp = navigateUp,
+        modifier = modifier
+    ) {
         AddTaskScreenContent(
             days = uiState.days,
             flipDay = viewModel::flipDay,
             taskName = taskName,
             onTaskNameChanged = { taskName = it },
-            addTask = viewModel::addTask,
-            modifier = modifier
+            addTask = viewModel::addTask
         )
     }
 }

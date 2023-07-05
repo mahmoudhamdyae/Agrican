@@ -2,23 +2,18 @@ package com.example.agrican.ui.screens.home
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.agrican.R
 import com.example.agrican.ui.navigation.AgricanServicesGraph
@@ -26,8 +21,6 @@ import com.example.agrican.ui.navigation.MainGraph
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.navigation.ProfileGraph
 import com.example.agrican.ui.screens.auth.login.LoginDestination
-import com.example.agrican.ui.theme.textGray
-import com.example.agrican.ui.theme.title
 
 object HomeDestination: NavigationDestination {
     override val route: String = "home"
@@ -53,33 +46,10 @@ fun HomeScreen(
     )
 
     var topBarTitle by rememberSaveable { mutableStateOf(R.string.navigation_agrican_services) }
-    var topBarIcon by rememberSaveable { mutableStateOf(false) }
-    var shouldShowTopBar by rememberSaveable { mutableStateOf(true) }
     var shouldShowBottomBar by rememberSaveable { mutableStateOf(true) }
 
     Scaffold(
         modifier = modifier,
-        topBar = {
-            if (shouldShowTopBar) {
-                TopBar(
-                    title = {
-                        if (topBarIcon) {
-                            Image(
-                                painter = painterResource(id = R.drawable.agrican_logo),
-                                contentDescription = null
-                            )
-                        } else {
-                            Text(
-                                text = stringResource(id = topBarTitle),
-                                color = textGray,
-                                style = MaterialTheme.typography.title
-                            )
-                        }
-                    },
-                    openAndClear = openAndClear
-                )
-            }
-        },
         bottomBar = {
             if (shouldShowBottomBar) {
                 BottomNavigationBar(
@@ -102,16 +72,12 @@ fun HomeScreen(
                 0 -> {
                     MainGraph(
                         setTopBarTitle = { topBarTitle = it },
-                        setTopBarIcon = { topBarIcon = it },
-                        showTopBar = { shouldShowTopBar = it },
                         showBottomBar = { shouldShowBottomBar = it }
                     )
                 }
                 1 -> {
-                    topBarIcon = false
                     ProfileGraph(
                         setTopBarTitle = { topBarTitle = it },
-                        showTopBar = { shouldShowTopBar = it },
                         showBottomBar = { shouldShowBottomBar = it },
                     )
                 }
@@ -120,8 +86,6 @@ fun HomeScreen(
                         setTopBarTitle = { topBarTitle = it },
                         navigateToLoginScreen = { openAndClear(LoginDestination.route) }
                     )
-                    shouldShowTopBar = true
-                    topBarIcon = false
                 }
             }
         }

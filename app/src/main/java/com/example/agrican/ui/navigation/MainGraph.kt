@@ -14,14 +14,14 @@ import com.example.agrican.ui.screens.home.main.fertilizers_calculator.Fertilize
 import com.example.agrican.ui.screens.home.main.fertilizers_calculator.FertilizersCalculatorScreen
 import com.example.agrican.ui.screens.home.main.problem_images.ProblemImagesDestination
 import com.example.agrican.ui.screens.home.main.problem_images.ProblemImagesScreen
+import com.example.agrican.ui.screens.home.main.problem_images.disease_capture_result.DiseaseCaptureResultDestination
+import com.example.agrican.ui.screens.home.main.problem_images.disease_capture_result.DiseaseCaptureResultScreen
 import com.example.agrican.ui.screens.home.main.weather.WeatherDestination
 import com.example.agrican.ui.screens.home.main.weather.WeatherScreen
 
 @Composable
 fun MainGraph(
     setTopBarTitle: (Int) -> Unit,
-    setTopBarIcon: (Boolean) -> Unit,
-    showTopBar: (Boolean) -> Unit,
     showBottomBar: (Boolean) -> Unit,
 ) {
 
@@ -47,50 +47,41 @@ fun MainGraph(
         startDestination = MainDestination.route
     ) {
         composable(route = MainDestination.route) {
-            setTopBarIcon(true)
-            showTopBar(true)
             showBottomBar(true)
-            MainScreen(openScreen = openScreen)
+            MainScreen(openScreen = openScreen, openAndClear = openAndClear)
         }
 
         composable(route = ProblemImagesDestination.route) {
-            showTopBar(true)
-            showBottomBar(true)
-            setTopBarIcon(false)
-            setTopBarTitle(ProblemImagesDestination.titleRes)
+            showBottomBar(false)
             ProblemImagesScreen(
                 navigateUp = navigateUp,
-                openCamera = {
-                    showTopBar(false)
-                    showBottomBar(false)
-                }
+                openCamera = { showBottomBar(false) },
+                openAndPopUp = { openAndPopUp(it, ProblemImagesDestination.route) }
             )
         }
 
+        composable(route = DiseaseCaptureResultDestination.route) {
+            showBottomBar(false)
+            DiseaseCaptureResultScreen(navigateUp = navigateUp)
+        }
+
         composable(route = FertilizersCalculatorDestination.route) {
-            setTopBarIcon(false)
             setTopBarTitle(FertilizersCalculatorDestination.titleRes)
-            FertilizersCalculatorScreen()
+            FertilizersCalculatorScreen(navigateUp = navigateUp)
         }
 
         composable(route = AskExpertDestination.route) {
-            showTopBar(false)
             showBottomBar(false)
-            AskExpertScreen(openAndPopUp = openAndPopUp, navigateUp = navigateUp)
+            AskExpertScreen(openAndPopUp = openAndPopUp)
         }
 
         composable(route = ChatDestination.route) {
-            setTopBarIcon(false)
-            setTopBarTitle(ChatDestination.titleRes)
-            showTopBar(true)
-            showBottomBar(false)
             ChatScreen(navigateUp = navigateUp)
         }
 
         composable(route = WeatherDestination.route) {
-            setTopBarIcon(false)
             setTopBarTitle(WeatherDestination.titleRes)
-            WeatherScreen()
+            WeatherScreen(navigateUp = navigateUp)
         }
     }
 }

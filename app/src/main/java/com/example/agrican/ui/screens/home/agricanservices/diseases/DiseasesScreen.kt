@@ -24,7 +24,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
 import com.example.agrican.domain.model.Disease
-import com.example.agrican.ui.components.BackButton
+import com.example.agrican.ui.components.BackButtonTopBar
 import com.example.agrican.ui.components.EmptyImage
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.body
@@ -45,7 +45,10 @@ fun DiseasesScreen(
 ) {
     val diseases by viewModel.diseases.collectAsStateWithLifecycle()
 
-    BackButton(navigateUp = navigateUp) {
+    BackButtonTopBar(
+        title = DiseasesDestination.titleRes,
+        navigateUp = navigateUp
+    ) {
         DiseaseList(
             diseases = diseases,
             onItemClick = { openScreen("${DiseaseDestination.route}/$it") },

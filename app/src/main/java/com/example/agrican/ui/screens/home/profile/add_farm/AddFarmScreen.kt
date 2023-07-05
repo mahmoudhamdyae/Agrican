@@ -31,11 +31,11 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
 import com.example.agrican.common.enums.SizeUnit
 import com.example.agrican.common.utils.DateUtils
+import com.example.agrican.ui.components.BackButtonTopBar
 import com.example.agrican.ui.components.DateDropDown
 import com.example.agrican.ui.components.DropDown
 import com.example.agrican.ui.components.LabelItem
 import com.example.agrican.ui.components.LabelWithTextField
-import com.example.agrican.ui.components.ProfileHeader
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.textGray
@@ -53,7 +53,11 @@ fun AddFarmScreen(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    ProfileHeader(navigateUp = navigateUp, headerText = AddFarmDestination.titleRes) {
+    BackButtonTopBar(
+        title = AddFarmDestination.titleRes,
+        navigateUp = navigateUp,
+        modifier = modifier
+    ) {
         AddFarmScreenContent(
             uiState = uiState,
             updateFarmName = { viewModel.updateUiStates(farmName = it) },
@@ -63,8 +67,7 @@ fun AddFarmScreen(
             updateDay = { viewModel.updateUiStates(day = it) },
             updateMonth = { viewModel.updateUiStates(month = it) },
             updateYear = { viewModel.updateUiStates(year = it) },
-            addFarm = viewModel::addFarm,
-            modifier = modifier
+            addFarm = viewModel::addFarm
         )
     }
 }

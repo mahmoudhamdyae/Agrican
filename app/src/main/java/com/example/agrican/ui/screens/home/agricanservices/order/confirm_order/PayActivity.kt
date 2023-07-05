@@ -94,11 +94,6 @@ class PayActivity : AppCompatActivity() {
                             cvv = cvcEditText
 
                             handlePayment()
-                        },
-                        openAndClear = {
-                            val intent = Intent().putExtra("openAndClearKey", true)
-                            this.setResult(99, intent)
-                            this.finish()
                         }
                     )
                 }

@@ -46,10 +46,11 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.agrican.R
 import com.example.agrican.domain.model.Crop
-import com.example.agrican.ui.components.BackButton
+import com.example.agrican.ui.components.BackButtonTopBar
 import com.example.agrican.ui.components.CropsList
 import com.example.agrican.ui.components.EmptyImage
 import com.example.agrican.ui.navigation.NavigationDestination
+import com.example.agrican.ui.screens.home.main.problem_images.disease_capture_result.DiseaseCaptureResultDestination
 import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
@@ -65,6 +66,7 @@ object ProblemImagesDestination: NavigationDestination {
 fun ProblemImagesScreen(
     navigateUp: () -> Unit,
     openCamera: () -> Unit,
+    openAndPopUp: (String) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: ProblemImagesViewModel = hiltViewModel()
 ) {
@@ -86,7 +88,11 @@ fun ProblemImagesScreen(
         }
 
     if (!shouldShowCamera) {
-        BackButton(navigateUp = navigateUp) {
+        BackButtonTopBar(
+            title = ProblemImagesDestination.titleRes,
+            navigateUp = navigateUp,
+            modifier = modifier
+        ) {
             val context = LocalContext.current
 
             ProblemImageScreenContent(
@@ -100,7 +106,7 @@ fun ProblemImagesScreen(
                 },
                 shouldShowCamera = { shouldShowCamera = it },
                 onSearch = { viewModel.search(context) },
-                modifier = modifier
+                openAndPopUp, modifier
             )
         }
     } else {
@@ -124,6 +130,7 @@ fun ProblemImageScreenContent(
     launchImagePicker: () -> Unit,
     shouldShowCamera: (Boolean) -> Unit,
     onSearch: () -> Unit,
+    openAndPopUp: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -178,7 +185,10 @@ fun ProblemImageScreenContent(
             modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp)
         ) {
             Button(
-                onClick = onSearch,
+                onClick = {
+                    onSearch()
+                    openAndPopUp(DiseaseCaptureResultDestination.route)
+                },
                 colors = ButtonDefaults.buttonColors(containerColor = greenDark),
                 modifier = Modifier.weight(1f)
             ) {
@@ -302,6 +312,7 @@ fun ProblemImageScreenPreview() {
         updateSelectedCrop = { },
         launchImagePicker = { },
         shouldShowCamera = { },
-        onSearch = { }
+        onSearch = { },
+        openAndPopUp = { }
     )
 }

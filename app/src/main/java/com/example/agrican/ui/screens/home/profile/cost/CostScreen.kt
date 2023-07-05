@@ -25,6 +25,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.agrican.R
+import com.example.agrican.ui.components.BackButtonTopBar
 import com.example.agrican.ui.components.SimpleTextField
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.body
@@ -38,6 +39,7 @@ object CostDestination: NavigationDestination {
 
 @Composable
 fun CostScreen(
+    navigateUp: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     var insuranceCode by rememberSaveable { mutableStateOf("") }
@@ -46,104 +48,110 @@ fun CostScreen(
     var askAnExpertCode by rememberSaveable { mutableStateOf("") }
     var cropManagerCode by rememberSaveable { mutableStateOf("") }
 
-    Column(
-        verticalArrangement = Arrangement.spacedBy(16.dp),
+    BackButtonTopBar(
+        title = CostDestination.titleRes,
+        navigateUp = navigateUp,
         modifier = modifier
-            .verticalScroll(rememberScrollState())
-            .padding(16.dp)
-            .padding(bottom = 60.dp)
     ) {
-        // Main Table Row
-        Row(modifier = Modifier.padding(horizontal = 16.dp)) {
-            Text(
-                text = stringResource(id = R.string.services),
-                style = MaterialTheme.typography.body,
-                fontSize = 15.sp,
-                modifier = Modifier.weight(1f)
-            )
-            Text(
-                text = stringResource(id = R.string.cost_in_month),
-                style = MaterialTheme.typography.body,
-                fontSize = 15.sp,
-                modifier = Modifier.weight(1f)
-            )
-            Text(
-                text = stringResource(id = R.string.discount_code),
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.body,
-                fontSize = 15.sp,
-                modifier = Modifier.weight(1f)
-            )
-        }
+        Column(
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+            modifier = modifier
+                .verticalScroll(rememberScrollState())
+                .padding(16.dp)
+                .padding(bottom = 60.dp)
+        ) {
+            // Main Table Row
+            Row(modifier = Modifier.padding(horizontal = 16.dp)) {
+                Text(
+                    text = stringResource(id = R.string.services),
+                    style = MaterialTheme.typography.body,
+                    fontSize = 15.sp,
+                    modifier = Modifier.weight(1f)
+                )
+                Text(
+                    text = stringResource(id = R.string.cost_in_month),
+                    style = MaterialTheme.typography.body,
+                    fontSize = 15.sp,
+                    modifier = Modifier.weight(1f)
+                )
+                Text(
+                    text = stringResource(id = R.string.discount_code),
+                    textAlign = TextAlign.Center,
+                    style = MaterialTheme.typography.body,
+                    fontSize = 15.sp,
+                    modifier = Modifier.weight(1f)
+                )
+            }
 
-        Divider(color = gray)
+            Divider(color = gray)
 
-        // Insurance Row
-        CostRow(
-            mainLabel = R.string.insurance,
-            costMonthly = 00.00,
-            code = insuranceCode,
-            onCodeChanged = { insuranceCode = it }
-        )
-
-        // Engineer Map Row
-        CostRow(
-            mainLabel = R.string.engineer_map,
-            costMonthly = 00.00,
-            code = engineerMapCode,
-            onCodeChanged = { engineerMapCode = it }
-        )
-
-        // Fertilizers Calculator Row
-        CostRow(
-            mainLabel = R.string.fertilizers_calculator,
-            costMonthly = 00.00,
-            code = fertilizersCalculatorCode,
-            onCodeChanged = { fertilizersCalculatorCode = it }
-        )
-
-        // Ask An Expert Row
-        CostRow(
-            mainLabel = R.string.ask_expert,
-            costMonthly = 00.00,
-            code = askAnExpertCode,
-            onCodeChanged = { askAnExpertCode = it }
-        )
-
-        // Crop Manager Row
-        CostRow(
-            mainLabel = R.string.crop_manager,
-            costMonthly = 00.00,
-            code = cropManagerCode,
-            onCodeChanged = { cropManagerCode = it }
-        )
-
-        Divider(modifier = Modifier.height(2.dp), color = gray)
-
-        // Total Sum Row
-        Row(modifier = modifier.padding(horizontal = 16.dp)) {
-            Text(
-                text = stringResource(id = R.string.sum),
-                style = MaterialTheme.typography.body,
-                fontSize = 17.sp
+            // Insurance Row
+            CostRow(
+                mainLabel = R.string.insurance,
+                costMonthly = 00.00,
+                code = insuranceCode,
+                onCodeChanged = { insuranceCode = it }
             )
 
-            Spacer(modifier = Modifier.weight(1f))
+            // Engineer Map Row
+            CostRow(
+                mainLabel = R.string.engineer_map,
+                costMonthly = 00.00,
+                code = engineerMapCode,
+                onCodeChanged = { engineerMapCode = it }
+            )
 
-            // Price
-            Text(
-                text = "00.00",
-                style = MaterialTheme.typography.body,
-                fontSize = 17.sp
+            // Fertilizers Calculator Row
+            CostRow(
+                mainLabel = R.string.fertilizers_calculator,
+                costMonthly = 00.00,
+                code = fertilizersCalculatorCode,
+                onCodeChanged = { fertilizersCalculatorCode = it }
             )
-            Spacer(modifier = Modifier.padding(end = 8.dp))
-            // Pound Label
-            Text(
-                text = stringResource(id = R.string.pound),
-                style = MaterialTheme.typography.body,
-                fontSize = 17.sp,
-                modifier = Modifier.padding(end = 16.dp)
+
+            // Ask An Expert Row
+            CostRow(
+                mainLabel = R.string.ask_expert,
+                costMonthly = 00.00,
+                code = askAnExpertCode,
+                onCodeChanged = { askAnExpertCode = it }
             )
+
+            // Crop Manager Row
+            CostRow(
+                mainLabel = R.string.crop_manager,
+                costMonthly = 00.00,
+                code = cropManagerCode,
+                onCodeChanged = { cropManagerCode = it }
+            )
+
+            Divider(modifier = Modifier.height(2.dp), color = gray)
+
+            // Total Sum Row
+            Row(modifier = modifier.padding(horizontal = 16.dp)) {
+                Text(
+                    text = stringResource(id = R.string.sum),
+                    style = MaterialTheme.typography.body,
+                    fontSize = 17.sp
+                )
+
+                Spacer(modifier = Modifier.weight(1f))
+
+                // Price
+                Text(
+                    text = "00.00",
+                    style = MaterialTheme.typography.body,
+                    fontSize = 17.sp
+                )
+                Spacer(modifier = Modifier.padding(end = 8.dp))
+                // Pound Label
+                Text(
+                    text = stringResource(id = R.string.pound),
+                    style = MaterialTheme.typography.body,
+                    fontSize = 17.sp,
+                    modifier = Modifier.padding(end = 16.dp)
+                )
+            }
         }
     }
 }
@@ -188,7 +196,9 @@ fun CostRow(
             ) },
             imeAction = ImeAction.Done,
             borderColor = greenLight,
-            modifier = Modifier.weight(1f).height(32.dp)
+            modifier = Modifier
+                .weight(1f)
+                .height(32.dp)
         )
     }
 }
@@ -196,5 +206,5 @@ fun CostRow(
 @Preview(showBackground = true)
 @Composable
 fun CostScreenPreview() {
-    CostScreen()
+    CostScreen(navigateUp = { })
 }

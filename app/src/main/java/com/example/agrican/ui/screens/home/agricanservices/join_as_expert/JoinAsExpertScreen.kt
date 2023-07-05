@@ -4,7 +4,6 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -13,10 +12,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
@@ -27,7 +24,6 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -36,7 +32,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
@@ -51,13 +46,13 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.agrican.R
 import com.example.agrican.common.ext.encodeImage
+import com.example.agrican.ui.components.BackButtonTopBar
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
-import com.example.agrican.ui.theme.white
 
-object JoinAsExpertDestination: NavigationDestination {
+object JoinAsExpertDestination : NavigationDestination {
     override val route: String = "join_as_expert"
     override val titleRes: Int = R.string.join_as_expert
 }
@@ -82,214 +77,200 @@ fun JoinAsExpertScreen(
 
     val focusManager = LocalFocusManager.current
 
-    Column(
+    BackButtonTopBar(
+        title = JoinAsExpertDestination.titleRes,
+        navigateUp = navigateUp,
         modifier = modifier
-            .verticalScroll(rememberScrollState())
-            .padding(
-                start = 16.dp,
-                end = 16.dp,
-                bottom = 32.dp
-            )
-            .padding(bottom = 60.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        // Header
-        Surface(
-            shadowElevation = 16.dp,
-            shape = RoundedCornerShape(
-                bottomStart = 16.dp,
-                bottomEnd = 16.dp
-            ),
-            color = greenDark
-        ) {
-            Box {
-                Text(
-                    text = stringResource(id = R.string.join_as_expert_label),
-                    textAlign = TextAlign.Center,
-                    color = white,
-                    style = MaterialTheme.typography.body,
-                    fontSize = 16.sp,
-                    modifier = Modifier.padding(
-                        horizontal = 16.dp,
-                        vertical = 64.dp
-                    )
-                )
-
-                Box(
-                    modifier = Modifier
-                        .padding(16.dp)
-                        .clip(CircleShape)
-                        .background(MaterialTheme.colorScheme.background)
-                        .align(Alignment.BottomStart)
-                        .size(4.dp)
-                )
-
-                Box(
-                    modifier = Modifier
-                        .padding(16.dp)
-                        .clip(CircleShape)
-                        .background(MaterialTheme.colorScheme.background)
-                        .align(Alignment.BottomEnd)
-                        .size(4.dp)
-                )
-            }
-        }
-
-        // Full Name Text Field
-        Text(
-            text = stringResource(id = R.string.full_name),
-            style = MaterialTheme.typography.body,
-            fontSize = 14.sp
-        )
-        BasicTextField(
-            value = fullName,
-            onValueChange = { fullName = it },
-            decorationBox = { innerTextField ->
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .wrapContentHeight()
-                        .padding(10.dp)
-                ) {
-                    innerTextField()
-                }
-            },
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Text,
-                imeAction = ImeAction.Next
-            ),
-            keyboardActions = KeyboardActions(
-                onNext = { focusManager.moveFocus(FocusDirection.Down) }
-            ),
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(40.dp)
-                .border(
-                    border = BorderStroke(1.dp, greenLight),
-                    shape = RoundedCornerShape(16.dp)
-                )
-        )
-
-        // Email TextField
-        Text(
-            text = stringResource(id = R.string.e_mail),
-            style = MaterialTheme.typography.body,
-            fontSize = 14.sp
-        )
-        BasicTextField(
-            value = email,
-            onValueChange = { email = it },
-            decorationBox = { innerTextField ->
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .wrapContentHeight()
-                        .padding(10.dp)
-                ) {
-                    innerTextField()
-                }
-            },
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Email,
-                imeAction = ImeAction.Next
-            ),
-            keyboardActions = KeyboardActions(
-                onNext = { focusManager.moveFocus(FocusDirection.Down) }
-            ),
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(40.dp)
-                .border(
-                    border = BorderStroke(1.dp, greenLight),
-                    shape = RoundedCornerShape(16.dp)
-                )
-        )
-
-        // Phone Number Text Field
-        Text(
-            text = stringResource(id = R.string.phone_number),
-            style = MaterialTheme.typography.body,
-            fontSize = 14.sp
-        )
-        BasicTextField(
-            value = phoneNumber,
-            onValueChange = { phoneNumber = it },
-            decorationBox = { innerTextField ->
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .wrapContentHeight()
-                        .padding(10.dp)
-                ) {
-                    innerTextField()
-                }
-            },
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Number,
-                imeAction = ImeAction.Done
-            ),
-            keyboardActions = KeyboardActions(
-                onDone = { focusManager.clearFocus() }
-            ),
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(40.dp)
-                .border(
-                    border = BorderStroke(1.dp, greenLight),
-                    shape = RoundedCornerShape(16.dp)
-                )
-        )
-
-        // Image to Upload
-        Text(
-            text = stringResource(id = R.string.image_of_certificate),
-            style = MaterialTheme.typography.body,
-            fontSize = 14.sp
-        )
         Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .verticalScroll(rememberScrollState())
+                .padding(
+                    start = 16.dp,
+                    end = 16.dp,
+                    bottom = 32.dp
+                )
+                .padding(bottom = 60.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            // Add Image Button
-            OutlinedButton(
-                onClick = {
-                    imagePicker.launch(
-                        PickVisualMediaRequest(
-                            mediaType = ActivityResultContracts.PickVisualMedia.ImageOnly)
-                    )
+            // Header
+            Text(
+                text = stringResource(id = R.string.join_as_expert_label),
+                textAlign = TextAlign.Center,
+                color = greenLight,
+                style = MaterialTheme.typography.body,
+                fontSize = 16.sp,
+                modifier = Modifier.padding(
+                    horizontal = 16.dp,
+                    vertical = 64.dp
+                )
+            )
+
+            // Full Name Text Field
+            Text(
+                text = stringResource(id = R.string.full_name),
+                style = MaterialTheme.typography.body,
+                fontSize = 14.sp
+            )
+            BasicTextField(
+                value = fullName,
+                onValueChange = { fullName = it },
+                decorationBox = { innerTextField ->
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .wrapContentHeight()
+                            .padding(10.dp)
+                    ) {
+                        innerTextField()
+                    }
                 },
-                border = BorderStroke(1.dp, greenLight)
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Text,
+                    imeAction = ImeAction.Next
+                ),
+                keyboardActions = KeyboardActions(
+                    onNext = { focusManager.moveFocus(FocusDirection.Down) }
+                ),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(40.dp)
+                    .border(
+                        border = BorderStroke(1.dp, greenLight),
+                        shape = RoundedCornerShape(16.dp)
+                    )
+            )
+
+            // Email TextField
+            Text(
+                text = stringResource(id = R.string.e_mail),
+                style = MaterialTheme.typography.body,
+                fontSize = 14.sp
+            )
+            BasicTextField(
+                value = email,
+                onValueChange = { email = it },
+                decorationBox = { innerTextField ->
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .wrapContentHeight()
+                            .padding(10.dp)
+                    ) {
+                        innerTextField()
+                    }
+                },
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Email,
+                    imeAction = ImeAction.Next
+                ),
+                keyboardActions = KeyboardActions(
+                    onNext = { focusManager.moveFocus(FocusDirection.Down) }
+                ),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(40.dp)
+                    .border(
+                        border = BorderStroke(1.dp, greenLight),
+                        shape = RoundedCornerShape(16.dp)
+                    )
+            )
+
+            // Phone Number Text Field
+            Text(
+                text = stringResource(id = R.string.phone_number),
+                style = MaterialTheme.typography.body,
+                fontSize = 14.sp
+            )
+            BasicTextField(
+                value = phoneNumber,
+                onValueChange = { phoneNumber = it },
+                decorationBox = { innerTextField ->
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .wrapContentHeight()
+                            .padding(10.dp)
+                    ) {
+                        innerTextField()
+                    }
+                },
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Number,
+                    imeAction = ImeAction.Done
+                ),
+                keyboardActions = KeyboardActions(
+                    onDone = { focusManager.clearFocus() }
+                ),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(40.dp)
+                    .border(
+                        border = BorderStroke(1.dp, greenLight),
+                        shape = RoundedCornerShape(16.dp)
+                    )
+            )
+
+            // Image to Upload
+            Text(
+                text = stringResource(id = R.string.image_of_certificate),
+                style = MaterialTheme.typography.body,
+                fontSize = 14.sp
+            )
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.fillMaxWidth()
             ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically
+                // Add Image Button
+                OutlinedButton(
+                    onClick = {
+                        imagePicker.launch(
+                            PickVisualMediaRequest(
+                                mediaType = ActivityResultContracts.PickVisualMedia.ImageOnly
+                            )
+                        )
+                    },
+                    border = BorderStroke(1.dp, greenLight)
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = stringResource(id = R.string.add_image),
+                            color = greenLight,
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier.padding(horizontal = 16.dp)
+                        )
+
+                        Icon(
+                            painter = painterResource(id = R.drawable.take_picture),
+                            contentDescription = null,
+                        )
+                    }
+                }
+
+                // Send Information
+                Button(
+                    onClick = {
+                        viewModel.send(
+                            fullName,
+                            email,
+                            phoneNumber,
+                            image,
+                            navigateUp
+                        )
+                    },
+                    colors = ButtonDefaults.buttonColors(containerColor = greenDark),
+                    modifier = Modifier.padding(32.dp)
                 ) {
                     Text(
-                        text = stringResource(id = R.string.add_image),
-                        color = greenLight,
-                        fontSize = 14.sp,
+                        text = stringResource(id = R.string.send),
+                        fontSize = 15.sp,
                         fontWeight = FontWeight.Bold,
-                        modifier = Modifier.padding(horizontal = 16.dp)
-                    )
-
-                    Icon(
-                        painter = painterResource(id = R.drawable.take_picture),
-                        contentDescription = null,
+                        modifier = Modifier.padding(horizontal = 32.dp)
                     )
                 }
-            }
-
-            // Send Information
-            Button(
-                onClick = { viewModel.send(fullName, email, phoneNumber, image, navigateUp) },
-                colors = ButtonDefaults.buttonColors(containerColor = greenDark),
-                modifier = Modifier.padding(32.dp)
-            ) {
-                Text(
-                    text = stringResource(id = R.string.send),
-                    fontSize = 15.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(horizontal = 32.dp)
-                )
             }
         }
     }

@@ -33,6 +33,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
 import com.example.agrican.ui.components.DialogBoxLoading
+import com.example.agrican.ui.screens.notifications.NotificationsDestination
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.iconGray
 import com.example.agrican.ui.theme.white
@@ -42,6 +43,7 @@ import com.example.agrican.ui.theme.white
 fun TopBar(
     title: @Composable () -> Unit,
     openAndClear: (String) -> Unit,
+    openScreen: (String) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
@@ -83,10 +85,10 @@ fun TopBar(
 
             // Notifications Icon
             Row {
-                IconButton(onClick = { /*TODO*/ }) {
+                IconButton(onClick = { openScreen(NotificationsDestination.route) }) {
                     Icon(
                         painter = painterResource(id = R.drawable.notifications),
-                        contentDescription = null,
+                        contentDescription = stringResource(id = R.string.notifications),
                         tint = iconGray
                     )
                 }

@@ -50,6 +50,7 @@ import com.example.agrican.R
 import com.example.agrican.common.enums.Quality
 import com.example.agrican.common.utils.DateUtils
 import com.example.agrican.domain.model.Crop
+import com.example.agrican.ui.components.BackButtonTopBar
 import com.example.agrican.ui.components.Chip
 import com.example.agrican.ui.components.CropsList
 import com.example.agrican.ui.components.DateDropDown
@@ -71,21 +72,28 @@ object DefaultAgesDestination: NavigationDestination {
 
 @Composable
 fun DefaultAgeScreen(
+    navigateUp: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: DefaultAgeViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    DefaultAgeScreenContent(
-        uiState = uiState,
-        updateDay = { viewModel.updateUiStates(day = it) },
-        updateMonth = { viewModel.updateUiStates(month = it) },
-        updateYear = { viewModel.updateUiStates(year = it) },
-        updateCurrentCrop = { viewModel.updateUiStates(currentCrop = it) },
-        updateCurrentQuality = { viewModel.updateUiStates(currentQuality = it) },
-        getResults = viewModel::getResults,
-        modifier = modifier.padding(bottom = 60.dp)
-    )
+    BackButtonTopBar(
+        title = DefaultAgesDestination.titleRes,
+        navigateUp = navigateUp,
+        modifier = modifier,
+    ) {
+        DefaultAgeScreenContent(
+            uiState = uiState,
+            updateDay = { viewModel.updateUiStates(day = it) },
+            updateMonth = { viewModel.updateUiStates(month = it) },
+            updateYear = { viewModel.updateUiStates(year = it) },
+            updateCurrentCrop = { viewModel.updateUiStates(currentCrop = it) },
+            updateCurrentQuality = { viewModel.updateUiStates(currentQuality = it) },
+            getResults = viewModel::getResults,
+            modifier = Modifier.padding(bottom = 60.dp)
+        )
+    }
 }
 
 @Composable
@@ -220,7 +228,9 @@ fun DefaultAgeScreenContent(
                         updateCurrentQuality(it)
                         selected = it
                     },
-                    modifier=  Modifier.width(100.dp).padding(8.dp)
+                    modifier= Modifier
+                        .width(100.dp)
+                        .padding(8.dp)
                 )
             }
         }

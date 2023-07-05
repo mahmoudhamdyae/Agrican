@@ -9,6 +9,8 @@ import com.example.agrican.ui.screens.auth.signup.SignupDestination
 import com.example.agrican.ui.screens.auth.signup.SignupScreen
 import com.example.agrican.ui.screens.home.HomeDestination
 import com.example.agrican.ui.screens.home.HomeScreen
+import com.example.agrican.ui.screens.notifications.NotificationsDestination
+import com.example.agrican.ui.screens.notifications.NotificationsScreen
 import com.example.agrican.ui.screens.onboarding.OnboardingDestination
 import com.example.agrican.ui.screens.onboarding.OnboardingScreen
 import com.example.agrican.ui.screens.welcome.WelcomeDestination
@@ -45,5 +47,9 @@ fun NavGraphBuilder.agricanAppGraph(
 
     composable(route = HomeDestination.route) {
         HomeScreen(openAndClear = openAndClear)
+    }
+
+    composable(route = NotificationsDestination.route) {
+        NotificationsScreen(navigateUp = navigateUp)
     }
 }

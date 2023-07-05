@@ -43,6 +43,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
 import com.example.agrican.common.enums.MeasureUnit
 import com.example.agrican.domain.model.Crop
+import com.example.agrican.ui.components.BackButtonTopBar
 import com.example.agrican.ui.components.Chip
 import com.example.agrican.ui.components.CropsList
 import com.example.agrican.ui.components.EmptyImage
@@ -61,19 +62,25 @@ object FertilizersCalculatorDestination: NavigationDestination {
 
 @Composable
 fun FertilizersCalculatorScreen(
+    navigateUp: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: FertilizersCalculatorViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    FertilizersCalculatorScreenContent(
-        uiState = uiState,
-        onSelectCrop = viewModel::onSelectCrop,
-        increaseSize = viewModel::increaseSize,
-        decreaseSize = viewModel::decreaseSize,
-        calculateFertilizers = viewModel::calculateFertilizers,
+    BackButtonTopBar(
+        title = FertilizersCalculatorDestination.titleRes,
+        navigateUp = navigateUp,
         modifier = modifier
-    )
+    ) {
+        FertilizersCalculatorScreenContent(
+            uiState = uiState,
+            onSelectCrop = viewModel::onSelectCrop,
+            increaseSize = viewModel::increaseSize,
+            decreaseSize = viewModel::decreaseSize,
+            calculateFertilizers = viewModel::calculateFertilizers
+        )
+    }
 }
 
 @Composable

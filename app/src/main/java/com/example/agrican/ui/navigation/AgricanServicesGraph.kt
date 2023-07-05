@@ -56,12 +56,12 @@ fun AgricanServicesGraph(
 
         composable(route = AgricanServicesDestination.route) {
             setTopBarTitle(AgricanServicesDestination.titleRes)
-            AgricanServicesScreen(openScreen = openScreen)
+            AgricanServicesScreen(openScreen = openScreen, openAndClear = openAndClear)
         }
 
         composable(route = DefaultAgesDestination.route) {
             setTopBarTitle(DefaultAgesDestination.titleRes)
-            DefaultAgeScreen()
+            DefaultAgeScreen(navigateUp = navigateUp)
         }
 
         composable(route = OrderDestination.route) {
@@ -103,7 +103,7 @@ fun AgricanServicesGraph(
         }
 
         composable(route = SelectedCropDestination.route) {
-            SelectedCropScreen()
+            SelectedCropScreen(navigateUp = navigateUp)
         }
 
         composable(route = JoinAsExpertDestination.route) {

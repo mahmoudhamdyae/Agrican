@@ -39,8 +39,8 @@ import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import com.example.agrican.R
 import com.example.agrican.domain.model.Crop
+import com.example.agrican.ui.components.BackButtonTopBar
 import com.example.agrican.ui.components.Days
-import com.example.agrican.ui.components.ProfileHeader
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.screens.home.profile.add_task.AddTaskDestination
 import com.example.agrican.ui.theme.body
@@ -69,11 +69,14 @@ fun ObserveCropScreen(
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    ProfileHeader(navigateUp = navigateUp, headerText = ObserveCropDestination.titleRes) {
+    BackButtonTopBar(
+        title = ObserveCropDestination.titleRes,
+        navigateUp = navigateUp,
+        modifier = modifier
+    ) {
         ObserveCropScreenContent(
             crop = uiState.crop,
-            openScreen = openScreen,
-            modifier = modifier
+            openScreen = openScreen
         )
     }
 }

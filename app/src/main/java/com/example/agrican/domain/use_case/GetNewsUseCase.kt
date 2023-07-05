@@ -8,18 +8,31 @@ class GetNewsUseCase @Inject constructor(
     private val mainRepository: MainRepository
 ) {
 
-    suspend operator fun invoke(): List<News> {
+    suspend operator fun invoke(isNews: Boolean): List<News> {
 //        return mainRepository.getNews()
 
-        return listOf(
-            News(title = "ابتكار طرق رى جديدة"),
-            News(title = "ابتكار طرق رى جديدة"),
-            News(title = "ابتكار طرق رى جديدة"),
-            News(title = "ابتكار طرق رى جديدة"),
-            News(title = "ابتكار طرق رى جديدة"),
-            News(title = "ابتكار طرق رى جديدة"),
-            News(title = "ابتكار طرق رى جديدة"),
-            News(title = "ابتكار طرق رى جديدة")
-        )
+        return if (isNews) {
+            listOf(
+                News(title = "ابتكار طرق رى جديدة"),
+                News(title = "ابتكار طرق رى جديدة"),
+                News(title = "ابتكار طرق رى جديدة"),
+                News(title = "ابتكار طرق رى جديدة"),
+                News(title = "ابتكار طرق رى جديدة"),
+                News(title = "ابتكار طرق رى جديدة"),
+                News(title = "ابتكار طرق رى جديدة"),
+                News(title = "ابتكار طرق رى جديدة")
+            )
+        } else {
+            listOf(
+                News(title = "عروض حصرية"),
+                News(title = "عروض حصرية"),
+                News(title = "عروض حصرية"),
+                News(title = "عروض حصرية"),
+                News(title = "عروض حصرية"),
+                News(title = "عروض حصرية"),
+                News(title = "عروض حصرية"),
+                News(title = "عروض حصرية"),
+            )
+        }
     }
 }

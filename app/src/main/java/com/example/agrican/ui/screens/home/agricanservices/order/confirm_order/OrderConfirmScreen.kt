@@ -20,11 +20,9 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -45,18 +43,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.agrican.R
-import com.example.agrican.ui.components.BackButton
+import com.example.agrican.ui.components.BackButtonTopBar
 import com.example.agrican.ui.components.SimpleTextField
-import com.example.agrican.ui.screens.home.TopBar
+import com.example.agrican.ui.screens.home.agricanservices.order.OrderDestination
 import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
-import com.example.agrican.ui.theme.textGray
 import com.example.agrican.ui.theme.title
 import com.example.agrican.ui.theme.white
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun OrderConfirmScreen(
     navigateUp: () -> Unit,
@@ -72,66 +68,49 @@ fun OrderConfirmScreen(
     changeCvc: (String) -> Unit,
     orderPrice: Double,
     buy: () -> Unit,
-    openAndClear: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Scaffold(
-        modifier = modifier,
-        topBar = {
-            TopBar(
-                title = {
-                    Text(
-                        text = stringResource(id = R.string.order),
-                        color = textGray,
-                        style = MaterialTheme.typography.title
-                    )
-                },
-                openAndClear = openAndClear,
-            )
-        }
-    ) { contentPadding ->
-        BackButton(
-            navigateUp = navigateUp,
-            modifier = modifier.padding(contentPadding)
+    BackButtonTopBar(
+        title = OrderDestination.titleRes,
+        navigateUp = navigateUp,
+        modifier = modifier
+    ) {
+        Column(
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+            modifier = Modifier
+                .verticalScroll(rememberScrollState())
+                .padding(16.dp)
+                .padding(bottom = 60.dp)
         ) {
+            Text(
+                text = stringResource(id = R.string.confirm_order),
+                color = greenLight,
+                style = MaterialTheme.typography.title,
+                fontSize = 15.sp,
+                modifier = Modifier.padding(vertical = 8.dp)
+            )
 
-            Column(
-                verticalArrangement = Arrangement.spacedBy(16.dp),
+            Divider(
                 modifier = Modifier
-                    .verticalScroll(rememberScrollState())
-                    .padding(16.dp)
-                    .padding(bottom = 60.dp)
-            ) {
-                Text(
-                    text = stringResource(id = R.string.confirm_order),
-                    color = greenLight,
-                    style = MaterialTheme.typography.title,
-                    fontSize = 15.sp,
-                    modifier = Modifier.padding(vertical = 8.dp)
-                )
+                    .height(2.dp)
+                    .background(gray)
+                    .padding(vertical = 8.dp)
+            )
 
-                Divider(
-                    modifier = Modifier
-                        .height(2.dp)
-                        .background(gray)
-                        .padding(vertical = 8.dp)
-                )
-
-                OrderConfirmScreenContent(
-                    cardName = cardName,
-                    changeCardName = changeCardName,
-                    cardId = cardId,
-                    changeCardId = changeCardId,
-                    year = year,
-                    changeYear = changeYear,
-                    month = month,
-                    changeMonth = changeMonth,
-                    cvc = cvc,
-                    changeCvc = changeCvc,
-                    buy = buy,
-                    orderPrice = orderPrice
-                )
-            }
+            OrderConfirmScreenContent(
+                cardName = cardName,
+                changeCardName = changeCardName,
+                cardId = cardId,
+                changeCardId = changeCardId,
+                year = year,
+                changeYear = changeYear,
+                month = month,
+                changeMonth = changeMonth,
+                cvc = cvc,
+                changeCvc = changeCvc,
+                buy = buy,
+                orderPrice = orderPrice
+            )
         }
     }
 }
@@ -154,7 +133,7 @@ fun OrderConfirmScreenContent(
 ) {
     val focusManager = LocalFocusManager.current
 
-    var isCash by rememberSaveable { mutableStateOf(true) }
+    var isCash: Boolean? by rememberSaveable { mutableStateOf(null) }
 
     Column(
         verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -163,7 +142,7 @@ fun OrderConfirmScreenContent(
         // Cash
         Surface(
             shape = RoundedCornerShape(16.dp),
-            border = BorderStroke(1.dp, if (isCash) greenDark else gray),
+            border = BorderStroke(1.dp, if (isCash == true) greenDark else gray),
             color = white,
             modifier = Modifier
                 .padding(bottom = 8.dp)
@@ -174,7 +153,7 @@ fun OrderConfirmScreenContent(
                 modifier = Modifier.padding(16.dp)
             ) {
                 RadioButton(
-                    selected = isCash,
+                    selected = isCash == true,
                     onClick = { isCash = true }
                 )
                 Text(
@@ -190,7 +169,7 @@ fun OrderConfirmScreenContent(
         // Visa
         Surface(
             shape = RoundedCornerShape(16.dp),
-            border = BorderStroke(1.dp, if (!isCash) greenDark else gray),
+            border = BorderStroke(1.dp, if (isCash == false) greenDark else gray),
             color = white,
             modifier = Modifier.fillMaxWidth()
         ) {
@@ -200,7 +179,7 @@ fun OrderConfirmScreenContent(
                 modifier = Modifier.padding(16.dp)
             ) {
                 RadioButton(
-                    selected = !isCash,
+                    selected = isCash == false,
                     onClick = { isCash = false }
                 )
 
@@ -220,157 +199,161 @@ fun OrderConfirmScreenContent(
             }
         }
 
-        // Card Name
-        Text(
-            text = stringResource(id = R.string.card_name),
-            color = Color(0xff5a5a5a),
-            fontSize = 12.sp,
-            style = MaterialTheme.typography.body,
-        )
-        SimpleTextField(
-            value = cardName,
-            onNewValue = changeCardName,
-            placeHolder = { },
-            focusManager = focusManager,
-            contentAlignment = Alignment.CenterStart
-        )
-
-        // Personal Id
-        Text(
-            text = stringResource(id = R.string.card_id),
-            color = Color(0xff5a5a5a),
-            fontSize = 12.sp,
-            style = MaterialTheme.typography.body,
-        )
-        SimpleTextField(
-            value = cardId,
-            onNewValue = {changeCardId(it.take(16)) },
-            placeHolder = { },
-            focusManager = focusManager,
-            imeAction = ImeAction.Go,
-            keyboardType = KeyboardType.Number,
-            contentAlignment = Alignment.CenterStart
-        )
-
-        Row {
-            // Expired Date Label
+        if (isCash == false) {
+            // Card Name
             Text(
-                text = stringResource(id = R.string.expire_date),
+                text = stringResource(id = R.string.card_name),
                 color = Color(0xff5a5a5a),
-                style = MaterialTheme.typography.body,
                 fontSize = 12.sp,
-                modifier = Modifier.weight(1f)
-            )
-
-            // CW/CVC Label
-            Text(
-                text = stringResource(id = R.string.cvc),
-                color = Color(0xff5a5a5a),
                 style = MaterialTheme.typography.body,
-                fontSize = 12.sp,
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(start = 4.dp)
             )
-        }
-
-        Row(modifier = Modifier.height(35.dp)) {
-            // Month Text Field
             SimpleTextField(
-                value = month,
-                onNewValue = { changeMonth(it.take(2)) },
-                placeHolder = {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .wrapContentHeight(),
-                        contentAlignment = Alignment.Center
-                    ) { Text(text = "MM", color = gray) } },
-                focusManager = focusManager,
-                imeAction = ImeAction.Go,
-                keyboardType = KeyboardType.Number,
-                contentAlignment = Alignment.CenterStart,
-                modifier = Modifier.weight(1f)
-            )
-
-            Spacer(modifier = Modifier.width(8.dp))
-
-            // Year Text Field
-            SimpleTextField(
-                value = year,
-                onNewValue = { changeYear(it.take(2)) },
-                placeHolder = {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .wrapContentHeight(),
-                        contentAlignment = Alignment.Center
-                    ) { Text(text = "YY", color = gray) }
-                },
-                focusManager = focusManager,
-                imeAction = ImeAction.Go,
-                keyboardType = KeyboardType.Number,
-                contentAlignment = Alignment.CenterStart,
-                modifier = Modifier
-                    .padding(end = 16.dp)
-                    .weight(1f)
-            )
-
-            // CVC Text Field
-            SimpleTextField(
-                value = cvc,
-                onNewValue = { changeCvc(it.take(3)) },
+                value = cardName,
+                onNewValue = changeCardName,
                 placeHolder = { },
                 focusManager = focusManager,
-                imeAction = ImeAction.Done,
-                keyboardType = KeyboardType.Number,
-                contentAlignment = Alignment.CenterStart,
-                modifier = Modifier.weight(2f)
+                contentAlignment = Alignment.CenterStart
             )
+
+            // Personal Id
+            Text(
+                text = stringResource(id = R.string.card_id),
+                color = Color(0xff5a5a5a),
+                fontSize = 12.sp,
+                style = MaterialTheme.typography.body,
+            )
+            SimpleTextField(
+                value = cardId,
+                onNewValue = {changeCardId(it.take(16)) },
+                placeHolder = { },
+                focusManager = focusManager,
+                imeAction = ImeAction.Go,
+                keyboardType = KeyboardType.Number,
+                contentAlignment = Alignment.CenterStart
+            )
+
+            Row {
+                // Expired Date Label
+                Text(
+                    text = stringResource(id = R.string.expire_date),
+                    color = Color(0xff5a5a5a),
+                    style = MaterialTheme.typography.body,
+                    fontSize = 12.sp,
+                    modifier = Modifier.weight(1f)
+                )
+
+                // CW/CVC Label
+                Text(
+                    text = stringResource(id = R.string.cvc),
+                    color = Color(0xff5a5a5a),
+                    style = MaterialTheme.typography.body,
+                    fontSize = 12.sp,
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(start = 4.dp)
+                )
+            }
+
+            Row(modifier = Modifier.height(35.dp)) {
+                // Month Text Field
+                SimpleTextField(
+                    value = month,
+                    onNewValue = { changeMonth(it.take(2)) },
+                    placeHolder = {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .wrapContentHeight(),
+                            contentAlignment = Alignment.Center
+                        ) { Text(text = "MM", color = gray) } },
+                    focusManager = focusManager,
+                    imeAction = ImeAction.Go,
+                    keyboardType = KeyboardType.Number,
+                    contentAlignment = Alignment.CenterStart,
+                    modifier = Modifier.weight(1f)
+                )
+
+                Spacer(modifier = Modifier.width(8.dp))
+
+                // Year Text Field
+                SimpleTextField(
+                    value = year,
+                    onNewValue = { changeYear(it.take(2)) },
+                    placeHolder = {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .wrapContentHeight(),
+                            contentAlignment = Alignment.Center
+                        ) { Text(text = "YY", color = gray) }
+                    },
+                    focusManager = focusManager,
+                    imeAction = ImeAction.Go,
+                    keyboardType = KeyboardType.Number,
+                    contentAlignment = Alignment.CenterStart,
+                    modifier = Modifier
+                        .padding(end = 16.dp)
+                        .weight(1f)
+                )
+
+                // CVC Text Field
+                SimpleTextField(
+                    value = cvc,
+                    onNewValue = { changeCvc(it.take(3)) },
+                    placeHolder = { },
+                    focusManager = focusManager,
+                    imeAction = ImeAction.Done,
+                    keyboardType = KeyboardType.Number,
+                    contentAlignment = Alignment.CenterStart,
+                    modifier = Modifier.weight(2f)
+                )
+            }
         }
 
         // Confirm Order Button
-        Button(
-            onClick = buy,
-            colors = ButtonDefaults.buttonColors(containerColor = greenDark) ,
-            modifier = Modifier
-                .padding(top = 8.dp)
-                .fillMaxWidth()
-        ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceAround,
-                modifier = Modifier.fillMaxWidth()
+        if (isCash != null) {
+            Button(
+                onClick = buy,
+                colors = ButtonDefaults.buttonColors(containerColor = greenDark) ,
+                modifier = Modifier
+                    .padding(top = 8.dp)
+                    .fillMaxWidth()
             ) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceAround,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Text(
+                            text = stringResource(id = R.string.sum),
+                            fontSize = 11.sp,
+                            fontWeight = FontWeight.Bold,
+                        )
+
+                        Row {
+                            Text(
+                                text = orderPrice.toString(),
+                                fontSize = 12.sp,
+                                fontWeight = FontWeight.Bold,
+                            )
+                            Spacer(modifier = Modifier.padding(end = 8.dp))
+                            Text(
+                                text = stringResource(id = R.string.pound),
+                                fontSize = 12.sp,
+                                fontWeight = FontWeight.Bold,
+                            )
+                        }
+                    }
+
                     Text(
-                        text = stringResource(id = R.string.sum),
-                        fontSize = 11.sp,
-                        fontWeight = FontWeight.Bold,
+                        text = stringResource(id = R.string.pay),
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold
                     )
 
-                    Row {
-                        Text(
-                            text = orderPrice.toString(),
-                            fontSize = 12.sp,
-                            fontWeight = FontWeight.Bold,
-                        )
-                        Spacer(modifier = Modifier.padding(end = 8.dp))
-                        Text(
-                            text = stringResource(id = R.string.pound),
-                            fontSize = 12.sp,
-                            fontWeight = FontWeight.Bold,
-                        )
-                    }
+                    Icon(painter = painterResource(id = R.drawable.cart), contentDescription = null)
                 }
-
-                Text(
-                    text = stringResource(id = R.string.pay),
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Bold
-                )
-
-                Icon(painter = painterResource(id = R.drawable.cart), contentDescription = null)
             }
         }
     }

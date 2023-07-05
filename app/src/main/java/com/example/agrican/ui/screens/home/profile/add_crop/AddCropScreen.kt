@@ -25,9 +25,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
 import com.example.agrican.common.utils.DateUtils
 import com.example.agrican.domain.model.Crop
+import com.example.agrican.ui.components.BackButtonTopBar
 import com.example.agrican.ui.components.CropsList
 import com.example.agrican.ui.components.DateDropDown
-import com.example.agrican.ui.components.ProfileHeader
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.title
@@ -46,15 +46,18 @@ fun AddCropScreen(
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    ProfileHeader(navigateUp = navigateUp, headerText = AddCropDestination.titleRes) {
+    BackButtonTopBar(
+        title = AddCropDestination.titleRes,
+        navigateUp = navigateUp,
+        modifier = modifier
+    ) {
         AddCropScreenContent(
             uiState = uiState,
             updateSelectedCrop = { viewModel.updateUiStates(selectedCrop = it) },
             updateDay = { viewModel.updateUiStates(day = it) },
             updateMonth = { viewModel.updateUiStates(month = it) },
             updateYear = { viewModel.updateUiStates(year = it) },
-            addCrop = viewModel::addCrop,
-            modifier = modifier
+            addCrop = viewModel::addCrop
         )
     }
 }

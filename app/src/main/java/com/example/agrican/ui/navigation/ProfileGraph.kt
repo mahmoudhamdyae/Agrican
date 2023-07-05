@@ -16,13 +16,20 @@ import com.example.agrican.ui.screens.home.profile.cost.CostDestination
 import com.example.agrican.ui.screens.home.profile.cost.CostScreen
 import com.example.agrican.ui.screens.home.profile.engineer_map.EngineerMapDestination
 import com.example.agrican.ui.screens.home.profile.engineer_map.EngineerMapScreen
+import com.example.agrican.ui.screens.home.profile.engineer_map.add_map.AddMapDestination
+import com.example.agrican.ui.screens.home.profile.engineer_map.add_map.AddMapScreen
+import com.example.agrican.ui.screens.home.profile.engineer_map.add_problem.AddProblemDestination
+import com.example.agrican.ui.screens.home.profile.engineer_map.add_problem.AddProblemScreen
+import com.example.agrican.ui.screens.home.profile.engineer_map.add_progress.AddProgressDestination
+import com.example.agrican.ui.screens.home.profile.engineer_map.add_progress.AddProgressScreen
+import com.example.agrican.ui.screens.home.profile.engineer_map.existing_map.ExistingMapDestination
+import com.example.agrican.ui.screens.home.profile.engineer_map.existing_map.ExistingMapScreen
 import com.example.agrican.ui.screens.home.profile.observe_crop.ObserveCropDestination
 import com.example.agrican.ui.screens.home.profile.observe_crop.ObserveCropScreen
 
 @Composable
 fun ProfileGraph(
     setTopBarTitle: (Int) -> Unit,
-    showTopBar: (Boolean) -> Unit,
     showBottomBar: (Boolean) -> Unit,
 ) {
 
@@ -48,7 +55,6 @@ fun ProfileGraph(
         startDestination = ProfileDestination.route
     ) {
         composable(route = ProfileDestination.route) {
-            showTopBar(false)
             showBottomBar(true)
             ProfileScreen(openScreen = openScreen)
         }
@@ -78,17 +84,42 @@ fun ProfileGraph(
         }
 
         composable(route = EngineerMapDestination.route) {
-            showTopBar(true)
             showBottomBar(true)
             setTopBarTitle(EngineerMapDestination.titleRes)
-            EngineerMapScreen()
+            EngineerMapScreen(navigateUp = navigateUp, openScreen = openScreen)
+        }
+
+        composable(route = AddMapDestination.route) {
+            showBottomBar(false)
+            setTopBarTitle(AddMapDestination.titleRes)
+            AddMapScreen(
+                navigateUp = navigateUp,
+                openAndPopUp = { openAndPopUp(it, AddMapDestination.route) }
+            )
+        }
+
+        composable(route = ExistingMapDestination.route) {
+            showBottomBar(true)
+            setTopBarTitle(ExistingMapDestination.titleRes)
+            ExistingMapScreen(openScreen = openScreen)
+        }
+
+        composable(route = AddProgressDestination.route) {
+            showBottomBar(true)
+            setTopBarTitle(AddProgressDestination.titleRes)
+            AddProgressScreen(navigateUp = navigateUp)
+        }
+
+        composable(route = AddProblemDestination.route) {
+            showBottomBar(false)
+            setTopBarTitle(AddProblemDestination.titleRes)
+            AddProblemScreen(navigateUp = navigateUp)
         }
 
         composable(route = CostDestination.route) {
-            showTopBar(true)
             showBottomBar(true)
             setTopBarTitle(CostDestination.titleRes)
-            CostScreen()
+            CostScreen(navigateUp = navigateUp)
         }
     }
 }

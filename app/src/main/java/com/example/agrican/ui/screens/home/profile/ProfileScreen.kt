@@ -1,11 +1,13 @@
 package com.example.agrican.ui.screens.home.profile
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -14,12 +16,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -30,19 +29,18 @@ import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -53,6 +51,7 @@ import com.example.agrican.domain.model.Crop
 import com.example.agrican.domain.model.Farm
 import com.example.agrican.domain.model.User
 import com.example.agrican.domain.model.UserType
+import com.example.agrican.ui.components.FarmsList
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.screens.home.profile.add_crop.AddCropDestination
 import com.example.agrican.ui.screens.home.profile.add_farm.AddFarmDestination
@@ -92,6 +91,11 @@ fun ProfileScreenContent(
     openScreen: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    var selectedFarm: Farm? by rememberSaveable { mutableStateOf(null) }
+
+    var delFarm by rememberSaveable { mutableStateOf(false) }
+    var delCrop by rememberSaveable { mutableStateOf(false) }
+
     LazyColumn(modifier = modifier) {
 
         item {
@@ -99,42 +103,59 @@ fun ProfileScreenContent(
         }
 
         if (uiState.currentUser.userType != UserType.FARMER) {
-            // Farms Label
             item {
-                Text(
-                    text = stringResource(id = R.string.farms_label),
-                    style = MaterialTheme.typography.title,
-                    fontSize = 16.sp,
-                    modifier = Modifier.padding(horizontal = 32.dp)
-                )
+                Row {
+                    // Farms Label
+                    Text(
+                        text = stringResource(id = R.string.farms_label),
+                        style = MaterialTheme.typography.title,
+                        fontSize = 16.sp,
+                        modifier = Modifier.padding(horizontal = 32.dp)
+                    )
+
+                    // Delete Farm Button
+                }
             }
 
+            // Farms List
+            item {
+                FarmsList(
+                    farms = uiState.farms,
+                    delAction = delFarm,
+                    onDelFarmClick = {
+                        delFarm = !delFarm
+                        selectedFarm = null
+                                     },
+                    onFarmClick = { selectedFarm = it },
+                    modifier = Modifier.padding(top = 8.dp)
+                )
+            }
+        }
+
+        if (selectedFarm != null) {
             item {
                 Divider(modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 32.dp))
             }
 
-            // Farms List
-            item { FarmsList(farms = uiState.farms, modifier = Modifier.padding(top = 8.dp)) }
-        }
+            // Crops Label
+            item {
+                Text(
+                    text = stringResource(id = R.string.farms_crops),
+                    style = MaterialTheme.typography.title,
+                    fontSize = 16.sp,
+                    modifier = Modifier.padding(horizontal = 32.dp)
+                )
+            }
 
-        // Crops Label
-        item {
-            Text(
-                text = stringResource(id = R.string.my_crops),
-                style = MaterialTheme.typography.title,
-                fontSize = 16.sp,
-                modifier = Modifier.padding(horizontal = 32.dp)
+            cropsList(
+                crops = uiState.crops,
+                delAction = delCrop,
+                onDelCropClick = { delCrop = !delCrop },
+                openScreen = openScreen
             )
         }
-        item {
-            Divider(modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 32.dp))
-        }
-
-        cropsList(crops = uiState.crops, openScreen = openScreen)
 
         // Space fo Bottom Navigation Bar
         item {
@@ -150,20 +171,23 @@ fun UserHeaderAndItems(
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier.height(IntrinsicSize.Min)) {
-        Box(modifier = Modifier.fillMaxSize()) {
-            Surface(
-                shadowElevation = 32.dp,
-                shape = RoundedCornerShape(
-                    bottomEnd = 64.dp,
-                    bottomStart = 64.dp,
-                ),
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(bottom = 32.dp)
-            ) { }
+        Surface(
+            shape = RoundedCornerShape(
+                bottomEnd = 32.dp,
+                bottomStart = 32.dp,
+            ),
+            color = greenLight,
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(bottom = 16.dp)
+        ) {
 
-            Column {
+            Column(modifier = Modifier.padding(bottom = 16.dp)) {
                 UserHeader(user = user, openScreen = openScreen)
+
+                Divider(modifier = Modifier
+                    .height(1.dp)
+                    .padding(horizontal = 18.dp))
 
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(12.dp),
@@ -205,7 +229,7 @@ fun UserHeaderAndItems(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 16.dp)
-                            .padding(top = 12.dp, bottom = 16.dp)
+                            .padding(top = 12.dp)
                     )
                 }
             }
@@ -221,19 +245,14 @@ fun UserHeader(
 ) {
     Box(modifier = modifier
         .fillMaxWidth()
-        .padding(bottom = 8.dp)
         .height(IntrinsicSize.Min)
     ) {
-        // Shadow Element
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .shadow(24.dp, CutCornerShape(88.dp))
-        )
-
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = modifier.fillMaxWidth().background(white).padding(16.dp)
+            modifier = modifier
+                .fillMaxWidth()
+                .background(greenLight)
+                .padding(16.dp)
         ) {
 
             // Profile Image
@@ -259,45 +278,43 @@ fun UserHeader(
                 Text(
                     text = user.userName,
                     style = MaterialTheme.typography.title,
+                    color = white,
                     fontSize = 15.sp
                 )
 
                 // Account Type
-                Surface(
-                    shape = RoundedCornerShape(16.dp),
-                    color = greenDark
-                ) {
-                    Text(
-                        text = stringResource(id = user.userType.title),
-                        color = white,
-                        style = MaterialTheme.typography.body,
-                        fontSize = 14.sp,
-                        modifier = Modifier.padding(horizontal = 16.dp)
-                    )
-                }
+                Text(
+                    text = stringResource(id = user.userType.title),
+                    color = white,
+                    style = MaterialTheme.typography.body,
+                    fontSize = 14.sp
+                )
             }
 
             Spacer(modifier = Modifier.weight(1f))
 
             // Modify Data Button
-            Column(modifier = Modifier.width(IntrinsicSize.Max)) {
-                OutlinedButton(onClick = { /*TODO*/ },) {
+            Column(horizontalAlignment = Alignment.End) {
+                Button(
+                    onClick = { /*TODO*/ },
+                    colors = ButtonDefaults.buttonColors(containerColor = greenDark)
+                ) {
                     Text(
                         text = stringResource(id = R.string.modify_data),
-                        color = greenDark,
+                        color = white,
                         style = MaterialTheme.typography.body,
                         fontSize = 11.sp
                     )
                 }
 
                 // Cost Button
-                OutlinedButton(
+                Button(
                     onClick = { openScreen(CostDestination.route) },
-                    modifier = Modifier.fillMaxWidth()
+                    colors = ButtonDefaults.buttonColors(containerColor = greenDark)
                 ) {
                     Text(
                         text = stringResource(id = R.string.cost),
-                        color = greenDark,
+                        color = white,
                         style = MaterialTheme.typography.body,
                         fontSize = 11.sp
                     )
@@ -317,7 +334,7 @@ fun AddItem(
     Surface(
         shape = RoundedCornerShape(16.dp),
         shadowElevation = 8.dp,
-        modifier = modifier
+        modifier = modifier.clickable { onIconClick() }
     ) {
         Box(
             modifier = Modifier.padding(10.dp)
@@ -343,65 +360,30 @@ fun AddItem(
                 onClick = onIconClick,
                 modifier = Modifier
                     .align(Alignment.BottomEnd)
-                    .clip(CircleShape)
-                    .background(greenDark)
                     .size(32.dp)
             ) {
                 Icon(
                     imageVector = Icons.Default.Add,
                     contentDescription = null,
-                    tint = white
+                    tint = greenLight
                 )
             }
         }
     }
 }
 
-@Composable
-fun FarmsList(
-    farms: List<Farm>,
-    modifier: Modifier = Modifier
-) {
-    LazyRow(modifier = modifier) {
-        items(farms.size) {
-            FarmsListItem(farm = farms[it])
-        }
-    }
-}
-
-@Composable
-fun FarmsListItem(
-    farm: Farm,
-    modifier: Modifier = Modifier
-) {
-
-    Column(modifier = modifier
-        .padding(8.dp)
-        .width(60.dp)
-    ) {
-        Surface(
-            shape = RoundedCornerShape(24.dp),
-            shadowElevation = 12.dp,
-            modifier = Modifier.size(60.dp)
-        ) {
-        }
-        Text(
-            text = farm.name,
-            textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.body,
-            fontSize = 11.sp
-        )
-    }
-}
-
 fun LazyListScope.cropsList(
     crops: List<Crop>,
+    delAction: Boolean,
+    onDelCropClick: (String) -> Unit,
     openScreen: (String) -> Unit
 ) {
     items(crops.size) {
         CropsListItem(
             crop = crops[it],
-            onClick = { openScreen("${ObserveCropDestination.route}/$it") }
+            onObserveClick = { openScreen("${ObserveCropDestination.route}/$it") },
+            onDelCropClick = onDelCropClick,
+            delAction = delAction
         )
     }
 }
@@ -409,60 +391,65 @@ fun LazyListScope.cropsList(
 @Composable
 fun CropsListItem(
     crop: Crop,
-    onClick: (String) -> Unit,
+    delAction: Boolean,
+    onObserveClick: (String) -> Unit,
+    onDelCropClick: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Surface(
         color = greenLight,
         shadowElevation = 16.dp,
-        shape = RoundedCornerShape(24.dp),
-        modifier = modifier.padding(16.dp)
+        shape = RoundedCornerShape(16.dp),
+        modifier = modifier
+            .padding(horizontal = 16.dp, vertical = 8.dp)
+            .height(IntrinsicSize.Max)
     ) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(4.dp)
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.fillMaxWidth()
         ) {
+            // Observe Crop Button
+            Box(
+                contentAlignment = Alignment.CenterStart,
+                modifier = Modifier
+                    .clickable { onObserveClick(crop.cropId) }
+                    .fillMaxHeight()
+                    .background(greenDark)
+            ) {
+                Text(
+                    text = stringResource(id = R.string.observe_crop),
+                    fontSize = 10.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = white,
+                    modifier = Modifier.padding(horizontal = 12.dp)
+                )
+            }
+
             // Crop Name
             Text(
                 text = crop.name,
                 color = white,
                 style = MaterialTheme.typography.title,
                 fontSize = 16.sp,
-                modifier = Modifier.padding(6.dp)
+                modifier = Modifier.padding(start = 12.dp)
             )
 
             Spacer(modifier = Modifier.weight(1f))
 
-            Column(
-                horizontalAlignment = Alignment.End,
-                verticalArrangement = Arrangement.spacedBy(4.dp),
-                modifier = Modifier.padding(end = 6.dp)
-            ) {
-                // Remove Button
+            // Remove Button
+            if (delAction) {
                 IconButton(
-                    onClick =  { /*TODO*/ },
-                    modifier = Modifier.size(24.dp)
+                    onClick =  { onDelCropClick(crop.cropId) },
+                    modifier = Modifier
+                        .background(white)
+                        .fillMaxHeight()
+                        .border(BorderStroke(1.dp, greenLight))
                 ) {
                     Icon(
                         imageVector = Icons.Default.Close,
                         contentDescription = null,
-                        tint = white,
-                        modifier = Modifier.size(24.dp)
-                    )
-                }
-
-                // Observe Crop Button
-                Button(
-                    onClick = { onClick(crop.cropId) },
-                    contentPadding = PaddingValues(horizontal = 12.dp),
-                    shape = RoundedCornerShape(32.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = greenDark)
-                ) {
-                    Text(
-                        text = stringResource(id = R.string.observe_crop),
-                        fontSize = 10.sp,
-                        fontWeight = FontWeight.Bold
+                        tint = greenDark,
+                        modifier = Modifier.size(18.dp)
                     )
                 }
             }

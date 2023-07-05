@@ -13,13 +13,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.sp
 import com.example.agrican.R
-import com.example.agrican.ui.components.BackButton
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.title
-import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -30,12 +29,9 @@ object AskExpertDestination: NavigationDestination {
 
 @Composable
 fun AskExpertScreen(
-    navigateUp: () -> Unit,
     openAndPopUp: (String, String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-
-    // todo: change this
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     LaunchedEffect(key1 = context) {
@@ -47,29 +43,27 @@ fun AskExpertScreen(
         }
     }
 
-    BackButton(navigateUp = navigateUp) {
-        Column(
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = modifier.fillMaxSize()
-        ) {
-            Text(
-                text = stringResource(id = R.string.ask_expert_text_one),
-                style = MaterialTheme.typography.title,
-                fontSize = 16.sp
-            )
-            Text(
-                text = stringResource(id = R.string.ask_expert_text_two),
-                color = greenDark,
-                style = MaterialTheme.typography.body,
-                fontSize = 14.sp
-            )
-        }
+    Column(
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = modifier.fillMaxSize()
+    ) {
+        Text(
+            text = stringResource(id = R.string.ask_expert_text_one),
+            style = MaterialTheme.typography.title,
+            fontSize = 16.sp
+        )
+        Text(
+            text = stringResource(id = R.string.ask_expert_text_two),
+            color = greenDark,
+            style = MaterialTheme.typography.body,
+            fontSize = 14.sp
+        )
     }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun AskExpertScreenPreview() {
-    AskExpertScreen(openAndPopUp = { _, _ -> }, navigateUp = { })
+    AskExpertScreen(openAndPopUp = { _, _ -> })
 }

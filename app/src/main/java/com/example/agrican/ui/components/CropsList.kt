@@ -1,7 +1,9 @@
 package com.example.agrican.ui.components
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -15,10 +17,16 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -26,6 +34,7 @@ import com.example.agrican.R
 import com.example.agrican.domain.model.Crop
 import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.gray
+import com.example.agrican.ui.theme.greenDark
 
 @Composable
 fun CropsList(
@@ -41,13 +50,32 @@ fun CropsList(
             }
         }
     } else {
-        LazyRow(modifier = modifier) {
-            items(crops!!.size) {
-                CropsListItem(
-                    crop = crops[it],
-                    modifier = Modifier
-                        .padding(8.dp)
-                        .clickable { setSelectedCrop(crops[it]) }
+        Box(contentAlignment = Alignment.Center) {
+
+            var selectedCrop: Crop? by rememberSaveable { mutableStateOf(null) }
+
+            LazyRow(modifier = modifier) {
+                items(crops!!.size) {
+                    CropsListItem(
+                        crop = crops[it],
+                        modifier = Modifier
+                            .padding(8.dp)
+                            .clickable {
+                                if (selectedCrop == null) {
+                                    selectedCrop = crops[it]
+                                } else {
+                                    selectedCrop = null
+                                }
+                                setSelectedCrop(crops[it])
+                            }
+                    )
+                }
+            }
+
+            selectedCrop?.let {
+                SelectedCrop(
+                    crop = it,
+                    modifier = Modifier.align(Alignment.CenterStart)
                 )
             }
         }
@@ -116,6 +144,32 @@ fun CropsListItem(
                     .align(Alignment.BottomCenter)
                     .padding(bottom = 4.dp)
             )
+        }
+    }
+}
+
+@Composable
+fun SelectedCrop(
+    crop: Crop,
+    modifier: Modifier = Modifier
+) {
+    Surface(
+        shadowElevation = 16.dp,
+        modifier = modifier
+    ) {
+        Column(
+            verticalArrangement = Arrangement.spacedBy(6.dp),
+            modifier = Modifier
+                .width(80.dp)
+                .padding(12.dp)
+        ) {
+            Text(
+                text = stringResource(id = R.string.selected_crop),
+                textAlign = TextAlign.Center,
+                color = greenDark,
+                fontSize = 10.sp
+            )
+            CropsListItem(crop = crop)
         }
     }
 }

@@ -42,6 +42,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
 import com.example.agrican.common.enums.DiseaseType
 import com.example.agrican.domain.model.Treatment
+import com.example.agrican.ui.components.BackButtonTopBar
 import com.example.agrican.ui.components.DropDown
 import com.example.agrican.ui.components.EmptyImage
 import com.example.agrican.ui.navigation.NavigationDestination
@@ -57,17 +58,24 @@ object SelectedCropDestination: NavigationDestination {
 
 @Composable
 fun SelectedCropScreen(
+    navigateUp: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: TreatmentViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    SelectedCropScreenContent(
-        uiState = uiState,
-        updateDiseaseType = viewModel::updateDiseaseType,
-        getTreatments = viewModel::getTreatments,
-        modifier = modifier.fillMaxSize()
-    )
+    BackButtonTopBar(
+        title = SelectedCropDestination.titleRes,
+        navigateUp = navigateUp,
+        modifier = modifier
+    ) {
+        SelectedCropScreenContent(
+            uiState = uiState,
+            updateDiseaseType = viewModel::updateDiseaseType,
+            getTreatments = viewModel::getTreatments,
+            modifier = Modifier.fillMaxSize()
+        )
+    }
 }
 
 @Composable
@@ -151,7 +159,9 @@ fun SelectedCropScreenContent(
             ),
             onSelect = updateDiseaseType,
             textColor = greenDark,
-            modifier = Modifier.width(225.dp).height(40.dp)
+            modifier = Modifier
+                .width(225.dp)
+                .height(40.dp)
         )
 
         // Show Treatment Button
@@ -215,7 +225,9 @@ fun TreatmentListItem(
         Surface(
             shadowElevation = 16.dp,
             shape = RoundedCornerShape(24.dp),
-            modifier = Modifier.fillMaxWidth().padding(vertical = 2.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 2.dp)
         ) {
             Row(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -279,7 +291,7 @@ fun TreatmentListItem(
     }
 }
 
-@Preview(showBackground = true, showSystemUi = true)
+@Preview(showBackground = true)
 @Composable
 fun SelectedCropScreenPreview() {
     SelectedCropScreenContent(uiState = TreatmentUiState(), updateDiseaseType = { }, getTreatments = { })

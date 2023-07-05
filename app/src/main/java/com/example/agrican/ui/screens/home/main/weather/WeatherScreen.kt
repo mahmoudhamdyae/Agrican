@@ -30,6 +30,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
 import com.example.agrican.domain.model.Weather
+import com.example.agrican.ui.components.BackButtonTopBar
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.greenDark
@@ -44,11 +45,18 @@ object WeatherDestination : NavigationDestination {
 @Composable
 fun WeatherScreen(
     modifier: Modifier = Modifier,
+    navigateUp: () -> Unit,
     viewModel: WeatherViewModel = hiltViewModel()
 ) {
     val weather by viewModel.weather.collectAsStateWithLifecycle()
 
-    WeatherScreenContent(weather = weather, modifier = modifier)
+    BackButtonTopBar(
+        title = WeatherDestination.titleRes,
+        navigateUp = navigateUp,
+        modifier = modifier
+    ) {
+        WeatherScreenContent(weather = weather)
+    }
 }
 
 @Composable
@@ -103,7 +111,9 @@ fun WeatherScreenContent(
         Divider(modifier = Modifier.fillMaxWidth())
         // Gusts of Wind
         WeatherRow(weatherLabel = R.string.gusts_of_wind, weatherData = weather.windGusts)
-        Divider(modifier = Modifier.fillMaxWidth().height(2.dp))
+        Divider(modifier = Modifier
+            .fillMaxWidth()
+            .height(2.dp))
 
         // Air Quality
         WeatherRow(weatherLabel = R.string.air_quality, weatherData = weather.air)

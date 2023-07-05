@@ -1,6 +1,7 @@
 package com.example.agrican.ui.screens.home.main
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -8,6 +9,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -22,14 +24,18 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -49,6 +55,7 @@ import com.example.agrican.domain.model.Weather
 import com.example.agrican.ui.components.EmptyImage
 import com.example.agrican.ui.components.shimmerEffect
 import com.example.agrican.ui.navigation.NavigationDestination
+import com.example.agrican.ui.screens.home.TopBar
 import com.example.agrican.ui.screens.home.main.ask_expert.AskExpertDestination
 import com.example.agrican.ui.screens.home.main.fertilizers_calculator.FertilizersCalculatorDestination
 import com.example.agrican.ui.screens.home.main.problem_images.ProblemImagesDestination
@@ -66,19 +73,37 @@ object MainDestination: NavigationDestination {
     override val titleRes: Int = R.string.default_age_title
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(
     openScreen: (String) -> Unit,
+    openAndClear: (String) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: MainViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    MainScreenContent(
-        uiState = uiState,
-        openScreen = openScreen,
-        modifier = modifier
-    )
+    Scaffold(
+        modifier = modifier,
+        topBar = {
+            TopBar(
+                title = {
+                    Image(
+                        painter = painterResource(id = R.drawable.agrican_logo),
+                        contentDescription = null
+                    )
+                },
+                openAndClear = openAndClear,
+                openScreen = openScreen
+            )
+        }
+    ) { contentPadding ->
+        MainScreenContent(
+            uiState = uiState,
+            openScreen = openScreen,
+            modifier = Modifier.padding(contentPadding)
+        )
+    }
 }
 
 @Composable
@@ -87,6 +112,9 @@ fun MainScreenContent(
     openScreen: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
+
+    var isNews by rememberSaveable { mutableStateOf(true) }
+
     Column(
         modifier = modifier
             .verticalScroll(rememberScrollState())
@@ -100,35 +128,49 @@ fun MainScreenContent(
                 .clickable { openScreen(WeatherDestination.route) }
         )
         Row(
-            horizontalArrangement = Arrangement.SpaceEvenly,
-            modifier = Modifier.fillMaxWidth()
+            horizontalArrangement = Arrangement.spacedBy(24.dp),
+            modifier = Modifier.padding(horizontal = 24.dp)
         ) {
             // Latest News Button
             Button(
-                onClick = { /*TODO*/ },
-                colors = ButtonDefaults.buttonColors(containerColor = greenDark),
+                onClick = { isNews = true },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = if (isNews) greenDark else white
+                ),
+                border = BorderStroke(1.dp, if (isNews) greenDark else gray),
+                modifier = Modifier.weight(1f)
             ) {
                 Text(
                     text = stringResource(id = R.string.last_news),
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(horizontal = 16.dp)
+                    color = if (isNews) white else greenDark
                 )
             }
 
             // Latest Offers Button
-            OutlinedButton(onClick = { /*TODO*/ }) {
+            Button(
+                onClick = { isNews = false },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = if (isNews) white else greenDark
+                ),
+                border = BorderStroke(1.dp, if (isNews) gray else greenDark),
+                modifier = Modifier.weight(1f)
+            ) {
                 Text(
                     text = stringResource(id = R.string.last_offers),
-                    color = greenDark,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Bold,
-                    modifier = Modifier.width(90.dp)
+                    color = if (isNews) greenDark else white,
                 )
             }
         }
 
-        LatestNewsList(uiState = uiState, modifier = Modifier.padding(top = 12.dp))
+        LatestNewsList(
+            uiState = uiState,
+            isNews = isNews,
+            modifier = Modifier.padding(top = 12.dp)
+        )
 
         // Problem Images Card
         BottomCard(
@@ -145,7 +187,7 @@ fun MainScreenContent(
 
         Row(
             horizontalArrangement = Arrangement.spacedBy(16.dp),
-            modifier = Modifier.padding(horizontal = 18.dp, vertical = 8.dp)
+            modifier = Modifier.padding(horizontal = 18.dp, vertical = 8.dp).height(130.dp)
         ) {
             // Fertilizers Calculator Card
             BottomCard(
@@ -153,7 +195,7 @@ fun MainScreenContent(
                 description = R.string.fertilizers_calculator_description,
                 icon = R.drawable.calculator,
                 onItemClick = { openScreen(FertilizersCalculatorDestination.route) },
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(1f).fillMaxHeight()
             )
 
             // Ask An Expert Card
@@ -162,7 +204,7 @@ fun MainScreenContent(
                 description = R.string.ask_expert_description,
                 icon = R.drawable.ask_expert,
                 onItemClick = { openScreen(AskExpertDestination.route) },
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(1f).fillMaxHeight()
             )
         }
     }
@@ -325,6 +367,7 @@ fun WeatherBox(
 @Composable
 fun LatestNewsList(
     uiState: MainUiState,
+    isNews: Boolean,
     modifier: Modifier = Modifier
 ) {
     val scope = rememberCoroutineScope()
@@ -352,7 +395,7 @@ fun LatestNewsList(
             } else {
                 items(uiState.news.size) {
                     LatestNewsListItem(
-                        news = uiState.news[it],
+                        news = if (isNews) uiState.news[it] else uiState.offers[it],
                         modifier = Modifier
                             .padding(8.dp)
                             .height(120.dp)
@@ -509,6 +552,7 @@ fun BottomCard(
                     modifier = Modifier.size(24.dp)
                 )
             }
+
             // Card Description
             Text(
                 text = stringResource(id = description),
@@ -516,6 +560,7 @@ fun BottomCard(
                 fontSize = 11.sp,
                 fontWeight = FontWeight.Bold,
             )
+
             body()
         }
     }

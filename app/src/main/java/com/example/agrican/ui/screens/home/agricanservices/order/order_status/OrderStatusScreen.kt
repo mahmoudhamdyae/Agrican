@@ -42,7 +42,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
 import com.example.agrican.domain.model.Order
-import com.example.agrican.ui.components.BackButton
+import com.example.agrican.ui.components.BackButtonTopBar
 import com.example.agrican.ui.components.EmptyImage
 import com.example.agrican.ui.components.LoadingAnimation
 import com.example.agrican.ui.navigation.NavigationDestination
@@ -71,12 +71,15 @@ fun OrderStatusScreen(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    BackButton(navigateUp = navigateUp) {
+    BackButtonTopBar(
+        title = OrderStatusDestination.titleRes,
+        navigateUp = navigateUp,
+        modifier = modifier
+    ) {
         OrderStatusScreenContent(
             uiState = uiState,
             confirmOrder = viewModel::getTokenAndConfirmOrder,
-            navigateToLoginScreen = navigateToLoginScreen,
-            modifier = modifier
+            navigateToLoginScreen = navigateToLoginScreen
         )
     }
 }
@@ -93,7 +96,7 @@ fun OrderStatusScreenContent(
         modifier = modifier.padding(16.dp)
     ) {
         Text(
-            text = stringResource(id = R.string.order_status),
+            text = stringResource(id = R.string.available_offers),
             color = greenLight,
             style = MaterialTheme.typography.title,
             fontSize = 15.sp,

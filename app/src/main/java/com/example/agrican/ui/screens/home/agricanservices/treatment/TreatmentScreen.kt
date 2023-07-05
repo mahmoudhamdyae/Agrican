@@ -25,7 +25,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
 import com.example.agrican.domain.model.Crop
-import com.example.agrican.ui.components.BackButton
+import com.example.agrican.ui.components.BackButtonTopBar
 import com.example.agrican.ui.components.CropsList
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.greenDark
@@ -50,12 +50,15 @@ fun TreatmentScreen(
         viewModel.getCrops()
     }
 
-    BackButton(navigateUp = navigateUp) {
+    BackButtonTopBar(
+        title = TreatmentDestination.titleRes,
+        navigateUp = navigateUp,
+        modifier = modifier
+    ) {
         TreatmentScreenContent(
             uiState = uiState,
             onSelectCrop = viewModel::onSelectCrop,
-            openScreen = openScreen,
-            modifier = modifier
+            openScreen = openScreen
         )
     }
 }
@@ -100,7 +103,7 @@ fun TreatmentScreenContent(
                 text = stringResource(id = R.string.continue_button),
                 fontSize = 15.sp,
                 fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(horizontal = 16.dp)
+                modifier = Modifier.padding(horizontal = 24.dp)
             )
         }
     }
