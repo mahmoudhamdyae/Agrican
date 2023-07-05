@@ -71,7 +71,7 @@ fun BottomNavigationBar(
             ),
             shadowElevation = 32.dp,
             modifier = Modifier
-                .height(60.dp)
+                .height(62.dp)
                 .align(Alignment.BottomCenter)
         ) {
             Row(
@@ -153,7 +153,7 @@ fun BottomNavigationBarPreview() {
 class NavigationBarCustomShape(
     private val radius1: Float,
     private val radius2: Float
-    ) : Shape {
+): Shape {
 
     override fun createOutline(
         size: Size,
