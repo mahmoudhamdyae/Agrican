@@ -26,6 +26,8 @@ import com.example.agrican.ui.screens.home.agricanservices.treatment.SelectedCro
 import com.example.agrican.ui.screens.home.agricanservices.treatment.SelectedCropScreen
 import com.example.agrican.ui.screens.home.agricanservices.treatment.TreatmentDestination
 import com.example.agrican.ui.screens.home.agricanservices.treatment.TreatmentScreen
+import com.example.agrican.ui.screens.notifications.NotificationsDestination
+import com.example.agrican.ui.screens.notifications.NotificationsScreen
 
 @Composable
 fun AgricanServicesGraph(
@@ -109,6 +111,10 @@ fun AgricanServicesGraph(
         composable(route = JoinAsExpertDestination.route) {
             setTopBarTitle(JoinAsExpertDestination.titleRes)
             JoinAsExpertScreen(navigateUp = navigateUp)
+        }
+
+        composable(route = NotificationsDestination.route) {
+            NotificationsScreen(navigateUp = navigateUp)
         }
     }
 }

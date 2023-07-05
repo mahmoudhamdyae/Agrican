@@ -18,6 +18,8 @@ import com.example.agrican.ui.screens.home.main.problem_images.disease_capture_r
 import com.example.agrican.ui.screens.home.main.problem_images.disease_capture_result.DiseaseCaptureResultScreen
 import com.example.agrican.ui.screens.home.main.weather.WeatherDestination
 import com.example.agrican.ui.screens.home.main.weather.WeatherScreen
+import com.example.agrican.ui.screens.notifications.NotificationsDestination
+import com.example.agrican.ui.screens.notifications.NotificationsScreen
 
 @Composable
 fun MainGraph(
@@ -82,6 +84,10 @@ fun MainGraph(
         composable(route = WeatherDestination.route) {
             setTopBarTitle(WeatherDestination.titleRes)
             WeatherScreen(navigateUp = navigateUp)
+        }
+
+        composable(route = NotificationsDestination.route) {
+            NotificationsScreen(navigateUp = navigateUp)
         }
     }
 }

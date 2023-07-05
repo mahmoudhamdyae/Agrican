@@ -15,9 +15,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,8 +25,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.agrican.R
-import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.components.TopBar
+import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.screens.home.agricanservices.default_age.DefaultAgesDestination
 import com.example.agrican.ui.screens.home.agricanservices.diseases.DiseasesDestination
 import com.example.agrican.ui.screens.home.agricanservices.join_as_expert.JoinAsExpertDestination
@@ -47,119 +45,126 @@ object AgricanServicesDestination: NavigationDestination {
     override val titleRes: Int = R.string.default_age_title
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AgricanServicesScreen(
     openScreen: (String) -> Unit,
     openAndClear: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Scaffold(
-        modifier = modifier,
-        topBar = {
-            TopBar(
-                title = {
-                    Text(
-                        text = stringResource(id = R.string.navigation_agrican_services),
-                        color = textGray,
-                        style = MaterialTheme.typography.title
-                    )
-                },
-                openAndClear = openAndClear,
-                openScreen = openScreen
+    TopBar(
+        title = {
+            Text(
+                text = stringResource(id = R.string.navigation_agrican_services),
+                color = textGray,
+                style = MaterialTheme.typography.title
             )
-        }
-    ) { contentPadding ->
-        Column(
-            modifier = Modifier
-                .verticalScroll(rememberScrollState())
-                .padding(contentPadding)
-                .padding(bottom = 60.dp)
-        ) {
-            Box(modifier = Modifier.height(IntrinsicSize.Max).padding(vertical = 16.dp)) {
-                Box(
+        },
+        openAndClear = openAndClear,
+        openScreen = openScreen
+    ) {
+        AgricanServicesContent(openScreen = openScreen, modifier = modifier)
+    }
+}
+
+@Composable
+fun AgricanServicesContent(
+    openScreen: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier
+            .verticalScroll(rememberScrollState())
+            .padding(bottom = 60.dp)
+    ) {
+        Box(modifier = Modifier
+            .height(IntrinsicSize.Max)
+            .padding(vertical = 16.dp)) {
+            Box(
+                modifier = Modifier
+                    .padding(vertical = 16.dp)
+                    .fillMaxSize()
+                    .background(greenLight)
+            )
+            Row(modifier = Modifier
+                .height(IntrinsicSize.Max)
+                .padding(horizontal = 16.dp)) {
+                // Default Age
+                Card(
+                    title = R.string.default_age,
+                    description = R.string.problem_images_description,
                     modifier = Modifier
-                        .padding(vertical = 16.dp)
-                        .fillMaxSize()
-                        .background(greenLight)
+                        .weight(1.3f)
+                        .fillMaxHeight()
+                        .padding(end = 16.dp)
+                        .clickable { openScreen(DefaultAgesDestination.route) },
+                    isPrimaryMain = true
                 )
-                Row(modifier = Modifier.height(IntrinsicSize.Max).padding(horizontal = 16.dp)) {
-                    // Default Age
+
+                // Orders
+                Card(
+                    title = R.string.order,
+                    description = R.string.problem_images_description,
+                    modifier = Modifier
+                        .weight(1f)
+                        .clickable { openScreen(OrderDestination.route) },
+                    isPrimaryMain = true
+                )
+            }
+        }
+
+        Box(modifier = Modifier.background(greenLight)) {
+            // Diseases
+            Column(modifier = Modifier.padding(top = 16.dp)) {
+                Row(modifier = Modifier
+                    .height(IntrinsicSize.Max)
+                    .padding(horizontal = 16.dp)) {
                     Card(
-                        title = R.string.default_age,
+                        title = R.string.disease,
+                        description = R.string.problem_images_description,
+                        modifier = Modifier
+                            .weight(1f)
+                            .padding(end = 16.dp)
+                            .clickable { openScreen(DiseasesDestination.route) }
+                    )
+
+                    // Pests
+                    Card(
+                        title = R.string.pests,
                         description = R.string.problem_images_description,
                         modifier = Modifier
                             .weight(1.3f)
                             .fillMaxHeight()
-                            .padding(end = 16.dp)
-                            .clickable { openScreen(DefaultAgesDestination.route) },
-                        isPrimaryMain = true
+                            .clickable { openScreen(PestsDestination.route) }
                     )
+                }
 
-                    // Orders
+                Box(modifier = Modifier.height(IntrinsicSize.Max)) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(vertical = 35.dp)
+                            .background(greenDark)
+                    )
+                    // Treatment
                     Card(
-                        title = R.string.order,
+                        title = R.string.treatment,
                         description = R.string.problem_images_description,
                         modifier = Modifier
-                            .weight(1f)
-                            .clickable { openScreen(OrderDestination.route) },
-                        isPrimaryMain = true
+                            .padding(16.dp)
+                            .clickable { openScreen(TreatmentDestination.route) }
                     )
                 }
             }
-
-            Box(modifier = Modifier.background(greenLight)) {
-                // Diseases
-                Column(modifier = Modifier.padding(top = 16.dp)) {
-                    Row(modifier = Modifier.height(IntrinsicSize.Max).padding(horizontal = 16.dp)) {
-                        Card(
-                            title = R.string.disease,
-                            description = R.string.problem_images_description,
-                            modifier = Modifier
-                                .weight(1f)
-                                .padding(end = 16.dp)
-                                .clickable { openScreen(DiseasesDestination.route) }
-                        )
-
-                        // Pests
-                        Card(
-                            title = R.string.pests,
-                            description = R.string.problem_images_description,
-                            modifier = Modifier
-                                .weight(1.3f)
-                                .fillMaxHeight()
-                                .clickable { openScreen(PestsDestination.route) }
-                        )
-                    }
-
-                    Box(modifier = Modifier.height(IntrinsicSize.Max)) {
-                        Box(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(vertical = 35.dp)
-                                .background(greenDark)
-                        )
-                        // Treatment
-                        Card(
-                            title = R.string.treatment,
-                            description = R.string.problem_images_description,
-                            modifier = Modifier
-                                .padding(16.dp)
-                                .clickable { openScreen(TreatmentDestination.route) }
-                        )
-                    }
-                }
-            }
-
-            // Join As Expert
-            Card(
-                title = R.string.join_as_expert,
-                description = R.string.problem_images_description,
-                modifier = Modifier
-                    .padding(16.dp)
-                    .clickable { openScreen(JoinAsExpertDestination.route) }
-            )
         }
+
+        // Join As Expert
+        Card(
+            title = R.string.join_as_expert,
+            description = R.string.problem_images_description,
+            modifier = Modifier
+                .padding(16.dp)
+                .clickable { openScreen(JoinAsExpertDestination.route) }
+        )
     }
 }
 
@@ -179,7 +184,9 @@ fun Card(
         color = mainColor,
         modifier = modifier
     ) {
-        Column(modifier = Modifier.padding(8.dp).fillMaxHeight()) {
+        Column(modifier = Modifier
+            .padding(8.dp)
+            .fillMaxHeight()) {
             // Card Title
             Text(
                 text = stringResource(id = title),

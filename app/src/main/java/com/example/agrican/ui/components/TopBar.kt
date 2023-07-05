@@ -6,9 +6,11 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -16,7 +18,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Divider
-import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -37,7 +38,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.os.LocaleListCompat
@@ -57,21 +57,60 @@ fun TopBar(
     openAndClear: (String) -> Unit,
     openScreen: (String) -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: HomeViewModel = hiltViewModel()
+    viewModel: HomeViewModel = hiltViewModel(),
+    content: @Composable () -> Unit = {},
 ) {
     var showMenu by remember { mutableStateOf(false) }
     val isLoading by viewModel.isLoading.collectAsStateWithLifecycle()
 
     val openNotificationsScreen = { openScreen(NotificationsDestination.route) }
 
-    TopAppBar(
-        title = title,
-        actions = {
-            DropdownMenu(
-                expanded = showMenu,
-                onDismissRequest = { showMenu = false },
-                offset = DpOffset((-10).dp, (-90).dp),
-                modifier = Modifier.background(white)
+    Box {
+        Column {
+            TopAppBar(
+                title = title,
+                actions = {
+                    // Notifications Icon
+                    Row {
+                        IconButton(onClick = openNotificationsScreen) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.notifications),
+                                contentDescription = stringResource(id = R.string.notifications),
+                                tint = iconGray
+                            )
+                        }
+
+                        // Menu Item
+                        IconButton(onClick = { showMenu = true }) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.menu),
+                                contentDescription = null,
+                                tint = if (showMenu) greenDark else iconGray
+                            )
+                        }
+                    }
+                },
+                modifier = modifier.shadow(16.dp)
+            )
+
+            Box {
+                content()
+                if (showMenu) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(Color(0x63AAA6A6))
+                            .clickable { showMenu = false }
+                    )
+                }
+            }
+        }
+
+        if (showMenu) {
+            Surface(
+                modifier = Modifier
+                    .background(white)
+                    .align(Alignment.TopEnd)
             ) {
                 DropDownMenuContent(
                     hideMenu = { showMenu = false },
@@ -79,29 +118,9 @@ fun TopBar(
                     openNotificationsScreen = openNotificationsScreen
                 )
             }
+        }
+    }
 
-            // Notifications Icon
-            Row {
-                IconButton(onClick = openNotificationsScreen) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.notifications),
-                        contentDescription = stringResource(id = R.string.notifications),
-                        tint = iconGray
-                    )
-                }
-
-                // Menu Item
-                IconButton(onClick = { showMenu = true }) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.menu),
-                        contentDescription = null,
-                        tint = if (showMenu) greenDark else iconGray
-                    )
-                }
-            }
-        },
-        modifier = modifier.shadow(16.dp)
-    )
 
     AnimatedVisibility(isLoading) {
         DialogBoxLoading()
@@ -115,7 +134,7 @@ fun DropDownMenuContent(
     openNotificationsScreen: () -> Unit,
     modifier: Modifier= Modifier
 ) {
-    Column(modifier = modifier) {
+    Column(modifier = modifier.width(180.dp)) {
 
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -209,9 +228,7 @@ fun DropDownItem(
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
-        modifier = modifier
-            .width(180.dp)
-            .clickable { onItemClick() }
+        modifier = modifier.clickable { onItemClick() }
     ) {
         // Item Icon
         Surface(

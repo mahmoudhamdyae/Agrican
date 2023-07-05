@@ -24,10 +24,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -53,9 +51,9 @@ import com.example.agrican.R
 import com.example.agrican.domain.model.News
 import com.example.agrican.domain.model.weather.WeatherInfo
 import com.example.agrican.ui.components.EmptyImage
+import com.example.agrican.ui.components.TopBar
 import com.example.agrican.ui.components.shimmerEffect
 import com.example.agrican.ui.navigation.NavigationDestination
-import com.example.agrican.ui.components.TopBar
 import com.example.agrican.ui.screens.home.main.ask_expert.AskExpertDestination
 import com.example.agrican.ui.screens.home.main.fertilizers_calculator.FertilizersCalculatorDestination
 import com.example.agrican.ui.screens.home.main.problem_images.ProblemImagesDestination
@@ -73,7 +71,6 @@ object MainDestination: NavigationDestination {
     override val titleRes: Int = R.string.default_age_title
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(
     openScreen: (String) -> Unit,
@@ -83,25 +80,20 @@ fun MainScreen(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    Scaffold(
-        modifier = modifier,
-        topBar = {
-            TopBar(
-                title = {
-                    Image(
-                        painter = painterResource(id = R.drawable.agrican_logo),
-                        contentDescription = null
-                    )
-                },
-                openAndClear = openAndClear,
-                openScreen = openScreen
+    TopBar(
+        title = {
+            Image(
+                painter = painterResource(id = R.drawable.agrican_logo),
+                contentDescription = null
             )
-        }
-    ) { contentPadding ->
+        },
+        openAndClear = openAndClear,
+        openScreen = openScreen
+    ) {
         MainScreenContent(
             uiState = uiState,
             openScreen = openScreen,
-            modifier = Modifier.padding(contentPadding)
+            modifier = modifier
         )
     }
 }
