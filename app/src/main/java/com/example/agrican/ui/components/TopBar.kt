@@ -34,6 +34,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -125,17 +126,19 @@ fun TopBar(
         }
 
         if (showMenu) {
-            Surface(
+            DropDownMenuContent(
+                hideMenu = { showMenu = false },
+                signOutAction = { viewModel.signOut(openAndClear) },
+                openNotificationsScreen = openNotificationsScreen,
                 modifier = Modifier
+                    .clip(RoundedCornerShape(
+                        topStart = 16.dp,
+                        bottomStart = 16.dp,
+                        bottomEnd = 16.dp
+                    ))
                     .background(white)
                     .align(Alignment.TopEnd)
-            ) {
-                DropDownMenuContent(
-                    hideMenu = { showMenu = false },
-                    signOutAction = { viewModel.signOut(openAndClear) },
-                    openNotificationsScreen = openNotificationsScreen
-                )
-            }
+            )
         }
     }
 
@@ -152,11 +155,11 @@ fun DropDownMenuContent(
     openNotificationsScreen: () -> Unit,
     modifier: Modifier= Modifier
 ) {
-    Column(modifier = modifier.width(180.dp)) {
+    Column(modifier = modifier.width(220.dp)) {
 
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(horizontal = 16.dp)
+            modifier = Modifier.padding(horizontal = 20.dp).padding(top = 8.dp)
         ) {
             // Settings Label
             Text(
