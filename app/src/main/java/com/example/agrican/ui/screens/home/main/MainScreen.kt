@@ -120,18 +120,20 @@ fun MainScreenContent(
                 .fillMaxWidth()
                 .padding(18.dp)
                 .clickable {
-                    val currentWeatherData = uiState.weather?.currentWeatherData
+                    if (!uiState.isLoading) {
+                        val currentWeatherData = uiState.weather?.currentWeatherData
 
-                    val weather = Weather(
-                        degree = currentWeatherData!!.temperatureCelsius,
-                        wind = currentWeatherData.windSpeed,
-                        windGusts = currentWeatherData.windGusts,
-                        windDirection = currentWeatherData.windDirection,
-                        weatherDesc = currentWeatherData.weatherType.weatherDesc,
-                        iconRes = currentWeatherData.weatherType.iconRes
-                    )
+                        val weather = Weather(
+                            degree = currentWeatherData!!.temperatureCelsius,
+                            wind = currentWeatherData.windSpeed,
+                            windGusts = currentWeatherData.windGusts,
+                            windDirection = currentWeatherData.windDirection,
+                            weatherDesc = currentWeatherData.weatherType.weatherDesc,
+                            iconRes = currentWeatherData.weatherType.iconRes
+                        )
 
-                    openScreen("${WeatherDestination.route}/${weather.toJson()}")
+                        openScreen("${WeatherDestination.route}/${weather.toJson()}")
+                    }
                 }
         )
         Row(
@@ -354,7 +356,6 @@ fun WeatherBox(
                 }
             }
 
-
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(4.dp),
@@ -368,7 +369,7 @@ fun WeatherBox(
                     fontSize = 11.sp,
                     modifier = Modifier
                         .align(Alignment.Bottom)
-                        .padding(8.dp)
+                        .padding(vertical = 8.dp)
                 )
                 // Weather degree
                 Text(
