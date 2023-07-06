@@ -117,7 +117,7 @@ fun WeatherScreenContent(
         // Gusts of Wind
         WeatherRow(
             weatherLabel = R.string.gusts_of_wind,
-            weatherData = stringResource(id = R.string.wind_unit, weather.wind.toString())
+            weatherData = stringResource(id = R.string.wind_unit, weather.windGusts.toString())
         )
         Divider(modifier = Modifier
             .fillMaxWidth()

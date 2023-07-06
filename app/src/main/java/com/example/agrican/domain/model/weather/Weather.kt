@@ -13,6 +13,8 @@ import kotlinx.parcelize.Parcelize
 data class Weather(
     val degree: Double,
     val wind: Double,
+    val windGusts: Double,
+    @StringRes val windDirection: Int,
     @StringRes val weatherDesc: Int,
     @DrawableRes val iconRes: Int,
 ): Parcelable

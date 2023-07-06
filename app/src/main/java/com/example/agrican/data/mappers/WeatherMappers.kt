@@ -18,16 +18,16 @@ fun WeatherDataDto.toWeatherDataMap(): Map<Int, List<WeatherData>> {
         val temperature = temperatures[index]
         val weatherCode = weatherCodes[index]
         val windSpeed = windSpeeds[index]
-        val pressure = pressures[index]
-        val humidity = humidities[index]
+        val windGusts = windGusts[index]
+        val windDirection = windDirection[index]
         IndexedWeatherData(
             index = index,
             data = WeatherData(
                 time = LocalDateTime.parse(time, DateTimeFormatter.ISO_DATE_TIME),
                 temperatureCelsius = temperature,
-                pressure = pressure,
                 windSpeed = windSpeed,
-                humidity = humidity,
+                windGusts = windGusts,
+                windDirection = WeatherType.getWindDirection(windDirection),
                 weatherType = WeatherType.fromWMO(weatherCode)
             )
         )

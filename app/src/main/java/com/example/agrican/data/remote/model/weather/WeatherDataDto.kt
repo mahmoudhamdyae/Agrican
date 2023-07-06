@@ -8,10 +8,10 @@ data class WeatherDataDto(
     val temperatures: List<Double>,
     @SerializedName("weathercode")
     val weatherCodes: List<Int>,
-    @SerializedName("pressure_msl")
-    val pressures: List<Double>,
     @SerializedName("windspeed_10m")
     val windSpeeds: List<Double>,
-    @SerializedName("relativehumidity_2m")
-    val humidities: List<Double>
+    @SerializedName("windgusts_10m")
+    val windGusts: List<Double>,
+    @SerializedName("winddirection_10m")
+    val windDirection: List<Double>,
 )

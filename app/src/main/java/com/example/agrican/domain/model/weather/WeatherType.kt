@@ -1,10 +1,11 @@
 package com.example.agrican.domain.model.weather
 
 import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import com.example.agrican.R
 
 sealed class WeatherType(
-    val weatherDesc: Int,
+    @StringRes val weatherDesc: Int,
     @DrawableRes val iconRes: Int
 ) {
     object ClearSky : WeatherType(
@@ -148,6 +149,13 @@ sealed class WeatherType(
                 96 -> SlightHailThunderstorm
                 99 -> HeavyHailThunderstorm
                 else -> ClearSky
+            }
+        }
+
+        fun getWindDirection(code: Double): Int {
+            return when(code) {
+                0.0 -> R.string.app_id
+                else -> R.string.wind_unit
             }
         }
     }

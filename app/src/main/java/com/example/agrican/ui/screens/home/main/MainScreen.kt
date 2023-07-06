@@ -125,6 +125,8 @@ fun MainScreenContent(
                     val weather = Weather(
                         degree = currentWeatherData!!.temperatureCelsius,
                         wind = currentWeatherData.windSpeed,
+                        windGusts = currentWeatherData.windGusts,
+                        windDirection = currentWeatherData.windDirection,
                         weatherDesc = currentWeatherData.weatherType.weatherDesc,
                         iconRes = currentWeatherData.weatherType.iconRes
                     )
@@ -335,7 +337,7 @@ fun WeatherBox(
                             fontWeight = FontWeight.Bold,
                         )
                         Text(
-                            text = stringResource(id = R.string.wind_unit, weather?.currentWeatherData?.windSpeed.toString()),
+                            text = stringResource(id = R.string.wind_unit, weather?.currentWeatherData?.windGusts.toString()),
                             style = MaterialTheme.typography.body,
                             fontSize = 11.sp,
                             fontWeight = FontWeight.Bold,
