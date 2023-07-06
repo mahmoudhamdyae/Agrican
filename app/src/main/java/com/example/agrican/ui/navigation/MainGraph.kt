@@ -1,9 +1,12 @@
+@file:Suppress("DEPRECATION")
+
 package com.example.agrican.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.agrican.domain.model.weather.Weather
 import com.example.agrican.ui.screens.home.main.MainDestination
 import com.example.agrican.ui.screens.home.main.MainScreen
 import com.example.agrican.ui.screens.home.main.ask_expert.AskExpertDestination
@@ -48,11 +51,13 @@ fun MainGraph(
         navController = navController,
         startDestination = MainDestination.route
     ) {
+        // Main Screen
         composable(route = MainDestination.route) {
             showBottomBar(true)
             MainScreen(openScreen = openScreen, openAndClear = openAndClear)
         }
 
+        // Problem Images Screen
         composable(route = ProblemImagesDestination.route) {
             showBottomBar(false)
             ProblemImagesScreen(
@@ -62,30 +67,41 @@ fun MainGraph(
             )
         }
 
+        // Disease Capture Result Screen
         composable(route = DiseaseCaptureResultDestination.route) {
             showBottomBar(false)
             DiseaseCaptureResultScreen(navigateUp = navigateUp)
         }
 
+        // Fertilizers Calculator Screen
         composable(route = FertilizersCalculatorDestination.route) {
             setTopBarTitle(FertilizersCalculatorDestination.titleRes)
             FertilizersCalculatorScreen(navigateUp = navigateUp)
         }
 
+        // Ask An Expert Screen
         composable(route = AskExpertDestination.route) {
             showBottomBar(false)
             AskExpertScreen(openAndPopUp = openAndPopUp)
         }
 
+        // Chat Screen
         composable(route = ChatDestination.route) {
             ChatScreen(navigateUp = navigateUp)
         }
 
-        composable(route = WeatherDestination.route) {
+        // Weather Screen
+        composable(
+            route = WeatherDestination.routeWithArgs,
+            arguments = WeatherDestination.arguments
+        ) {
+            val weather = it.arguments?.getParcelable<Weather>(WeatherDestination.weatherArg)!!
+
             setTopBarTitle(WeatherDestination.titleRes)
-            WeatherScreen(navigateUp = navigateUp)
+            WeatherScreen(weather = weather, navigateUp = navigateUp)
         }
 
+        // Notifications Screen
         composable(route = NotificationsDestination.route) {
             NotificationsScreen(navigateUp = navigateUp)
         }

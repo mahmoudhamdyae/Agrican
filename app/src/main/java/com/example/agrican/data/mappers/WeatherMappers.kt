@@ -46,7 +46,6 @@ fun WeatherDto.toWeatherInfo(): WeatherInfo {
         it.time.hour == hour
     }
     return WeatherInfo(
-        weatherDataPerDay = weatherDataMap,
         currentWeatherData = currentWeatherData
     )
 }

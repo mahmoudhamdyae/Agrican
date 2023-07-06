@@ -49,7 +49,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
 import com.example.agrican.domain.model.News
+import com.example.agrican.domain.model.weather.Weather
 import com.example.agrican.domain.model.weather.WeatherInfo
+import com.example.agrican.domain.model.weather.toJson
 import com.example.agrican.ui.components.EmptyImage
 import com.example.agrican.ui.components.TopBar
 import com.example.agrican.ui.components.shimmerEffect
@@ -117,7 +119,18 @@ fun MainScreenContent(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(18.dp)
-                .clickable { openScreen(WeatherDestination.route) }
+                .clickable {
+                    val currentWeatherData = uiState.weather?.currentWeatherData
+
+                    val weather = Weather(
+                        degree = currentWeatherData!!.temperatureCelsius,
+                        wind = currentWeatherData.windSpeed,
+                        weatherDesc = currentWeatherData.weatherType.weatherDesc,
+                        iconRes = currentWeatherData.weatherType.iconRes
+                    )
+
+                    openScreen("${WeatherDestination.route}/${weather.toJson()}")
+                }
         )
         Row(
             horizontalArrangement = Arrangement.spacedBy(24.dp),

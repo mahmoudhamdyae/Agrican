@@ -27,22 +27,27 @@ fun NavGraphBuilder.agricanAppGraph(
     val openAndPopUp: (String, String) -> Unit = { route, popUp -> appState.navigateAndPopUp(route, popUp) }
     val navigateUp = { appState.popUp() }
 
+    // Welcome Screen
     composable(route = WelcomeDestination.route) {
         WelcomeScreen(openAndClear = openAndClear)
     }
 
+    // Onboarding Screen
     composable(route = OnboardingDestination.route) {
         OnboardingScreen(openAndClear = openAndClear)
     }
 
+    // Login Screen
     composable(route = LoginDestination.route) {
         LoginScreen(openScreen = openScreen, openAndClear = openAndClear,)
     }
 
+    // Signup Screen
     composable(route = SignupDestination.route) {
         SignupScreen(openAndClear = openAndClear, navigateUp = navigateUp)
     }
 
+    // Home Screen
     composable(route = HomeDestination.route) {
         HomeScreen(openAndClear = openAndClear)
     }

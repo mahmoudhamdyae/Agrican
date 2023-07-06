@@ -54,22 +54,26 @@ fun ProfileGraph(
         navController = navController,
         startDestination = ProfileDestination.route
     ) {
+
+        // Profile Screen
         composable(route = ProfileDestination.route) {
             showBottomBar(true)
             ProfileScreen(openScreen = openScreen)
         }
 
+        // Add Farm Screen
         composable(route = AddFarmDestination.route) {
             showBottomBar(false)
             AddFarmScreen(navigateUp = navigateUp)
         }
 
+        // Add Crop Screen
         composable(route = AddCropDestination.route) {
             showBottomBar(false)
             AddCropScreen(navigateUp = navigateUp)
         }
 
-
+        // Observe Crop Screen
         composable(
             route = ObserveCropDestination.routeWithArgs,
             arguments = ObserveCropDestination.arguments
@@ -78,17 +82,20 @@ fun ProfileGraph(
             ObserveCropScreen(navigateUp = navigateUp, openScreen = openScreen)
         }
 
+        // Add Task Screen
         composable(route = AddTaskDestination.route) {
             showBottomBar(false)
             AddTaskScreen(navigateUp = navigateUp)
         }
 
+        // Engineer Map Screen
         composable(route = EngineerMapDestination.route) {
             showBottomBar(true)
             setTopBarTitle(EngineerMapDestination.titleRes)
             EngineerMapScreen(navigateUp = navigateUp, openScreen = openScreen)
         }
 
+        // Add Map Screen
         composable(route = AddMapDestination.route) {
             showBottomBar(false)
             setTopBarTitle(AddMapDestination.titleRes)
@@ -98,24 +105,28 @@ fun ProfileGraph(
             )
         }
 
+        // Existing Map Screen
         composable(route = ExistingMapDestination.route) {
             showBottomBar(true)
             setTopBarTitle(ExistingMapDestination.titleRes)
             ExistingMapScreen(openScreen = openScreen)
         }
 
+        // Add Progress Screen
         composable(route = AddProgressDestination.route) {
             showBottomBar(true)
             setTopBarTitle(AddProgressDestination.titleRes)
             AddProgressScreen(navigateUp = navigateUp)
         }
 
+        // Add Problem Screen
         composable(route = AddProblemDestination.route) {
             showBottomBar(false)
             setTopBarTitle(AddProblemDestination.titleRes)
             AddProblemScreen(navigateUp = navigateUp)
         }
 
+        // Cost Screen
         composable(route = CostDestination.route) {
             showBottomBar(true)
             setTopBarTitle(CostDestination.titleRes)

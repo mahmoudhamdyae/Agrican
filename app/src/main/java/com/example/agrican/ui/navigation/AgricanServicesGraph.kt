@@ -57,29 +57,35 @@ fun AgricanServicesGraph(
         startDestination = AgricanServicesDestination.route
     ) {
 
+        // Agrican Services Screen
         composable(route = AgricanServicesDestination.route) {
             setTopBarTitle(AgricanServicesDestination.titleRes)
             AgricanServicesScreen(openScreen = openScreen, openAndClear = openAndClear)
         }
 
+        // Default Age Screen
         composable(route = DefaultAgesDestination.route) {
             DefaultAgeScreen(navigateUp = navigateUp)
         }
 
+        // Order Screen
         composable(route = OrderDestination.route) {
             showBottomBar(true)
             OrderScreen(openScreen = openScreen, navigateUp = navigateUp)
         }
 
+        // Order Status Screen
         composable(route = OrderStatusDestination.route) {
             showBottomBar(false)
             OrderStatusScreen(navigateUp = navigateUp, navigateToLoginScreen = navigateToLoginScreen)
         }
 
+        // Diseases Screen
         composable(route = DiseasesDestination.route) {
             DiseasesScreen(navigateUp = navigateUp, openScreen = openScreen)
         }
 
+        // Disease Screen
         composable(
             route = DiseaseDestination.routeWithArgs,
             arguments = DiseaseDestination.arguments
@@ -87,10 +93,12 @@ fun AgricanServicesGraph(
             DiseaseScreen(navigateUp = navigateUp)
         }
 
+        // Pests Screen
         composable(route = PestsDestination.route) {
             PestsScreen(navigateUp = navigateUp, openScreen = openScreen)
         }
 
+        // Pest Screen
         composable(
             route = PestDestination.routeWithArgs,
             arguments = PestDestination.arguments
@@ -98,18 +106,22 @@ fun AgricanServicesGraph(
             PestScreen(navigateUp = navigateUp)
         }
 
+        // Treatment Screen
         composable(route = TreatmentDestination.route) {
             TreatmentScreen(navigateUp = navigateUp, openScreen = openScreen)
         }
 
+        // Selected Crop Screen
         composable(route = SelectedCropDestination.route) {
             SelectedCropScreen(navigateUp = navigateUp)
         }
 
+        // Join As Expert Screen
         composable(route = JoinAsExpertDestination.route) {
             JoinAsExpertScreen(navigateUp = navigateUp)
         }
 
+        // Notifications Screen
         composable(route = NotificationsDestination.route) {
             NotificationsScreen(navigateUp = navigateUp)
         }

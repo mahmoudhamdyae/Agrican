@@ -17,19 +17,17 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.navArgument
 import com.example.agrican.R
-import com.example.agrican.domain.model.Weather
+import com.example.agrican.domain.model.weather.AssetParamType
+import com.example.agrican.domain.model.weather.Weather
 import com.example.agrican.ui.components.BackButtonTopBar
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.body
@@ -40,22 +38,26 @@ import com.example.agrican.ui.theme.white
 object WeatherDestination : NavigationDestination {
     override val route: String = "weather"
     override val titleRes: Int = R.string.weather
+    const val weatherArg = "weather"
+    val routeWithArgs = "${route}/{$weatherArg}"
+    val arguments = listOf(
+        navArgument(weatherArg) { type = AssetParamType() }
+    )
 }
 
 @Composable
 fun WeatherScreen(
+    weather: Weather,
     modifier: Modifier = Modifier,
-    navigateUp: () -> Unit,
-    viewModel: WeatherViewModel = hiltViewModel()
+    navigateUp: () -> Unit
 ) {
-    val weather by viewModel.weather.collectAsStateWithLifecycle()
 
     BackButtonTopBar(
         title = WeatherDestination.titleRes,
         navigateUp = navigateUp,
         modifier = modifier
     ) {
-//        WeatherScreenContent(weather = weather)
+        WeatherScreenContent(weather = weather)
     }
 }
 
@@ -85,7 +87,7 @@ fun WeatherScreenContent(
 
             // Weather Icon
             Icon(
-                painter = painterResource(id = R.drawable.sunny),
+                painter = painterResource(id = weather.iconRes),
                 contentDescription = null,
                 tint = greenDark,
                 modifier = Modifier.size(64.dp)
@@ -93,7 +95,7 @@ fun WeatherScreenContent(
         }
 
         Text(
-            text = weather.weatherDescription,
+            text = stringResource(id = weather.weatherDesc),
             color = greenDark,
             style = MaterialTheme.typography.body,
             fontSize = 14.sp,
@@ -104,25 +106,25 @@ fun WeatherScreenContent(
         Divider(modifier = Modifier.fillMaxWidth())
 
         // Air Quality
-        WeatherRow(weatherLabel = R.string.air_quality, weatherData = weather.air)
+        WeatherRow(weatherLabel = R.string.air_quality, weatherData = "مقبول")
         Divider(modifier = Modifier.fillMaxWidth())
         // Wind
-        WeatherRow(weatherLabel = R.string.wind, weatherData = weather.wind)
+        WeatherRow(weatherLabel = R.string.wind, weatherData = weather.wind.toString())
         Divider(modifier = Modifier.fillMaxWidth())
         // Gusts of Wind
-        WeatherRow(weatherLabel = R.string.gusts_of_wind, weatherData = weather.windGusts)
+        WeatherRow(weatherLabel = R.string.gusts_of_wind, weatherData = weather.wind.toString())
         Divider(modifier = Modifier
             .fillMaxWidth()
             .height(2.dp))
 
         // Air Quality
-        WeatherRow(weatherLabel = R.string.air_quality, weatherData = weather.air)
+        WeatherRow(weatherLabel = R.string.air_quality, weatherData = "مقبول")
         Divider(modifier = Modifier.fillMaxWidth())
         // Wind
-        WeatherRow(weatherLabel = R.string.wind, weatherData = weather.wind)
+        WeatherRow(weatherLabel = R.string.wind, weatherData = weather.wind.toString())
         Divider(modifier = Modifier.fillMaxWidth())
         // Gusts of Wind
-        WeatherRow(weatherLabel = R.string.gusts_of_wind, weatherData = weather.windGusts)
+        WeatherRow(weatherLabel = R.string.gusts_of_wind, weatherData = weather.wind.toString())
         Divider(modifier = Modifier.fillMaxWidth())
 
         // Weather Information
@@ -145,12 +147,12 @@ fun WeatherScreenContent(
 
         Column(modifier = Modifier.fillMaxWidth()) {
             Text(
-                text = weather.firstInformation,
+                text = "جو مناسب لرى نبات العنب",
                 style = MaterialTheme.typography.body,
                 fontSize = 11.sp
             )
             Text(
-                text = weather.secondInformation,
+                text = "من المتوقع حدوث عواصف شديدة غدا",
                 style = MaterialTheme.typography.body,
                 fontSize = 11.sp
             )
@@ -181,19 +183,4 @@ fun WeatherRow(
             fontSize = 14.sp
         )
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun WeatherScreenPreview() {
-    val weather = Weather(
-        air = "مقبول",
-        degree = 31.0,
-        weatherDescription = "مشمس",
-        wind = "جنوبية غربية 33 كم/س",
-        windGusts = "47 كم/س",
-        firstInformation = "جو مناسب لرى نبات العنب",
-        secondInformation = "من المتوقع حدوث عواصف شديدة غدا"
-    )
-    WeatherScreenContent(weather = weather)
 }

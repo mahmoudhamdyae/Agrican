@@ -9,8 +9,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -278,7 +278,11 @@ fun DefaultAgeResponse(
             fontSize = 14.sp,
         )
 
-        Row(verticalAlignment = Alignment.CenterVertically) {
+        Row(
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.fillMaxWidth()
+        ) {
             Text(
                 text = stringResource(id = R.string.danger_degree),
                 style = MaterialTheme.typography.body,
@@ -290,8 +294,6 @@ fun DefaultAgeResponse(
                 selectedItems = listOf(0, 1),
                 modifier = Modifier.padding(16.dp)
             )
-
-            Spacer(modifier = Modifier.weight(1f))
         }
 
         // Advice
