@@ -111,7 +111,9 @@ fun WeatherScreenContent(
         // Wind
         WeatherRow(
             weatherLabel = R.string.wind,
-            weatherData = stringResource(id = R.string.wind_unit, weather.wind.toString())
+            weatherData = stringResource(id = weather.windDirection) +
+                    " " +
+                    stringResource(id = R.string.wind_unit, weather.wind.toString())
         )
         Divider(modifier = Modifier.fillMaxWidth())
         // Gusts of Wind
@@ -129,7 +131,9 @@ fun WeatherScreenContent(
         // Wind
         WeatherRow(
             weatherLabel = R.string.wind,
-            weatherData = stringResource(id = R.string.wind_unit, weather.wind.toString())
+            weatherData = stringResource(id = weather.windDirection) +
+                    " " +
+                    stringResource(id = R.string.wind_unit, weather.wind.toString())
         )
         Divider(modifier = Modifier.fillMaxWidth())
         // Gusts of Wind

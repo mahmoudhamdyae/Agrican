@@ -118,6 +118,22 @@
     <string name="moderate_thunderstorm">Moderate thunderstorm</string>
     <string name="thunderstorm_with_slight_hail">Thunderstorm with slight hail</string>
     <string name="thunderstorm_with_heavy_hail">Thunderstorm with heavy hail</string>
+    <string name="n">شمالية</string>
+    <string name="nne">NNE</string>
+    <string name="ne">شمالية شرقية</string>
+    <string name="ene">ENE</string>
+    <string name="e">شرقية</string>
+    <string name="ese">ESE</string>
+    <string name="se">شمالية شرقية</string>
+    <string name="sse">SSE</string>
+    <string name="s">جنوبية</string>
+    <string name="ssw">SSW</string>
+    <string name="sw">جنوبية غربية</string>
+    <string name="wsw">WSW</string>
+    <string name="w">غربية</string>
+    <string name="wnw">WNW</string>
+    <string name="nw">شمالية غربية</string>
+    <string name="nnw">NNW</string>
 
     <!-- Agrican Services Screen -->
     <string name="default_age">العمر الافتراضى للمحصول</string>

@@ -154,8 +154,24 @@ sealed class WeatherType(
 
         fun getWindDirection(code: Double): Int {
             return when(code) {
-                0.0 -> R.string.app_id
-                else -> R.string.wind_unit
+                in 0.0..11.25 -> R.string.n
+                in 348.75..360.0 -> R.string.n
+                in 11.25..33.75 -> R.string.nne
+                in 33.75..56.25 -> R.string.ne
+                in 56.25..78.75 -> R.string.ene
+                in 78.75..101.25 -> R.string.e
+                in 101.25..123.75 -> R.string.ese
+                in 123.75..146.25 -> R.string.se
+                in 146.25..168.75 -> R.string.sse
+                in 168.75..191.25 -> R.string.s
+                in 191.25..213.75 -> R.string.ssw
+                in 213.75..236.25 -> R.string.sw
+                in 236.25..258.75 -> R.string.wsw
+                in 258.75..281.25 -> R.string.w
+                in 281.25..303.75 -> R.string.wnw
+                in 303.75..326.25 -> R.string.nw
+                in 326.25..348.75 -> R.string.nnw
+                else -> R.string.n
             }
         }
     }

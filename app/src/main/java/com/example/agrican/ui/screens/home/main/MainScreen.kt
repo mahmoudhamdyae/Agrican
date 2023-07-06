@@ -331,13 +331,21 @@ fun WeatherBox(
                             fontWeight = FontWeight.Bold,
                         )
                         Text(
-                            text = stringResource(id = R.string.wind_unit, weather?.currentWeatherData?.windSpeed.toString()),
+                            text = stringResource(id = weather?.currentWeatherData?.windDirection!!) +
+                                    " " +
+                                    stringResource(
+                                        id = R.string.wind_unit,
+                                        weather.currentWeatherData.windSpeed.toString()
+                                    ),
                             style = MaterialTheme.typography.body,
                             fontSize = 11.sp,
                             fontWeight = FontWeight.Bold,
                         )
                         Text(
-                            text = stringResource(id = R.string.wind_unit, weather?.currentWeatherData?.windGusts.toString()),
+                            text = stringResource(
+                                id = R.string.wind_unit,
+                                weather.currentWeatherData.windGusts.toString()
+                            ),
                             style = MaterialTheme.typography.body,
                             fontSize = 11.sp,
                             fontWeight = FontWeight.Bold,
@@ -358,7 +366,9 @@ fun WeatherBox(
                     color = greenDark,
                     style = MaterialTheme.typography.body,
                     fontSize = 11.sp,
-                    modifier = Modifier.align(Alignment.Bottom).padding(8.dp)
+                    modifier = Modifier
+                        .align(Alignment.Bottom)
+                        .padding(8.dp)
                 )
                 // Weather degree
                 Text(
