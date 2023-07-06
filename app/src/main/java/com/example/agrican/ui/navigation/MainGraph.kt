@@ -97,6 +97,7 @@ fun MainGraph(
         ) {
             val weather = it.arguments?.getParcelable<Weather>(WeatherDestination.weatherArg)!!
 
+            showBottomBar(false)
             setTopBarTitle(WeatherDestination.titleRes)
             WeatherScreen(weather = weather, navigateUp = navigateUp)
         }

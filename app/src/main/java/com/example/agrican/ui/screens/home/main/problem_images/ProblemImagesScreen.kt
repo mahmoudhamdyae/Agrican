@@ -137,7 +137,6 @@ fun ProblemImageScreenContent(
         verticalArrangement = Arrangement.spacedBy(8.dp),
         modifier = modifier
             .verticalScroll(rememberScrollState())
-            .padding(top = 32.dp)
             .padding(bottom = 60.dp)
     ) {
         Text(

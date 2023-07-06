@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -33,6 +32,7 @@ import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
+import com.example.agrican.ui.theme.textGray
 import com.example.agrican.ui.theme.white
 
 object WeatherDestination : NavigationDestination {
@@ -70,7 +70,7 @@ fun WeatherScreenContent(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
             .verticalScroll(rememberScrollState())
-            .padding(32.dp)
+            .padding(horizontal = 32.dp)
             .padding(bottom = 60.dp)
     ) {
         Row(
@@ -99,15 +99,14 @@ fun WeatherScreenContent(
             color = greenDark,
             style = MaterialTheme.typography.body,
             fontSize = 14.sp,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(bottom = 24.dp)
+            modifier = Modifier.padding(bottom = 16.dp)
         )
 
-        Divider(modifier = Modifier.fillMaxWidth())
+        Divider(modifier = Modifier.fillMaxWidth(), color = textGray)
 
         // Air Quality
         WeatherRow(weatherLabel = R.string.air_quality, weatherData = "مقبول")
-        Divider(modifier = Modifier.fillMaxWidth())
+        Divider(modifier = Modifier.fillMaxWidth(), color = textGray)
         // Wind
         WeatherRow(
             weatherLabel = R.string.wind,
@@ -115,19 +114,17 @@ fun WeatherScreenContent(
                     " " +
                     stringResource(id = R.string.wind_unit, weather.wind.toString())
         )
-        Divider(modifier = Modifier.fillMaxWidth())
+        Divider(modifier = Modifier.fillMaxWidth(), color = textGray)
         // Gusts of Wind
         WeatherRow(
             weatherLabel = R.string.gusts_of_wind,
             weatherData = stringResource(id = R.string.wind_unit, weather.windGusts.toString())
         )
-        Divider(modifier = Modifier
-            .fillMaxWidth()
-            .height(2.dp))
+        Divider(modifier = Modifier.fillMaxWidth(), color = textGray)
 
         // Air Quality
         WeatherRow(weatherLabel = R.string.air_quality, weatherData = "مقبول")
-        Divider(modifier = Modifier.fillMaxWidth())
+        Divider(modifier = Modifier.fillMaxWidth(), color = textGray)
         // Wind
         WeatherRow(
             weatherLabel = R.string.wind,
@@ -135,17 +132,17 @@ fun WeatherScreenContent(
                     " " +
                     stringResource(id = R.string.wind_unit, weather.wind.toString())
         )
-        Divider(modifier = Modifier.fillMaxWidth())
+        Divider(modifier = Modifier.fillMaxWidth(), color = textGray)
         // Gusts of Wind
         WeatherRow(
             weatherLabel = R.string.gusts_of_wind,
             weatherData = stringResource(id = R.string.wind_unit, weather.wind.toString())
         )
-        Divider(modifier = Modifier.fillMaxWidth())
+        Divider(modifier = Modifier.fillMaxWidth(), color = textGray)
 
         // Weather Information
         Surface(
-            shape = RoundedCornerShape(16.dp),
+            shape = RoundedCornerShape(24.dp),
             color = greenLight,
             modifier = Modifier.padding(top = 32.dp, bottom = 16.dp)
         ) {
@@ -155,8 +152,8 @@ fun WeatherScreenContent(
                 style = MaterialTheme.typography.body,
                 fontSize = 14.sp,
                 modifier = Modifier.padding(
-                    horizontal = 16.dp,
-                    vertical = 8.dp,
+                    horizontal = 24.dp,
+                    vertical = 6.dp,
                 )
             )
         }
