@@ -96,18 +96,18 @@ fun ChatScreenContent(
     Column(modifier = modifier
         .fillMaxSize()
         .padding(8.dp)) {
+
         // Finish Chat Button
         Button(
             onClick = { navigateUp() },
             shape = RoundedCornerShape(16.dp),
             colors = ButtonDefaults.buttonColors(containerColor = greenDark),
-            modifier = Modifier.fillMaxWidth()
         ) {
             Text(
                 text = stringResource(id = R.string.finish_chat),
                 fontSize = 15.sp,
                 fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(vertical = 8.dp)
+                modifier = Modifier.padding(vertical = 6.dp, horizontal = 16.dp)
             )
         }
 

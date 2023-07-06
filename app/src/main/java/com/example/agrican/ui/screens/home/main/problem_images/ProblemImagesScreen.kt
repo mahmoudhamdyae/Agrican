@@ -16,10 +16,14 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -66,7 +70,7 @@ object ProblemImagesDestination: NavigationDestination {
 fun ProblemImagesScreen(
     navigateUp: () -> Unit,
     openCamera: () -> Unit,
-    openAndPopUp: (String) -> Unit,
+    openScreen: (String) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: ProblemImagesViewModel = hiltViewModel()
 ) {
@@ -106,7 +110,11 @@ fun ProblemImagesScreen(
                 },
                 shouldShowCamera = { shouldShowCamera = it },
                 onSearch = { viewModel.search(context) },
-                openAndPopUp, modifier
+                openScreen = openScreen,
+                updateImage1 = { viewModel.updateUiState(image1 = it) },
+                updateImage2 = { viewModel.updateUiState(image2 = it) },
+                updateImage3 = { viewModel.updateUiState(image3 = it) },
+                modifier =  modifier
             )
         }
     } else {
@@ -130,7 +138,10 @@ fun ProblemImageScreenContent(
     launchImagePicker: () -> Unit,
     shouldShowCamera: (Boolean) -> Unit,
     onSearch: () -> Unit,
-    openAndPopUp: (String) -> Unit,
+    openScreen: (String) -> Unit,
+    updateImage1: (Uri?) -> Unit,
+    updateImage2: (Uri?) -> Unit,
+    updateImage3: (Uri?) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -158,7 +169,9 @@ fun ProblemImageScreenContent(
         )
         Row(
             horizontalArrangement = Arrangement.spacedBy(16.dp),
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp)
         ) {
             // Choose Image From Gallery
             WayChoose(
@@ -181,12 +194,14 @@ fun ProblemImageScreenContent(
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(12.dp),
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp)
         ) {
             Button(
                 onClick = {
                     onSearch()
-                    openAndPopUp(DiseaseCaptureResultDestination.route)
+                    openScreen(DiseaseCaptureResultDestination.route)
                 },
                 colors = ButtonDefaults.buttonColors(containerColor = greenDark),
                 modifier = Modifier.weight(1f)
@@ -197,20 +212,33 @@ fun ProblemImageScreenContent(
                     fontSize = 14.sp
                 )
             }
-            ImageView(image = uiState.image1)
-            ImageView(image = uiState.image2)
-            ImageView(image = uiState.image3)
+            ImageView(
+                image = uiState.image1,
+                delAction = { updateImage1(null) }
+            )
+            ImageView(
+                image = uiState.image2,
+                delAction = { updateImage2(null) }
+            )
+            ImageView(
+                image = uiState.image3,
+                delAction = { updateImage3(null) }
+            )
 
         }
 
-        Box(modifier = Modifier.padding(vertical = 8.dp).fillMaxWidth()) {
+        Box(modifier = Modifier
+            .padding(vertical = 8.dp)
+            .fillMaxWidth()) {
 
             // Advices Background
             Image(
                 painter = painterResource(id = R.drawable.advices),
                 contentDescription = null,
                 contentScale = ContentScale.FillWidth,
-                modifier = Modifier.fillMaxWidth().height(100.dp)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(100.dp)
             )
 
             // Advices Label
@@ -276,16 +304,36 @@ fun WayChoose(
 @Composable
 fun ImageView(
     image: Uri?,
+    delAction: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     if (image == null) {
-        EmptyImage(
-            tint = white,
-            background = greenLight,
-            modifier = modifier
-                .size(60.dp)
-                .clip(RoundedCornerShape(16.dp))
-        )
+        Box {
+            EmptyImage(
+                tint = greenLight,
+                background = white,
+                modifier = modifier
+                    .size(60.dp)
+                    .clip(RoundedCornerShape(12.dp))
+            )
+
+            // Del Button
+            Surface(
+                shape = CircleShape,
+                color = greenLight,
+                border = BorderStroke(1.dp, greenLight),
+                modifier = Modifier.padding(2.dp).clickable{ delAction() }
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Close,
+                    contentDescription = null,
+                    tint = white,
+                    modifier = Modifier
+                        .size(16.dp)
+                        .padding(2.dp)
+                )
+            }
+        }
     } else {
         AsyncImage(
             model = ImageRequest
@@ -312,6 +360,9 @@ fun ProblemImageScreenPreview() {
         launchImagePicker = { },
         shouldShowCamera = { },
         onSearch = { },
-        openAndPopUp = { }
+        openScreen = { },
+        updateImage1 = { },
+        updateImage2 = { },
+        updateImage3 = { },
     )
 }

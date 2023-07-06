@@ -79,9 +79,7 @@ fun BackButton(
         content()
 
         IconButton(
-            onClick = {
-                navigateUp()
-            },
+            onClick = navigateUp,
             modifier = Modifier
                 .padding(12.dp)
                 .clip(CircleShape)

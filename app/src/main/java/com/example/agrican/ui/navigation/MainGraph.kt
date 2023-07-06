@@ -63,7 +63,7 @@ fun MainGraph(
             ProblemImagesScreen(
                 navigateUp = navigateUp,
                 openCamera = { showBottomBar(false) },
-                openAndPopUp = { openAndPopUp(it, ProblemImagesDestination.route) }
+                openScreen = openScreen
             )
         }
 

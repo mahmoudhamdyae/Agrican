@@ -19,6 +19,7 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -27,7 +28,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Surface
@@ -41,6 +45,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
@@ -54,6 +59,7 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.agrican.R
 import com.example.agrican.ui.theme.black
+import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.white
 import java.io.File
 import java.text.SimpleDateFormat
@@ -68,9 +74,9 @@ import kotlin.coroutines.suspendCoroutine
 fun CameraScreen(
     navigateUp: () -> Unit,
     uiState: ProblemImagesUiState,
-    updateImage1: (Uri) -> Unit,
-    updateImage2: (Uri) -> Unit,
-    updateImage3: (Uri) -> Unit,
+    updateImage1: (Uri?) -> Unit,
+    updateImage2: (Uri?) -> Unit,
+    updateImage3: (Uri?) -> Unit,
     addImage: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -125,9 +131,9 @@ fun CameraScreen(
 @Composable
 fun CameraView(
     uiState: ProblemImagesUiState,
-    updateImage1: (Uri) -> Unit,
-    updateImage2: (Uri) -> Unit,
-    updateImage3: (Uri) -> Unit,
+    updateImage1: (Uri?) -> Unit,
+    updateImage2: (Uri?) -> Unit,
+    updateImage3: (Uri?) -> Unit,
     addImage: () -> Unit,
     outputDirectory: File,
     executor: Executor?,
@@ -191,9 +197,18 @@ fun CameraView(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                     modifier = Modifier.padding(16.dp)
                 ) {
-                    ImageCaptured(image = uiState.image1)
-                    ImageCaptured(image = uiState.image2)
-                    ImageCaptured(image = uiState.image3)
+                    ImageView(
+                        image = uiState.image1,
+                        delAction = { updateImage1(null) }
+                    )
+                    ImageView(
+                        image = uiState.image2,
+                        delAction = { updateImage2(null) }
+                    )
+                    ImageView(
+                        image = uiState.image3,
+                        delAction = { updateImage3(null) }
+                    )
                 }
             }
 
@@ -263,6 +278,7 @@ fun CameraView(
 @Composable
 fun ImageCaptured(
     image: Uri?,
+    delAction: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Surface(
@@ -270,16 +286,35 @@ fun ImageCaptured(
         shape = RoundedCornerShape(16.dp),
         modifier = modifier.size(75.dp)
     ) {
-        AsyncImage(
-            model = ImageRequest
-                .Builder(LocalContext.current)
-                .data(data = image ?: R.drawable.gray_placeholder)
-                .build(),
-            placeholder = painterResource(id = R.drawable.loading_img),
-            contentDescription = null,
-            contentScale = ContentScale.FillBounds,
-            modifier = modifier
-        )
+        Box {
+            AsyncImage(
+                model = ImageRequest
+                    .Builder(LocalContext.current)
+                    .data(data = image ?: R.drawable.gray_placeholder)
+                    .build(),
+                placeholder = painterResource(id = R.drawable.loading_img),
+                contentDescription = null,
+                contentScale = ContentScale.FillBounds,
+                modifier = modifier
+            )
+
+            // Del Button
+            Surface(
+                shape = CircleShape,
+                color = Color(0xffc9c9c9),
+                border = BorderStroke(1.dp, greenLight),
+                modifier = Modifier.padding(2.dp).clickable { delAction() }
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Close,
+                    contentDescription = null,
+                    tint = white,
+                    modifier = Modifier
+                        .size(16.dp)
+                        .padding(2.dp)
+                )
+            }
+        }
     }
 }
 

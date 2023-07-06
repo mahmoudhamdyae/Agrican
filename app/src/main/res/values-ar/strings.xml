@@ -69,6 +69,9 @@
     <string name="start_searching">ابدأ البحث</string>
     <string name="advices_label">نصائح التشخيص</string>
     <string name="advices">يمكنك التقاط صورة واحدة للنبات المتضرر و للحصول على نتائج أفضل يرجى التقاط 3 صور واضحة للمشكلة\n\nاقترب من المحصول و تأكد أن آفة المحصول موجودة داخل الإطار\n\nتأكد من أن الكاميرا تركز بشكل صحيح على آفة المحصول\n\nتأكد من أن المحصول مرئى بوضوح وأنه ليس مظلما جدا أو ساطعا جدا</string>
+    <string name="plant_name">اسم النبات</string>
+    <string name="disease_name">اسم المرض</string>
+    <string name="return_to_main_button">العودة للقائمة الرئيسية</string>
 
     <!-- Fertilizers Calculator Screen -->
     <string name="choose_crop_label">اختار المحصول</string>

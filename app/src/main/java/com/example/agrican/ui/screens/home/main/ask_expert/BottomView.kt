@@ -96,7 +96,7 @@ fun BottomView(
     val mediaPlayer = MediaPlayer.create(context, R.raw.record_audio)
 
     Surface(
-        shadowElevation = 16.dp,
+        shadowElevation = 24.dp,
         shape = RoundedCornerShape(32.dp),
         modifier = modifier
     ) {

@@ -26,10 +26,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.agrican.R
 import com.example.agrican.common.ext.decodeImage
@@ -37,10 +40,7 @@ import com.example.agrican.domain.model.Message
 import com.example.agrican.domain.model.MessageType
 import com.example.agrican.ui.screens.home.main.ask_expert.playback.AndroidAudioPlayer
 import com.example.agrican.ui.theme.black
-import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import java.io.File
 
 @Composable
@@ -98,7 +98,7 @@ fun MessageItemContent(
                 bottomStart = 20.dp
             )
             Surface(
-                color = gray,
+                color = Color(0xfff2f2f2),
                 shape = chatBubbleShape,
             ) {
                 when(message.type) {
