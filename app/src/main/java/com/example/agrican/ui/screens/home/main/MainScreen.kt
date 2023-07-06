@@ -282,7 +282,7 @@ fun WeatherBox(
         shape = RoundedCornerShape(16.dp),
         modifier = modifier
     ) {
-        Box(modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp)) {
+        Box(modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp)) {
             Text(
                 text = "جو مناسب لرى نبات العنب",
                 style = MaterialTheme.typography.body,
@@ -329,13 +329,13 @@ fun WeatherBox(
                             fontWeight = FontWeight.Bold,
                         )
                         Text(
-                            text = weather?.currentWeatherData?.windSpeed.toString(),
+                            text = stringResource(id = R.string.wind_unit, weather?.currentWeatherData?.windSpeed.toString()),
                             style = MaterialTheme.typography.body,
                             fontSize = 11.sp,
                             fontWeight = FontWeight.Bold,
                         )
                         Text(
-                            text = weather?.currentWeatherData?.windSpeed.toString(),
+                            text = stringResource(id = R.string.wind_unit, weather?.currentWeatherData?.windSpeed.toString()),
                             style = MaterialTheme.typography.body,
                             fontSize = 11.sp,
                             fontWeight = FontWeight.Bold,
@@ -346,24 +346,26 @@ fun WeatherBox(
 
 
             Row(
-                verticalAlignment = Alignment.Bottom,
+                verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(4.dp),
                 modifier = Modifier.align(Alignment.BottomEnd)
             ) {
+                // Weather description
                 Text(
                     text = stringResource(id = weather?.currentWeatherData?.weatherType?.weatherDesc!!),
                     color = greenDark,
                     style = MaterialTheme.typography.body,
                     fontSize = 11.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(bottom = 4.dp)
+                    modifier = Modifier.align(Alignment.Bottom).padding(8.dp)
                 )
+                // Weather degree
                 Text(
                     text = "${weather.currentWeatherData.temperatureCelsius.toInt()}°",
                     color = greenDark,
                     fontSize = 30.sp,
                     fontWeight = FontWeight.SemiBold
                 )
+                // Weather icon
                 Icon(
                     painter = painterResource(id = weather.currentWeatherData.weatherType.iconRes),
                     contentDescription = null,

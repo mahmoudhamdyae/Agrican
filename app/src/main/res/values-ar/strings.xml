@@ -90,6 +90,7 @@
     <string name="wind">الرياح</string>
     <string name="gusts_of_wind">هبات الرياح</string>
     <string name="air_information_button">معلومات عن الجو اليوم</string>
+    <string name="wind_unit">%s كم/س</string>
     <string name="clear_sky">Clear sky</string>
     <string name="mainly_clear">Mainly clear</string>
     <string name="partly_cloud">Partly cloudy</string>

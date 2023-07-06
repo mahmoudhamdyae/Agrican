@@ -109,10 +109,16 @@ fun WeatherScreenContent(
         WeatherRow(weatherLabel = R.string.air_quality, weatherData = "مقبول")
         Divider(modifier = Modifier.fillMaxWidth())
         // Wind
-        WeatherRow(weatherLabel = R.string.wind, weatherData = weather.wind.toString())
+        WeatherRow(
+            weatherLabel = R.string.wind,
+            weatherData = stringResource(id = R.string.wind_unit, weather.wind.toString())
+        )
         Divider(modifier = Modifier.fillMaxWidth())
         // Gusts of Wind
-        WeatherRow(weatherLabel = R.string.gusts_of_wind, weatherData = weather.wind.toString())
+        WeatherRow(
+            weatherLabel = R.string.gusts_of_wind,
+            weatherData = stringResource(id = R.string.wind_unit, weather.wind.toString())
+        )
         Divider(modifier = Modifier
             .fillMaxWidth()
             .height(2.dp))
@@ -121,10 +127,16 @@ fun WeatherScreenContent(
         WeatherRow(weatherLabel = R.string.air_quality, weatherData = "مقبول")
         Divider(modifier = Modifier.fillMaxWidth())
         // Wind
-        WeatherRow(weatherLabel = R.string.wind, weatherData = weather.wind.toString())
+        WeatherRow(
+            weatherLabel = R.string.wind,
+            weatherData = stringResource(id = R.string.wind_unit, weather.wind.toString())
+        )
         Divider(modifier = Modifier.fillMaxWidth())
         // Gusts of Wind
-        WeatherRow(weatherLabel = R.string.gusts_of_wind, weatherData = weather.wind.toString())
+        WeatherRow(
+            weatherLabel = R.string.gusts_of_wind,
+            weatherData = stringResource(id = R.string.wind_unit, weather.wind.toString())
+        )
         Divider(modifier = Modifier.fillMaxWidth())
 
         // Weather Information
