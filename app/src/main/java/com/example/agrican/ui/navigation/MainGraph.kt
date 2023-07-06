@@ -70,7 +70,7 @@ fun MainGraph(
         // Disease Capture Result Screen
         composable(route = DiseaseCaptureResultDestination.route) {
             showBottomBar(false)
-            DiseaseCaptureResultScreen(navigateUp = navigateUp)
+            DiseaseCaptureResultScreen(navigateUp = navigateUp, openAndClear = openAndClear)
         }
 
         // Fertilizers Calculator Screen

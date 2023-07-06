@@ -45,6 +45,7 @@ import com.example.agrican.R
 import com.example.agrican.ui.components.EmptyImage
 import com.example.agrican.ui.components.SimpleTextField
 import com.example.agrican.ui.navigation.NavigationDestination
+import com.example.agrican.ui.screens.home.main.MainDestination
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.white
@@ -57,14 +58,20 @@ object DiseaseCaptureResultDestination: NavigationDestination {
 @Composable
 fun DiseaseCaptureResultScreen(
     navigateUp: () -> Unit,
+    openAndClear: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    DiseaseCaptureResultScreenContent(navigateUp = navigateUp, modifier = modifier)
+    DiseaseCaptureResultScreenContent(
+        navigateUp = navigateUp,
+        openAndClear = openAndClear,
+        modifier = modifier
+    )
 }
 
 @Composable
 fun DiseaseCaptureResultScreenContent(
     navigateUp: () -> Unit,
+    openAndClear: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     var plantName by rememberSaveable { mutableStateOf("") }
@@ -120,7 +127,7 @@ fun DiseaseCaptureResultScreenContent(
         )
 
         ReturnToMainButton(
-            navigateUp = navigateUp,
+            openAndClear = openAndClear,
             modifier = Modifier
                 .padding(top = 8.dp)
                 .align(Alignment.CenterHorizontally)
@@ -151,11 +158,11 @@ fun BackButton(
 
 @Composable
 fun ReturnToMainButton(
-    navigateUp: () -> Unit,
+    openAndClear: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Button(
-        onClick = navigateUp,
+        onClick = { openAndClear(MainDestination.route) },
         colors = ButtonDefaults.buttonColors(containerColor = greenDark),
         modifier = modifier
     ) {
@@ -251,5 +258,5 @@ fun ItemIcon(
 @Preview
 @Composable
 fun DiseaseCaptureResultScreenPreview() {
-    DiseaseCaptureResultScreenContent(navigateUp = { })
+    DiseaseCaptureResultScreenContent(navigateUp = { }, openAndClear = { })
 }
