@@ -2,7 +2,6 @@ package com.example.agrican.ui.screens.auth.signup
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,15 +10,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -31,14 +26,12 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -53,6 +46,7 @@ import com.example.agrican.domain.model.UserType
 import com.example.agrican.ui.components.Background
 import com.example.agrican.ui.components.DialogBoxLoading
 import com.example.agrican.ui.components.EmailField
+import com.example.agrican.ui.components.GreenBackButton
 import com.example.agrican.ui.components.PasswordField
 import com.example.agrican.ui.components.PhoneNumberField
 import com.example.agrican.ui.components.RepeatPasswordField
@@ -65,7 +59,6 @@ import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.title
-import com.example.agrican.ui.theme.white
 
 object SignupDestination: NavigationDestination {
     override val route: String = "signup"
@@ -130,25 +123,14 @@ fun SignupScreenContent(
 ) {
     Background(modifier = modifier, body1 = {
         Box {
-            IconButton(
-                onClick = {
+            GreenBackButton(
+                navigateUp = {
                     clearState()
                     if (accountType == null) navigateUp()
                     else setAccountType(null)
                 },
-                modifier = Modifier
-                    .padding(12.dp)
-                    .clip(CircleShape)
-                    .background(greenDark)
-                    .size(32.dp)
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.baseline_arrow_back_ios_new_24),
-                    contentDescription = null,
-                    tint = white,
-                    modifier = Modifier.padding(9.dp)
-                )
-            }
+                modifier = Modifier.padding(12.dp)
+            )
 
             if (accountType == null) {
                 AccountType(

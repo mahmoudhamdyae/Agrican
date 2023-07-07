@@ -21,6 +21,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.agrican.R
+import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.title
 import com.example.agrican.ui.theme.white
@@ -105,7 +106,7 @@ fun GreenBackButton(
         onClick = navigateUp,
         modifier = modifier
             .clip(CircleShape)
-            .background(greenLight)
+            .background(greenDark)
             .size(32.dp)
     ) {
         Icon(

@@ -286,7 +286,10 @@ fun WeatherBox(
         shape = RoundedCornerShape(16.dp),
         modifier = modifier
     ) {
-        Box(modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp)) {
+        Box(
+            modifier = Modifier
+                .padding(horizontal = 8.dp, vertical = 4.dp)
+        ) {
             Text(
                 text = "جو مناسب لرى نبات العنب",
                 style = MaterialTheme.typography.body,
@@ -369,7 +372,7 @@ fun WeatherBox(
                     fontSize = 11.sp,
                     modifier = Modifier
                         .align(Alignment.Bottom)
-                        .padding(vertical = 8.dp)
+                        .padding(bottom = 10.dp)
                 )
                 // Weather degree
                 Text(
@@ -383,7 +386,7 @@ fun WeatherBox(
                     painter = painterResource(id = weather.currentWeatherData.weatherType.iconRes),
                     contentDescription = null,
                     tint = greenDark,
-                    modifier = Modifier.height(40.dp)
+                    modifier = Modifier.size(40.dp)
                 )
             }
         }
