@@ -49,6 +49,8 @@ import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.title
 import com.example.agrican.ui.theme.white
+import com.steliospapamichail.creditcardmasker.viewtransformations.CardNumberMask
+import com.steliospapamichail.creditcardmasker.viewtransformations.ExpirationDateMask
 
 @Composable
 fun OrderConfirmScreen(
@@ -57,9 +59,7 @@ fun OrderConfirmScreen(
     changeCardName: (String) -> Unit,
     cardId: String,
     changeCardId: (String) -> Unit,
-    year: String,
-    changeYear: (String) -> Unit,
-    month: String,
+    date: String,
     changeMonth: (String) -> Unit,
     cvc: String,
     changeCvc: (String) -> Unit,
@@ -99,9 +99,7 @@ fun OrderConfirmScreen(
                 changeCardName = changeCardName,
                 cardId = cardId,
                 changeCardId = changeCardId,
-                year = year,
-                changeYear = changeYear,
-                month = month,
+                date = date,
                 changeMonth = changeMonth,
                 cvc = cvc,
                 changeCvc = changeCvc,
@@ -118,9 +116,7 @@ fun OrderConfirmScreenContent(
     changeCardName: (String) -> Unit,
     cardId: String,
     changeCardId: (String) -> Unit,
-    year: String,
-    changeYear: (String) -> Unit,
-    month: String,
+    date: String,
     changeMonth: (String) -> Unit,
     cvc: String,
     changeCvc: (String) -> Unit,
@@ -200,9 +196,7 @@ fun OrderConfirmScreenContent(
                 changeCardName = changeCardName,
                 cardId = cardId,
                 changeCardId = changeCardId,
-                year = year,
-                changeYear = changeYear,
-                month = month,
+                date = date,
                 changeMonth = changeMonth,
                 cvc = cvc,
                 changeCvc = changeCvc,
@@ -276,9 +270,7 @@ fun TextFields(
     changeCardName: (String) -> Unit,
     cardId: String,
     changeCardId: (String) -> Unit,
-    year: String,
-    changeYear: (String) -> Unit,
-    month: String,
+    date: String,
     changeMonth: (String) -> Unit,
     cvc: String,
     changeCvc: (String) -> Unit,
@@ -305,19 +297,21 @@ fun TextFields(
             onNewValue = { changeCardId(it.take(16)) },
             hint = R.string.card_id,
             label = R.string.card_id,
-            focusManager = focusManager
+            focusManager = focusManager,
+            visualTransformation = CardNumberMask("-"),
         )
 
         Row(modifier = Modifier.height(35.dp)) {
             // Expired Date
             LabelWithTextField(
-                value = month,
-                onNewValue = { changeMonth(it.take(2)) },
+                value = date,
+                onNewValue = { changeMonth(it.take(4)) },
                 hint = R.string.expire_date_hint,
                 label = R.string.expire_date,
                 focusManager = focusManager,
                 keyboardType = KeyboardType.Number,
                 imeAction = ImeAction.Go,
+                visualTransformation = ExpirationDateMask(),
                 modifier = Modifier.weight(1f)
             )
 
@@ -346,9 +340,7 @@ fun OrderConfirmScreenContent() {
         changeCardName = { },
         cardId = "",
         changeCardId = { },
-        year = "",
-        changeYear = { },
-        month = "",
+        date = "",
         changeMonth = { },
         cvc = "",
         changeCvc = { },
@@ -365,9 +357,7 @@ fun TextFieldsPreview() {
         changeCardName = { },
         cardId = "",
         changeCardId = { },
-        year = "",
-        changeYear = { },
-        month = "",
+        date = "",
         changeMonth = { },
         cvc = "",
         changeCvc = { }

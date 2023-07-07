@@ -283,7 +283,8 @@ fun SimpleTextField(
     focusManager: FocusManager? = null,
     keyboardType: KeyboardType = KeyboardType.Text,
     imeAction: ImeAction = ImeAction.Next,
-    contentAlignment: Alignment = Alignment.Center
+    contentAlignment: Alignment = Alignment.Center,
+    visualTransformation: VisualTransformation = VisualTransformation.None
 ) {
     BasicTextField(
         singleLine = true,
@@ -314,6 +315,7 @@ fun SimpleTextField(
             onDone = { focusManager?.clearFocus() },
             onGo = { focusManager?.moveFocus(FocusDirection.Next) }
         ),
+        visualTransformation = visualTransformation,
         modifier = modifier
             .border(
                 border = BorderStroke(1.dp, borderColor),

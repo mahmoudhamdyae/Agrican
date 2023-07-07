@@ -22,6 +22,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -41,7 +42,8 @@ fun LabelWithTextField(
     focusManager: FocusManager,
     modifier: Modifier = Modifier,
     keyboardType: KeyboardType = KeyboardType.Text,
-    imeAction: ImeAction = ImeAction.Next
+    imeAction: ImeAction = ImeAction.Next,
+    visualTransformation: VisualTransformation = VisualTransformation.None
 ) {
     Box(
         modifier = modifier.height(IntrinsicSize.Max)
@@ -65,7 +67,8 @@ fun LabelWithTextField(
                 .fillMaxWidth()
                 .padding(start = 75.dp),
             keyboardType = keyboardType,
-            imeAction = imeAction
+            imeAction = imeAction,
+            visualTransformation = visualTransformation
         )
         LabelItem(text = label, modifier = Modifier.fillMaxHeight())
     }

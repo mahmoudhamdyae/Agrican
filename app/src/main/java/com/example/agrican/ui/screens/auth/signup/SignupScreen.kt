@@ -32,6 +32,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.CornerRadius
+import androidx.compose.ui.graphics.PathEffect
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
@@ -44,6 +48,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
+import com.example.agrican.common.utils.toPx
 import com.example.agrican.domain.model.UserType
 import com.example.agrican.ui.components.Background
 import com.example.agrican.ui.components.DialogBoxLoading
@@ -281,16 +286,27 @@ fun Signup(
         ) {
             val focusManager = LocalFocusManager.current
 
+            val stroke = Stroke(
+                width = 2.dp.toPx(),
+                pathEffect = PathEffect.dashPathEffect(floatArrayOf(12.dp.toPx(), 8.dp.toPx()), 0.dp.toPx())
+            )
+
             Surface(
                 shape = RoundedCornerShape(16.dp),
-                color = greenDark,
                 modifier = Modifier
                     .padding(vertical = 8.dp)
                     .padding(bottom = 16.dp)
+                    .drawBehind {
+                        drawRoundRect(
+                            color = greenDark,
+                            style = stroke,
+                            cornerRadius = CornerRadius(16.dp.toPx(), 16.dp.toPx())
+                        )
+                    }
             ) {
                 Text(
                     text = stringResource(id = accountType.title),
-                    color = white,
+                    color = greenDark,
                     style = MaterialTheme.typography.body,
                     fontSize = 18.sp,
                     modifier = Modifier.padding(horizontal = 32.dp)

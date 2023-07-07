@@ -194,7 +194,7 @@ fun LoginScreenContent(
                             R.string.farm,
                             R.string.engineer,
                         ),
-                        textColor = gray,
+                        textColor = Color(0xffc1c1c1),
                         onSelect = {
                             when (it) {
                                 R.string.engineer -> { changeAccountType(UserType.ENGINEER) }

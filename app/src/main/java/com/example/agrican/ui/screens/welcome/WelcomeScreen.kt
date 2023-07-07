@@ -11,12 +11,16 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.FilterChipDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,6 +30,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -60,6 +65,15 @@ fun WelcomeScreen(
     Box(modifier = modifier.fillMaxSize()) {
 
         BackGroundImage(modifier = Modifier.align(Alignment.BottomCenter))
+
+        Image(
+            painter = painterResource(id = R.drawable.splash),
+            contentDescription = null,
+            modifier = Modifier
+                .padding(top = 64.dp)
+                .width(120.dp)
+                .align(Alignment.TopCenter)
+        )
 
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -97,7 +111,9 @@ fun WelcomeScreen(
                             textAlign = TextAlign.Center,
                             color = if (isEnglish == true) white else greenLight,
                             fontSize = 16.sp,
-                            modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 8.dp)
                         )
                     },
                     shape = RoundedCornerShape(32.dp),
@@ -120,7 +136,9 @@ fun WelcomeScreen(
                             textAlign = TextAlign.Center,
                             fontSize = 16.sp,
                             color = if (isEnglish == false) white else greenLight,
-                            modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 8.dp)
                         )
                     },
                     shape = RoundedCornerShape(32.dp),
@@ -131,27 +149,33 @@ fun WelcomeScreen(
             }
 
             // Continue Button
-            Row {
-                Spacer(modifier = Modifier.weight(1f))
-                Button(
-                    onClick = {
-                        val language = if (isEnglish == true) "en" else "ar"
-                        AppCompatDelegate.setApplicationLocales(
-                            LocaleListCompat.forLanguageTags(language)
+            if (isEnglish != null) {
+                Row {
+                    Spacer(modifier = Modifier.weight(1f))
+
+                    IconButton(
+                        onClick = {
+                            val language = if (isEnglish == true) "en" else "ar"
+                            AppCompatDelegate.setApplicationLocales(
+                                LocaleListCompat.forLanguageTags(language)
+                            )
+                            openAndClear(OnboardingDestination.route)
+                        },
+                        colors = IconButtonDefaults.iconButtonColors(containerColor = greenDark),
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .clip(CircleShape)
+                            .size(32.dp)
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.baseline_arrow_forward_24),
+                            contentDescription = null,
+                            tint = white
                         )
-                        openAndClear(OnboardingDestination.route)
-                              },
-                    enabled = isEnglish != null,
-                    colors= ButtonDefaults.buttonColors(containerColor = greenDark),
-                    modifier = Modifier
-                        .padding(16.dp)
-                ) {
-                    Text(
-                        text = "متابعة",
-                        fontSize = 15.sp,
-                        fontWeight = FontWeight.Bold,
-                    )
+                    }
                 }
+            } else {
+                Box(modifier = Modifier.height(64.dp))
             }
         }
     }

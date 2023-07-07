@@ -1,15 +1,19 @@
 package com.example.agrican.ui.components
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
@@ -34,6 +38,7 @@ import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.textGray
+import com.example.agrican.ui.theme.white
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -81,20 +86,29 @@ fun DropDown(
         )
         ExposedDropdownMenu(
             expanded = expanded,
-            onDismissRequest = { expanded = false }
+            onDismissRequest = { expanded = false },
+            modifier = Modifier.background(white).padding(top = 2.dp)
         ) {
             options.forEach { selectionOption ->
-                DropdownMenuItem(
-                    text = { Text(
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable {
+                            onSelect(selectionOption)
+                            selectedOption = selectionOption
+                            expanded = false
+                        }
+                ) {
+                    Text(
                         text = stringResource(id = selectionOption),
-                        color = textColor
-                        ) },
-                    onClick = {
-                        onSelect(selectionOption)
-                        selectedOption = selectionOption
-                        expanded = false
+                        color = textColor,
+                        modifier = Modifier.padding(start = 4.dp)
+                    )
+
+                    if (options.size - 1 != options.indexOf(selectionOption)) {
+                        Divider(modifier = Modifier.padding(vertical = 4.dp, horizontal = 2.dp))
                     }
-                )
+                }
             }
         }
     }
@@ -146,21 +160,30 @@ fun DateDropDown(
         )
         ExposedDropdownMenu(
             expanded = expanded,
-            onDismissRequest = { expanded = false }
+            onDismissRequest = { expanded = false },
+            modifier = Modifier.background(white)
         ) {
             options.forEach { selectionOption ->
-                DropdownMenuItem(
-                    text = { Text(
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable {
+                            onSelect(selectionOption)
+                            selectedOption2 = selectionOption
+                            expanded = false
+                        }
+                ) {
+                    Text(
                         text = if (selectionOption == options[0]) stringResource(id = selectionOption)
                         else selectionOption.toString(),
-                        color = black
-                    ) },
-                    onClick = {
-                        onSelect(selectionOption)
-                        selectedOption2 = selectionOption
-                        expanded = false
+                        color = black,
+                        modifier = Modifier.padding(start = 4.dp)
+                    )
+
+                    if (options.size - 1 != options.indexOf(selectionOption)) {
+                        Divider(modifier = Modifier.padding(vertical = 4.dp, horizontal = 2.dp))
                     }
-                )
+                }
             }
         }
     }
@@ -169,5 +192,10 @@ fun DateDropDown(
 @Preview(showBackground = true)
 @Composable
 fun BasicDropDownPreview() {
-    DropDown(options = listOf(R.string.place), onSelect = { }, modifier = Modifier.fillMaxSize(), greenDark)
+    DropDown(
+        options = listOf(R.string.place, R.string.place),
+        onSelect = { },
+        textColor = greenDark,
+        modifier = Modifier.fillMaxSize()
+    )
 }

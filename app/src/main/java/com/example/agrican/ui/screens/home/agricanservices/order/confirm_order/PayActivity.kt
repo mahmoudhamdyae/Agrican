@@ -69,8 +69,7 @@ class PayActivity : AppCompatActivity() {
                 ) {
                     var cardNameEditText by rememberSaveable { mutableStateOf("") }
                     var cardIdEditText by rememberSaveable { mutableStateOf("") }
-                    var yearEditText by rememberSaveable { mutableStateOf("") }
-                    var monthEditText by rememberSaveable { mutableStateOf("") }
+                    var dateEditText by rememberSaveable { mutableStateOf("") }
                     var cvcEditText by rememberSaveable { mutableStateOf("") }
 
                     OrderConfirmScreen(
@@ -79,18 +78,16 @@ class PayActivity : AppCompatActivity() {
                         changeCardName = { cardNameEditText = it },
                         cardId = cardIdEditText,
                         changeCardId = { cardIdEditText = it },
-                        year = yearEditText,
-                        changeYear = { yearEditText = it },
-                        month = monthEditText,
-                        changeMonth = { monthEditText = it },
+                        date = dateEditText,
+                        changeMonth = { dateEditText = it },
                         cvc = cvcEditText,
                         changeCvc = { cvcEditText = it },
                         orderPrice = orderPrice ?: 0.0,
                         buy = {
                             cardName = cardNameEditText
                             cardId = cardIdEditText
-                            year = yearEditText
-                            month = monthEditText
+                            year = dateEditText.split("/")[1]
+                            month = dateEditText.split("/")[0]
                             cvv = cvcEditText
 
                             handlePayment()
