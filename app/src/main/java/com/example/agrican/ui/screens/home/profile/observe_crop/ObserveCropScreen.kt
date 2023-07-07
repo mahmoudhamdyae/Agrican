@@ -2,6 +2,7 @@ package com.example.agrican.ui.screens.home.profile.observe_crop
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -9,10 +10,12 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.ExpandLess
 import androidx.compose.material.icons.filled.ExpandMore
 import androidx.compose.material3.Divider
@@ -39,7 +42,7 @@ import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import com.example.agrican.R
 import com.example.agrican.domain.model.Crop
-import com.example.agrican.ui.components.BackButtonTopBar
+import com.example.agrican.ui.components.BackButton
 import com.example.agrican.ui.components.Days
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.screens.home.profile.add_task.AddTaskDestination
@@ -69,8 +72,7 @@ fun ObserveCropScreen(
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    BackButtonTopBar(
-        title = ObserveCropDestination.titleRes,
+    BackButton(
         navigateUp = navigateUp,
         modifier = modifier
     ) {
@@ -88,33 +90,89 @@ fun ObserveCropScreenContent(
     modifier: Modifier = Modifier
 ) {
 
-    Column(
-        verticalArrangement = Arrangement.spacedBy(16.dp),
-        modifier = modifier.padding(16.dp)
-    ) {
-        CropSurface(crop = crop)
+    var isDelAction by rememberSaveable { mutableStateOf(false) }
+    
+    Column(modifier = modifier) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+            modifier = Modifier
+                .clip(RoundedCornerShape(bottomStart = 16.dp, bottomEnd = 16.dp))
+                .background(greenLight)
+        ) {
 
-        AddTakSurface(openScreen = openScreen)
+            Text(
+                text = stringResource(id = R.string.observe_crop),
+                color = white,
+                modifier = Modifier.padding(top = 16.dp)
+            )
 
-        Text(
-            text = stringResource(id = R.string.tasks),
-            style = MaterialTheme.typography.title,
-            fontSize = 16.sp
-        )
-        Divider()
+            Divider(modifier = Modifier.padding(horizontal = 16.dp))
 
-        ExpandableItem(
-            label = R.string.watering_crop,
-            selectedDays = listOf(),
-            onDayAdded = { /*TODO*/ }
-        )
+            CropSurface(crop = crop)
 
-        ExpandableItem(
-            label = R.string.composting,
-            selectedDays = listOf(),
-            onDayAdded = { /*TODO*/ }
-        )
+            AddTakSurface(
+                openScreen = openScreen,
+                modifier = Modifier.padding(horizontal = 16.dp)
+            )
 
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(greenDark)
+                    .padding(horizontal = 16.dp)
+            ) {
+                Text(
+                    text = stringResource(id = R.string.tasks),
+                    style = MaterialTheme.typography.title,
+                    fontSize = 16.sp,
+                    color = white,
+                    modifier = Modifier.padding(vertical = 8.dp)
+                )
+
+                Spacer(modifier = Modifier.weight(1f))
+
+                Surface(
+                    shape = RoundedCornerShape(8.dp),
+                    color = greenLight,
+                    modifier = Modifier.clickable { isDelAction = !isDelAction }
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.del_task),
+                        fontSize = 12.sp,
+                        color = white,
+                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp)
+                    )
+                }
+            }
+        }
+
+        Column(
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+            modifier = Modifier.padding(16.dp)
+        ) {
+            ExpandableItem(
+                label = R.string.watering_crop,
+                selectedDays = listOf(),
+                onDayAdded = { /*TODO*/ },
+                isDelAction = isDelAction
+            )
+
+            ExpandableItem(
+                label = R.string.composting,
+                selectedDays = listOf(),
+                onDayAdded = { /*TODO*/ },
+                isDelAction = isDelAction
+            )
+
+            ExpandableItem(
+                label = R.string.pick,
+                selectedDays = listOf(),
+                onDayAdded = { /*TODO*/ },
+                isDelAction = isDelAction
+            )
+        }
     }
 }
 
@@ -123,35 +181,33 @@ fun CropSurface(
     crop: Crop,
     modifier: Modifier = Modifier
 ) {
-    Surface(
-        shadowElevation = 8.dp,
-        shape = RoundedCornerShape(16.dp),
-        color = greenLight,
-        modifier = modifier.fillMaxWidth()
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(vertical = 6.dp)
     ) {
-        Column(modifier = Modifier.padding(12.dp)) {
-            Text(
-                text = crop.name,
-                color = white,
-                style = MaterialTheme.typography.title,
-                fontSize = 16.sp
-            )
+        Text(
+            text = crop.name,
+            color = white,
+            style = MaterialTheme.typography.title,
+            fontSize = 16.sp
+        )
 
-            Row(modifier = Modifier.align(Alignment.End)) {
-                Text(
-                    text = stringResource(id = R.string.agri_history),
-                    color = white,
-                    style = MaterialTheme.typography.body,
-                    fontSize = 14.sp,
-                    modifier = Modifier.padding(end = 8.dp)
-                )
-                Text(
-                    text = crop.date,
-                    color = white,
-                    style = MaterialTheme.typography.body,
-                    fontSize = 14.sp
-                )
-            }
+        Row {
+            Text(
+                text = stringResource(id = R.string.agri_history),
+                color = white,
+                style = MaterialTheme.typography.body,
+                fontSize = 14.sp,
+                modifier = Modifier.padding(end = 8.dp)
+            )
+            Text(
+                text = crop.date,
+                color = white,
+                style = MaterialTheme.typography.body,
+                fontSize = 14.sp
+            )
         }
     }
 }
@@ -164,29 +220,39 @@ fun AddTakSurface(
     Surface(
         shadowElevation = 8.dp,
         shape = RoundedCornerShape(16.dp),
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier
+            .fillMaxWidth()
+            .clickable { openScreen(AddTaskDestination.route) }
     ) {
-        Column(modifier = Modifier.padding(12.dp)) {
-            // Add Task Label
-            Text(
-                text = stringResource(id = R.string.add_task),
-                style = MaterialTheme.typography.title,
-                fontSize = 16.sp
-            )
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(12.dp)
+        ) {
+            Column {
+                // Add Task Label
+                Text(
+                    text = stringResource(id = R.string.add_task),
+                    style = MaterialTheme.typography.title,
+                    fontSize = 16.sp
+                )
 
-            Text(
-                text = stringResource(id = R.string.add_task_description),
-                color = greenDark,
-                style = MaterialTheme.typography.body,
-                fontSize = 10.sp
-            )
+                Text(
+                    text = stringResource(id = R.string.add_task_description),
+                    color = greenDark,
+                    style = MaterialTheme.typography.body,
+                    fontSize = 10.sp
+                )
+            }
 
+            Spacer(modifier = Modifier.weight(1f))
+
+            // Add Task Button
             IconButton(
                 onClick = { openScreen(AddTaskDestination.route) },
                 modifier = Modifier
                     .clip(CircleShape)
                     .background(greenDark)
-                    .align(Alignment.End)
+                    .size(32.dp)
             ) {
                 Icon(
                     imageVector = Icons.Default.Add,
@@ -203,6 +269,7 @@ fun ExpandableItem(
     label: Int,
     selectedDays: List<Int>,
     onDayAdded: (Int) -> Unit,
+    isDelAction: Boolean,
     modifier: Modifier = Modifier
 ) {
     var visible by rememberSaveable { mutableStateOf(false) }
@@ -210,15 +277,21 @@ fun ExpandableItem(
     Column(modifier = modifier) {
         Surface(
             shadowElevation = 16.dp,
-            shape = RoundedCornerShape(32.dp),
-            color = greenDark
+            shape = RoundedCornerShape(16.dp),
+            color = greenLight,
+            modifier = Modifier
+                .clickable { visible = !visible }
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(12.dp),
-                modifier = Modifier.padding(12.dp)
+                horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                IcoView()
+                IcoView(
+                    modifier = Modifier
+                        .padding(start = 8.dp)
+                        .padding(vertical = 4.dp)
+                )
+
                 Text(
                     text = stringResource(id = label),
                     color = white,
@@ -228,15 +301,33 @@ fun ExpandableItem(
 
                 Spacer(modifier = Modifier.weight(1f))
 
-                IconButton(
-                    onClick = { visible = !visible },
-                    modifier = Modifier.height(32.dp)
-                ) {
-                    Icon(
-                        imageVector = if (visible) Icons.Default.ExpandLess else Icons.Default.ExpandMore,
-                        contentDescription = null,
-                        tint = white
-                    )
+                if (isDelAction) {
+                    IconButton(
+                        onClick = { /*TODO*/ },
+                        modifier = Modifier
+                            .padding(1.dp)
+                            .clip(RoundedCornerShape(topEnd = 16.dp, bottomEnd = 16.dp))
+                            .height(40.dp)
+                            .background(white)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Close,
+                            contentDescription = null,
+                            tint = greenDark,
+                            modifier = Modifier.size(16.dp)
+                        )
+                    }
+                } else {
+                    IconButton(
+                        onClick = { visible = !visible },
+                        modifier = Modifier.height(32.dp)
+                    ) {
+                        Icon(
+                            imageVector = if (visible) Icons.Default.ExpandLess else Icons.Default.ExpandMore,
+                            contentDescription = null,
+                            tint = white
+                        )
+                    }
                 }
             }
         }
@@ -251,18 +342,12 @@ fun ExpandableItem(
 fun IcoView(
     modifier: Modifier = Modifier
 ) {
-    Surface(
-        shape = CircleShape,
+    Text(
+        text = "ico",
         color = white,
-        modifier = modifier
-    ) {
-        Text(
-            text = "ico",
-            color = greenDark,
-            fontSize = 15.sp,
-            modifier = Modifier.padding(8.dp)
-        )
-    }
+        fontSize = 15.sp,
+        modifier = modifier.padding(8.dp)
+    )
 }
 
 @Preview(showBackground = true)

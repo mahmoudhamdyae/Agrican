@@ -4,16 +4,13 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -44,7 +41,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.agrican.R
 import com.example.agrican.ui.components.BackButtonTopBar
-import com.example.agrican.ui.components.SimpleTextField
+import com.example.agrican.ui.components.LabelWithTextField
 import com.example.agrican.ui.screens.home.agricanservices.order.OrderDestination
 import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.gray
@@ -131,8 +128,6 @@ fun OrderConfirmScreenContent(
     orderPrice: Double,
     modifier: Modifier = Modifier
 ) {
-    val focusManager = LocalFocusManager.current
-
     var isCash: Boolean? by rememberSaveable { mutableStateOf(null) }
 
     Column(
@@ -200,165 +195,147 @@ fun OrderConfirmScreenContent(
         }
 
         if (isCash == false) {
-            // Card Name
-            Text(
-                text = stringResource(id = R.string.card_name),
-                color = Color(0xff5a5a5a),
-                fontSize = 12.sp,
-                style = MaterialTheme.typography.body,
+            TextFields(
+                cardName = cardName,
+                changeCardName = changeCardName,
+                cardId = cardId,
+                changeCardId = changeCardId,
+                year = year,
+                changeYear = changeYear,
+                month = month,
+                changeMonth = changeMonth,
+                cvc = cvc,
+                changeCvc = changeCvc,
+                modifier = modifier
             )
-            SimpleTextField(
-                value = cardName,
-                onNewValue = changeCardName,
-                placeHolder = { },
-                focusManager = focusManager,
-                contentAlignment = Alignment.CenterStart
-            )
-
-            // Personal Id
-            Text(
-                text = stringResource(id = R.string.card_id),
-                color = Color(0xff5a5a5a),
-                fontSize = 12.sp,
-                style = MaterialTheme.typography.body,
-            )
-            SimpleTextField(
-                value = cardId,
-                onNewValue = {changeCardId(it.take(16)) },
-                placeHolder = { },
-                focusManager = focusManager,
-                imeAction = ImeAction.Go,
-                keyboardType = KeyboardType.Number,
-                contentAlignment = Alignment.CenterStart
-            )
-
-            Row {
-                // Expired Date Label
-                Text(
-                    text = stringResource(id = R.string.expire_date),
-                    color = Color(0xff5a5a5a),
-                    style = MaterialTheme.typography.body,
-                    fontSize = 12.sp,
-                    modifier = Modifier.weight(1f)
-                )
-
-                // CW/CVC Label
-                Text(
-                    text = stringResource(id = R.string.cvc),
-                    color = Color(0xff5a5a5a),
-                    style = MaterialTheme.typography.body,
-                    fontSize = 12.sp,
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(start = 4.dp)
-                )
-            }
-
-            Row(modifier = Modifier.height(35.dp)) {
-                // Month Text Field
-                SimpleTextField(
-                    value = month,
-                    onNewValue = { changeMonth(it.take(2)) },
-                    placeHolder = {
-                        Box(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .wrapContentHeight(),
-                            contentAlignment = Alignment.Center
-                        ) { Text(text = "MM", color = gray) } },
-                    focusManager = focusManager,
-                    imeAction = ImeAction.Go,
-                    keyboardType = KeyboardType.Number,
-                    contentAlignment = Alignment.CenterStart,
-                    modifier = Modifier.weight(1f)
-                )
-
-                Spacer(modifier = Modifier.width(8.dp))
-
-                // Year Text Field
-                SimpleTextField(
-                    value = year,
-                    onNewValue = { changeYear(it.take(2)) },
-                    placeHolder = {
-                        Box(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .wrapContentHeight(),
-                            contentAlignment = Alignment.Center
-                        ) { Text(text = "YY", color = gray) }
-                    },
-                    focusManager = focusManager,
-                    imeAction = ImeAction.Go,
-                    keyboardType = KeyboardType.Number,
-                    contentAlignment = Alignment.CenterStart,
-                    modifier = Modifier
-                        .padding(end = 16.dp)
-                        .weight(1f)
-                )
-
-                // CVC Text Field
-                SimpleTextField(
-                    value = cvc,
-                    onNewValue = { changeCvc(it.take(3)) },
-                    placeHolder = { },
-                    focusManager = focusManager,
-                    imeAction = ImeAction.Done,
-                    keyboardType = KeyboardType.Number,
-                    contentAlignment = Alignment.CenterStart,
-                    modifier = Modifier.weight(2f)
-                )
-            }
         }
 
         // Confirm Order Button
         if (isCash != null) {
-            Button(
-                onClick = buy,
-                colors = ButtonDefaults.buttonColors(containerColor = greenDark) ,
-                modifier = Modifier
-                    .padding(top = 8.dp)
-                    .fillMaxWidth()
-            ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceAround,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Text(
-                            text = stringResource(id = R.string.sum),
-                            fontSize = 11.sp,
-                            fontWeight = FontWeight.Bold,
-                        )
-
-                        Row {
-                            Text(
-                                text = orderPrice.toString(),
-                                fontSize = 12.sp,
-                                fontWeight = FontWeight.Bold,
-                            )
-                            Spacer(modifier = Modifier.padding(end = 8.dp))
-                            Text(
-                                text = stringResource(id = R.string.pound),
-                                fontSize = 12.sp,
-                                fontWeight = FontWeight.Bold,
-                            )
-                        }
-                    }
-
-                    Text(
-                        text = stringResource(id = R.string.pay),
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-
-                    Icon(painter = painterResource(id = R.drawable.cart), contentDescription = null)
-                }
-            }
+            ConfirmOrderButton(buy, orderPrice)
         }
     }
 
     Spacer(modifier = Modifier.height(100.dp))
+}
+
+@Composable
+fun ConfirmOrderButton(
+    buy: () -> Unit,
+    orderPrice: Double,
+    modifier: Modifier = Modifier
+) {
+    Button(
+        onClick = buy,
+        colors = ButtonDefaults.buttonColors(containerColor = greenDark) ,
+        modifier = modifier
+            .padding(top = 8.dp)
+            .fillMaxWidth()
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceAround,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Text(
+                    text = stringResource(id = R.string.sum),
+                    fontSize = 11.sp,
+                    fontWeight = FontWeight.Bold,
+                )
+
+                Row {
+                    Text(
+                        text = orderPrice.toString(),
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.Bold,
+                    )
+                    Spacer(modifier = Modifier.padding(end = 8.dp))
+                    Text(
+                        text = stringResource(id = R.string.pound),
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.Bold,
+                    )
+                }
+            }
+
+            Text(
+                text = stringResource(id = R.string.pay),
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Bold
+            )
+
+            Icon(painter = painterResource(id = R.drawable.cart), contentDescription = null)
+        }
+    }
+}
+
+@Composable
+fun TextFields(
+    cardName: String,
+    changeCardName: (String) -> Unit,
+    cardId: String,
+    changeCardId: (String) -> Unit,
+    year: String,
+    changeYear: (String) -> Unit,
+    month: String,
+    changeMonth: (String) -> Unit,
+    cvc: String,
+    changeCvc: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val focusManager = LocalFocusManager.current
+
+    Column(
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        modifier = modifier.fillMaxWidth()
+    ) {
+        // Card Name
+        LabelWithTextField(
+            value = cardName,
+            onNewValue = changeCardName,
+            hint = R.string.card_name,
+            label = R.string.card_name,
+            focusManager = focusManager
+        )
+
+        // Personal Id
+        LabelWithTextField(
+            value = cardId,
+            onNewValue = { changeCardId(it.take(16)) },
+            hint = R.string.card_id,
+            label = R.string.card_id,
+            focusManager = focusManager
+        )
+
+        Row(modifier = Modifier.height(35.dp)) {
+            // Expired Date
+            LabelWithTextField(
+                value = month,
+                onNewValue = { changeMonth(it.take(2)) },
+                hint = R.string.expire_date_hint,
+                label = R.string.expire_date,
+                focusManager = focusManager,
+                keyboardType = KeyboardType.Number,
+                imeAction = ImeAction.Go,
+                modifier = Modifier.weight(1f)
+            )
+
+            Spacer(modifier = Modifier.width(8.dp))
+
+            // CW/CVC
+            LabelWithTextField(
+                value = cvc,
+                onNewValue = { changeCvc(it.take(3)) },
+                hint = null,
+                label = R.string.cvc,
+                focusManager = focusManager,
+                imeAction = ImeAction.Done,
+                keyboardType = KeyboardType.Number,
+                modifier = Modifier.weight(1f)
+            )
+        }
+    }
 }
 
 @Preview(showBackground = true)
@@ -377,5 +354,22 @@ fun OrderConfirmScreenContent() {
         changeCvc = { },
         buy = { },
         orderPrice = 100.0
+    )
+}
+
+@Preview
+@Composable
+fun TextFieldsPreview() {
+    TextFields(
+        cardName = "",
+        changeCardName = { },
+        cardId = "",
+        changeCardId = { },
+        year = "",
+        changeYear = { },
+        month = "",
+        changeMonth = { },
+        cvc = "",
+        changeCvc = { }
     )
 }

@@ -15,6 +15,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.agrican.ui.theme.body
+import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.textGray
 import com.example.agrican.ui.theme.white
@@ -26,7 +27,8 @@ fun Chip(
     selected: Boolean,
     onSelect: () -> Unit,
     modifier: Modifier = Modifier,
-    textColor: Color = textGray
+    textColor: Color = textGray,
+    borderColor: Color = gray
 ) {
     FilterChip(
         selected = selected,
@@ -35,6 +37,7 @@ fun Chip(
             selectedContainerColor = greenLight,
             selectedLabelColor = white
         ),
+        border = FilterChipDefaults.filterChipBorder(borderColor = borderColor),
         label = {
             Text(
                 text = stringResource(id = text),

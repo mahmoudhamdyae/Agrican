@@ -327,17 +327,32 @@ fun OrdersListItem(
             }
         )
 
-        // Confirm Button
-        Button(
-            onClick = { confirmOrder(context, order) {
-                paymentLauncher.launch(it)
-            } },
-            colors = ButtonDefaults.buttonColors(containerColor = greenDark),
-            modifier = Modifier.align(Alignment.BottomCenter)
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier.align(Alignment.BottomStart)
         ) {
-            Text(
-                text = stringResource(id = R.string.confirm_order),
-            )
+            // Confirm Button
+            Button(
+                onClick = { confirmOrder(context, order) {
+                    paymentLauncher.launch(it)
+                } },
+                colors = ButtonDefaults.buttonColors(containerColor = greenDark),
+                modifier = Modifier.padding(start = 16.dp)
+            ) {
+                Text(
+                    text = stringResource(id = R.string.confirm_order),
+                )
+            }
+
+            // Refuse Button
+            Button(
+                onClick = { /*TODO*/ },
+                colors = ButtonDefaults.buttonColors(containerColor = greenLight)
+            ) {
+                Text(
+                    text = stringResource(id = R.string.refuse_order),
+                )
+            }
         }
     }
 }

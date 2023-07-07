@@ -14,6 +14,8 @@ import com.example.agrican.ui.screens.home.main.ask_expert.AskExpertScreen
 import com.example.agrican.ui.screens.home.main.ask_expert.ChatDestination
 import com.example.agrican.ui.screens.home.main.ask_expert.ChatScreen
 import com.example.agrican.ui.screens.home.main.fertilizers_calculator.FertilizersCalculatorDestination
+import com.example.agrican.ui.screens.home.main.fertilizers_calculator.FertilizersCalculatorResultDestination
+import com.example.agrican.ui.screens.home.main.fertilizers_calculator.FertilizersCalculatorResultScreen
 import com.example.agrican.ui.screens.home.main.fertilizers_calculator.FertilizersCalculatorScreen
 import com.example.agrican.ui.screens.home.main.problem_images.ProblemImagesDestination
 import com.example.agrican.ui.screens.home.main.problem_images.ProblemImagesScreen
@@ -76,7 +78,13 @@ fun MainGraph(
         // Fertilizers Calculator Screen
         composable(route = FertilizersCalculatorDestination.route) {
             setTopBarTitle(FertilizersCalculatorDestination.titleRes)
-            FertilizersCalculatorScreen(navigateUp = navigateUp)
+            FertilizersCalculatorScreen(navigateUp = navigateUp, openScreen = openScreen)
+        }
+
+        // Fertilizers Calculator Result Screen
+        composable(route = FertilizersCalculatorResultDestination.route) {
+            setTopBarTitle(FertilizersCalculatorResultDestination.titleRes)
+            FertilizersCalculatorResultScreen(navigateUp = navigateUp, openAndClear = openAndClear)
         }
 
         // Ask An Expert Screen

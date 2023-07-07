@@ -1,16 +1,16 @@
 package com.example.agrican.ui.screens.home.profile.add_task
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -19,20 +19,26 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.CornerRadius
+import androidx.compose.ui.graphics.PathEffect
+import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
+import com.example.agrican.common.utils.toPx
 import com.example.agrican.ui.components.BackButtonTopBar
 import com.example.agrican.ui.components.Days
 import com.example.agrican.ui.components.DropDown
-import com.example.agrican.ui.components.SimpleTextField
+import com.example.agrican.ui.components.LabelWithTextField
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.body
-import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
 
 object AddTaskDestination: NavigationDestination {
@@ -59,7 +65,8 @@ fun AddTaskScreen(
             flipDay = viewModel::flipDay,
             taskName = taskName,
             onTaskNameChanged = { taskName = it },
-            addTask = viewModel::addTask
+            addTask = viewModel::addTask,
+            navigateUp = navigateUp
         )
     }
 }
@@ -71,6 +78,7 @@ fun AddTaskScreenContent(
     taskName: String,
     onTaskNameChanged: (String) -> Unit,
     addTask: (String) -> Unit,
+    navigateUp: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier.padding(16.dp)) {
@@ -79,26 +87,12 @@ fun AddTaskScreenContent(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier.height(40.dp)
         ) {
-            Text(
-                text = stringResource(id = R.string.task_name),
-                color = greenDark,
-                style = MaterialTheme.typography.body
-            )
-
-            // Task Name Text Field
-            SimpleTextField(
+            LabelWithTextField(
                 value = taskName,
                 onNewValue = onTaskNameChanged,
-                placeHolder = {
-                    Box(modifier = Modifier.fillMaxHeight()) {
-                        Text(
-                            text = stringResource(id = R.string.task_name),
-                            color = gray,
-                            modifier = Modifier
-                                .align(Alignment.CenterStart)
-                                .padding(start = 8.dp)
-                        )
-                    } },
+                hint = R.string.task_name,
+                label = R.string.task_name,
+                focusManager = LocalFocusManager.current,
                 modifier = Modifier.weight(1f)
             )
 
@@ -111,19 +105,42 @@ fun AddTaskScreenContent(
                 modifier = Modifier.width(130.dp)
             )
         }
-        
-        Text(
-            text = stringResource(id = R.string.task_dates_label),
-            color = greenDark,
-            style = MaterialTheme.typography.body,
-            modifier = Modifier.padding(vertical = 16.dp)
+
+        val stroke = Stroke(
+            width = 2.dp.toPx(),
+            pathEffect = PathEffect.dashPathEffect(floatArrayOf(12.dp.toPx(), 8.dp.toPx()), 0.dp.toPx())
         )
+
+        Surface(
+            shape = RoundedCornerShape(16.dp),
+            modifier = modifier
+                .padding(vertical = 16.dp)
+                .drawBehind {
+                    drawRoundRect(
+                        color = greenDark,
+                        style = stroke,
+                        cornerRadius = CornerRadius(16.dp.toPx(), 16.dp.toPx())
+                    )
+                }
+        ) {
+            Text(
+                text = stringResource(id = R.string.task_dates_label),
+                textAlign = TextAlign.Center,
+                color = greenDark,
+                style = MaterialTheme.typography.body,
+                fontSize = 12.sp,
+                modifier = Modifier.padding(vertical = 8.dp)
+            )
+        }
 
         Days(selectedDays = days, onDayClicked = { flipDay(it) })
         
         // Add Task Button
         Button(
-            onClick = { addTask(taskName) },
+            onClick = {
+                addTask(taskName)
+                navigateUp()
+                      },
             colors = ButtonDefaults.buttonColors(containerColor = greenDark),
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
@@ -141,5 +158,12 @@ fun AddTaskScreenContent(
 @Preview(showBackground = true)
 @Composable
 fun AddTaskScreenPreview() {
-    AddTaskScreenContent(days = listOf(), flipDay = { }, taskName = "", onTaskNameChanged = { }, addTask = { })
+    AddTaskScreenContent(
+        days = listOf(),
+        flipDay = { },
+        taskName = "",
+        onTaskNameChanged = { },
+        addTask = { },
+        navigateUp = { }
+    )
 }

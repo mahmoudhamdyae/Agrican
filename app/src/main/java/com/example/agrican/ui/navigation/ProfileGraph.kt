@@ -18,6 +18,8 @@ import com.example.agrican.ui.screens.home.profile.engineer_map.EngineerMapDesti
 import com.example.agrican.ui.screens.home.profile.engineer_map.EngineerMapScreen
 import com.example.agrican.ui.screens.home.profile.engineer_map.add_map.AddMapDestination
 import com.example.agrican.ui.screens.home.profile.engineer_map.add_map.AddMapScreen
+import com.example.agrican.ui.screens.home.profile.engineer_map.add_map.AddMapTwoDestination
+import com.example.agrican.ui.screens.home.profile.engineer_map.add_map.AddMapTwoScreen
 import com.example.agrican.ui.screens.home.profile.engineer_map.add_problem.AddProblemDestination
 import com.example.agrican.ui.screens.home.profile.engineer_map.add_problem.AddProblemScreen
 import com.example.agrican.ui.screens.home.profile.engineer_map.add_progress.AddProgressDestination
@@ -101,7 +103,17 @@ fun ProfileGraph(
             setTopBarTitle(AddMapDestination.titleRes)
             AddMapScreen(
                 navigateUp = navigateUp,
-                openAndPopUp = { openAndPopUp(it, AddMapDestination.route) }
+                openScreen = openScreen
+            )
+        }
+
+        // Second Add Map Screen
+        composable(route = AddMapTwoDestination.route) {
+            showBottomBar(false)
+            setTopBarTitle(AddMapTwoDestination.titleRes)
+            AddMapTwoScreen(
+                navigateUp = navigateUp,
+                openScreen = openScreen
             )
         }
 
@@ -109,7 +121,7 @@ fun ProfileGraph(
         composable(route = ExistingMapDestination.route) {
             showBottomBar(true)
             setTopBarTitle(ExistingMapDestination.titleRes)
-            ExistingMapScreen(openScreen = openScreen)
+            ExistingMapScreen(navigateUp = navigateUp, openScreen = openScreen)
         }
 
         // Add Progress Screen

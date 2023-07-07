@@ -153,7 +153,7 @@
     <string name="join_as_expert_description">انضم كاستشارى زراعى. حدد تخصصك فى المحاصيل وكن مستعدا للزيارات الميدانية إذا لزم الأمر</string>
 
     <!-- Default Age Screen -->
-    <string name="harvest_date">موعد الحصاد</string>
+    <string name="harvest_date">موسم الحصاد</string>
     <string name="crop_choose">اختار المحصول</string>
     <string name="crop_quality">جودة المحصول الحالية</string>
     <string name="quality_very_good">جيد جداً</string>
@@ -190,12 +190,14 @@
     <!-- Order Status -->
     <string name="empty_orders">لا يوجد عروض حتى الآن</string>
     <string name="confirm_order">تأكيد الطلب</string>
+    <string name="refuse_order">رفض الطلب</string>
 
     <!-- Order Confirm -->
     <string name="cash">كاش عند الوصول</string>
     <string name="card_id">رقم البطاقة</string>
     <string name="card_name">اسم البطاقة</string>
     <string name="expire_date">تاريخ الانتهاء</string>
+    <string name="expire_date_hint">00/00</string>
     <string name="cvc">cw/cvc</string>
     <string name="pay">إكمال عملية الشراء</string>
 
@@ -257,9 +259,13 @@
     <!-- Add Farm Screen -->
     <string name="farm_name">اسم المزرعة</string>
     <string name="size">المساحة</string>
+    <string name="size_hint">5</string>
     <string name="square_kilometer">كيلومتر مربع</string>
+    <string name="farming_date">تاريخ الزراعة</string>
     <string name="harvest_season">موسم الحصاد</string>
-    <string name="crops_type">نوع المحاصيل</string>
+    <string name="crops_type">نوع المحصول</string>
+    <string name="farm_address">عنوان المزرعة</string>
+    <string name="optional">اختيارى</string>
 
     <!-- Add Crop Screen -->
     <string name="agri_history">تاريخ الزراعة</string>
@@ -268,8 +274,10 @@
     <!-- Observe Crop -->
     <string name="add_task_description">يمكنك مراعاة النبات من خلال إضافة المهام</string>
     <string name="tasks">المهام</string>
+    <string name="del_task">حذف مهمة</string>
     <string name="watering_crop">رى المحصول</string>
     <string name="composting">التسميد</string>
+    <string name="pick">قطف المحصول</string>
 
     <!-- Add Task Screen -->
     <string name="task_name">اسم المهمة</string>
@@ -282,6 +290,22 @@
     <string name="current_maps">الخرائط الحالية</string>
     <string name="choose_farm">اختار المزرعة</string>
     <string name="choose_farm_size">حدد أبعاد الأرض</string>
+    <string name="engineer_map_problem">اضغط على موقع المشكلة لإضافة سجل مرضى</string>
+    <string name="engineer_map_add_problem">إضافة مشكلة جديدة للمزرعة</string>
+    <string name="engineer_map_add_problem_description">يمكنك مراعاة النبات من خلال إضافة المهام</string>
+    <string name="current_problem">المشاكل الحالية بالمزرعة</string>
+    <string name="del_problem">حذف مشكلة</string>
+    <string name="problem_kind">نوع المشكلة</string>
+    <string name="problem_kind_hint">آفة زراعية</string>
+    <string name="problem_description">وصف المشكلة</string>
+    <string name="problem_description_hint">تضرر الجزء السفلى من ساق النبات</string>
+    <string name="problem_date">تاريخ المشكلة</string>
+    <string name="date">التاريخ</string>
+    <string name="add">إضافة</string>
+    <string name="choose_problem_place">اختر مكان المشكلة</string>
+    <string name="progress_add">إضافة التفدم</string>
+    <string name="progress_add_hint">تم علاج المشكلة بشكل أولى</string>
+    <string name="progress_date">تاريخ التقدم</string>
 
     <!-- Cost Screen -->
     <string name="services">الخدمات</string>

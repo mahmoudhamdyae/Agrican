@@ -24,4 +24,14 @@ class ProfileViewModel @Inject constructor(
             )
         }
     }
+
+    fun delFarm() {
+        launchCatching {
+        }
+    }
+
+    fun delCrop() {
+        launchCatching {
+        }
+    }
 }

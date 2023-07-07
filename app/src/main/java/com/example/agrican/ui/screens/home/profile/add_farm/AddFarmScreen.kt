@@ -1,6 +1,8 @@
 package com.example.agrican.ui.screens.home.profile.add_farm
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
@@ -8,17 +10,24 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -38,7 +47,9 @@ import com.example.agrican.ui.components.LabelItem
 import com.example.agrican.ui.components.LabelWithTextField
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.greenDark
+import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.textGray
+import com.example.agrican.ui.theme.white
 
 object AddFarmDestination: NavigationDestination {
     override val route: String = "add_farm"
@@ -67,6 +78,7 @@ fun AddFarmScreen(
             updateDay = { viewModel.updateUiStates(day = it) },
             updateMonth = { viewModel.updateUiStates(month = it) },
             updateYear = { viewModel.updateUiStates(year = it) },
+            navigateUp = navigateUp,
             addFarm = viewModel::addFarm
         )
     }
@@ -83,6 +95,7 @@ fun AddFarmScreenContent(
     updateMonth: (Int) -> Unit,
     updateYear: (Int) -> Unit,
     addFarm: () -> Unit,
+    navigateUp: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val focusManager = LocalFocusManager.current
@@ -138,6 +151,7 @@ fun AddFarmScreenContent(
         ) {
             LabelItem(text = R.string.harvest_season)
 
+            // Days
             DateDropDown(
                 options = DateUtils().days,
                 onSelect = { if (it != 0) updateDay(it) },
@@ -146,6 +160,7 @@ fun AddFarmScreenContent(
                     .weight(1f)
                     .fillMaxHeight()
             )
+            // Months
             DateDropDown(
                 options = DateUtils().months,
                 onSelect = { if (it != 0) updateMonth(it) },
@@ -154,6 +169,7 @@ fun AddFarmScreenContent(
                     .weight(1f)
                     .fillMaxHeight()
             )
+            // Years
             DateDropDown(
                 options = DateUtils().years,
                 onSelect = { if (it != 0) updateYear(it) },
@@ -162,6 +178,47 @@ fun AddFarmScreenContent(
                     .weight(1f)
                     .fillMaxHeight()
             )
+
+            CalenderIcon()
+        }
+
+        // Farming Date Row
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier.height(IntrinsicSize.Max)
+        ) {
+            LabelItem(text = R.string.farming_date)
+
+            // Days
+            DateDropDown(
+                options = DateUtils().days,
+                onSelect = { if (it != 0) updateDay(it) },
+                selectedOption = uiState.day,
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxHeight()
+            )
+            // Months
+            DateDropDown(
+                options = DateUtils().months,
+                onSelect = { if (it != 0) updateMonth(it) },
+                selectedOption = uiState.month,
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxHeight()
+            )
+            // Years
+            DateDropDown(
+                options = DateUtils().years,
+                onSelect = { if (it != 0) updateYear(it) },
+                selectedOption = uiState.year,
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxHeight()
+            )
+
+            CalenderIcon()
         }
 
         // Crops Type Text Field
@@ -170,13 +227,37 @@ fun AddFarmScreenContent(
             onNewValue = updateCropsType,
             hint = R.string.crops_type,
             label = R.string.crops_type,
-            focusManager = focusManager,
-            imeAction = ImeAction.Done
+            focusManager = focusManager
         )
 
-        // ADd Crop Button
+        // Crops Type Text Field
+        Box {
+            LabelWithTextField(
+                value = uiState.cropsType,
+                onNewValue = updateCropsType,
+                hint = R.string.farm_address,
+                label = R.string.farm_address,
+                focusManager = focusManager,
+                imeAction = ImeAction.Done
+            )
+
+            // Optional Label
+            Text(
+                text = "",
+                color = greenLight,
+                modifier = Modifier
+                    .padding(start = 16.dp)
+                    .align(Alignment.BottomStart)
+                    .background(white)
+            )
+        }
+
+        // Add Crop Button
         Button(
-            onClick = { addFarm() },
+            onClick = {
+                addFarm()
+                navigateUp()
+                      },
             colors = ButtonDefaults.buttonColors(containerColor = greenDark),
         ) {
             Text(
@@ -189,8 +270,26 @@ fun AddFarmScreenContent(
     }
 }
 
+@Composable
+fun CalenderIcon(
+    modifier: Modifier = Modifier
+) {
+    IconButton(
+        onClick = { /*TODO*/ },
+        colors = IconButtonDefaults.iconButtonColors(containerColor = greenLight),
+        modifier = modifier.clip(CircleShape).size(36.dp)
+    ) {
+        Icon(
+            painter = painterResource(id = R.drawable.calender),
+            contentDescription = null,
+            tint = white,
+            modifier = Modifier.size(16.dp)
+        )
+    }
+}
+
 @Preview(showBackground = true)
 @Composable
 fun AddFarmScreenPreview() {
-    AddFarmScreenContent(uiState = AddFarmUiState(), { }, { }, { }, { }, { }, { }, { }, { })
+    AddFarmScreenContent(uiState = AddFarmUiState(), { }, { }, { }, { }, { }, { }, { }, { }, { })
 }

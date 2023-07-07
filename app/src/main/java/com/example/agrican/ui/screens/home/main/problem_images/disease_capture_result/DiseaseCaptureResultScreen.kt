@@ -1,7 +1,6 @@
 package com.example.agrican.ui.screens.home.main.problem_images.disease_capture_result
 
 import androidx.annotation.StringRes
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,12 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -34,7 +28,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
@@ -42,13 +35,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.agrican.R
+import com.example.agrican.common.utils.toPx
 import com.example.agrican.ui.components.EmptyImage
+import com.example.agrican.ui.components.GreenBackButton
+import com.example.agrican.ui.components.ReturnToMainButton
 import com.example.agrican.ui.components.SimpleTextField
 import com.example.agrican.ui.navigation.NavigationDestination
-import com.example.agrican.ui.screens.home.main.MainDestination
-import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
-import com.example.agrican.ui.theme.white
 
 object DiseaseCaptureResultDestination: NavigationDestination {
     override val route: String = "disease_capture_result"
@@ -83,7 +76,7 @@ fun DiseaseCaptureResultScreenContent(
         verticalArrangement = Arrangement.spacedBy(8.dp),
         modifier = modifier.padding(12.dp)
     ) {
-        BackButton(navigateUp = navigateUp)
+        GreenBackButton(navigateUp = navigateUp)
 
         Row(
             verticalAlignment = Alignment.Bottom,
@@ -136,55 +129,6 @@ fun DiseaseCaptureResultScreenContent(
 }
 
 @Composable
-fun BackButton(
-    navigateUp: () -> Unit,
-    modifier: Modifier = Modifier
-) {
-    IconButton(
-        onClick = navigateUp,
-        modifier = modifier
-            .clip(CircleShape)
-            .background(greenLight)
-            .size(32.dp)
-    ) {
-        Icon(
-            painter = painterResource(id = R.drawable.baseline_arrow_back_ios_new_24),
-            contentDescription = null,
-            tint = white,
-            modifier = Modifier.padding(9.dp)
-        )
-    }
-}
-
-@Composable
-fun ReturnToMainButton(
-    openAndClear: (String) -> Unit,
-    modifier: Modifier = Modifier
-) {
-    Button(
-        onClick = { openAndClear(MainDestination.route) },
-        colors = ButtonDefaults.buttonColors(containerColor = greenDark),
-        modifier = modifier
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            Text(
-                text = stringResource(id = R.string.return_to_main_button),
-                fontSize = 14.sp
-            )
-
-            Icon(
-                painter = painterResource(id = R.drawable.main),
-                contentDescription = null,
-                modifier = Modifier.size(18.dp)
-            )
-        }
-    }
-}
-
-@Composable
 fun ItemRow(
     @StringRes title: Int,
     value: String,
@@ -201,7 +145,9 @@ fun ItemRow(
             borderColor = greenLight,
             focusManager = focusManager,
             imeAction = imeAction,
-            modifier = Modifier.padding(top = 8.dp).fillMaxHeight()
+            modifier = Modifier
+                .padding(top = 8.dp)
+                .fillMaxHeight()
         )
 
         TitleSurface(
@@ -216,8 +162,8 @@ fun TitleSurface(
     modifier: Modifier = Modifier
 ) {
     val stroke = Stroke(
-        width = 2f,
-        pathEffect = PathEffect.dashPathEffect(floatArrayOf(12f, 8f), 0f)
+        width = 2.dp.toPx(),
+        pathEffect = PathEffect.dashPathEffect(floatArrayOf(12.dp.toPx(), 8.dp.toPx()), 0.dp.toPx())
     )
 
     Surface(

@@ -1,6 +1,5 @@
 package com.example.agrican.ui.components
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -14,25 +13,30 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.focus.FocusManager
+import androidx.compose.ui.geometry.CornerRadius
+import androidx.compose.ui.graphics.PathEffect
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.agrican.R
+import com.example.agrican.common.utils.toPx
 import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 
 @Composable
 fun LabelWithTextField(
     value: String,
     onNewValue: (String) -> Unit,
-    hint: Int,
+    hint: Int?,
     label: Int,
     focusManager: FocusManager,
     modifier: Modifier = Modifier,
@@ -46,13 +50,15 @@ fun LabelWithTextField(
             value = value,
             onNewValue = onNewValue,
             placeHolder = {
-                Text(
-                    text = stringResource(hint),
-                    color = gray,
-                    textAlign = TextAlign.Center,
-                    fontSize = 12.sp,
-                    modifier = Modifier.padding(8.dp)
-                )
+                if (hint != null) {
+                    Text(
+                        text = stringResource(hint),
+                        color = gray,
+                        textAlign = TextAlign.Center,
+                        fontSize = 12.sp,
+                        modifier = Modifier.padding(8.dp)
+                    )
+                }
                           },
             focusManager = focusManager,
             modifier = Modifier
@@ -70,10 +76,22 @@ fun LabelItem(
     text: Int,
     modifier: Modifier = Modifier
 ) {
+    val stroke = Stroke(
+        width = 2.dp.toPx(),
+        pathEffect = PathEffect.dashPathEffect(floatArrayOf(12.dp.toPx(), 8.dp.toPx()), 0.dp.toPx())
+    )
+
     Surface(
         shape = RoundedCornerShape(16.dp),
-        border = BorderStroke(1.dp, greenDark),
-        modifier = modifier.width(100.dp)
+        modifier = modifier
+            .width(100.dp)
+            .drawBehind {
+                drawRoundRect(
+                    color = greenDark,
+                    style = stroke,
+                    cornerRadius = CornerRadius(16.dp.toPx(), 16.dp.toPx())
+                )
+            }
     ) {
         Text(
             text = stringResource(id = text),

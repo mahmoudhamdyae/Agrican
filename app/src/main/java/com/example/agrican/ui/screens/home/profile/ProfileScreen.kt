@@ -104,7 +104,7 @@ fun ProfileScreenContent(
 
         if (uiState.currentUser.userType != UserType.FARMER) {
             item {
-                Row {
+                Row(verticalAlignment = Alignment.CenterVertically) {
                     // Farms Label
                     Text(
                         text = stringResource(id = R.string.farms_label),
@@ -113,7 +113,17 @@ fun ProfileScreenContent(
                         modifier = Modifier.padding(horizontal = 32.dp)
                     )
 
+                    Spacer(modifier = Modifier.weight(1f))
+
                     // Delete Farm Button
+                    DeleteButton(
+                        text = R.string.del_farm,
+                        delAction = {
+                            delFarm = true
+                            selectedFarm = null
+                                    },
+                        modifier = Modifier.padding(horizontal = 32.dp)
+                    )
                 }
             }
 
@@ -139,14 +149,25 @@ fun ProfileScreenContent(
                     .padding(horizontal = 32.dp))
             }
 
-            // Crops Label
             item {
-                Text(
-                    text = stringResource(id = R.string.farms_crops),
-                    style = MaterialTheme.typography.title,
-                    fontSize = 16.sp,
-                    modifier = Modifier.padding(horizontal = 32.dp)
-                )
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    // Crops Label
+                    Text(
+                        text = stringResource(id = R.string.farms_crops),
+                        style = MaterialTheme.typography.title,
+                        fontSize = 16.sp,
+                        modifier = Modifier.padding(horizontal = 32.dp)
+                    )
+
+                    Spacer(modifier = Modifier.weight(1f))
+
+                    // Delete Crop Button
+                    DeleteButton(
+                        text = R.string.del_crop,
+                        delAction = { delCrop = true },
+                        modifier = Modifier.padding(horizontal = 32.dp)
+                    )
+                }
             }
 
             cropsList(
@@ -161,6 +182,25 @@ fun ProfileScreenContent(
         item {
             Spacer(modifier = Modifier.height(60.dp))
         }
+    }
+}
+
+@Composable
+fun DeleteButton(
+    text: Int,
+    delAction: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Surface(
+        shape = RoundedCornerShape(16.dp),
+        color = greenLight,
+        modifier = modifier.clickable { delAction() }
+    ) {
+        Text(
+            text = stringResource(id = text),
+            color = white,
+            modifier = Modifier.padding(vertical = 4.dp, horizontal = 12.dp)
+        )
     }
 }
 
@@ -274,20 +314,20 @@ fun UserHeader(
                 verticalArrangement = Arrangement.spacedBy(8.dp),
                 modifier = Modifier.padding(12.dp)
             ) {
-                // User Name
-                Text(
-                    text = user.userName,
-                    style = MaterialTheme.typography.title,
-                    color = white,
-                    fontSize = 15.sp
-                )
-
                 // Account Type
                 Text(
                     text = stringResource(id = user.userType.title),
                     color = white,
                     style = MaterialTheme.typography.body,
                     fontSize = 14.sp
+                )
+
+                // User Name
+                Text(
+                    text = user.userName,
+                    style = MaterialTheme.typography.title,
+                    color = white,
+                    fontSize = 15.sp
                 )
             }
 

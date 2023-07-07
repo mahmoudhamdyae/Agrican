@@ -1,11 +1,9 @@
 package com.example.agrican.ui.screens.home.main.fertilizers_calculator
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -31,7 +29,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -46,9 +43,7 @@ import com.example.agrican.domain.model.Crop
 import com.example.agrican.ui.components.BackButtonTopBar
 import com.example.agrican.ui.components.Chip
 import com.example.agrican.ui.components.CropsList
-import com.example.agrican.ui.components.EmptyImage
 import com.example.agrican.ui.navigation.NavigationDestination
-import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
@@ -63,6 +58,7 @@ object FertilizersCalculatorDestination: NavigationDestination {
 @Composable
 fun FertilizersCalculatorScreen(
     navigateUp: () -> Unit,
+    openScreen: (String) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: FertilizersCalculatorViewModel = hiltViewModel()
 ) {
@@ -78,7 +74,7 @@ fun FertilizersCalculatorScreen(
             onSelectCrop = viewModel::onSelectCrop,
             increaseSize = viewModel::increaseSize,
             decreaseSize = viewModel::decreaseSize,
-            calculateFertilizers = viewModel::calculateFertilizers
+            openScreen = openScreen
         )
     }
 }
@@ -89,10 +85,10 @@ fun FertilizersCalculatorScreenContent(
     onSelectCrop: (Crop) -> Unit,
     increaseSize: () -> Unit,
     decreaseSize: () -> Unit,
-    calculateFertilizers: () -> Unit,
+    openScreen: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    var selected by rememberSaveable { mutableStateOf(1) }
+    var selected by rememberSaveable { mutableStateOf(2) }
     val units = listOf(
         MeasureUnit.ACRE,
         MeasureUnit.HECTARE,
@@ -108,10 +104,7 @@ fun FertilizersCalculatorScreenContent(
                 text = stringResource(id = R.string.choose_crop_label),
                 style = MaterialTheme.typography.title,
                 fontSize = 16.sp,
-                modifier = Modifier.padding(
-                    start = 16.dp,
-                    top = 16.dp
-                )
+                modifier = Modifier.padding(start = 16.dp)
             )
         }
 
@@ -147,6 +140,7 @@ fun FertilizersCalculatorScreenContent(
                         selected = it == selected,
                         onSelect = { selected = it },
                         textColor = if (it == selected) white else greenDark,
+                        borderColor = if (it == selected) greenDark else gray,
                         modifier = Modifier.weight(1f)
                     )
                 }
@@ -171,11 +165,63 @@ fun FertilizersCalculatorScreenContent(
             )
         }
 
+        item {
+            Column {
+                FertilizerListItem(
+                    title = "نسبة النيتروجين المتوفرة فى التربة",
+                    rate = "15",
+                    unit = "كغ/فدان"
+                )
+
+                FertilizerListItem(
+                    title = "نسبة الفوسفور المتوفرة فى التربة",
+                    rate = "32",
+                    unit = "كغ/فدان"
+                )
+
+                FertilizerListItem(
+                    title = "نسبة البوتاسيوم المتوفرة فى التربة",
+                    rate = "12",
+                    unit = "كغ/فدان"
+                )
+
+                FertilizerListItem(
+                    title = "نسبة النيتروجين المطلوبة لكل طن من المحصول",
+                    rate = "22",
+                    unit = "كغ/طن"
+                )
+
+                FertilizerListItem(
+                    title = "نسبة الفوسفور المطلوبة لكل طن من المحصول",
+                    rate = "28",
+                    unit = "كغ/طن"
+                )
+
+                FertilizerListItem(
+                    title = "نسبة البوتاسيوم المطلوبة لكل طن من المحصول",
+                    rate = "30",
+                    unit = "كغ/طن"
+                )
+
+                FertilizerListItem(
+                    title = "كفاءة الاستخدام للأسمدة النيتروجينية",
+                    rate = "50 %",
+                    unit = ""
+                )
+
+                FertilizerListItem(
+                    title = "كفاءة الاستخدام للأسمدة البوتاسية",
+                    rate = "70 %",
+                    unit = ""
+                )
+            }
+        }
+
         // Calculate Button
         item {
             Box(modifier = Modifier.fillMaxWidth()) {
                 Button(
-                    onClick = calculateFertilizers,
+                    onClick = { openScreen(FertilizersCalculatorResultDestination.route) },
                     colors = ButtonDefaults.buttonColors(containerColor = greenDark),
                     modifier = Modifier
                         .align(Alignment.Center)
@@ -190,10 +236,6 @@ fun FertilizersCalculatorScreenContent(
             }
         }
 
-        items(3) {
-            FertilizerListItem(modifier = Modifier.padding(8.dp))
-        }
-
         // Space fo Bottom Navigation Bar
         item {
             Spacer(modifier = Modifier.height(60.dp))
@@ -203,83 +245,41 @@ fun FertilizersCalculatorScreenContent(
 
 @Composable
 fun FertilizerListItem(
+    title: String,
+    rate: String,
+    unit: String,
     modifier: Modifier = Modifier
 ) {
-    Box(modifier = modifier.height(IntrinsicSize.Max)) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
+        modifier = modifier.padding(8.dp)
+    ) {
+        Text(
+            text = title,
+            color = greenDark,
+            modifier = Modifier.weight(1f)
+        )
+
         Surface(
-            shadowElevation = 16.dp,
-            shape = RoundedCornerShape(24.dp),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 2.dp)
+            border = BorderStroke(1.dp, greenDark),
+            shape = RoundedCornerShape(16.dp),
+            modifier = Modifier.width(80.dp)
         ) {
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Spacer(modifier = Modifier.weight(2f))
-
-                Column(
-                    modifier = Modifier
-                        .padding(vertical = 4.dp)
-                        .clip(RoundedCornerShape(16.dp))
-                        .weight(5f)
-                ) {
-                    Row(modifier = Modifier.fillMaxWidth()) {
-                        Column {
-                            Text(
-                                text = "سماد رقم 1",
-                                style = MaterialTheme.typography.title,
-                                fontSize = 16.sp
-                            )
-                            Text(
-                                text = "لمدة سنة",
-                                color = greenDark,
-                                style = MaterialTheme.typography.body,
-                                fontSize = 12.sp
-                            )
-                        }
-
-                        Spacer(modifier = Modifier.weight(1f))
-
-                        // Know More Button
-                        Surface(
-                            shape = RoundedCornerShape(24.dp),
-                            color = greenDark,
-                            modifier = Modifier
-                                .padding(4.dp)
-                                .clickable { /* TODO */ }
-                        ) {
-                            Text(
-                                text = stringResource(id = R.string.know_more),
-                                fontSize = 12.sp,
-                                color = white,
-                                modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp)
-                            )
-                        }
-                    }
-
-                    // Fertilizer Description
-                    Text(
-                        text = "هذه هى الكمية المطلوب بنائها و يتم تسميد الأرض باستخدام المنتجات المخصصة لذلك هذه هى الكمية المطلوب بنائها و يتم تسميد الأرض باستخدام المنتجات المخصصة لذلك",
-                        style = MaterialTheme.typography.body,
-                        fontSize = 11.sp,
-                        fontWeight = FontWeight.SemiBold,
-                    )
-                }
-            }
-        }
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            modifier = Modifier.fillMaxHeight()
-        ) {
-            EmptyImage(modifier = Modifier
-                .fillMaxHeight()
-                .clip(RoundedCornerShape(24.dp))
-                .weight(2f)
+            Text(
+                text = rate,
+                color = greenDark,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp)
             )
-            Spacer(modifier = Modifier.weight(5f))
         }
+
+        Text(
+            text = unit,
+            color = greenDark,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.width(50.dp)
+        )
     }
 }
 

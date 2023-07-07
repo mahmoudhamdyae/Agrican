@@ -25,9 +25,11 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
 import com.example.agrican.common.utils.DateUtils
 import com.example.agrican.domain.model.Crop
+import com.example.agrican.domain.model.Farm
 import com.example.agrican.ui.components.BackButtonTopBar
 import com.example.agrican.ui.components.CropsList
 import com.example.agrican.ui.components.DateDropDown
+import com.example.agrican.ui.components.FarmsList
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.title
@@ -57,7 +59,8 @@ fun AddCropScreen(
             updateDay = { viewModel.updateUiStates(day = it) },
             updateMonth = { viewModel.updateUiStates(month = it) },
             updateYear = { viewModel.updateUiStates(year = it) },
-            addCrop = viewModel::addCrop
+            addCrop = viewModel::addCrop,
+            navigateUp = navigateUp
         )
     }
 }
@@ -70,12 +73,38 @@ fun AddCropScreenContent(
     updateMonth: (Int) -> Unit,
     updateYear: (Int) -> Unit,
     addCrop: () -> Unit,
+    navigateUp: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(16.dp),
         modifier = modifier.verticalScroll(rememberScrollState())
     ) {
+        // Choose Farm Label
+        Text(
+            text = stringResource(id = R.string.choose_farm),
+            color = greenDark,
+            style = MaterialTheme.typography.title,
+            fontSize = 14.sp,
+            modifier = Modifier.padding(start = 16.dp)
+        )
+
+        // Farms List
+        FarmsList(
+            farms = listOf(
+                Farm(name = "المزرعة الأولى"),
+                Farm(name = "المزرعة الثانية"),
+                Farm(name = "المزرعة الثالثة"),
+                Farm(name = "المزرعة الرابعة"),
+                Farm(name = "المزرعة الخامسة"),
+                Farm(name = "المزرعة السادسة"),
+                Farm(name = "المزرعة السابعة"),
+            ),
+            delAction = false,
+            onDelFarmClick = { },
+            onFarmClick = { }
+        )
+
         // Choose Crop Text
         Text(
             text = stringResource(id = R.string.choose_crop_label),
@@ -131,7 +160,10 @@ fun AddCropScreenContent(
 
         // Add Crop Button
         Button(
-            onClick = addCrop,
+            onClick = {
+                addCrop()
+                navigateUp()
+            },
             colors = ButtonDefaults.buttonColors(containerColor = greenDark),
             modifier = Modifier.align(Alignment.CenterHorizontally)
         ) {
@@ -147,5 +179,5 @@ fun AddCropScreenContent(
 @Preview(showBackground = true)
 @Composable
 fun AddCropScreenPreview() {
-    AddCropScreenContent(uiState = AddCropUiState(), { }, { }, { }, { }, { })
+    AddCropScreenContent(uiState = AddCropUiState(), { }, { }, { }, { }, { }, { })
 }

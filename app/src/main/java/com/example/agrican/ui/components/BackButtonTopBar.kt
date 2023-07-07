@@ -96,6 +96,27 @@ fun BackButton(
     }
 }
 
+@Composable
+fun GreenBackButton(
+    navigateUp: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    IconButton(
+        onClick = navigateUp,
+        modifier = modifier
+            .clip(CircleShape)
+            .background(greenLight)
+            .size(32.dp)
+    ) {
+        Icon(
+            painter = painterResource(id = R.drawable.baseline_arrow_back_ios_new_24),
+            contentDescription = null,
+            tint = white,
+            modifier = Modifier.padding(9.dp)
+        )
+    }
+}
+
 @Preview
 @Composable
 fun BackButtonPreview() {

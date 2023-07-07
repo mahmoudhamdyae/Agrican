@@ -228,6 +228,7 @@ fun DefaultAgeScreenContent(
                         updateCurrentQuality(it)
                         selected = it
                     },
+                    borderColor = if (it == selected) greenLight else gray,
                     modifier= Modifier
                         .width(100.dp)
                         .padding(8.dp)
