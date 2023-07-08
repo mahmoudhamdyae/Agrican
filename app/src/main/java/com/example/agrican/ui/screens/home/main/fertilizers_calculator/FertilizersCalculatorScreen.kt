@@ -226,6 +226,7 @@ fun FertilizersCalculatorScreenContent(
                     modifier = Modifier
                         .align(Alignment.Center)
                         .padding(8.dp)
+                        .padding(bottom = 20.dp)
                 ) {
                     Text(
                         text = stringResource(id = R.string.calculate_fertilizer),
@@ -278,7 +279,7 @@ fun FertilizerListItem(
             text = unit,
             color = greenDark,
             textAlign = TextAlign.Center,
-            modifier = Modifier.width(50.dp)
+            modifier = Modifier.width(70.dp)
         )
     }
 }

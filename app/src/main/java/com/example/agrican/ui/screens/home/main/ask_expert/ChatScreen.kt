@@ -14,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -93,21 +94,24 @@ fun ChatScreenContent(
     modifier: Modifier = Modifier,
     scrollState: LazyListState = rememberLazyListState()
 ) {
-    Column(modifier = modifier
-        .fillMaxSize()
-        .padding(8.dp)) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = modifier
+            .fillMaxSize()
+            .padding(8.dp)
+    ) {
 
         // Finish Chat Button
         Button(
             onClick = { navigateUp() },
-            shape = RoundedCornerShape(16.dp),
+            shape = RoundedCornerShape(24.dp),
             colors = ButtonDefaults.buttonColors(containerColor = greenDark),
         ) {
             Text(
                 text = stringResource(id = R.string.finish_chat),
                 fontSize = 15.sp,
                 fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(vertical = 6.dp, horizontal = 16.dp)
+                modifier = Modifier.padding(vertical = 2.dp, horizontal = 24.dp)
             )
         }
 

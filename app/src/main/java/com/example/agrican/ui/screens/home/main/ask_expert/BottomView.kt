@@ -11,29 +11,28 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.IconButtonDefaults
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -41,6 +40,7 @@ import androidx.core.content.FileProvider
 import com.example.agrican.R
 import com.example.agrican.common.ext.encodeImage
 import com.example.agrican.ui.screens.home.main.ask_expert.record.AndroidAudioRecorder
+import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.white
 import java.io.File
@@ -48,7 +48,6 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Objects
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BottomView(
     sendMessage: (String) -> Unit,
@@ -96,13 +95,16 @@ fun BottomView(
     val mediaPlayer = MediaPlayer.create(context, R.raw.record_audio)
 
     Surface(
-        shadowElevation = 24.dp,
+        shadowElevation = 32.dp,
         shape = RoundedCornerShape(32.dp),
+        border = BorderStroke(1.dp, Color(0x7AC6C6C6)),
         modifier = modifier
     ) {
         Row(
             horizontalArrangement = Arrangement.spacedBy(4.dp),
-            modifier = Modifier.padding(8.dp)
+            modifier = Modifier
+                .padding(8.dp)
+                .height(35.dp)
         ) {
             // Send Button
             SendButton(
@@ -115,13 +117,27 @@ fun BottomView(
             )
 
             // Message Text Field
-            OutlinedTextField(
-                value = message,
-                onValueChange = { message = it },
+            Surface(
                 shape = RoundedCornerShape(32.dp),
-                colors = TextFieldDefaults.outlinedTextFieldColors(unfocusedBorderColor = greenLight,),
+                border = BorderStroke(1.dp, greenLight),
                 modifier = Modifier.weight(1f)
-            )
+            ) {
+                BasicTextField(
+                    singleLine = true,
+                    value = message,
+                    onValueChange = { message = it },
+                    decorationBox = { innerTextField ->
+                        Box(
+                            modifier = Modifier
+                                .height(35.dp)
+                                .fillMaxWidth()
+                                .padding(start = 10.dp),
+                        ) {
+                            innerTextField()
+                        }
+                    }
+                )
+            }
 
             // Record Voice Button
             ChatOutlinedButton(
@@ -180,17 +196,19 @@ fun ChatOutlinedButton(
     modifier: Modifier = Modifier
 ) {
     Surface(
-        border = BorderStroke(1.dp, greenLight),
+        border = BorderStroke(1.dp, gray),
         shape = CircleShape,
         modifier = modifier
     ) {
-        IconButton(onClick = onItemClick) {
-            Icon(
-                painter = painterResource(id = icon),
-                contentDescription = null,
-                tint = greenLight
-            )
-        }
+        Icon(
+            painter = painterResource(id = icon),
+            contentDescription = null,
+            tint = greenLight,
+            modifier = Modifier
+                .padding(8.dp)
+                .size(16.dp)
+                .clickable { onItemClick() }
+        )
     }
 }
 
@@ -201,25 +219,21 @@ fun SendButton(
     onItemClick: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    IconButton(
-        onClick = { onItemClick(messageBody) },
-        colors = IconButtonDefaults.iconButtonColors(containerColor = greenLight),
+    Surface(
+        shape = CircleShape,
+        color = greenLight,
         modifier = modifier
-            .clip(CircleShape)
-            .background(greenLight)
     ) {
         Icon(
             painter = painterResource(id = icon),
             contentDescription = null,
             tint = white,
+            modifier = Modifier
+                .padding(8.dp)
+                .size(16.dp)
+                .clickable { onItemClick(messageBody) }
         )
     }
-}
-
-@Preview
-@Composable
-fun BottomViewPreview() {
-    BottomView(sendMessage = { }, sendImage = { }, sendFile = { })
 }
 
 fun checkRecordAudioPermission(context: Context): Boolean {

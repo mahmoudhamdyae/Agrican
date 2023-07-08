@@ -111,9 +111,7 @@ fun ProblemImagesScreen(
                 shouldShowCamera = { shouldShowCamera = it },
                 onSearch = { viewModel.search(context) },
                 openScreen = openScreen,
-                updateImage1 = { viewModel.updateUiState(image1 = it) },
-                updateImage2 = { viewModel.updateUiState(image2 = it) },
-                updateImage3 = { viewModel.updateUiState(image3 = it) },
+                delImage = { viewModel.delImage(it) },
                 modifier =  modifier
             )
         }
@@ -126,6 +124,7 @@ fun ProblemImagesScreen(
             updateImage2 = { viewModel.updateUiState(image2 = it) },
             updateImage3 = { viewModel.updateUiState(image3 = it) },
             addImage = { viewModel.updateUiState(currentImage = uiState.currentImage + 1) },
+            delImage = { viewModel.delImage(it) },
             modifier = modifier
         )
     }
@@ -139,9 +138,7 @@ fun ProblemImageScreenContent(
     shouldShowCamera: (Boolean) -> Unit,
     onSearch: () -> Unit,
     openScreen: (String) -> Unit,
-    updateImage1: (Uri?) -> Unit,
-    updateImage2: (Uri?) -> Unit,
-    updateImage3: (Uri?) -> Unit,
+    delImage: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -214,15 +211,15 @@ fun ProblemImageScreenContent(
             }
             ImageView(
                 image = uiState.image1,
-                delAction = { updateImage1(null) }
+                delAction = { delImage(1) }
             )
             ImageView(
                 image = uiState.image2,
-                delAction = { updateImage2(null) }
+                delAction = { delImage(2) }
             )
             ImageView(
                 image = uiState.image3,
-                delAction = { updateImage3(null) }
+                delAction = { delImage(3) }
             )
 
         }
@@ -307,47 +304,49 @@ fun ImageView(
     delAction: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    if (image == null) {
-        Box {
-            EmptyImage(
-                tint = greenLight,
-                background = white,
-                modifier = modifier
-                    .size(60.dp)
-                    .clip(RoundedCornerShape(12.dp))
-            )
-
-            // Del Button
+    Box(modifier = modifier) {
+        if (image == null) {
             Surface(
-                shape = CircleShape,
-                color = greenLight,
                 border = BorderStroke(1.dp, greenLight),
-                modifier = Modifier.padding(2.dp).clickable{ delAction() }
+                shape = RoundedCornerShape(12.dp),
+                modifier = Modifier.size(60.dp)
             ) {
-                Icon(
-                    imageVector = Icons.Default.Close,
-                    contentDescription = null,
-                    tint = white,
-                    modifier = Modifier
-                        .size(16.dp)
-                        .padding(2.dp)
-                )
+                EmptyImage(tint = greenLight, background = white)
             }
+        } else {
+            AsyncImage(
+                model = ImageRequest
+                    .Builder(LocalContext.current)
+                    .data(data = image)
+                    .build(),
+                placeholder = painterResource(R.drawable.loading_img),
+                error = painterResource(R.drawable.ic_broken_image),
+                contentDescription = null,
+                contentScale = ContentScale.FillBounds,
+                modifier = Modifier
+                    .size(60.dp)
+                    .clip(RoundedCornerShape(16.dp))
+            )
         }
-    } else {
-        AsyncImage(
-            model = ImageRequest
-                .Builder(LocalContext.current)
-                .data(data = image)
-                .build(),
-            placeholder = painterResource(R.drawable.loading_img),
-            error = painterResource(R.drawable.ic_broken_image),
-            contentDescription = null,
-            contentScale = ContentScale.FillBounds,
-            modifier = modifier
-                .size(60.dp)
-                .clip(RoundedCornerShape(16.dp))
-        )
+
+        // Del Button
+        Surface(
+            shape = CircleShape,
+            color = greenLight,
+            border = BorderStroke(1.dp, greenLight),
+            modifier = Modifier
+                .padding(4.dp)
+                .clickable { delAction() }
+        ) {
+            Icon(
+                imageVector = Icons.Default.Close,
+                contentDescription = null,
+                tint = white,
+                modifier = Modifier
+                    .size(16.dp)
+                    .padding(2.dp)
+            )
+        }
     }
 }
 
@@ -361,8 +360,6 @@ fun ProblemImageScreenPreview() {
         shouldShowCamera = { },
         onSearch = { },
         openScreen = { },
-        updateImage1 = { },
-        updateImage2 = { },
-        updateImage3 = { },
+        delImage = { }
     )
 }

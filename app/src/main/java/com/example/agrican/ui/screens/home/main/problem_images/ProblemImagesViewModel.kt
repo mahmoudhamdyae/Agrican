@@ -41,6 +41,32 @@ class ProblemImagesViewModel @Inject constructor(
         )
     }
 
+    fun delImage(imageNo: Int) {
+        when (imageNo) {
+            1 -> {
+                _uiState.value = _uiState.value.copy(
+                    image1 = _uiState.value.image2,
+                    image2 = _uiState.value.image3,
+                    image3 = null,
+                    currentImage = _uiState.value.currentImage - 1
+                )
+            }
+            2 -> {
+                _uiState.value = _uiState.value.copy(
+                    image2 = _uiState.value.image3,
+                    image3 = null,
+                    currentImage = _uiState.value.currentImage - 1
+                )
+            }
+            else -> {
+                _uiState.value = _uiState.value.copy(
+                    image3 = null,
+                    currentImage = _uiState.value.currentImage - 1
+                )
+            }
+        }
+    }
+
     fun search(context: Context) {
         launchCatching {
             useCase.searchUseCase(

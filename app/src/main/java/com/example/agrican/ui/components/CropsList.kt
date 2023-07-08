@@ -57,9 +57,11 @@ fun CropsList(
             var selectedCrop: Crop? by rememberSaveable { mutableStateOf(null) }
 
             Box(
-                modifier = Modifier.clickable {
-                    if (selectedCrop != null) selectedCrop = null
-                }
+                modifier = Modifier
+                    .padding(vertical = 16.dp)
+                    .clickable {
+                        if (selectedCrop != null) selectedCrop = null
+                    }
             ) {
                 LazyRow(modifier = modifier) {
                     items(crops!!.size) {
@@ -84,7 +86,7 @@ fun CropsList(
                         modifier= Modifier
                             .height(90.dp)
                             .fillMaxWidth()
-                            .background(Color(0x6357C45B))
+                            .background(Color(0x7CC8E7C8))
                     )
                 }
             }
@@ -178,7 +180,7 @@ fun SelectedCrop(
                 verticalArrangement = Arrangement.spacedBy(6.dp),
                 modifier = Modifier
                     .width(90.dp)
-                    .padding(12.dp)
+                    .padding(horizontal = 12.dp, vertical = 4.dp)
             ) {
                 // Selected Crop Label
                 Text(

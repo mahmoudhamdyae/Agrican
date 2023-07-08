@@ -59,7 +59,6 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.agrican.R
 import com.example.agrican.ui.theme.black
-import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.white
 import java.io.File
 import java.text.SimpleDateFormat
@@ -78,6 +77,7 @@ fun CameraScreen(
     updateImage2: (Uri?) -> Unit,
     updateImage3: (Uri?) -> Unit,
     addImage: () -> Unit,
+    delImage: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val outputDirectory: File by remember {
@@ -121,6 +121,7 @@ fun CameraScreen(
         updateImage2 = updateImage2,
         updateImage3 = updateImage3,
         addImage = addImage,
+        delImage = delImage,
         outputDirectory = outputDirectory,
         executor = cameraExecutor,
         navigateUp = navigateUp,
@@ -135,6 +136,7 @@ fun CameraView(
     updateImage2: (Uri?) -> Unit,
     updateImage3: (Uri?) -> Unit,
     addImage: () -> Unit,
+    delImage: (Int) -> Unit,
     outputDirectory: File,
     executor: Executor?,
     navigateUp: () -> Unit,
@@ -189,7 +191,7 @@ fun CameraView(
                     painter = painterResource(id = R.drawable.camera_border),
                     contentDescription = null,
                     tint = white,
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier.padding(horizontal = 16.dp).weight(1f)
                 )
 
                 // Images Captured
@@ -197,17 +199,17 @@ fun CameraView(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                     modifier = Modifier.padding(16.dp)
                 ) {
-                    ImageView(
+                    ImageCaptured(
                         image = uiState.image1,
-                        delAction = { updateImage1(null) }
+                        delAction = { delImage(1) }
                     )
-                    ImageView(
+                    ImageCaptured(
                         image = uiState.image2,
-                        delAction = { updateImage2(null) }
+                        delAction = { delImage(2) }
                     )
-                    ImageView(
+                    ImageCaptured(
                         image = uiState.image3,
-                        delAction = { updateImage3(null) }
+                        delAction = { delImage(3) }
                     )
                 }
             }
@@ -302,8 +304,7 @@ fun ImageCaptured(
             Surface(
                 shape = CircleShape,
                 color = Color(0xffc9c9c9),
-                border = BorderStroke(1.dp, greenLight),
-                modifier = Modifier.padding(2.dp).clickable { delAction() }
+                modifier = Modifier.padding(6.dp).clickable { delAction() }.align(Alignment.TopEnd)
             ) {
                 Icon(
                     imageVector = Icons.Default.Close,

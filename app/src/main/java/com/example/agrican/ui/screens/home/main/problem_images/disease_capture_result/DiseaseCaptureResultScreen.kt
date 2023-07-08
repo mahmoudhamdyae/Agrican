@@ -41,6 +41,7 @@ import com.example.agrican.ui.components.GreenBackButton
 import com.example.agrican.ui.components.ReturnToMainButton
 import com.example.agrican.ui.components.SimpleTextField
 import com.example.agrican.ui.navigation.NavigationDestination
+import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
 
 object DiseaseCaptureResultDestination: NavigationDestination {
@@ -163,7 +164,7 @@ fun TitleSurface(
 ) {
     val stroke = Stroke(
         width = 2.dp.toPx(),
-        pathEffect = PathEffect.dashPathEffect(floatArrayOf(12.dp.toPx(), 8.dp.toPx()), 0.dp.toPx())
+        pathEffect = PathEffect.dashPathEffect(floatArrayOf(8.dp.toPx(), 6.dp.toPx()), 0.dp.toPx())
     )
 
     Surface(
@@ -183,6 +184,7 @@ fun TitleSurface(
             text = stringResource(id = title),
             textAlign = TextAlign.Center,
             fontSize = 13.sp,
+            color = greenDark,
             modifier = Modifier.padding(vertical = 2.dp)
         )
     }
