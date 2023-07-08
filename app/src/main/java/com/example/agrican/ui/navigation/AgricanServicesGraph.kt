@@ -82,6 +82,7 @@ fun AgricanServicesGraph(
 
         // Diseases Screen
         composable(route = DiseasesDestination.route) {
+            showBottomBar(true)
             DiseasesScreen(navigateUp = navigateUp, openScreen = openScreen)
         }
 
@@ -90,11 +91,13 @@ fun AgricanServicesGraph(
             route = DiseaseDestination.routeWithArgs,
             arguments = DiseaseDestination.arguments
         ) {
+            showBottomBar(false)
             DiseaseScreen(navigateUp = navigateUp)
         }
 
         // Pests Screen
         composable(route = PestsDestination.route) {
+            showBottomBar(true)
             PestsScreen(navigateUp = navigateUp, openScreen = openScreen)
         }
 
@@ -103,6 +106,7 @@ fun AgricanServicesGraph(
             route = PestDestination.routeWithArgs,
             arguments = PestDestination.arguments
         ) {
+            showBottomBar(false)
             PestScreen(navigateUp = navigateUp)
         }
 

@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -337,20 +338,24 @@ fun OrdersListItem(
                     paymentLauncher.launch(it)
                 } },
                 colors = ButtonDefaults.buttonColors(containerColor = greenDark),
+                contentPadding = PaddingValues(0.dp),
                 modifier = Modifier.padding(start = 16.dp)
             ) {
                 Text(
                     text = stringResource(id = R.string.confirm_order),
+                    modifier = Modifier.padding(horizontal = 12.dp)
                 )
             }
 
             // Refuse Button
             Button(
                 onClick = { /*TODO*/ },
-                colors = ButtonDefaults.buttonColors(containerColor = greenLight)
-            ) {
+                colors = ButtonDefaults.buttonColors(containerColor = greenLight),
+                contentPadding = PaddingValues(0.dp),
+                ) {
                 Text(
                     text = stringResource(id = R.string.refuse_order),
+                    modifier = Modifier.padding(horizontal = 12.dp)
                 )
             }
         }

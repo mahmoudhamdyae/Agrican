@@ -145,6 +145,7 @@
     <string name="pests">الآفات</string>
     <string name="treatment">العلاج</string>
     <string name="join_as_expert">انضم كخبير زراعى</string>
+    <string name="join_as_expert_title">انضم لفريق العمل</string>
     <string name="default_age_description">التنبؤ بقدرة المحصول على البقاء بعد الحصاد باستخدام الذكاء الاصطناعى</string>
     <string name="order_description">اكتب تفاصيل المنتج اللى محتاجه بالسعر اللى يناسبك</string>
     <string name="disease_description">تصفح أبرز الأمراض النباتية المتوقعة لمحصولك</string>
@@ -179,8 +180,10 @@
     <string name="product_name">اسم المنتج</string>
     <string name="insecticide_name">اسم المبيد الحشرى</string>
     <string name="quantity">الكمية</string>
+    <string name="quantity_hint">5</string>
     <string name="kilogram">كيلوجرام</string>
     <string name="receiving_address">عنوان الاستلام</string>
+    <string name="receiving_address_hint">عمارة رقم 3 شارع عمرو بن العاص</string>
     <string name="place">المنطقة</string>
     <string name="city">المدينة</string>
     <string name="governorate">المحافظة</string>

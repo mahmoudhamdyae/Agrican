@@ -54,7 +54,7 @@ import com.example.agrican.ui.theme.greenLight
 
 object JoinAsExpertDestination : NavigationDestination {
     override val route: String = "join_as_expert"
-    override val titleRes: Int = R.string.join_as_expert
+    override val titleRes: Int = R.string.join_as_expert_title
 }
 
 @Composable
@@ -101,8 +101,8 @@ fun JoinAsExpertScreen(
                 style = MaterialTheme.typography.body,
                 fontSize = 16.sp,
                 modifier = Modifier.padding(
-                    horizontal = 16.dp,
-                    vertical = 64.dp
+                    horizontal = 8.dp,
+                    vertical = 16.dp
                 )
             )
 
@@ -268,7 +268,7 @@ fun JoinAsExpertScreen(
                         text = stringResource(id = R.string.send),
                         fontSize = 15.sp,
                         fontWeight = FontWeight.Bold,
-                        modifier = Modifier.padding(horizontal = 32.dp)
+                        modifier = Modifier.padding(horizontal = 64.dp)
                     )
                 }
             }

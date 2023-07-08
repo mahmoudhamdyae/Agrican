@@ -1,6 +1,5 @@
 package com.example.agrican.ui.screens.home.agricanservices.treatment
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -90,7 +89,7 @@ fun TreatmentScreenContent(
             isLoading = uiState.isLoading,
             crops = uiState.crops,
             setSelectedCrop = onSelectCrop,
-            modifier = Modifier.fillMaxWidth().background(greenLight)
+            modifier = Modifier.fillMaxWidth()
         )
 
         // Continue Button
@@ -103,7 +102,7 @@ fun TreatmentScreenContent(
                 text = stringResource(id = R.string.continue_button),
                 fontSize = 15.sp,
                 fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(horizontal = 24.dp)
+                modifier = Modifier.padding(horizontal = 64.dp)
             )
         }
     }

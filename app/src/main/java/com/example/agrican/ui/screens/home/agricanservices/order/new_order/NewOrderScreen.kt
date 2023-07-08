@@ -53,18 +53,22 @@ fun NewOrderScreen(
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(8.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
         modifier = modifier
             .padding(vertical = 8.dp, horizontal = 16.dp)
             .padding(bottom = 60.dp)
             .verticalScroll(rememberScrollState())
     ) {
         // Product Kind Row
-        Row(modifier = Modifier
-            .fillMaxWidth()
-            .height(IntrinsicSize.Max)
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(IntrinsicSize.Max)
         ) {
-            LabelItem(text = R.string.product_kind)
+            LabelItem(
+                text = R.string.product_kind,
+                modifier = Modifier.padding(top = 2.dp)
+            )
             Spacer(modifier = Modifier.weight(1f))
             DropDown(options = listOf(
                 R.string.insecticide
@@ -94,7 +98,7 @@ fun NewOrderScreen(
             LabelWithTextField(
                 value = quantity,
                 onNewValue = { quantity = it },
-                hint = R.string.quantity,
+                hint = R.string.quantity_hint,
                 label = R.string.quantity,
                 focusManager = focusManager,
                 keyboardType = KeyboardType.Number,
@@ -114,7 +118,7 @@ fun NewOrderScreen(
         LabelWithTextField(
             value = receivingAddress,
             onNewValue = { receivingAddress = it },
-            hint = R.string.receiving_address,
+            hint = R.string.receiving_address_hint,
             focusManager = focusManager,
             label = R.string.receiving_address,
             imeAction = ImeAction.Done
@@ -169,7 +173,7 @@ fun NewOrderScreen(
             Text(
                 text = stringResource(id = R.string.order_button),
                 fontSize = 15.sp,
-                modifier = Modifier.padding(horizontal = 16.dp)
+                modifier = Modifier.padding(horizontal = 64.dp)
             )
         }
 

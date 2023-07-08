@@ -1,5 +1,6 @@
 package com.example.agrican.ui.screens.home.agricanservices.diseases
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -22,6 +23,7 @@ import com.example.agrican.ui.components.DescriptionLabel
 import com.example.agrican.ui.components.DiseaseHeader
 import com.example.agrican.ui.components.MainLabel
 import com.example.agrican.ui.navigation.NavigationDestination
+import com.example.agrican.ui.theme.white
 
 object DiseaseDestination: NavigationDestination {
     override val route: String = "disease"
@@ -45,7 +47,6 @@ fun DiseaseScreen(
     BackButton(navigateUp = navigateUp) {
         DiseaseScreenContent(
             disease = disease,
-            navigateUp = navigateUp,
             modifier = modifier.fillMaxSize()
         )
     }
@@ -54,19 +55,18 @@ fun DiseaseScreen(
 @Composable
 fun DiseaseScreenContent(
     disease: Disease,
-    navigateUp: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
         modifier = modifier
             .verticalScroll(rememberScrollState())
-            .padding(bottom = 60.dp)
+            .background(white)
     ) {
         DiseaseHeader(
             image = null,
             diseaseName = disease.title,
             buttonText = R.string.search_for_another_disease,
-            onButtonClick = navigateUp
+            onSelect = { /*TODO*/ }
         )
 
         Column(
@@ -122,7 +122,6 @@ fun DiseaseScreenPreview() {
                 "استخدام مبيدات فطرية للسيطرة على الأمراض الفطرية",
                 "إجراء مراقبة دورية للنباتات والتدخل المبكر فى حالة ظهور التيكا"
             )
-        ),
-        navigateUp = { }
+        )
     )
 }

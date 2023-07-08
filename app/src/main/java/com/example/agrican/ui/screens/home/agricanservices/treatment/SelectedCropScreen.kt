@@ -1,5 +1,6 @@
 package com.example.agrican.ui.screens.home.agricanservices.treatment
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -176,10 +177,11 @@ fun SelectedCropScreenContent(
                 text = stringResource(id = R.string.show_treatment_button),
                 fontSize = 15.sp,
                 fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(horizontal = 64.dp)
             )
         }
 
-        if (isTreatmentShown) {
+        AnimatedVisibility(isTreatmentShown) {
             TreatmentList(uiState.treatments)
         }
     }
