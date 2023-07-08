@@ -1,8 +1,6 @@
 package com.example.agrican.ui.screens.home.profile
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -38,6 +36,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -110,7 +109,7 @@ fun ProfileScreenContent(
                         text = stringResource(id = R.string.farms_label),
                         style = MaterialTheme.typography.title,
                         fontSize = 16.sp,
-                        modifier = Modifier.padding(horizontal = 32.dp)
+                        modifier = Modifier.padding(horizontal = 18.dp)
                     )
 
                     Spacer(modifier = Modifier.weight(1f))
@@ -122,7 +121,7 @@ fun ProfileScreenContent(
                             delFarm = true
                             selectedFarm = null
                                     },
-                        modifier = Modifier.padding(horizontal = 32.dp)
+                        modifier = Modifier.padding(horizontal = 18.dp)
                     )
                 }
             }
@@ -146,7 +145,7 @@ fun ProfileScreenContent(
             item {
                 Divider(modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 32.dp))
+                    .padding(horizontal = 18.dp, vertical = 12.dp))
             }
 
             item {
@@ -156,7 +155,7 @@ fun ProfileScreenContent(
                         text = stringResource(id = R.string.farms_crops),
                         style = MaterialTheme.typography.title,
                         fontSize = 16.sp,
-                        modifier = Modifier.padding(horizontal = 32.dp)
+                        modifier = Modifier.padding(horizontal = 18.dp)
                     )
 
                     Spacer(modifier = Modifier.weight(1f))
@@ -165,7 +164,7 @@ fun ProfileScreenContent(
                     DeleteButton(
                         text = R.string.del_crop,
                         delAction = { delCrop = true },
-                        modifier = Modifier.padding(horizontal = 32.dp)
+                        modifier = Modifier.padding(horizontal = 18.dp)
                     )
                 }
             }
@@ -199,6 +198,7 @@ fun DeleteButton(
         Text(
             text = stringResource(id = text),
             color = white,
+            fontSize = 10.sp,
             modifier = Modifier.padding(vertical = 4.dp, horizontal = 12.dp)
         )
     }
@@ -442,7 +442,7 @@ fun CropsListItem(
         shape = RoundedCornerShape(16.dp),
         modifier = modifier
             .padding(horizontal = 16.dp, vertical = 8.dp)
-            .height(IntrinsicSize.Max)
+            .height(45.dp)
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -481,9 +481,11 @@ fun CropsListItem(
                 IconButton(
                     onClick =  { onDelCropClick(crop.cropId) },
                     modifier = Modifier
+                        .height(43.dp)
+                        .padding(end = 1.dp)
+                        .clip(RoundedCornerShape(topEnd = 16.dp, bottomEnd = 16.dp))
                         .background(white)
                         .fillMaxHeight()
-                        .border(BorderStroke(1.dp, greenLight))
                 ) {
                     Icon(
                         imageVector = Icons.Default.Close,
@@ -513,6 +515,17 @@ fun ProfileScreenFarmPreview() {
 @Composable
 fun ProfileScreenFarmerPreview() {
     ProfileScreenContent(uiState = fakeUiState.copy(currentUser = fakeUiState.currentUser.copy(userType = UserType.FARMER)), openScreen = { })
+}
+
+@Preview
+@Composable
+fun CropItemPreview() {
+    CropsListItem(
+        crop = Crop(name = "نبات الصبار"),
+        delAction = true,
+        onObserveClick = { },
+        onDelCropClick = { }
+    )
 }
 
 val fakeUiState = ProfileUiState(

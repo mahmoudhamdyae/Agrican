@@ -1,11 +1,14 @@
 package com.example.agrican.ui.screens.home.profile.cost
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Divider
@@ -14,12 +17,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusManager
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -42,11 +48,13 @@ fun CostScreen(
     navigateUp: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    var insuranceCode by rememberSaveable { mutableStateOf("") }
-    var engineerMapCode by rememberSaveable { mutableStateOf("") }
-    var fertilizersCalculatorCode by rememberSaveable { mutableStateOf("") }
-    var askAnExpertCode by rememberSaveable { mutableStateOf("") }
-    var cropManagerCode by rememberSaveable { mutableStateOf("") }
+    var insuranceCode by remember { mutableStateOf("") }
+    var engineerMapCode by remember { mutableStateOf("") }
+    var fertilizersCalculatorCode by remember { mutableStateOf("") }
+    var askAnExpertCode by remember { mutableStateOf("") }
+    var cropManagerCode by remember { mutableStateOf("") }
+
+    var focusManager = LocalFocusManager.current
 
     BackButtonTopBar(
         title = CostDestination.titleRes,
@@ -90,7 +98,8 @@ fun CostScreen(
                 mainLabel = R.string.insurance,
                 costMonthly = 00.00,
                 code = insuranceCode,
-                onCodeChanged = { insuranceCode = it }
+                onCodeChanged = { insuranceCode = it },
+                focusManager = focusManager
             )
 
             // Engineer Map Row
@@ -98,7 +107,8 @@ fun CostScreen(
                 mainLabel = R.string.engineer_map,
                 costMonthly = 00.00,
                 code = engineerMapCode,
-                onCodeChanged = { engineerMapCode = it }
+                onCodeChanged = { engineerMapCode = it },
+                focusManager = focusManager
             )
 
             // Fertilizers Calculator Row
@@ -106,7 +116,8 @@ fun CostScreen(
                 mainLabel = R.string.fertilizers_calculator,
                 costMonthly = 00.00,
                 code = fertilizersCalculatorCode,
-                onCodeChanged = { fertilizersCalculatorCode = it }
+                onCodeChanged = { fertilizersCalculatorCode = it },
+                focusManager = focusManager
             )
 
             // Ask An Expert Row
@@ -114,7 +125,8 @@ fun CostScreen(
                 mainLabel = R.string.ask_expert,
                 costMonthly = 00.00,
                 code = askAnExpertCode,
-                onCodeChanged = { askAnExpertCode = it }
+                onCodeChanged = { askAnExpertCode = it },
+                focusManager = focusManager
             )
 
             // Crop Manager Row
@@ -122,7 +134,9 @@ fun CostScreen(
                 mainLabel = R.string.crop_manager,
                 costMonthly = 00.00,
                 code = cropManagerCode,
-                onCodeChanged = { cropManagerCode = it }
+                onCodeChanged = { cropManagerCode = it },
+                focusManager = focusManager,
+                imeAction = ImeAction.Done
             )
 
             Divider(modifier = Modifier.height(2.dp), color = gray)
@@ -162,7 +176,10 @@ fun CostRow(
     costMonthly: Double,
     code: String,
     onCodeChanged: (String) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    focusManager: FocusManager? = null,
+    keyboardType: KeyboardType = KeyboardType.Text,
+    imeAction: ImeAction = ImeAction.Next
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -189,12 +206,25 @@ fun CostRow(
         SimpleTextField(
             value = code,
             onNewValue = onCodeChanged,
-            placeHolder = { Text(
-                text = stringResource(R.string.add_code),
-                color = gray,
-                textAlign = TextAlign.Center
-            ) },
-            imeAction = ImeAction.Done,
+            placeHolder = {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentHeight()
+                        .padding(8.dp)
+                ) {
+                    Text(
+                        text = stringResource(R.string.add_code),
+                        color = gray,
+                        fontSize = 10.sp,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
+                          },
+            focusManager = focusManager,
+            keyboardType = keyboardType,
+            imeAction = imeAction,
             borderColor = greenLight,
             modifier = Modifier
                 .weight(1f)
