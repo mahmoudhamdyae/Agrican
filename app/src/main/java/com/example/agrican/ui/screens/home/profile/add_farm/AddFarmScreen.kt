@@ -10,24 +10,17 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -41,6 +34,7 @@ import com.example.agrican.R
 import com.example.agrican.common.enums.SizeUnit
 import com.example.agrican.common.utils.DateUtils
 import com.example.agrican.ui.components.BackButtonTopBar
+import com.example.agrican.ui.components.CalenderIcon
 import com.example.agrican.ui.components.DateDropDown
 import com.example.agrican.ui.components.DropDown
 import com.example.agrican.ui.components.LabelItem
@@ -157,7 +151,7 @@ fun AddFarmScreenContent(
             // Days
             DateDropDown(
                 options = DateUtils().days,
-                onSelect = { if (it != 0) updateDay(it) },
+                onSelect = updateDay,
                 selectedOption = uiState.day,
                 modifier = Modifier
                     .weight(1f)
@@ -166,7 +160,7 @@ fun AddFarmScreenContent(
             // Months
             DateDropDown(
                 options = DateUtils().months,
-                onSelect = { if (it != 0) updateMonth(it) },
+                onSelect = updateMonth,
                 selectedOption = uiState.month,
                 modifier = Modifier
                     .weight(1f)
@@ -175,14 +169,14 @@ fun AddFarmScreenContent(
             // Years
             DateDropDown(
                 options = DateUtils().years,
-                onSelect = { if (it != 0) updateYear(it) },
+                onSelect = updateYear,
                 selectedOption = uiState.year,
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxHeight()
             )
 
-            CalenderIcon()
+            CalenderIcon(onClick = { /*TODO*/ })
         }
 
         // Farming Date Row
@@ -221,7 +215,7 @@ fun AddFarmScreenContent(
                     .fillMaxHeight()
             )
 
-            CalenderIcon()
+            CalenderIcon(onClick = { /*TODO*/ })
         }
 
         // Crops Type Text Field
@@ -270,24 +264,6 @@ fun AddFarmScreenContent(
                 modifier = Modifier.padding(horizontal = 24.dp)
             )
         }
-    }
-}
-
-@Composable
-fun CalenderIcon(
-    modifier: Modifier = Modifier
-) {
-    IconButton(
-        onClick = { /*TODO*/ },
-        colors = IconButtonDefaults.iconButtonColors(containerColor = greenLight),
-        modifier = modifier.clip(CircleShape).size(36.dp)
-    ) {
-        Icon(
-            painter = painterResource(id = R.drawable.calender),
-            contentDescription = null,
-            tint = white,
-            modifier = Modifier.size(16.dp)
-        )
     }
 }
 

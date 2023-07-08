@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
@@ -20,6 +19,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -184,16 +184,18 @@ fun Card(
         color = mainColor,
         modifier = modifier
     ) {
-        Column(modifier = Modifier
-            .padding(8.dp)
-            .fillMaxHeight()) {
+        Column(
+            modifier = Modifier
+                .padding(6.dp)
+                .fillMaxHeight()
+        ) {
             // Card Title
             Text(
                 text = stringResource(id = title),
                 color = secondaryColor,
                 style = MaterialTheme.typography.title,
                 fontSize = 16.sp,
-                modifier = Modifier.padding(bottom = 4.dp)
+                modifier = Modifier.padding(bottom = 2.dp)
             )
 
             // Card Description
@@ -209,16 +211,14 @@ fun Card(
             // Card Icon
             Row {
                 Spacer(modifier = Modifier.weight(1f))
-                Surface(
-                    shape = CircleShape,
-                    color = secondaryColor
-                ) {
-                    Text(
-                        text = "ico",
-                        color = mainColor,
-                        modifier = Modifier.padding(8.dp)
-                    )
-                }
+                Text(
+                    text = "ico",
+                    color = mainColor,
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(24.dp))
+                        .background(secondaryColor)
+                        .padding(horizontal = 6.dp, vertical = 2.dp)
+                )
             }
         }
     }

@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -23,8 +24,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ProgressIndicatorDefaults
 import androidx.compose.material3.Text
@@ -38,7 +37,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color.Companion.LightGray
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -51,6 +49,7 @@ import com.example.agrican.common.enums.Quality
 import com.example.agrican.common.utils.DateUtils
 import com.example.agrican.domain.model.Crop
 import com.example.agrican.ui.components.BackButtonTopBar
+import com.example.agrican.ui.components.CalenderIcon
 import com.example.agrican.ui.components.Chip
 import com.example.agrican.ui.components.CropsList
 import com.example.agrican.ui.components.DateDropDown
@@ -123,31 +122,15 @@ fun DefaultAgeScreenContent(
     Column(
         modifier = modifier.verticalScroll(rememberScrollState())
     ) {
-        // Harvest Date Label
-        Text(
-            text = stringResource(id = R.string.harvest_date),
-            style = MaterialTheme.typography.title,
-            fontSize = 16.sp,
-            modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp)
-        )
-
         // Harvest Date
         Row(verticalAlignment = Alignment.CenterVertically) {
-            IconButton(
-                onClick = {
-                    datePickerDialog.show()
-                },
-                modifier = Modifier
-                    .padding(vertical = 8.dp, horizontal = 16.dp)
-                    .clip(RoundedCornerShape(16.dp))
-                    .background(greenLight)
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.calender),
-                    contentDescription = null,
-                    tint = white
-                )
-            }
+            // Harvest Date Label
+            Text(
+                text = stringResource(id = R.string.harvest_date),
+                style = MaterialTheme.typography.title,
+                fontSize = 16.sp,
+                modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp)
+            )
 
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -160,7 +143,7 @@ fun DefaultAgeScreenContent(
                 // Days Drop Down
                 DateDropDown(
                     options = DateUtils().days,
-                    onSelect = { if (it != 0) updateDay(it) },
+                    onSelect = updateDay,
                     selectedOption = uiState.day,
                     modifier = Modifier
                         .weight(1f)
@@ -169,7 +152,7 @@ fun DefaultAgeScreenContent(
                 // Months Drop Down
                 DateDropDown(
                     options = DateUtils().months,
-                    onSelect = { if (it != 0) updateMonth(it) },
+                    onSelect = updateMonth,
                     selectedOption = uiState.month,
                     modifier = Modifier
                         .weight(1f)
@@ -178,13 +161,22 @@ fun DefaultAgeScreenContent(
                 // Years Drop Down
                 DateDropDown(
                     options = DateUtils().years,
-                    onSelect = { if (it != 0) updateYear(it) },
+                    onSelect = updateYear,
                     selectedOption = uiState.year,
                     modifier = Modifier
                         .weight(1f)
                         .fillMaxHeight()
                 )
             }
+
+            // Calender Button
+            CalenderIcon(
+                onClick = { datePickerDialog.show() },
+                modifier = Modifier
+                    .padding(end = 16.dp)
+                    .clip(RoundedCornerShape(16.dp))
+                    .background(greenLight)
+            )
         }
 
         // Choose Crop Label
@@ -231,7 +223,7 @@ fun DefaultAgeScreenContent(
                     borderColor = if (it == selected) greenLight else gray,
                     modifier= Modifier
                         .width(100.dp)
-                        .padding(8.dp)
+                        .padding(vertical = 8.dp, horizontal = 4.dp)
                 )
             }
         }
@@ -303,6 +295,8 @@ fun DefaultAgeResponse(
             style = MaterialTheme.typography.body,
             fontSize = 11.sp
         )
+
+        Spacer(modifier = Modifier.height(35.dp))
     }
 }
 
