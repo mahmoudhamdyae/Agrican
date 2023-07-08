@@ -77,8 +77,8 @@ fun ProfileGraph(
 
         // Observe Crop Screen
         composable(
-            route = ObserveCropDestination.routeWithArgs,
-            arguments = ObserveCropDestination.arguments
+            route = ObserveCropDestination.route,
+//            arguments = ObserveCropDestination.arguments
         ) {
             showBottomBar(false)
             ObserveCropScreen(navigateUp = navigateUp, openScreen = openScreen)

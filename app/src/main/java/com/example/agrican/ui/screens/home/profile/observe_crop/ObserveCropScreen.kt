@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -38,8 +39,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavType
-import androidx.navigation.navArgument
 import com.example.agrican.R
 import com.example.agrican.domain.model.Crop
 import com.example.agrican.ui.components.BackButton
@@ -55,11 +54,11 @@ import com.example.agrican.ui.theme.white
 object ObserveCropDestination: NavigationDestination {
     override val route: String = "observe_crop"
     override val titleRes: Int = R.string.observe_crop
-    const val cropIdArg = "crop_id"
-    val routeWithArgs = "$route/{$cropIdArg}"
-    val arguments = listOf(
-        navArgument(cropIdArg) { type = NavType.StringType },
-    )
+//    const val cropIdArg = "crop_id"
+//    val routeWithArgs = "$route/{$cropIdArg}"
+//    val arguments = listOf(
+//        navArgument(cropIdArg) { type = NavType.StringType },
+//    )
 }
 
 @Composable
@@ -93,7 +92,10 @@ fun ObserveCropScreenContent(
     var isDelAction by remember { mutableStateOf(false) }
     
     Column(
-        modifier = modifier.background(white)
+        modifier = modifier
+            .fillMaxHeight()
+//            .verticalScroll(rememberScrollState())
+            .background(white)
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -175,6 +177,8 @@ fun ObserveCropScreenContent(
                 isDelAction = isDelAction
             )
         }
+
+        Spacer(modifier = Modifier.height(90.dp))
     }
 }
 
@@ -274,7 +278,7 @@ fun ExpandableItem(
     isDelAction: Boolean,
     modifier: Modifier = Modifier
 ) {
-    var visible by remember{ mutableStateOf(false) }
+    var isVisible by remember{ mutableStateOf(false) }
 
     Column(modifier = modifier) {
         Surface(
@@ -282,7 +286,7 @@ fun ExpandableItem(
             shape = RoundedCornerShape(16.dp),
             color = greenLight,
             modifier = Modifier
-                .clickable { visible = !visible }
+                .clickable { isVisible = !isVisible }
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -321,11 +325,11 @@ fun ExpandableItem(
                     }
                 } else {
                     IconButton(
-                        onClick = { visible = !visible },
+                        onClick = { isVisible = !isVisible },
                         modifier = Modifier.height(32.dp)
                     ) {
                         Icon(
-                            imageVector = if (visible) Icons.Default.ExpandLess else Icons.Default.ExpandMore,
+                            imageVector = if (isVisible) Icons.Default.ExpandLess else Icons.Default.ExpandMore,
                             contentDescription = null,
                             tint = white
                         )
@@ -334,7 +338,7 @@ fun ExpandableItem(
             }
         }
 
-        AnimatedVisibility(visible = visible) {
+        AnimatedVisibility(visible = isVisible) {
             Days(selectedDays = selectedDays, onDayClicked = onDayAdded)
         }
     }

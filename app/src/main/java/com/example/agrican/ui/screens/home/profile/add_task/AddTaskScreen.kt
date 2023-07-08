@@ -129,7 +129,7 @@ fun AddTaskScreenContent(
                 color = greenDark,
                 style = MaterialTheme.typography.body,
                 fontSize = 12.sp,
-                modifier = Modifier.padding(vertical = 8.dp)
+                modifier = Modifier.padding(vertical = 8.dp, horizontal = 8.dp)
             )
         }
 

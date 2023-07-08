@@ -291,6 +291,7 @@
     <!-- Engineer Map Screen -->
     <string name="add_map">إضافة خريطة</string>
     <string name="add_progress">إضافة تقدم</string>
+    <string name="add_problem">إضافة مشكلة</string>
     <string name="current_maps">الخرائط الحالية</string>
     <string name="choose_farm">اختار المزرعة</string>
     <string name="choose_farm_size">حدد أبعاد الأرض</string>

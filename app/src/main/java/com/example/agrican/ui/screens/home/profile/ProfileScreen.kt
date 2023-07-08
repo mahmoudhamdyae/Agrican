@@ -32,7 +32,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -90,10 +90,10 @@ fun ProfileScreenContent(
     openScreen: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    var selectedFarm: Farm? by rememberSaveable { mutableStateOf(null) }
+    var selectedFarm: Farm? by remember { mutableStateOf(null) }
 
-    var delFarm by rememberSaveable { mutableStateOf(false) }
-    var delCrop by rememberSaveable { mutableStateOf(false) }
+    var delFarm by remember { mutableStateOf(false) }
+    var delCrop by remember { mutableStateOf(false) }
 
     LazyColumn(modifier = modifier) {
 
@@ -418,10 +418,11 @@ fun LazyListScope.cropsList(
     onDelCropClick: (String) -> Unit,
     openScreen: (String) -> Unit
 ) {
-    items(crops.size) {
+    items(crops.size) { cropNo ->
         CropsListItem(
-            crop = crops[it],
-            onObserveClick = { openScreen("${ObserveCropDestination.route}/$it") },
+            crop = crops[cropNo],
+//            onObserveClick = { openScreen("${ObserveCropDestination.route}/${crops[cropNo].cropId}") },
+            onObserveClick = { openScreen(ObserveCropDestination.route) },
             onDelCropClick = onDelCropClick,
             delAction = delAction
         )

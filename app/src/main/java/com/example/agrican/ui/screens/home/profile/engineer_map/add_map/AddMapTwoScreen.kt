@@ -70,6 +70,7 @@ fun AddMapTwoScreenContent(
         MapScreen(
             modifier = Modifier
                 .fillMaxWidth()
+                .padding(horizontal = 8.dp)
                 .weight(1f)
                 .background(black)
         )

@@ -96,7 +96,7 @@ fun AddMapScreenContent(
 
         // Continue Button
         Button(
-            onClick = { /*TODO*/ },
+            onClick = { openScreen(AddMapTwoDestination.route) },
             colors = ButtonDefaults.buttonColors(containerColor = greenDark),
             modifier = Modifier
                 .padding(bottom = 32.dp)
@@ -106,7 +106,7 @@ fun AddMapScreenContent(
                 text = stringResource(id = R.string.continue_button),
                 fontSize = 15.sp,
                 fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(horizontal = 36.dp)
+                modifier = Modifier.padding(horizontal = 64.dp)
             )
         }
     }

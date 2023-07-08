@@ -296,6 +296,7 @@
     <string name="choose_farm_size">حدد أبعاد الأرض</string>
     <string name="engineer_map_problem">اضغط على موقع المشكلة لإضافة سجل مرضى</string>
     <string name="engineer_map_add_problem">إضافة مشكلة جديدة للمزرعة</string>
+    <string name="add_problem">إضافة مشكلة</string>
     <string name="engineer_map_add_problem_description">يمكنك مراعاة النبات من خلال إضافة المهام</string>
     <string name="current_problem">المشاكل الحالية بالمزرعة</string>
     <string name="del_problem">حذف مشكلة</string>

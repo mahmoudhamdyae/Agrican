@@ -27,6 +27,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
 import com.example.agrican.common.utils.DateUtils
+import com.example.agrican.ui.components.BackButtonTopBar
 import com.example.agrican.ui.components.DateDropDown
 import com.example.agrican.ui.components.LabelItem
 import com.example.agrican.ui.components.LabelWithTextField
@@ -38,7 +39,7 @@ import com.example.agrican.ui.theme.white
 
 object AddProblemDestination: NavigationDestination {
     override val route: String = "add_problem"
-    override val titleRes: Int = R.string.engineer_map
+    override val titleRes: Int = R.string.add_problem
 }
 
 @Composable
@@ -49,17 +50,22 @@ fun AddProblemScreen(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    AddProblemScreenContent(
-        uiState = uiState,
-        addProblem = viewModel::addProblem,
-        navigateUp = navigateUp,
-        updateProblemKind = { viewModel.updateUiStates(problemKind = it) },
-        updateProblemDescription = { viewModel.updateUiStates(problemDescription = it) },
-        updateDay = { viewModel.updateUiStates(day = it) },
-        updateMonth = { viewModel.updateUiStates(month = it) },
-        updateYear = { viewModel.updateUiStates(year = it) },
-        modifier = modifier
-    )
+    BackButtonTopBar(
+        title = AddProblemDestination.titleRes,
+        navigateUp = navigateUp
+    ) {
+        AddProblemScreenContent(
+            uiState = uiState,
+            addProblem = viewModel::addProblem,
+            navigateUp = navigateUp,
+            updateProblemKind = { viewModel.updateUiStates(problemKind = it) },
+            updateProblemDescription = { viewModel.updateUiStates(problemDescription = it) },
+            updateDay = { viewModel.updateUiStates(day = it) },
+            updateMonth = { viewModel.updateUiStates(month = it) },
+            updateYear = { viewModel.updateUiStates(year = it) },
+            modifier = modifier
+        )
+    }
 }
 
 @Composable
@@ -80,7 +86,7 @@ fun AddProblemScreenContent(
     Column(
         verticalArrangement = Arrangement.spacedBy(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier
+        modifier = modifier.padding(16.dp)
     ) {
         LabelWithTextField(
             value = uiState.problemKind,

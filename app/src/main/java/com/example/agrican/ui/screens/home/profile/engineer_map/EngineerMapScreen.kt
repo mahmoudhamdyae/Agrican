@@ -73,7 +73,7 @@ fun EngineerMapScreenContent(
             Text(
                 text = stringResource(id = R.string.add_map),
                 color = white,
-                modifier = Modifier.padding(horizontal = 32.dp, vertical = 4.dp)
+                modifier = Modifier.padding(horizontal = 64.dp, vertical = 4.dp)
             )
         }
 

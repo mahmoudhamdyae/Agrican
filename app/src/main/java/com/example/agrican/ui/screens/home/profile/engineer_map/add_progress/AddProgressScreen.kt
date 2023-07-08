@@ -77,7 +77,7 @@ fun AddProgressScreenContent(
     Column(
         verticalArrangement = Arrangement.spacedBy(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier.padding(top = 8.dp)
+        modifier = modifier.padding(vertical = 8.dp, horizontal = 16.dp)
     ) {
 
         // Problem Kind

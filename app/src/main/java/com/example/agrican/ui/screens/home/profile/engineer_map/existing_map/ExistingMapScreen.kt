@@ -6,14 +6,18 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Close
@@ -44,6 +48,7 @@ import com.example.agrican.ui.components.BackButton
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.screens.home.profile.engineer_map.MapScreen
 import com.example.agrican.ui.screens.home.profile.engineer_map.add_problem.AddProblemDestination
+import com.example.agrican.ui.screens.home.profile.engineer_map.add_progress.AddProgressDestination
 import com.example.agrican.ui.theme.black
 import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.greenDark
@@ -82,7 +87,12 @@ fun ExistingMapScreenContent(
 ) {
     var isDelAction by rememberSaveable { mutableStateOf(false) }
 
-    Column(modifier = modifier) {
+    Column(
+        modifier = modifier
+            .fillMaxHeight()
+            .verticalScroll(rememberScrollState())
+            .background(white)
+    ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -140,7 +150,9 @@ fun ExistingMapScreenContent(
 
         Column(
             verticalArrangement = Arrangement.spacedBy(16.dp),
-            modifier = Modifier.padding(16.dp)
+            modifier = Modifier
+                .padding(16.dp)
+                .fillMaxHeight()
         ) {
             MapScreen(
                 modifier = Modifier
@@ -153,15 +165,19 @@ fun ExistingMapScreenContent(
             ExpandableItem(
                 selectedDays = listOf(),
                 onDayAdded = { /*TODO*/ },
-                isDelAction = isDelAction
+                isDelAction = isDelAction,
+                openScreen = openScreen
             )
 
             ExpandableItem(
                 selectedDays = listOf(),
                 onDayAdded = { /*TODO*/ },
-                isDelAction = isDelAction
+                isDelAction = isDelAction,
+                openScreen = openScreen
             )
         }
+
+        Spacer(modifier = Modifier.height(90.dp))
     }
 }
 
@@ -258,6 +274,7 @@ fun ExpandableItem(
     selectedDays: List<Int>,
     onDayAdded: (Int) -> Unit,
     isDelAction: Boolean,
+    openScreen: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     var visible by rememberSaveable { mutableStateOf(false) }
@@ -267,12 +284,12 @@ fun ExpandableItem(
             shadowElevation = 16.dp,
             shape = RoundedCornerShape(16.dp),
             color = greenDark,
-            modifier = Modifier
-                .clickable { visible = !visible }
+            modifier = Modifier.clickable { visible = !visible }
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(12.dp)
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+                modifier = Modifier.height(IntrinsicSize.Max)
             ) {
                 Text(
                     text = stringResource(id = R.string.add_progress),
@@ -280,6 +297,7 @@ fun ExpandableItem(
                     modifier = Modifier
                         .background(greenLight)
                         .padding(16.dp)
+                        .clickable { openScreen(AddProgressDestination.route) }
                 )
 
                 Column {
@@ -304,9 +322,9 @@ fun ExpandableItem(
                     IconButton(
                         onClick = { /*TODO*/ },
                         modifier = Modifier
+                            .fillMaxHeight()
                             .padding(1.dp)
                             .clip(RoundedCornerShape(topEnd = 16.dp, bottomEnd = 16.dp))
-                            .height(40.dp)
                             .background(white)
                     ) {
                         Icon(
@@ -343,7 +361,7 @@ fun Problem(
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(8.dp),
-        modifier = modifier
+        modifier = modifier.padding(vertical = 8.dp, horizontal = 8.dp)
     ) {
         Row {
             Text(
@@ -352,7 +370,7 @@ fun Problem(
             )
             Spacer(modifier = Modifier.weight(1f))
             Text(
-                text = "تبفع الأوراق",
+                text = "تبقع الأوراق",
                 color = textGray,
                 modifier = Modifier.padding(end = 32.dp)
             )
@@ -388,7 +406,7 @@ fun Problem(
             border = BorderStroke(1.dp, greenDark),
             shape = RoundedCornerShape(16.dp)
         ) {
-            Row {
+            Row(modifier = Modifier.height(IntrinsicSize.Max)) {
                 Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 6.dp)) {
                     Text(
                         text = "1-6-2023",
@@ -404,7 +422,9 @@ fun Problem(
 
                 IconButton(
                     onClick = { /*TODO*/ },
-                    modifier = Modifier.background(greenDark)
+                    modifier = Modifier
+                        .fillMaxHeight()
+                        .background(greenDark)
                 ) {
                     Icon(
                         imageVector = Icons.Default.Close,
