@@ -128,17 +128,20 @@ fun AddFarmScreenContent(
                 label = R.string.size,
                 focusManager = focusManager,
                 keyboardType = KeyboardType.Number,
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(2f)
             )
             Spacer(modifier = Modifier.width(8.dp))
             DropDown(
                 options = listOf(
-                    SizeUnit.SQUARE_KILOMETER.title
+                    SizeUnit.SQUARE_KILOMETER.title,
+                    SizeUnit.SQUARE_METER.title,
+                    SizeUnit.ACRE.title,
+                    SizeUnit.HECTARE.title
                 ),
                 onSelect = { updateSizeUnit(it) },
                 textColor = textGray,
                 modifier = Modifier
-                    .width(130.dp)
+                    .weight(1f)
                     .fillMaxHeight()
             )
         }
@@ -264,7 +267,7 @@ fun AddFarmScreenContent(
                 text = stringResource(id = R.string.add_farm),
                 fontSize = 15.sp,
                 fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(horizontal = 16.dp)
+                modifier = Modifier.padding(horizontal = 24.dp)
             )
         }
     }

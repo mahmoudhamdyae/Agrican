@@ -81,7 +81,7 @@ fun LabelItem(
 ) {
     val stroke = Stroke(
         width = 2.dp.toPx(),
-        pathEffect = PathEffect.dashPathEffect(floatArrayOf(12.dp.toPx(), 8.dp.toPx()), 0.dp.toPx())
+        pathEffect = PathEffect.dashPathEffect(floatArrayOf(6.dp.toPx(), 6.dp.toPx()), 0.dp.toPx())
     )
 
     Surface(

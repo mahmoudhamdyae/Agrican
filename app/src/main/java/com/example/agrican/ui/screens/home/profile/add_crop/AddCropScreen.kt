@@ -170,7 +170,8 @@ fun AddCropScreenContent(
             Text(
                 text = stringResource(id = R.string.add_crop_button),
                 fontSize = 15.sp,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(horizontal = 16.dp)
             )
         }
     }

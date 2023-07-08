@@ -27,7 +27,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -90,9 +90,11 @@ fun ObserveCropScreenContent(
     modifier: Modifier = Modifier
 ) {
 
-    var isDelAction by rememberSaveable { mutableStateOf(false) }
+    var isDelAction by remember { mutableStateOf(false) }
     
-    Column(modifier = modifier) {
+    Column(
+        modifier = modifier.background(white)
+    ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -272,7 +274,7 @@ fun ExpandableItem(
     isDelAction: Boolean,
     modifier: Modifier = Modifier
 ) {
-    var visible by rememberSaveable { mutableStateOf(false) }
+    var visible by remember{ mutableStateOf(false) }
 
     Column(modifier = modifier) {
         Surface(

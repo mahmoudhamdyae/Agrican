@@ -23,6 +23,9 @@ class AddFarmUseCase @Inject constructor(
 
         val unit = when(sizeUnit) {
             SizeUnit.SQUARE_KILOMETER.title -> { SizeUnit.SQUARE_KILOMETER.name }
+            SizeUnit.SQUARE_METER.title -> { SizeUnit.SQUARE_METER.name }
+            SizeUnit.ACRE.title -> { SizeUnit.ACRE.name }
+            SizeUnit.HECTARE.title -> { SizeUnit.HECTARE.name }
             else -> { SizeUnit.SQUARE_KILOMETER.name }
         }
 

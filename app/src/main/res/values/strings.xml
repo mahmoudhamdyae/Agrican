@@ -261,6 +261,7 @@
     <string name="size">المساحة</string>
     <string name="size_hint">5</string>
     <string name="square_kilometer">كيلومتر مربع</string>
+    <string name="square_meter">متر مربع</string>
     <string name="farming_date">تاريخ الزراعة</string>
     <string name="harvest_season">موسم الحصاد</string>
     <string name="crops_type">نوع المحصول</string>

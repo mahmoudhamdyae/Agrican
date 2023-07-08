@@ -163,7 +163,7 @@ fun DateDropDown(
             onDismissRequest = { expanded = false },
             modifier = Modifier.background(white)
         ) {
-            options.forEach { selectionOption ->
+            options.slice(1 until options.size).forEach { selectionOption ->
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -176,7 +176,7 @@ fun DateDropDown(
                     Text(
                         text = if (selectionOption == options[0]) stringResource(id = selectionOption)
                         else selectionOption.toString(),
-                        color = black,
+                        color = textGray,
                         modifier = Modifier.padding(start = 4.dp)
                     )
 
