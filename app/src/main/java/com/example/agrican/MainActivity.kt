@@ -45,6 +45,21 @@ class MainActivity : AppCompatActivity() {
             setKeepOnScreenCondition {
                 viewModel.uiState.value.isLoading
             }
+
+//            setOnExitAnimationListener { splashScreen ->
+//                // Access to the splash screen and animate it
+//                ObjectAnimator.ofFloat(
+//                    splashScreen.view,
+//                    View.TRANSLATION_Y,
+//                    0f,
+//                    splashScreen.view.height.toFloat()
+//                ).apply {
+//                    interpolator = DecelerateInterpolator()
+//                    duration = 500L
+//                    doOnStart { start() }
+//                    doOnEnd { splashScreen.remove() }
+//                }
+//            }
         }
 
         setContent {

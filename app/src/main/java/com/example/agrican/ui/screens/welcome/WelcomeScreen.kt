@@ -53,9 +53,52 @@ object WelcomeDestination: NavigationDestination {
     override val titleRes: Int = R.string.app_name
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WelcomeScreen(
+    openAndClear: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
+//    var visible by remember { mutableStateOf(true) }
+//    val density = LocalDensity.current
+//
+//    AnimatedVisibility(
+//        visible = visible,
+//        enter = slideInVertically {
+//            // Slide in from 40 dp from the top.
+//            with(density) { -40.dp.roundToPx() }
+//        } + expandVertically(
+//            // Expand from the top.
+//            expandFrom = Alignment.Top
+//        ) + fadeIn(
+//            // Fade in with the initial alpha of 0.3f.
+//            initialAlpha = 0.3f
+//        ),
+//        exit = slideOutVertically() + shrinkVertically() + fadeOut()
+//    ) {
+//        Box(modifier = modifier.fillMaxSize()) {
+//            Image(
+//                painter = painterResource(id = R.drawable.splash),
+//                contentDescription = null,
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .align(Alignment.Center)
+//            )
+//        }
+//        Text("Hello",
+//            Modifier
+//                .fillMaxWidth()
+//                .height(200.dp))
+//    }
+
+    WelcomeScreenContent(
+        openAndClear = openAndClear,
+        modifier = modifier
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun WelcomeScreenContent(
     openAndClear: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -218,7 +261,7 @@ fun BackGroundImage(
 @Preview(showBackground = true)
 @Composable
 fun WelcomeScreenPreview() {
-    WelcomeScreen(
+    WelcomeScreenContent(
         openAndClear = { }
     )
 }
