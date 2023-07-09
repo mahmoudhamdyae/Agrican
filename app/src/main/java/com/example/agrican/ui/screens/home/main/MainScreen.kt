@@ -1,5 +1,18 @@
 package com.example.agrican.ui.screens.home.main
 
+import android.Manifest
+import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.location.Location
+import android.location.LocationManager
+import android.os.Looper
+import android.provider.Settings
+import android.widget.Toast
+import androidx.activity.compose.ManagedActivityResultLauncher
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -29,14 +42,19 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -45,7 +63,11 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.agrican.R
 import com.example.agrican.domain.model.News
@@ -66,6 +88,11 @@ import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.title
 import com.example.agrican.ui.theme.white
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
+import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.launch
 
 object MainDestination: NavigationDestination {
@@ -81,6 +108,39 @@ fun MainScreen(
     viewModel: MainViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    var getWeather by remember { mutableStateOf(true) }
+
+    val context = LocalContext.current
+    val activityResultLauncher =
+        rememberLauncherForActivityResult(
+            ActivityResultContracts.RequestPermission()
+        ) { isGranted ->
+            // Handle Permission
+            if (isGranted) {
+                // Permission is granted
+                getLastLocation(
+                    context = context,
+                    getWeather = viewModel::getWeather
+                )
+            } else {
+                // Permission is denied
+                Toast.makeText(context, R.string.permission_denied_toast, Toast.LENGTH_SHORT).show()
+            }
+        }
+
+    LaunchedEffect(key1 = getWeather) {
+        grantPermission(activityResultLauncher)
+    }
+
+    val lifecycleEvent = rememberLifecycleEvent()
+    LaunchedEffect(lifecycleEvent) {
+        if (lifecycleEvent == Lifecycle.Event.ON_RESUME) {
+            if (isPermissionGranted(context) && isGpsEnabled(context)) {
+                getLastLocation(context = context, getWeather = viewModel::getWeather)
+            }
+        }
+    }
 
     TopBar(
         title = {
@@ -98,6 +158,21 @@ fun MainScreen(
             modifier = modifier
         )
     }
+}
+
+@Composable
+fun rememberLifecycleEvent(lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current): Lifecycle.Event {
+    var state by remember { mutableStateOf(Lifecycle.Event.ON_ANY) }
+    DisposableEffect(lifecycleOwner) {
+        val observer = LifecycleEventObserver { _, event ->
+            state = event
+        }
+        lifecycleOwner.lifecycle.addObserver(observer)
+        onDispose {
+            lifecycleOwner.lifecycle.removeObserver(observer)
+        }
+    }
+    return state
 }
 
 @Composable
@@ -120,7 +195,7 @@ fun MainScreenContent(
                 .fillMaxWidth()
                 .padding(18.dp)
                 .clickable {
-                    if (!uiState.isLoading) {
+                    if (!uiState.isWeatherLoading) {
                         val currentWeatherData = uiState.weather?.currentWeatherData
 
                         val weather = Weather(
@@ -231,7 +306,7 @@ fun WeatherBoxLoading(
     uiState: MainUiState,
     modifier: Modifier = Modifier
 ) {
-    if (uiState.isLoading) {
+    if (uiState.isWeatherLoading) {
         Surface(
             border = BorderStroke(1.dp, gray),
             shape = RoundedCornerShape(16.dp),
@@ -413,7 +488,7 @@ fun LatestNewsList(
         )
 
         LazyRow(state = scrollState) {
-            if (uiState.isLoading) {
+            if (uiState.isNewsLoading) {
                 items(10) {
                     LatestNewsListItemLoading(
                         modifier = Modifier
@@ -640,6 +715,82 @@ fun ProblemImagesRowItem(
     }
 }
 
+fun isPermissionGranted(context: Context): Boolean {
+    return ContextCompat.checkSelfPermission(
+        context,
+        Manifest.permission.ACCESS_FINE_LOCATION
+    ) == PackageManager.PERMISSION_GRANTED
+}
+
+fun isGpsEnabled(context: Context): Boolean {
+    val locationManager =
+        context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+    return locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER) ||
+            locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+}
+
+private fun grantPermission(
+    activityResultLauncher: ManagedActivityResultLauncher<String, Boolean>
+) {
+    activityResultLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+}
+
+private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+@SuppressLint("MissingPermission")
+private fun getLastLocation(
+    context: Context,
+    getWeather: (Double, Double) -> Unit,
+    activityResultLauncher: ManagedActivityResultLauncher<String, Boolean>? = null
+) {
+    fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context)
+    if (isPermissionGranted(context)) {
+        if (isGpsEnabled(context)) {
+            fusedLocationProviderClient.lastLocation.addOnCompleteListener { task ->
+                val location: Location? = task.result
+                if (location == null) {
+                    requestNewLocationData(context, getWeather)
+                } else {
+                    getWeather(location.latitude, location.longitude)
+                }
+            }
+        } else {
+            Toast.makeText(context, R.string.turn_on_location_toast, Toast.LENGTH_LONG).show()
+            val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+            context.startActivity(intent)
+        }
+    } else {
+        if (activityResultLauncher != null) {
+            grantPermission(activityResultLauncher)
+        }
+    }
+}
+
+@SuppressLint("MissingPermission")
+@Suppress("DEPRECATION")
+private fun requestNewLocationData(
+    context: Context,
+    writeLocationToPreferences: (Double, Double) -> Unit
+) {
+    val mLocationRequest = LocationRequest()
+    mLocationRequest.apply {
+        priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        interval = 0
+        fastestInterval = 0
+        numUpdates = 1
+    }
+
+    fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context)
+    fusedLocationProviderClient.requestLocationUpdates(
+        mLocationRequest, object : LocationCallback() {
+            override fun onLocationResult(locationResult: LocationResult) {
+                val mLastLocation: Location = locationResult.lastLocation!!
+                writeLocationToPreferences(mLastLocation.latitude, mLastLocation.longitude)
+            }
+        },
+        Looper.myLooper()
+    )
+}
+
 @Preview(showBackground = true)
 @Composable
 fun MainScreenContentLoadingPreview() {
@@ -659,7 +810,8 @@ fun MainScreenContentPreview() {
         uiState = MainUiState(
             weather = null,
             news = fakeNews,
-            isLoading = false
+            isWeatherLoading = false,
+            isNewsLoading = false
         ),
         openScreen = { }
     )

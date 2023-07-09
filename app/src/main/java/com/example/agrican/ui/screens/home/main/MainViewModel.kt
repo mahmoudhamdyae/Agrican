@@ -16,16 +16,24 @@ class MainViewModel @Inject constructor(
     val uiState = _uiState.asStateFlow()
 
     init {
-        getWeather()
+        getNews()
     }
 
-    private fun getWeather() {
+    private fun getNews() {
         launchCatching {
             _uiState.value = _uiState.value.copy(
-                weather = useCase.getWeatherUseCase(),
                 news = useCase.getNewsUseCase(isNews = true),
                 offers = useCase.getNewsUseCase(isNews = false),
-                isLoading = false
+                isNewsLoading = false
+            )
+        }
+    }
+
+    fun getWeather(latitude: Double, longitude: Double) {
+        launchCatching {
+            _uiState.value = _uiState.value.copy(
+                weather = useCase.getWeatherUseCase(latitude, longitude),
+                isWeatherLoading = false
             )
         }
     }

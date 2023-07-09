@@ -89,6 +89,8 @@
     <string name="finish_chat">إنهاء المحادثة</string>
     
     <!-- Weather Screen -->
+    <string name="permission_denied_toast">You should give permission to the app</string>
+    <string name="turn_on_location_toast">Turn on location</string>
     <string name="air_quality">جودة الهواء</string>
     <string name="air_quality_good">مقبول</string>
     <string name="wind">الرياح</string>
