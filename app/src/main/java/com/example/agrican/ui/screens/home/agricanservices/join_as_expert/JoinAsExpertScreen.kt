@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -262,13 +263,14 @@ fun JoinAsExpertScreen(
                         )
                     },
                     colors = ButtonDefaults.buttonColors(containerColor = greenDark),
-                    modifier = Modifier.padding(32.dp)
+                    modifier = Modifier
+                        .padding(32.dp)
+                        .height(38.dp)
+                        .width(225.dp)
                 ) {
                     Text(
                         text = stringResource(id = R.string.send),
-                        fontSize = 15.sp,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier.padding(horizontal = 64.dp)
+                        fontSize = 15.sp
                     )
                 }
             }

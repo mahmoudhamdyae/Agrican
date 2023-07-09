@@ -145,11 +145,12 @@ fun AddTaskScreenContent(
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
                 .padding(16.dp)
+                .height(38.dp)
+                .width(225.dp)
         ) {
             Text(
                 text = stringResource(id = R.string.add_task_button),
-                fontSize = 15.sp,
-                modifier = Modifier.padding(horizontal = 16.dp)
+                fontSize = 15.sp
             )
         }
     }

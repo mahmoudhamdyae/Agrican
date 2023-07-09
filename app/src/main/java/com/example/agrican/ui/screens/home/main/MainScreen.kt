@@ -112,7 +112,7 @@ fun MainScreenContent(
     Column(
         modifier = modifier
             .verticalScroll(rememberScrollState())
-            .padding(bottom = 60.dp)
+            .padding(bottom = 80.dp)
     ) {
         WeatherBoxLoading(
             uiState = uiState,

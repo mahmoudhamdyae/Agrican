@@ -74,26 +74,30 @@ fun AgricanServicesContent(
     Column(
         modifier = modifier
             .verticalScroll(rememberScrollState())
-            .padding(bottom = 60.dp)
+            .padding(bottom = 80.dp)
     ) {
-        Box(modifier = Modifier
-            .height(IntrinsicSize.Max)
-            .padding(vertical = 16.dp)) {
+        Box(
+            modifier = Modifier
+                .height(IntrinsicSize.Max)
+                .padding(vertical = 16.dp)
+        ) {
             Box(
                 modifier = Modifier
                     .padding(vertical = 16.dp)
                     .fillMaxSize()
                     .background(greenLight)
             )
-            Row(modifier = Modifier
-                .height(IntrinsicSize.Max)
-                .padding(horizontal = 16.dp)) {
+            Row(
+                modifier = Modifier
+                    .height(IntrinsicSize.Max)
+                    .padding(horizontal = 16.dp)
+            ) {
                 // Default Age
                 Card(
                     title = R.string.default_age,
                     description = R.string.default_age_description,
                     modifier = Modifier
-                        .weight(1.3f)
+                        .weight(1.5f)
                         .fillMaxHeight()
                         .padding(end = 16.dp)
                         .clickable { openScreen(DefaultAgesDestination.route) },
@@ -132,7 +136,7 @@ fun AgricanServicesContent(
                         title = R.string.pests,
                         description = R.string.pests_description,
                         modifier = Modifier
-                            .weight(1.3f)
+                            .weight(1.5f)
                             .fillMaxHeight()
                             .clickable { openScreen(PestsDestination.route) }
                     )
@@ -142,7 +146,7 @@ fun AgricanServicesContent(
                     Box(
                         modifier = Modifier
                             .fillMaxSize()
-                            .padding(vertical = 35.dp)
+                            .padding(vertical = 26.dp)
                             .background(greenDark)
                     )
                     // Treatment
@@ -179,7 +183,7 @@ fun Card(
     val secondaryColor = if (isPrimaryMain) white else greenDark
 
     Surface(
-        shape = RoundedCornerShape(16.dp),
+        shape = RoundedCornerShape(11.dp),
         shadowElevation = 16.dp,
         color = mainColor,
         modifier = modifier

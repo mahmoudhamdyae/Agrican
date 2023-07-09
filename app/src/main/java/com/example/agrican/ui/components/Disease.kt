@@ -58,14 +58,16 @@ fun DiseaseHeader(
     Surface(
         color = gray,
         shape = RoundedCornerShape(
-            bottomStart = 32.dp,
-            bottomEnd = 32.dp,
+            bottomStart = 25.dp,
+            bottomEnd = 25.dp,
         ),
         modifier = modifier
     ) {
-        Box(modifier = Modifier
-            .fillMaxWidth()
-            .height(225.dp)) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(225.dp)
+        ) {
             if (image == null) {
                 EmptyImage(modifier = Modifier.fillMaxSize())
             } else {

@@ -94,14 +94,13 @@ fun ObserveCropScreenContent(
     Column(
         modifier = modifier
             .fillMaxHeight()
-//            .verticalScroll(rememberScrollState())
             .background(white)
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(16.dp),
             modifier = Modifier
-                .clip(RoundedCornerShape(bottomStart = 16.dp, bottomEnd = 16.dp))
+                .clip(RoundedCornerShape(bottomStart = 13.dp, bottomEnd = 13.dp))
                 .background(greenLight)
         ) {
 
@@ -283,7 +282,7 @@ fun ExpandableItem(
     Column(modifier = modifier) {
         Surface(
             shadowElevation = 16.dp,
-            shape = RoundedCornerShape(16.dp),
+            shape = RoundedCornerShape(13.dp),
             color = greenLight,
             modifier = Modifier
                 .clickable { isVisible = !isVisible }

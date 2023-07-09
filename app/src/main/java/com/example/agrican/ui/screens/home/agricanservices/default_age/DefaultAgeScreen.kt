@@ -232,12 +232,14 @@ fun DefaultAgeScreenContent(
         Button(
             onClick = getResults,
             colors = ButtonDefaults.buttonColors(containerColor = greenDark),
-            modifier = Modifier.align(Alignment.CenterHorizontally)
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .height(38.dp)
+                .width(225.dp)
         ) {
             Text(
                 text = stringResource(id = R.string.get_results),
-                fontSize = 15.sp,
-                modifier = Modifier.padding(horizontal = 16.dp)
+                fontSize = 15.sp
             )
         }
         AnimatedVisibility(visible = uiState.defaultAge != null && uiState.dangerDegree != null) {

@@ -55,7 +55,7 @@ fun BackButtonTopBar(
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(top = 60.dp)
-                        .clip(RoundedCornerShape(24.dp))
+                        .clip(RoundedCornerShape(25.dp))
                         .background(white)
                         .padding(top = 12.dp)
                 ) {

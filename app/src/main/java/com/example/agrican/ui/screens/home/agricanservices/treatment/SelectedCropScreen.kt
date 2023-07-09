@@ -172,6 +172,9 @@ fun SelectedCropScreenContent(
                 isTreatmentShown = true
                       },
             colors = ButtonDefaults.buttonColors(containerColor = greenDark),
+            modifier = Modifier
+                .height(38.dp)
+                .width(225.dp)
         ) {
             Text(
                 text = stringResource(id = R.string.show_treatment_button),

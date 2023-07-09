@@ -168,12 +168,14 @@ fun NewOrderScreen(
             onClick = { viewModel.order(productName, quantity, receivingAddress, notes) },
             colors = ButtonDefaults.buttonColors(
                 containerColor = greenDark
-            )
+            ),
+            modifier = Modifier
+                .height(38.dp)
+                .width(225.dp)
         ) {
             Text(
                 text = stringResource(id = R.string.order_button),
-                fontSize = 15.sp,
-                modifier = Modifier.padding(horizontal = 64.dp)
+                fontSize = 15.sp
             )
         }
 

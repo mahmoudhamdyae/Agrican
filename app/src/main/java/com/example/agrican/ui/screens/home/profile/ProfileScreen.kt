@@ -179,7 +179,7 @@ fun ProfileScreenContent(
 
         // Space fo Bottom Navigation Bar
         item {
-            Spacer(modifier = Modifier.height(60.dp))
+            Spacer(modifier = Modifier.height(80.dp))
         }
     }
 }
@@ -213,8 +213,8 @@ fun UserHeaderAndItems(
     Column(modifier = modifier.height(IntrinsicSize.Min)) {
         Surface(
             shape = RoundedCornerShape(
-                bottomEnd = 32.dp,
-                bottomStart = 32.dp,
+                bottomEnd = 13.dp,
+                bottomStart = 13.dp,
             ),
             color = greenLight,
             modifier = Modifier
@@ -372,7 +372,7 @@ fun AddItem(
     modifier: Modifier = Modifier
 ) {
     Surface(
-        shape = RoundedCornerShape(16.dp),
+        shape = RoundedCornerShape(8.dp),
         shadowElevation = 8.dp,
         modifier = modifier.clickable { onIconClick() }
     ) {
@@ -440,7 +440,7 @@ fun CropsListItem(
     Surface(
         color = greenLight,
         shadowElevation = 16.dp,
-        shape = RoundedCornerShape(16.dp),
+        shape = RoundedCornerShape(13.dp),
         modifier = modifier
             .padding(horizontal = 16.dp, vertical = 8.dp)
             .height(45.dp)

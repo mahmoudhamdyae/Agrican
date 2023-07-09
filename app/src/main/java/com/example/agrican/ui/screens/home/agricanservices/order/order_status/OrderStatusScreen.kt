@@ -179,7 +179,7 @@ fun OrdersListItem(
         Surface(
             shape = RoundedCornerShape(16.dp),
             border = BorderStroke(1.dp, gray),
-            modifier = Modifier.padding(bottom = 24.dp)
+            modifier = Modifier.padding(bottom = 16.dp)
         ) {
             Row(modifier = Modifier.height(IntrinsicSize.Max)) {
                 Column(modifier = Modifier
@@ -339,7 +339,10 @@ fun OrdersListItem(
                 } },
                 colors = ButtonDefaults.buttonColors(containerColor = greenDark),
                 contentPadding = PaddingValues(0.dp),
-                modifier = Modifier.padding(start = 16.dp)
+                modifier = Modifier
+                    .padding(start = 16.dp)
+                    .height(27.dp)
+                    .width(97.dp)
             ) {
                 Text(
                     text = stringResource(id = R.string.confirm_order),
@@ -352,6 +355,9 @@ fun OrdersListItem(
                 onClick = { /*TODO*/ },
                 colors = ButtonDefaults.buttonColors(containerColor = greenLight),
                 contentPadding = PaddingValues(0.dp),
+                modifier = Modifier
+                    .height(27.dp)
+                    .width(97.dp)
                 ) {
                 Text(
                     text = stringResource(id = R.string.refuse_order),

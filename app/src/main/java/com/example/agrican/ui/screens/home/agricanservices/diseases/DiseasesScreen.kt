@@ -89,7 +89,7 @@ fun DiseaseListItem(
         color = gray,
         modifier = modifier
             .height(200.dp)
-            .clip(RoundedCornerShape(16.dp))
+            .clip(RoundedCornerShape(25.dp))
             .clickable {
                 onItemClick(disease.diseaseId)
             }
