@@ -16,6 +16,7 @@ data class Weather(
     val windGusts: Double,
     @StringRes val windDirection: Int,
     @StringRes val weatherDesc: Int,
+    @StringRes val airQuality: Int,
     @DrawableRes val iconRes: Int,
 ): Parcelable
 

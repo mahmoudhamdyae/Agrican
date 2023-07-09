@@ -105,7 +105,10 @@ fun WeatherScreenContent(
         Divider(modifier = Modifier.fillMaxWidth(), color = textGray)
 
         // Air Quality
-        WeatherRow(weatherLabel = R.string.air_quality, weatherData = "مقبول")
+        WeatherRow(
+            weatherLabel = R.string.air_quality,
+            weatherData = stringResource(id = weather.airQuality)
+        )
         Divider(modifier = Modifier.fillMaxWidth(), color = textGray)
         // Wind
         WeatherRow(

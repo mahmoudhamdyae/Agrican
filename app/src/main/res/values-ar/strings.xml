@@ -90,6 +90,7 @@
 
     <!-- Weather Screen -->
     <string name="air_quality">جودة الهواء</string>
+    <string name="air_quality_good">مقبول</string>
     <string name="wind">الرياح</string>
     <string name="gusts_of_wind">هبات الرياح</string>
     <string name="air_information_button">معلومات عن الجو اليوم</string>

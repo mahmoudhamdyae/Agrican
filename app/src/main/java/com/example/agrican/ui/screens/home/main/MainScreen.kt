@@ -129,6 +129,7 @@ fun MainScreenContent(
                             windGusts = currentWeatherData.windGusts,
                             windDirection = currentWeatherData.windDirection,
                             weatherDesc = currentWeatherData.weatherType.weatherDesc,
+                            airQuality = R.string.air_quality_good,
                             iconRes = currentWeatherData.weatherType.iconRes
                         )
 
