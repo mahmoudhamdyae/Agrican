@@ -52,7 +52,7 @@ import com.example.agrican.ui.theme.white
 @Composable
 fun TopBar(
     title: @Composable () -> Unit,
-    openAndClear: (String) -> Unit,
+    navigateFromSignOut: () -> Unit,
     openScreen: (String) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel(),
@@ -127,7 +127,7 @@ fun TopBar(
         if (showMenu) {
             DropDownMenuContent(
                 hideMenu = { showMenu = false },
-                signOutAction = { viewModel.signOut(openAndClear) },
+                signOutAction = { viewModel.signOut(navigateFromSignOut) },
                 openNotificationsScreen = openNotificationsScreen,
                 toggleLanguage = { toggleLanguage() },
                 modifier = Modifier
@@ -195,7 +195,7 @@ fun DropDownItem(
 fun TopBarPreview() {
     TopBar(
         title = { Text(text = stringResource(id = R.string.app_name)) },
-        openAndClear = { },
+        navigateFromSignOut = { },
         openScreen = { }
     )
 }

@@ -103,7 +103,7 @@ object MainDestination: NavigationDestination {
 @Composable
 fun MainScreen(
     openScreen: (String) -> Unit,
-    openAndClear: (String) -> Unit,
+    navigateFromSignOut: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: MainViewModel = hiltViewModel()
 ) {
@@ -149,8 +149,8 @@ fun MainScreen(
                 contentDescription = null
             )
         },
-        openAndClear = openAndClear,
-        openScreen = openScreen
+        openScreen = openScreen,
+        navigateFromSignOut = navigateFromSignOut
     ) {
         MainScreenContent(
             uiState = uiState,

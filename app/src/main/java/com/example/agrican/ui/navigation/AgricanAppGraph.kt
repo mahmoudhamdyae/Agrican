@@ -49,6 +49,11 @@ fun NavGraphBuilder.agricanAppGraph(
 
     // Home Screen
     composable(route = HomeDestination.route) {
-        HomeScreen(openAndClear = openAndClear)
+        HomeScreen(
+            navigateFromSignOut = {
+                openAndClear(LoginDestination.route)
+            },
+            openAndClear = openAndClear
+        )
     }
 }

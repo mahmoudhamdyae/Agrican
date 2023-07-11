@@ -30,6 +30,7 @@ import com.example.agrican.ui.screens.notifications.NotificationsScreen
 fun MainGraph(
     setTopBarTitle: (Int) -> Unit,
     showBottomBar: (Boolean) -> Unit,
+    navigateFromSignOut: () -> Unit,
 ) {
 
     val navController = rememberNavController()
@@ -56,7 +57,10 @@ fun MainGraph(
         // Main Screen
         composable(route = MainDestination.route) {
             showBottomBar(true)
-            MainScreen(openScreen = openScreen, openAndClear = openAndClear)
+            MainScreen(
+                openScreen = openScreen,
+                navigateFromSignOut = navigateFromSignOut
+            )
         }
 
         // Problem Images Screen

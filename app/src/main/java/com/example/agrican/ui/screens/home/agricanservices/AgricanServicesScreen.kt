@@ -48,7 +48,7 @@ object AgricanServicesDestination: NavigationDestination {
 @Composable
 fun AgricanServicesScreen(
     openScreen: (String) -> Unit,
-    openAndClear: (String) -> Unit,
+    navigateFromSignOut: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     TopBar(
@@ -59,8 +59,8 @@ fun AgricanServicesScreen(
                 style = MaterialTheme.typography.title
             )
         },
-        openAndClear = openAndClear,
-        openScreen = openScreen
+        openScreen = openScreen,
+        navigateFromSignOut = navigateFromSignOut
     ) {
         AgricanServicesContent(openScreen = openScreen, modifier = modifier)
     }
@@ -231,5 +231,5 @@ fun Card(
 @Preview(showBackground = true)
 @Composable
 fun AgricanServiceScreenPreview() {
-    AgricanServicesScreen(openScreen = { }, openAndClear = { })
+    AgricanServicesScreen(openScreen = { }, navigateFromSignOut = { })
 }

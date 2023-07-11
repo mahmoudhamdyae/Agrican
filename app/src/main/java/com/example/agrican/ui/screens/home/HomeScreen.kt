@@ -37,6 +37,7 @@ data class BottomNavItem(
 @Composable
 fun HomeScreen(
     openAndClear: (String) -> Unit,
+    navigateFromSignOut: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     var selectedItem by rememberSaveable { mutableStateOf(0) }
@@ -63,17 +64,18 @@ fun HomeScreen(
         }
     ) { contentPadding ->
 
-        Box(modifier = modifier
-            .fillMaxSize()
-            .padding(
-                top = contentPadding.calculateTopPadding(), bottom = 0.dp
-            )
+        Box(
+            modifier = modifier
+                .fillMaxSize()
+                .padding(
+                    top = contentPadding.calculateTopPadding(), bottom = 0.dp)
         ) {
             when (selectedItem) {
                 0 -> {
                     MainGraph(
                         setTopBarTitle = { topBarTitle = it },
-                        showBottomBar = { shouldShowBottomBar = it }
+                        showBottomBar = { shouldShowBottomBar = it },
+                        navigateFromSignOut = navigateFromSignOut
                     )
                 }
                 1 -> {
@@ -86,7 +88,8 @@ fun HomeScreen(
                     AgricanServicesGraph(
                         setTopBarTitle = { topBarTitle = it },
                         navigateToLoginScreen = { openAndClear(LoginDestination.route) },
-                        showBottomBar = { shouldShowBottomBar = it }
+                        showBottomBar = { shouldShowBottomBar = it },
+                        navigateFromSignOut = navigateFromSignOut
                     )
                 }
             }

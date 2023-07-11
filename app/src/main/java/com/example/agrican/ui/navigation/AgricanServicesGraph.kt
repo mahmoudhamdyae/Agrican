@@ -34,6 +34,7 @@ fun AgricanServicesGraph(
     setTopBarTitle: (Int) -> Unit,
     showBottomBar: (Boolean) -> Unit,
     navigateToLoginScreen: () -> Unit,
+    navigateFromSignOut: () -> Unit,
 ) {
     val navController = rememberNavController()
 
@@ -60,7 +61,10 @@ fun AgricanServicesGraph(
         // Agrican Services Screen
         composable(route = AgricanServicesDestination.route) {
             setTopBarTitle(AgricanServicesDestination.titleRes)
-            AgricanServicesScreen(openScreen = openScreen, openAndClear = openAndClear)
+            AgricanServicesScreen(
+                openScreen = openScreen,
+                navigateFromSignOut = navigateFromSignOut
+            )
         }
 
         // Default Age Screen
