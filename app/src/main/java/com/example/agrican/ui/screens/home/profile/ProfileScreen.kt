@@ -484,7 +484,7 @@ fun CropsListItem(
                     modifier = Modifier
                         .height(43.dp)
                         .padding(end = 1.dp)
-                        .clip(RoundedCornerShape(topEnd = 16.dp, bottomEnd = 16.dp))
+                        .clip(RoundedCornerShape(topEnd = 13.dp, bottomEnd = 13.dp))
                         .background(white)
                         .fillMaxHeight()
                 ) {
