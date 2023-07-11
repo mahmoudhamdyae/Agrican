@@ -1,6 +1,7 @@
 package com.example.agrican.ui.screens.welcome
 
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -53,6 +54,7 @@ object WelcomeDestination: NavigationDestination {
     override val titleRes: Int = R.string.app_name
 }
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun WelcomeScreen(
     openAndClear: (String) -> Unit,
@@ -61,34 +63,63 @@ fun WelcomeScreen(
 //    var visible by remember { mutableStateOf(true) }
 //    val density = LocalDensity.current
 //
+//    val configuration = LocalConfiguration.current
+//    val screenHeight = configuration.screenHeightDp.dp
+//    val screenWidth = configuration.screenWidthDp.dp
+//
 //    AnimatedVisibility(
 //        visible = visible,
-//        enter = slideInVertically {
-//            // Slide in from 40 dp from the top.
-//            with(density) { -40.dp.roundToPx() }
-//        } + expandVertically(
-//            // Expand from the top.
-//            expandFrom = Alignment.Top
-//        ) + fadeIn(
-//            // Fade in with the initial alpha of 0.3f.
-//            initialAlpha = 0.3f
-//        ),
-//        exit = slideOutVertically() + shrinkVertically() + fadeOut()
+//        enter = slideInVertically(
+//            animationSpec =
+//            spring(
+//                stiffness = Spring.StiffnessMediumLow,
+//                visibilityThreshold = IntOffset.VisibilityThreshold
+//            ),
+//            initialOffsetY = { fullHeight: Int ->
+//                fullHeight / 2
+//            }
+//        ) + scaleIn(
+//            initialScale = screenWidth.toPx()
+//        )
 //    ) {
 //        Box(modifier = modifier.fillMaxSize()) {
 //            Image(
 //                painter = painterResource(id = R.drawable.splash),
 //                contentDescription = null,
 //                modifier = Modifier
-//                    .fillMaxWidth()
-//                    .align(Alignment.Center)
+//                    .padding(top = 64.dp)
+//                    .width(120.dp)
+//                    .align(Alignment.TopCenter)
 //            )
 //        }
-//        Text("Hello",
-//            Modifier
-//                .fillMaxWidth()
-//                .height(200.dp))
+////        Box(modifier = modifier.fillMaxSize()) {
+////            Image(
+////                painter = painterResource(id = R.drawable.splash),
+////                contentDescription = null,
+////                modifier = Modifier
+////                    .fillMaxWidth()
+////                    .align(Alignment.Center)
+////            )
+////        }
 //    }
+//
+//
+//
+//
+//
+//    Box(
+//        modifier = modifier.fillMaxSize()
+//    ) {
+//        Button(
+//            onClick = { visible = !visible },
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .align(Alignment.Center)
+//        ) {
+//            Text(text = "hahahahahahahahahah")
+//        }
+//        }
+
 
     WelcomeScreenContent(
         openAndClear = openAndClear,

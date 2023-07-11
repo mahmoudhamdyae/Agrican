@@ -56,8 +56,8 @@ class MainActivity : AppCompatActivity() {
 //                ).apply {
 //                    interpolator = DecelerateInterpolator()
 //                    duration = 500L
-//                    doOnStart { start() }
 //                    doOnEnd { splashScreen.remove() }
+//                    start()
 //                }
 //            }
         }

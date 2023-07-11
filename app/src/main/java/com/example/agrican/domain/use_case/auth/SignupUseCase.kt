@@ -1,10 +1,8 @@
 package com.example.agrican.domain.use_case.auth
 
-import com.example.agrican.domain.model.User
 import com.example.agrican.domain.model.UserType
 import com.example.agrican.domain.repository.AccountService
 import com.example.agrican.domain.repository.MainRepository
-import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 class SignupUseCase @Inject constructor(
@@ -28,18 +26,18 @@ class SignupUseCase @Inject constructor(
             password = password,
             onSuccess = {
 
-                runBlocking {
-                    val userId = accountService.getCurrentUserId()
-                    val user = User(
-                        userName = userName,
-                        phoneNumber = phoneNumber,
-                        email = email,
-                        userType = accountType,
-                        userId = userId
-                    )
-
-                    mainRepository.createUser(user)
-                }
+//                runBlocking {
+//                    val userId = accountService.getCurrentUserId()
+//                    val user = User(
+//                        userName = userName,
+//                        phoneNumber = phoneNumber,
+//                        email = email,
+//                        userType = accountType,
+//                        userId = userId
+//                    )
+//
+//                    mainRepository.createUser(user)
+//                }
 
                 onSuccess()
             },

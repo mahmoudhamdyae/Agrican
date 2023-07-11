@@ -148,6 +148,7 @@ class SignupViewModel @Inject constructor(
 
     fun onConfirmSignUpClick(navigate: (String) -> Unit) {
         launchCatching {
+            _isLoading.value = true
             useCase.confirmSignUpUseCase(
                 userName = state.userName,
                 code = state.confirmCode,

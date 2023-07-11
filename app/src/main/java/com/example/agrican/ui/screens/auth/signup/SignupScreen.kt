@@ -123,15 +123,6 @@ fun SignupScreenContent(
 ) {
     Background(modifier = modifier, body1 = {
         Box {
-            GreenBackButton(
-                navigateUp = {
-                    clearState()
-                    if (accountType == null) navigateUp()
-                    else setAccountType(null)
-                },
-                modifier = Modifier.padding(12.dp)
-            )
-
             if (accountType == null) {
                 AccountType(
                     setAccountType = setAccountType,
@@ -152,6 +143,15 @@ fun SignupScreenContent(
                         .padding(32.dp)
                 )
             }
+
+            GreenBackButton(
+                navigateUp = {
+                    clearState()
+                    if (accountType == null) navigateUp()
+                    else setAccountType(null)
+                },
+                modifier = Modifier.padding(12.dp)
+            )
         }
     })
 }
@@ -270,7 +270,7 @@ fun Signup(
 
             val stroke = Stroke(
                 width = 2.dp.toPx(),
-                pathEffect = PathEffect.dashPathEffect(floatArrayOf(12.dp.toPx(), 8.dp.toPx()), 0.dp.toPx())
+                pathEffect = PathEffect.dashPathEffect(floatArrayOf(6.dp.toPx(), 6.dp.toPx()), 0.dp.toPx())
             )
 
             Surface(

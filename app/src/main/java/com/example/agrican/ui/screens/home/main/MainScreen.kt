@@ -109,7 +109,7 @@ fun MainScreen(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    var getWeather by remember { mutableStateOf(true) }
+    val getWeather by remember { mutableStateOf(true) }
 
     val context = LocalContext.current
     val activityResultLauncher =
