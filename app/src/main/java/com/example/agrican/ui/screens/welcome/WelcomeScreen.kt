@@ -1,7 +1,15 @@
 package com.example.agrican.ui.screens.welcome
 
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -25,14 +33,20 @@ import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -41,6 +55,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.os.LocaleListCompat
 import com.example.agrican.R
+import com.example.agrican.common.utils.toPx
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.screens.onboarding.OnboardingDestination
 import com.example.agrican.ui.theme.body
@@ -48,6 +63,8 @@ import com.example.agrican.ui.theme.gray
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.white
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 object WelcomeDestination: NavigationDestination {
     override val route: String = "welcome"
@@ -60,71 +77,71 @@ fun WelcomeScreen(
     openAndClear: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-//    var visible by remember { mutableStateOf(true) }
-//    val density = LocalDensity.current
-//
-//    val configuration = LocalConfiguration.current
-//    val screenHeight = configuration.screenHeightDp.dp
-//    val screenWidth = configuration.screenWidthDp.dp
-//
-//    AnimatedVisibility(
-//        visible = visible,
-//        enter = slideInVertically(
-//            animationSpec =
-//            spring(
-//                stiffness = Spring.StiffnessMediumLow,
-//                visibilityThreshold = IntOffset.VisibilityThreshold
-//            ),
-//            initialOffsetY = { fullHeight: Int ->
-//                fullHeight / 2
-//            }
-//        ) + scaleIn(
-//            initialScale = screenWidth.toPx()
-//        )
-//    ) {
-//        Box(modifier = modifier.fillMaxSize()) {
-//            Image(
-//                painter = painterResource(id = R.drawable.splash),
-//                contentDescription = null,
-//                modifier = Modifier
-//                    .padding(top = 64.dp)
-//                    .width(120.dp)
-//                    .align(Alignment.TopCenter)
-//            )
-//        }
-////        Box(modifier = modifier.fillMaxSize()) {
-////            Image(
-////                painter = painterResource(id = R.drawable.splash),
-////                contentDescription = null,
-////                modifier = Modifier
-////                    .fillMaxWidth()
-////                    .align(Alignment.Center)
-////            )
-////        }
-//    }
-//
-//
-//
-//
-//
-//    Box(
-//        modifier = modifier.fillMaxSize()
-//    ) {
-//        Button(
-//            onClick = { visible = !visible },
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .align(Alignment.Center)
-//        ) {
-//            Text(text = "hahahahahahahahahah")
-//        }
-//        }
+    var isAnimated by remember { mutableStateOf(false) }
+    var isContentVisible by remember { mutableStateOf(false) }
 
+    val configuration = LocalConfiguration.current
+    val screenWidth = configuration.screenWidthDp.dp.toPx()
+    val dp120 = 120.dp.toPx()
 
-    WelcomeScreenContent(
-        openAndClear = openAndClear,
-        modifier = modifier
-    )
+    val scope = rememberCoroutineScope()
+    val scale = remember { Animatable(1.5f) }
+
+    LaunchedEffect(key1 = LocalContext.current) {
+        isAnimated = true
+
+        scale.animateTo(
+            targetValue = .5f,
+            animationSpec = tween(
+                durationMillis = 1000,
+                easing = LinearEasing
+            )
+        )
+
+        scope.launch {
+            delay(1500)
+            isAnimated = false
+            isContentVisible = true
+        }
+    }
+
+    AnimatedVisibility(
+        visible = isAnimated,
+        enter = slideInVertically(
+            animationSpec =
+            tween(
+                durationMillis = 1000,
+                delayMillis = 500,
+                ),
+            initialOffsetY = { fullHeight: Int ->
+                fullHeight / 2 - 200
+            }
+        ) + scaleIn(
+            initialScale = screenWidth
+        )
+    ) {
+        Box(modifier = modifier.fillMaxSize()) {
+            Image(
+                painter = painterResource(id = R.drawable.splash),
+                contentDescription = null,
+                modifier = Modifier
+                    .padding(top = 64.dp)
+                    .scale(scale.value)
+                    .align(Alignment.TopCenter)
+            )
+        }
+    }
+
+    AnimatedVisibility (
+        visible = isContentVisible,
+        enter = fadeIn(),
+        exit = fadeOut()
+    ) {
+        WelcomeScreenContent(
+            openAndClear = openAndClear,
+            modifier = modifier
+        )
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

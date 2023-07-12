@@ -1,6 +1,6 @@
-package com.example.agrican.ui.screens
+package com.example.agrican.ui.screens.splash
 
-data class HomeUiState(
+data class SplashUiState(
     val isLoading: Boolean = true,
     val startDestination: String? = null
 )

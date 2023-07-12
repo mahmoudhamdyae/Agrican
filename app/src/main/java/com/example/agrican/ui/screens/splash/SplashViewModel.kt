@@ -1,9 +1,8 @@
-package com.example.agrican.ui.screens
+package com.example.agrican.ui.screens.splash
 
 import com.example.agrican.data.repository.PreferencesRepository
 import com.example.agrican.domain.repository.AccountService
-import com.example.agrican.ui.screens.auth.login.LoginDestination
-import com.example.agrican.ui.screens.home.HomeDestination
+import com.example.agrican.ui.screens.BaseViewModel
 import com.example.agrican.ui.screens.welcome.WelcomeDestination
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.cancel
@@ -13,12 +12,12 @@ import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(
+class SplashViewModel @Inject constructor(
     preferencesRepository: PreferencesRepository,
     private val accountService: AccountService
 ): BaseViewModel() {
 
-    private val _uiState = MutableStateFlow(HomeUiState())
+    private val _uiState = MutableStateFlow(SplashUiState())
     val uiState = _uiState.asStateFlow()
 
     init {
@@ -34,12 +33,14 @@ class HomeViewModel @Inject constructor(
                     if (!accountService.hasUser()) {
                         _uiState.value = _uiState.value.copy(
                             isLoading = false,
-                            startDestination = LoginDestination.route
+//                            startDestination = LoginDestination.route
+                            startDestination = WelcomeDestination.route
                         )
                     } else {
                         _uiState.value = _uiState.value.copy(
                             isLoading = false,
-                            startDestination = HomeDestination.route
+//                            startDestination = HomeDestination.route
+                            startDestination = WelcomeDestination.route
                         )
                     }
                     this.cancel()
