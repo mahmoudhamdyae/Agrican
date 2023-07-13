@@ -11,6 +11,7 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -82,7 +83,6 @@ fun WelcomeScreen(
 
     val configuration = LocalConfiguration.current
     val screenWidth = configuration.screenWidthDp.dp.toPx()
-    val dp120 = 120.dp.toPx()
 
     val scope = rememberCoroutineScope()
     val scale = remember { Animatable(1.5f) }
@@ -99,8 +99,7 @@ fun WelcomeScreen(
         )
 
         scope.launch {
-            delay(1500)
-            isAnimated = false
+            delay(400)
             isContentVisible = true
         }
     }
@@ -125,7 +124,7 @@ fun WelcomeScreen(
                 painter = painterResource(id = R.drawable.splash),
                 contentDescription = null,
                 modifier = Modifier
-                    .padding(top = 64.dp)
+                    .padding(top = 45.dp)
                     .scale(scale.value)
                     .align(Alignment.TopCenter)
             )
@@ -139,7 +138,7 @@ fun WelcomeScreen(
     ) {
         WelcomeScreenContent(
             openAndClear = openAndClear,
-            modifier = modifier
+            modifier = modifier.background(white)
         )
     }
 }
