@@ -7,7 +7,7 @@
     android:viewportHeight="80">
 
     <group
-        android:name="rotationGroup"
+        android:name="scaleGroup"
         android:pivotX="120"
         android:pivotY="50"
         android:scaleX="0.5"
