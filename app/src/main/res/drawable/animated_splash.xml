@@ -1,5 +1,5 @@
 <animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:drawable="@drawable/avectordrawable">
+    android:drawable="@drawable/splash">
     <target
         android:name="scaleGroup"
         android:animation="@animator/scale" />

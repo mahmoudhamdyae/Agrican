@@ -109,7 +109,7 @@ fun WelcomeScreen(
         enter = slideInVertically(
             animationSpec =
             tween(
-                durationMillis = 1000,
+                durationMillis = 1500,
                 delayMillis = 500,
                 ),
             initialOffsetY = { fullHeight: Int ->
@@ -121,7 +121,7 @@ fun WelcomeScreen(
     ) {
         Box(modifier = modifier.fillMaxSize()) {
             Image(
-                painter = painterResource(id = R.drawable.splash),
+                painter = painterResource(id = R.drawable.splash_logo),
                 contentDescription = null,
                 modifier = Modifier
                     .padding(top = 45.dp)
@@ -157,7 +157,7 @@ fun WelcomeScreenContent(
         BackGroundImage(modifier = Modifier.align(Alignment.BottomCenter))
 
         Image(
-            painter = painterResource(id = R.drawable.splash),
+            painter = painterResource(id = R.drawable.splash_logo),
             contentDescription = null,
             modifier = Modifier
                 .padding(top = 64.dp)

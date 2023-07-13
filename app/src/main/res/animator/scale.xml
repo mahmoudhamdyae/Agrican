@@ -1,31 +1,54 @@
 <set xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Zoom In -->
+
     <objectAnimator
-        android:duration="1000"
+        android:duration="600"
         android:propertyName="scaleX"
-        android:valueFrom="1.0"
-        android:valueTo="2.0"
+        android:valueFrom="0.5"
+        android:valueTo="1.0"
         android:valueType="floatType"/>
 
     <objectAnimator
-        android:duration="1000"
+        android:duration="600"
         android:propertyName="scaleY"
-        android:valueFrom="1.0"
-        android:valueTo="2.0"
+        android:valueFrom="0.5"
+        android:valueTo="1.0"
         android:valueType="floatType"/>
 
-    <objectAnimator
-        android:duration="1000"
-        android:propertyName="scaleX"
-        android:valueFrom="2.0"
-        android:valueTo="1.0"
-        android:valueType="floatType"
-        android:startOffset="1000"/>
+    <!-- Zoom Out -->
 
     <objectAnimator
-        android:duration="1000"
+        android:duration="600"
+        android:propertyName="scaleX"
+        android:valueFrom="1.0"
+        android:valueTo="0.7"
+        android:valueType="floatType"
+        android:startOffset="700"/>
+
+    <objectAnimator
+        android:duration="600"
         android:propertyName="scaleY"
-        android:valueFrom="2.0"
+        android:valueFrom="1.0"
+        android:valueTo="0.7"
+        android:valueType="floatType"
+        android:startOffset="700"/>
+
+    <!-- Zoom In -->
+
+    <objectAnimator
+        android:duration="600"
+        android:propertyName="scaleX"
+        android:valueFrom="0.7"
         android:valueTo="1.0"
         android:valueType="floatType"
-        android:startOffset="1000"/>
+        android:startOffset="1350"/>
+
+    <objectAnimator
+        android:duration="600"
+        android:propertyName="scaleY"
+        android:valueFrom="0.7"
+        android:valueTo="1.0"
+        android:valueType="floatType"
+        android:startOffset="1350"/>
 </set>

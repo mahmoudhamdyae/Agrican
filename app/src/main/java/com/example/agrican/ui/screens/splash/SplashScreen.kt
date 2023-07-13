@@ -37,7 +37,7 @@ fun SplashScreenContent(
         modifier = modifier.fillMaxSize()
     ) {
         Image(
-            painter = painterResource(id = R.drawable.splash),
+            painter = painterResource(id = R.drawable.splash_logo),
             contentDescription = null
         )
     }

@@ -3,7 +3,6 @@
     <style name="Theme.App.Starting" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">#FFFFFFFF</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/animated_splash</item>
-<!--        <item name="splashScreenIconSize">1000dp</item>-->
         <item name="postSplashScreenTheme">@style/Theme.Agrican</item>
     </style>
 </resources>
