@@ -22,9 +22,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -72,7 +69,7 @@ fun LoginScreen(
     val isLoading by viewModel.isLoading.collectAsStateWithLifecycle()
     val context = LocalContext.current
 
-    var confirmResetScreen by rememberSaveable { mutableStateOf(false) }
+    val confirmResetScreen by viewModel.confirmResetScreen.collectAsStateWithLifecycle()
 
     LaunchedEffect(key1 = context) {
         viewModel.validationEvents.collect { event ->
@@ -94,7 +91,6 @@ fun LoginScreen(
         onEvent = viewModel::onEvent,
         openScreen = openScreen,
         confirmResetScreen = confirmResetScreen,
-        setConfirmResetScreen = { confirmResetScreen = true },
         modifier = modifier
     )
 
@@ -111,7 +107,6 @@ fun LoginScreenContent(
     onEvent: (AuthFormEvent) -> Unit,
     openScreen: (String) -> Unit,
     confirmResetScreen: Boolean,
-    setConfirmResetScreen: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val focusManager = LocalFocusManager.current
@@ -175,7 +170,6 @@ fun LoginScreenContent(
                         fontWeight = FontWeight.SemiBold,
                         modifier = Modifier.clickable {
                             onEvent(AuthFormEvent.ForgotPassword)
-                            if (state.userNameError != null) setConfirmResetScreen()
                         }
                     )
                 }
@@ -258,8 +252,7 @@ fun LoginScreenPreview() {
         clearState = { },
         onEvent = { },
         openScreen = { },
-        confirmResetScreen = false,
-        setConfirmResetScreen = { }
+        confirmResetScreen = false
     )
 }
 
@@ -272,7 +265,6 @@ fun LoginResetPasswordScreenPreview() {
         clearState = { },
         onEvent = { },
         openScreen = { },
-        confirmResetScreen = true,
-        setConfirmResetScreen = { }
+        confirmResetScreen = true
     )
 }

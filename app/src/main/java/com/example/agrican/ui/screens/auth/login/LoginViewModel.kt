@@ -31,6 +31,9 @@ class LoginViewModel @Inject constructor(
     private val _isLoading = MutableStateFlow(false)
     val isLoading = _isLoading.asStateFlow()
 
+    private val _confirmResetScreen = MutableStateFlow(false)
+    val confirmResetScreen = _confirmResetScreen.asStateFlow()
+
     fun setAccountType(accountType: UserType) {
         this.accountType.value = accountType
     }
@@ -118,10 +121,14 @@ class LoginViewModel @Inject constructor(
         }
 
         launchCatching {
+            _isLoading.value = true
             useCase.forgotPasswordUseCase(
                 userName = state.userName,
-                onSuccess = { },
-                onError = { }
+                onSuccess = {
+                    _confirmResetScreen.value = true
+                    _isLoading.value = false
+                            },
+                onError = { _isLoading.value = false }
             )
         }
     }
