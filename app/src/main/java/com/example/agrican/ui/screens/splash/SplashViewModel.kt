@@ -3,6 +3,8 @@ package com.example.agrican.ui.screens.splash
 import com.example.agrican.data.repository.PreferencesRepository
 import com.example.agrican.domain.repository.AccountService
 import com.example.agrican.ui.screens.BaseViewModel
+import com.example.agrican.ui.screens.auth.login.LoginDestination
+import com.example.agrican.ui.screens.home.HomeDestination
 import com.example.agrican.ui.screens.welcome.WelcomeDestination
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.cancel
@@ -33,14 +35,12 @@ class SplashViewModel @Inject constructor(
                     if (!accountService.hasUser()) {
                         _uiState.value = _uiState.value.copy(
                             isLoading = false,
-//                            startDestination = LoginDestination.route
-                            startDestination = WelcomeDestination.route
+                            startDestination = LoginDestination.route
                         )
                     } else {
                         _uiState.value = _uiState.value.copy(
                             isLoading = false,
-//                            startDestination = HomeDestination.route
-                            startDestination = WelcomeDestination.route
+                            startDestination = HomeDestination.route
                         )
                     }
                     this.cancel()

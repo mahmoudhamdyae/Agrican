@@ -89,9 +89,8 @@ fun WelcomeScreen(
         val density = LocalDensity.current
         val configuration = LocalConfiguration.current
         val screenHeight = configuration.screenHeightDp.dp
-        val screenWidth = configuration.screenWidthDp.dp
         val widthInDp = animateDpAsState(
-            targetValue = if (isAnimated) 120.dp else screenWidth,
+            targetValue = if (isAnimated) 120.dp else 250.dp,
             animationSpec = tween(durationMillis = 1000,)
         )
 
@@ -102,7 +101,7 @@ fun WelcomeScreen(
                 animationSpec = tween(durationMillis = 1500)
             ) {
                 // Slide in from 40 dp from the top.
-                with(density) { (screenHeight / 2 - 64.dp).roundToPx() }
+                with(density) { (screenHeight / 2 - 100.dp).roundToPx() }
             }
         ) {
             Box(
