@@ -2,14 +2,14 @@
     xmlns:aapt="http://schemas.android.com/aapt"
     android:width="226.76dp"
     android:height="86.7dp"
-    android:viewportWidth="340"
-    android:viewportHeight="180">
+    android:viewportWidth="335"
+    android:viewportHeight="185">
 
     <group
         android:name="scaleGroup"
-        android:translateX="55"
+        android:translateX="50"
         android:translateY="30"
-        android:pivotY="170"
+        android:pivotY="165"
         android:pivotX="90">
 
         <path
