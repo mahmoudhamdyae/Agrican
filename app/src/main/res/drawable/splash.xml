@@ -1,16 +1,16 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:aapt="http://schemas.android.com/aapt"
-    android:width="226.76dp"
-    android:height="86.7dp"
-    android:viewportWidth="335"
-    android:viewportHeight="185">
+    android:width="190dp"
+    android:height="70dp"
+    android:viewportWidth="340"
+    android:viewportHeight="190">
 
     <group
         android:name="scaleGroup"
-        android:translateX="50"
+        android:translateX="55"
         android:translateY="30"
-        android:pivotY="165"
-        android:pivotX="90">
+        android:pivotX="130"
+        android:pivotY="95">
 
         <path
             android:fillColor="#173961"
