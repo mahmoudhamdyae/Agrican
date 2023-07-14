@@ -8,7 +8,9 @@
     <group
         android:name="scaleGroup"
         android:translateX="55"
-        android:translateY="30">
+        android:translateY="30"
+        android:pivotY="170"
+        android:pivotX="90">
 
         <path
             android:fillColor="#173961"
