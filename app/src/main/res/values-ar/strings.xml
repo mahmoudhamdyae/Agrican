@@ -93,6 +93,11 @@
     <string name="turn_on_location_toast">Turn on location</string>
     <string name="air_quality">جودة الهواء</string>
     <string name="air_quality_good">مقبول</string>
+    <string name="air_quality_moderate">معتدل</string>
+    <string name="air_quality_unhealthy_for_sensitive_groups">Unhealthy for Sensitive Groups</string>
+    <string name="air_quality_unhealthy">Unhealthy</string>
+    <string name="air_quality_very_unhealthy">Very Unhealthy </string>
+    <string name="air_quality_Hazardous">خطير</string>
     <string name="wind">الرياح</string>
     <string name="gusts_of_wind">هبات الرياح</string>
     <string name="air_information_button">معلومات عن الجو اليوم</string>

@@ -3,6 +3,7 @@ package com.example.agrican.common.utils
 object Constant {
     const val BASE_URL = "https://accept.paymobsolutions.com/api/"
     const val WEATHER_BASE_URL = "https://api.open-meteo.com/"
+    const val Air_Quality_BASE_URL = "https://air-quality-api.open-meteo.com/"
     const val PAYMOB_BASE_URL = "https://accept.paymobsolutions.com/api/"
 
     // todo Encrypt Api Key

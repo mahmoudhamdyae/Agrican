@@ -3,7 +3,6 @@ package com.example.agrican.data.mappers
 import com.example.agrican.data.remote.model.weather.WeatherDataDto
 import com.example.agrican.data.remote.model.weather.WeatherDto
 import com.example.agrican.domain.model.weather.WeatherData
-import com.example.agrican.domain.model.weather.WeatherInfo
 import com.example.agrican.domain.model.weather.WeatherType
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -38,14 +37,11 @@ fun WeatherDataDto.toWeatherDataMap(): Map<Int, List<WeatherData>> {
     }
 }
 
-fun WeatherDto.toWeatherInfo(): WeatherInfo {
+fun WeatherDto.toCurrentWeatherData(): WeatherData? {
     val weatherDataMap = weatherData.toWeatherDataMap()
     val now = LocalDateTime.now()
-    val currentWeatherData = weatherDataMap[0]?.find {
+    return weatherDataMap[0]?.find {
         val hour = if (now.minute < 30) now.hour else now.hour + 1
         it.time.hour == hour
     }
-    return WeatherInfo(
-        currentWeatherData = currentWeatherData
-    )
 }

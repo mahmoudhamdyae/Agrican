@@ -1,10 +1,13 @@
 package com.example.agrican.ui.screens.home.main
 
+import android.util.Log
+import androidx.lifecycle.viewModelScope
 import com.example.agrican.domain.use_case.BaseUseCase
 import com.example.agrican.ui.screens.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -30,6 +33,10 @@ class MainViewModel @Inject constructor(
     }
 
     fun getWeather(latitude: Double, longitude: Double) {
+        viewModelScope.launch {
+            Log.d("hahahaha", useCase.getWeatherUseCase(latitude, longitude).toString())
+        }
+
         launchCatching {
             _uiState.value = _uiState.value.copy(
                 weather = useCase.getWeatherUseCase(latitude, longitude),

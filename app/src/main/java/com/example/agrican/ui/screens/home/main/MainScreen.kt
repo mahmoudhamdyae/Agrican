@@ -204,7 +204,7 @@ fun MainScreenContent(
                             windGusts = currentWeatherData.windGusts,
                             windDirection = currentWeatherData.windDirection,
                             weatherDesc = currentWeatherData.weatherType.weatherDesc,
-                            airQuality = R.string.air_quality_good,
+                            airQuality = uiState.weather.airQuality,
                             iconRes = currentWeatherData.weatherType.iconRes
                         )
 
@@ -406,13 +406,13 @@ fun WeatherBox(
                         modifier = Modifier.padding(horizontal = 8.dp)
                     ) {
                         Text(
-                            text = "مقبول",
+                            text = stringResource(id = weather?.airQuality!!),
                             style = MaterialTheme.typography.body,
                             fontSize = 11.sp,
                             fontWeight = FontWeight.Bold,
                         )
                         Text(
-                            text = stringResource(id = weather?.currentWeatherData?.windDirection!!) +
+                            text = stringResource(id = weather.currentWeatherData?.windDirection!!) +
                                     " " +
                                     stringResource(
                                         id = R.string.wind_unit,
