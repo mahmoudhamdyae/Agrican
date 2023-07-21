@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -418,10 +419,9 @@ fun LazyListScope.cropsList(
     onDelCropClick: (String) -> Unit,
     openScreen: (String) -> Unit
 ) {
-    items(crops.size) { cropNo ->
+    items(items = crops, key = { it.cropId }) {
         CropsListItem(
-            crop = crops[cropNo],
-//            onObserveClick = { openScreen("${ObserveCropDestination.route}/${crops[cropNo].cropId}") },
+            crop = it,
             onObserveClick = { openScreen(ObserveCropDestination.route) },
             onDelCropClick = onDelCropClick,
             delAction = delAction

@@ -67,7 +67,7 @@ fun PestList(
         columns = GridCells.Fixed(2),
         modifier = modifier.padding(8.dp)
     ) {
-        items(pests) { pest ->
+        items(items = pests, key = { it.pestId }) { pest ->
             PestListItem(pest = pest, onItemClick = onItemClick)
         }
 

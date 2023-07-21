@@ -54,7 +54,7 @@ fun CostScreen(
     var askAnExpertCode by remember { mutableStateOf("") }
     var cropManagerCode by remember { mutableStateOf("") }
 
-    var focusManager = LocalFocusManager.current
+    val focusManager = LocalFocusManager.current
 
     BackButtonTopBar(
         title = CostDestination.titleRes,

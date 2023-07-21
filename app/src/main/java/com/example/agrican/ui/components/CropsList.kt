@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
@@ -51,7 +52,7 @@ fun CropsList(
                 CropsListItemLoading(modifier = Modifier.padding(8.dp))
             }
         }
-    } else {
+    } else if (crops != null) {
         Box(contentAlignment = Alignment.Center) {
 
             var selectedCrop: Crop? by rememberSaveable { mutableStateOf(null) }
@@ -64,18 +65,33 @@ fun CropsList(
                     }
             ) {
                 LazyRow(modifier = modifier) {
-                    items(crops!!.size) {
+                    items(items = crops, key = { it.cropId }) {
                         CropsListItem(
-                            crop = crops[it],
+                            crop = it,
                             modifier = Modifier
                                 .padding(8.dp)
                                 .clickable {
                                     selectedCrop = if (selectedCrop == null) {
-                                        crops[it]
+                                        it
                                     } else {
                                         null
                                     }
-                                    setSelectedCrop(crops[it])
+                                    setSelectedCrop(it)
+                                }
+                        )
+                    }
+                    items(items = crops, key = { it.cropId }) {
+                        CropsListItem(
+                            crop = it,
+                            modifier = Modifier
+                                .padding(8.dp)
+                                .clickable {
+                                    selectedCrop = if (selectedCrop == null) {
+                                        it
+                                    } else {
+                                        null
+                                    }
+                                    setSelectedCrop(it)
                                 }
                         )
                     }

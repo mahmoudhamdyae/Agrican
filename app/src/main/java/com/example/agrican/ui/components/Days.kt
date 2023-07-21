@@ -80,15 +80,13 @@ fun Days(
             columns = GridCells.Fixed(7),
             modifier = modifier
         ) {
-            repeat(31) {
-                item {
-                    DayItem(
-                        day = it + 1,
-                        selected = selectedDays.contains(it + 1),
-                        onItemClicked = onDayClicked,
-                        modifier = Modifier.padding(2.dp)
-                    )
-                }
+            items(count = 31, key = { it }) {
+                DayItem(
+                    day = it + 1,
+                    selected = selectedDays.contains(it + 1),
+                    onItemClicked = onDayClicked,
+                    modifier = Modifier.padding(2.dp)
+                )
             }
         }
     }

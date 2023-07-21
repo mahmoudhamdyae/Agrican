@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -39,12 +40,12 @@ fun FarmsList(
     modifier: Modifier = Modifier
 ) {
     LazyRow(modifier = modifier) {
-        items(farms.size) {
+        items(items = farms, key = { it.farmId }) {
             FarmsListItem(
-                farm = farms[it],
+                farm = it,
                 delAction = delAction,
                 onDelFarmClick = onDelFarmClick,
-                modifier = Modifier.clickable { onFarmClick(farms[it]) }
+                modifier = Modifier.clickable { onFarmClick(it) }
             )
         }
     }

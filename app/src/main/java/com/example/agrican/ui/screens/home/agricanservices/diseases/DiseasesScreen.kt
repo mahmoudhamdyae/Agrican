@@ -67,7 +67,7 @@ fun DiseaseList(
         columns = GridCells.Fixed(2),
         modifier = modifier.padding(8.dp)
     ) {
-        items(diseases) { disease ->
+        items(items = diseases, key = { it.diseaseId }) { disease ->
             DiseaseListItem(disease = disease, onItemClick = onItemClick)
         }
 

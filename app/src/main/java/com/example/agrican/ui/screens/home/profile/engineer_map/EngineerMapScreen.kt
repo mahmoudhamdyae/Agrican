@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
@@ -98,13 +99,11 @@ fun FarmsList(
         columns = GridCells.Fixed(4),
         modifier = modifier
     ) {
-        repeat(farms.size) {
-            item {
-                FarmsListItem(
-                    farm = farms[it],
-                    modifier = Modifier.clickable { openScreen(ExistingMapDestination.route) }
-                )
-            }
+        items(items = farms, key = { it.farmId}) {
+            FarmsListItem(
+                farm = it,
+                modifier = Modifier.clickable { openScreen(ExistingMapDestination.route) }
+            )
         }
     }
 }

@@ -54,11 +54,6 @@ import com.example.agrican.ui.theme.white
 object ObserveCropDestination: NavigationDestination {
     override val route: String = "observe_crop"
     override val titleRes: Int = R.string.observe_crop
-//    const val cropIdArg = "crop_id"
-//    val routeWithArgs = "$route/{$cropIdArg}"
-//    val arguments = listOf(
-//        navArgument(cropIdArg) { type = NavType.StringType },
-//    )
 }
 
 @Composable

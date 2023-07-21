@@ -163,15 +163,11 @@ fun ExistingMapScreenContent(
             )
 
             ExpandableItem(
-                selectedDays = listOf(),
-                onDayAdded = { /*TODO*/ },
                 isDelAction = isDelAction,
                 openScreen = openScreen
             )
 
             ExpandableItem(
-                selectedDays = listOf(),
-                onDayAdded = { /*TODO*/ },
                 isDelAction = isDelAction,
                 openScreen = openScreen
             )
@@ -271,8 +267,6 @@ fun AddProblemSurface(
 
 @Composable
 fun ExpandableItem(
-    selectedDays: List<Int>,
-    onDayAdded: (Int) -> Unit,
     isDelAction: Boolean,
     openScreen: (String) -> Unit,
     modifier: Modifier = Modifier
