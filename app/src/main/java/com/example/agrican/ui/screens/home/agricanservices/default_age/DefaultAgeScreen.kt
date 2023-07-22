@@ -49,7 +49,7 @@ import com.example.agrican.common.enums.Quality
 import com.example.agrican.common.utils.DateUtils
 import com.example.agrican.domain.model.Crop
 import com.example.agrican.ui.components.BackButtonTopBar
-import com.example.agrican.ui.components.CalenderIcon
+import com.example.agrican.ui.components.CalenderDropDown
 import com.example.agrican.ui.components.Chip
 import com.example.agrican.ui.components.CropsList
 import com.example.agrican.ui.components.DateDropDown
@@ -170,12 +170,12 @@ fun DefaultAgeScreenContent(
             }
 
             // Calender Button
-            CalenderIcon(
-                onClick = { datePickerDialog.show() },
-                modifier = Modifier
-                    .padding(end = 16.dp)
-                    .clip(RoundedCornerShape(16.dp))
-                    .background(greenLight)
+//            CalenderIcon(
+//                onClick = { datePickerDialog.show() },
+//                modifier = Modifier.padding(end = 16.dp)
+//            )
+            CalenderDropDown(
+                modifier = Modifier.padding(end = 16.dp)
             )
         }
 

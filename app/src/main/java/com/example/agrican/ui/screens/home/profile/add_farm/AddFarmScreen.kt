@@ -34,7 +34,7 @@ import com.example.agrican.R
 import com.example.agrican.common.enums.SizeUnit
 import com.example.agrican.common.utils.DateUtils
 import com.example.agrican.ui.components.BackButtonTopBar
-import com.example.agrican.ui.components.CalenderIcon
+import com.example.agrican.ui.components.CalenderDropDown
 import com.example.agrican.ui.components.DateDropDown
 import com.example.agrican.ui.components.DropDown
 import com.example.agrican.ui.components.LabelItem
@@ -176,7 +176,7 @@ fun AddFarmScreenContent(
                     .fillMaxHeight()
             )
 
-            CalenderIcon(onClick = { /*TODO*/ })
+            CalenderDropDown()
         }
 
         // Farming Date Row
@@ -215,7 +215,7 @@ fun AddFarmScreenContent(
                     .fillMaxHeight()
             )
 
-            CalenderIcon(onClick = { /*TODO*/ })
+            CalenderDropDown()
         }
 
         // Crops Type Text Field

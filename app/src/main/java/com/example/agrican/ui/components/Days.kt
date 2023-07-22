@@ -2,13 +2,13 @@ package com.example.agrican.ui.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Surface
@@ -36,7 +36,8 @@ fun Days(
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(4.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = modifier
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -76,17 +77,23 @@ fun Days(
             }
         }
 
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(7),
-            modifier = modifier
-        ) {
-            items(count = 31, key = { it }) {
-                DayItem(
-                    day = it + 1,
-                    selected = selectedDays.contains(it + 1),
-                    onItemClicked = onDayClicked,
-                    modifier = Modifier.padding(2.dp)
-                )
+        repeat(5) { row ->
+            Row(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                repeat(7) { column ->
+                    val day = column + 1 + row * 7
+                    if (day < 32) {
+                        DayItem(
+                            day = day,
+                            selected = selectedDays.contains(day),
+                            onItemClicked = onDayClicked,
+                            modifier = Modifier.weight(1f).padding(2.dp)
+                        )
+                    } else {
+                        Box(modifier = Modifier.weight(1f))
+                    }
+                }
             }
         }
     }
@@ -109,7 +116,13 @@ fun DayItem(
         modifier = modifier
             .height(55.dp)
             .clickable { onItemClicked(day) }
-            .drawBehind { drawRoundRect(color = greenDark, style = stroke) }
+            .drawBehind {
+                if (!selected) {
+                    drawRoundRect(color = greenDark, style = stroke)
+                } else {
+                    drawRoundRect(color = greenDark)
+                }
+            }
     ) {
         Text(
             text = day.toString(),

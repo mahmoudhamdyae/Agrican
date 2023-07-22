@@ -64,7 +64,9 @@ fun DropDown(
     ExposedDropdownMenuBox(
         expanded = expanded,
         onExpandedChange = { expanded = it },
-        modifier = modifier.fillMaxHeight()
+        modifier = modifier
+            .fillMaxHeight()
+            .clickable { expanded = !expanded }
     ) {
         BasicTextField(
             readOnly = true,
@@ -80,16 +82,12 @@ fun DropDown(
                         modifier = Modifier.padding(start = 8.dp)
                     )
                     Spacer(modifier = Modifier.weight(1f))
-                    IconButton(
-                        onClick = { expanded = !expanded },
+                    Icon(
+                        imageVector = if (expanded) Icons.Default.ExpandLess else Icons.Default.ExpandMore,
+                        contentDescription = null,
+                        tint = textColor,
                         modifier = Modifier.height(32.dp)
-                    ) {
-                        Icon(
-                            imageVector = if (expanded) Icons.Default.ExpandLess else Icons.Default.ExpandMore,
-                            contentDescription = null,
-                            tint = textColor
-                        )
-                    }
+                    )
                 }
             },
             value = stringResource(id = selectedOption),
@@ -105,7 +103,9 @@ fun DropDown(
         ExposedDropdownMenu(
             expanded = expanded,
             onDismissRequest = { expanded = false },
-            modifier = Modifier.background(white).padding(top = 2.dp)
+            modifier = Modifier
+                .background(white)
+                .padding(top = 2.dp)
         ) {
             options.forEach { selectionOption ->
                 Column(
@@ -147,7 +147,9 @@ fun DateDropDown(
     ExposedDropdownMenuBox(
         expanded = expanded,
         onExpandedChange = { expanded = it },
-        modifier = modifier.fillMaxHeight()
+        modifier = modifier
+            .fillMaxHeight()
+            .clickable { expanded = !expanded }
     ) {
         BasicTextField(
             readOnly = true,
@@ -162,16 +164,12 @@ fun DateDropDown(
                         modifier = Modifier.padding(start = 8.dp)
                     )
                     Spacer(modifier = Modifier.weight(1f))
-                    IconButton(
-                        onClick = { expanded = !expanded },
+                    Icon(
+                        imageVector = if (expanded) Icons.Default.ExpandLess else Icons.Default.ExpandMore,
+                        contentDescription = null,
+                        tint = greenDark,
                         modifier = Modifier.height(32.dp)
-                    ) {
-                        Icon(
-                            imageVector = if (expanded) Icons.Default.ExpandLess else Icons.Default.ExpandMore,
-                            contentDescription = null,
-                            tint = greenDark
-                        )
-                    }
+                    )
                 }
             },
             value = if (selectedOption2 == options[0]) stringResource(id = selectedOption2)
@@ -228,7 +226,9 @@ fun DropDownMenuContent(
 
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(horizontal = 20.dp).padding(top = 8.dp)
+            modifier = Modifier
+                .padding(horizontal = 20.dp)
+                .padding(top = 8.dp)
         ) {
             // Settings Label
             Text(
@@ -297,6 +297,42 @@ fun DropDownMenuContent(
                     }
                 )
             }
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun CalenderDropDown(
+    modifier: Modifier = Modifier
+) {
+
+    var expanded by remember { mutableStateOf(false) }
+
+    ExposedDropdownMenuBox(
+        expanded = expanded,
+        onExpandedChange = { expanded = it },
+        modifier = modifier
+            .fillMaxHeight()
+            .clickable { expanded = !expanded }
+    ) {
+        BasicTextField(
+            readOnly = true,
+            decorationBox = { CalenderIcon() },
+            value = "",
+            onValueChange = { },
+            modifier = Modifier.menuAnchor()
+        )
+        ExposedDropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false },
+            modifier = Modifier.background(white).padding(top = 2.dp).width(300.dp)
+        ) {
+            Days(
+                selectedDays = listOf(),
+                onDayClicked = { /*TODO*/ },
+                modifier = Modifier.padding(horizontal = 2.dp).background(white)
+            )
         }
     }
 }
