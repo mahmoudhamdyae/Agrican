@@ -79,7 +79,7 @@ fun Days(
                 color = greenDark
             )
             Text(
-                text = "2023",
+                text = year.toString(),
                 color = greenDark
             )
 

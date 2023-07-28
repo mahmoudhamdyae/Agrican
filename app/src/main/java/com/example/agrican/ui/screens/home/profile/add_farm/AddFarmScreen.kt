@@ -176,7 +176,13 @@ fun AddFarmScreenContent(
                     .fillMaxHeight()
             )
 
-            CalenderDropDown(onDayClicked = { /*TODO*/ })
+            CalenderDropDown(
+                onDayClicked = {
+                    updateDay(it.dayOfMonth)
+                    updateMonth(it.monthValue)
+                    updateYear(it.year)
+                }
+            )
         }
 
         // Farming Date Row

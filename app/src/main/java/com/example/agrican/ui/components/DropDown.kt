@@ -332,7 +332,10 @@ fun CalenderDropDown(
         ) {
             Days(
                 selectedDays = listOf(),
-                onDayClicked = onDayClicked,
+                onDayClicked = { 
+                    expanded = false
+                    onDayClicked(it)
+                               },
                 modifier = Modifier.padding(horizontal = 2.dp)
             )
         }

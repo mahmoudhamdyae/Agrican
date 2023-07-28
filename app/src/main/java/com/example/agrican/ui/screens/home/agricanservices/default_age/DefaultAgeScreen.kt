@@ -171,7 +171,11 @@ fun DefaultAgeScreenContent(
 
             // Calender Button
             CalenderDropDown(
-                onDayClicked = { /*TODO*/ },
+                onDayClicked = {
+                    updateDay(it.dayOfMonth)
+                    updateMonth(it.monthValue)
+                    updateYear(it.year)
+                },
                 modifier = Modifier.padding(end = 16.dp)
             )
         }
