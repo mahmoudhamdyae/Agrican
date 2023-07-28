@@ -282,6 +282,7 @@ fun ExpandableItem(
             color = greenLight,
             modifier = Modifier
                 .clickable { isVisible = !isVisible }
+                .height(45.dp)
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -307,8 +308,8 @@ fun ExpandableItem(
                         onClick = { /*TODO*/ },
                         modifier = Modifier
                             .padding(1.dp)
-                            .clip(RoundedCornerShape(topEnd = 16.dp, bottomEnd = 16.dp))
-                            .height(40.dp)
+                            .clip(RoundedCornerShape(topEnd = 13.dp, bottomEnd = 13.dp))
+                            .height(43.dp)
                             .background(white)
                     ) {
                         Icon(
