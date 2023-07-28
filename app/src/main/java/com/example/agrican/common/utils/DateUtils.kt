@@ -20,3 +20,28 @@ class DateUtils {
         return numbers.toList()
     }
 }
+
+fun Int.toMonth(): Int {
+    return when(this) {
+        1 -> R.string.january
+        2 -> R.string.february
+        3 -> R.string.march
+        4 -> R.string.april
+        5 -> R.string.may
+        6 -> R.string.june
+        7 -> R.string.july
+        8 -> R.string.augustus
+        9 -> R.string.september
+        10 -> R.string.october
+        11 -> R.string.november
+        else -> R.string.december
+    }
+}
+
+fun Int.getNumberOfDaysInMonth(): Int {
+    return when(this) {
+        1, 3, 5, 7, 8, 10, 12 -> 31
+        4, 6, 9, 11 -> 30
+        else -> 28
+    }
+}

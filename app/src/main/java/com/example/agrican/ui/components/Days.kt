@@ -14,26 +14,38 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.agrican.R
+import com.example.agrican.common.utils.getNumberOfDaysInMonth
+import com.example.agrican.common.utils.toMonth
 import com.example.agrican.common.utils.toPx
 import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.white
+import java.time.LocalDate
 
 @Composable
 fun Days(
-    selectedDays: List<Int>,
-    onDayClicked: (Int) -> Unit,
+    selectedDays: List<LocalDate>,
+    onDayClicked: (LocalDate) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val now = LocalDate.now()
+    var month by rememberSaveable { mutableStateOf(now.monthValue) }
+    var year by rememberSaveable { mutableStateOf(now.year) }
+
     Column(
         verticalArrangement = Arrangement.spacedBy(4.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -44,7 +56,14 @@ fun Days(
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             IconButton(
-                onClick = { /*TODO*/ },
+                onClick = {
+                    if (month == 1) {
+                        month = 12
+                        year--
+                    } else {
+                        month--
+                    }
+                          },
                 modifier = Modifier.padding(horizontal = 4.dp)
             ) {
                 Icon(
@@ -56,7 +75,7 @@ fun Days(
             }
 
             Text(
-                text = "يونيو",
+                text = stringResource(id = month.toMonth()),
                 color = greenDark
             )
             Text(
@@ -65,7 +84,14 @@ fun Days(
             )
 
             IconButton(
-                onClick = { /*TODO*/ },
+                onClick = {
+                    if (month == 12) {
+                        month = 1
+                        year++
+                    } else {
+                        month++
+                    }
+                          },
                 modifier = Modifier.padding(horizontal = 4.dp)
             ) {
                 Icon(
@@ -82,13 +108,17 @@ fun Days(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 repeat(7) { column ->
-                    val day = column + 1 + row * 7
-                    if (day < 32) {
+                    val currentDay = column + 1 + row * 7
+                    if (currentDay < month.getNumberOfDaysInMonth() + 1) {
                         DayItem(
-                            day = day,
-                            selected = selectedDays.contains(day),
-                            onItemClicked = onDayClicked,
-                            modifier = Modifier.weight(1f).padding(2.dp)
+                            day = currentDay,
+                            selected = selectedDays.contains(LocalDate.of(year, month, currentDay)),
+                            onItemClicked = {
+                                onDayClicked(LocalDate.of(year, month, it))
+                            },
+                            modifier = Modifier
+                                .weight(1f)
+                                .padding(2.dp)
                         )
                     } else {
                         Box(modifier = Modifier.weight(1f))
@@ -139,5 +169,12 @@ fun DayItem(
 @Preview(showBackground = true)
 @Composable
 fun DaysPreview() {
-    Days(selectedDays = listOf(9, 12, 25), onDayClicked = { })
+    Days(
+        selectedDays = listOf(
+            LocalDate.of(2023, 7, 9),
+            LocalDate.of(2023, 7, 12),
+            LocalDate.of(2023, 7, 25))
+        ,
+        onDayClicked = { }
+    )
 }

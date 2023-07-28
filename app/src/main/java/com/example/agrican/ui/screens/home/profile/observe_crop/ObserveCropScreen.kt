@@ -50,6 +50,7 @@ import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.greenLight
 import com.example.agrican.ui.theme.title
 import com.example.agrican.ui.theme.white
+import java.time.LocalDate
 
 object ObserveCropDestination: NavigationDestination {
     override val route: String = "observe_crop"
@@ -267,8 +268,8 @@ fun AddTakSurface(
 @Composable
 fun ExpandableItem(
     label: Int,
-    selectedDays: List<Int>,
-    onDayAdded: (Int) -> Unit,
+    selectedDays: List<LocalDate>,
+    onDayAdded: (LocalDate) -> Unit,
     isDelAction: Boolean,
     modifier: Modifier = Modifier
 ) {

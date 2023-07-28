@@ -5,6 +5,7 @@ import com.example.agrican.ui.screens.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import java.time.LocalDate
 import javax.inject.Inject
 
 @HiltViewModel
@@ -15,7 +16,7 @@ class AddTaskViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(AddTaskUiState())
     val uiState = _uiState.asStateFlow()
 
-    fun flipDay(day: Int) {
+    fun flipDay(day: LocalDate) {
         val days = _uiState.value.days.toMutableList()
         if (days.contains(day)) days.remove(day)
         else days.add(day)

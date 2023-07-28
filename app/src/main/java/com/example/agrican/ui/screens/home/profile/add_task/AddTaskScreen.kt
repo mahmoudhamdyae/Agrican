@@ -40,6 +40,7 @@ import com.example.agrican.ui.components.LabelWithTextField
 import com.example.agrican.ui.navigation.NavigationDestination
 import com.example.agrican.ui.theme.body
 import com.example.agrican.ui.theme.greenDark
+import java.time.LocalDate
 
 object AddTaskDestination: NavigationDestination {
     override val route: String = "add_task"
@@ -73,8 +74,8 @@ fun AddTaskScreen(
 
 @Composable
 fun AddTaskScreenContent(
-    days: List<Int>,
-    flipDay: (Int) -> Unit,
+    days: List<LocalDate>,
+    flipDay: (LocalDate) -> Unit,
     taskName: String,
     onTaskNameChanged: (String) -> Unit,
     addTask: (String) -> Unit,

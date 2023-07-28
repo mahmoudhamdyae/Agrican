@@ -176,7 +176,7 @@ fun AddFarmScreenContent(
                     .fillMaxHeight()
             )
 
-            CalenderDropDown()
+            CalenderDropDown(onDayClicked = { /*TODO*/ })
         }
 
         // Farming Date Row
@@ -215,7 +215,7 @@ fun AddFarmScreenContent(
                     .fillMaxHeight()
             )
 
-            CalenderDropDown()
+            CalenderDropDown(onDayClicked = { /*TODO*/ })
         }
 
         // Crops Type Text Field

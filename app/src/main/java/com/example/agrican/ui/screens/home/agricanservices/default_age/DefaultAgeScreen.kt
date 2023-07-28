@@ -170,11 +170,8 @@ fun DefaultAgeScreenContent(
             }
 
             // Calender Button
-//            CalenderIcon(
-//                onClick = { datePickerDialog.show() },
-//                modifier = Modifier.padding(end = 16.dp)
-//            )
             CalenderDropDown(
+                onDayClicked = { /*TODO*/ },
                 modifier = Modifier.padding(end = 16.dp)
             )
         }

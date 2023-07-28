@@ -48,6 +48,7 @@ import com.example.agrican.ui.theme.greenDark
 import com.example.agrican.ui.theme.iconGray
 import com.example.agrican.ui.theme.textGray
 import com.example.agrican.ui.theme.white
+import java.time.LocalDate
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -304,6 +305,7 @@ fun DropDownMenuContent(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CalenderDropDown(
+    onDayClicked: (LocalDate) -> Unit,
     modifier: Modifier = Modifier
 ) {
 
@@ -330,8 +332,8 @@ fun CalenderDropDown(
         ) {
             Days(
                 selectedDays = listOf(),
-                onDayClicked = { /*TODO*/ },
-                modifier = Modifier.padding(horizontal = 2.dp).background(white)
+                onDayClicked = onDayClicked,
+                modifier = Modifier.padding(horizontal = 2.dp)
             )
         }
     }
