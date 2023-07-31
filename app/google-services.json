@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "666478022792",
+    "project_id": "agrican-cf924",
+    "storage_bucket": "agrican-cf924.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:666478022792:android:8409638982b2f6f0d04f3d",
+        "android_client_info": {
+          "package_name": "com.example.agrican"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "666478022792-26jtb8i3qjvb8v8trfttk86db88a89vt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjjbmhbyOjVi3nnqton-NZ-o1ZoCH1Ko4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "666478022792-26jtb8i3qjvb8v8trfttk86db88a89vt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
