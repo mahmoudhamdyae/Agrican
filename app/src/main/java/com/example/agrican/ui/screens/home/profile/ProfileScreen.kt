@@ -1,11 +1,14 @@
 package com.example.agrican.ui.screens.home.profile
 
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -20,7 +23,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -243,6 +245,7 @@ fun UserHeaderAndItems(
                         AddItem(
                             title = R.string.add_farm,
                             description = R.string.add_farm_description,
+                            icon = R.drawable.add_farm,
                             onIconClick = { openScreen(AddFarmDestination.route) },
                             modifier = Modifier
                                 .weight(1f)
@@ -254,6 +257,7 @@ fun UserHeaderAndItems(
                     AddItem(
                         title = R.string.add_crop,
                         description = R.string.add_crop_description,
+                        icon = R.drawable.add_crop,
                         onIconClick = { openScreen(AddCropDestination.route) },
                         modifier = Modifier
                             .weight(1f)
@@ -266,6 +270,7 @@ fun UserHeaderAndItems(
                     AddItem(
                         title = R.string.engineer_map,
                         description = R.string.engineer_map_description,
+                        icon = R.drawable.engineer_map,
                         onIconClick = { openScreen(EngineerMapDestination.route) },
                         modifier = Modifier
                             .fillMaxWidth()
@@ -338,27 +343,45 @@ fun UserHeader(
             Column(horizontalAlignment = Alignment.End) {
                 Button(
                     onClick = { /*TODO*/ },
-                    colors = ButtonDefaults.buttonColors(containerColor = greenDark)
+                    colors = ButtonDefaults.buttonColors(containerColor = greenDark),
+                    contentPadding = PaddingValues(horizontal = 8.dp, vertical = 6.dp)
                 ) {
-                    Text(
-                        text = stringResource(id = R.string.modify_data),
-                        color = white,
-                        style = MaterialTheme.typography.body,
-                        fontSize = 11.sp
-                    )
+                    Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.modify_data),
+                            contentDescription = null,
+                            tint = white,
+                            modifier = Modifier.size(22.dp)
+                        )
+                        Text(
+                            text = stringResource(id = R.string.modify_data),
+                            color = white,
+                            style = MaterialTheme.typography.body,
+                            fontSize = 11.sp
+                        )
+                    }
                 }
 
                 // Cost Button
                 Button(
                     onClick = { openScreen(CostDestination.route) },
-                    colors = ButtonDefaults.buttonColors(containerColor = greenDark)
+                    colors = ButtonDefaults.buttonColors(containerColor = greenDark),
+                    contentPadding = PaddingValues(horizontal = 8.dp, vertical = 6.dp)
                 ) {
-                    Text(
-                        text = stringResource(id = R.string.cost),
-                        color = white,
-                        style = MaterialTheme.typography.body,
-                        fontSize = 11.sp
-                    )
+                    Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.cost),
+                            contentDescription = null,
+                            tint = white,
+                            modifier = Modifier.size(22.dp)
+                        )
+                        Text(
+                            text = stringResource(id = R.string.cost),
+                            color = white,
+                            style = MaterialTheme.typography.body,
+                            fontSize = 11.sp
+                        )
+                    }
                 }
             }
         }
@@ -367,8 +390,9 @@ fun UserHeader(
 
 @Composable
 fun AddItem(
-    title: Int,
-    description: Int,
+    @StringRes title: Int,
+    @StringRes description: Int,
+    @DrawableRes icon: Int,
     onIconClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -397,18 +421,14 @@ fun AddItem(
                 )
             }
 
-            IconButton(
-                onClick = onIconClick,
+            Icon(
+                painter = painterResource(id = icon),
+                contentDescription = null,
+                tint = greenLight,
                 modifier = Modifier
                     .align(Alignment.BottomEnd)
-                    .size(32.dp)
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Add,
-                    contentDescription = null,
-                    tint = greenLight
+                    .size(30.dp)
                 )
-            }
         }
     }
 }

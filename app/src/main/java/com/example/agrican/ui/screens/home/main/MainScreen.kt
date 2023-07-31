@@ -22,7 +22,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -52,7 +51,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
@@ -261,7 +259,7 @@ fun MainScreenContent(
         BottomCard(
             title = R.string.problem_images,
             description = R.string.problem_images_description,
-            icon = R.drawable.camera,
+            icon = R.drawable.problem_images,
             onItemClick = { openScreen(ProblemImagesDestination.route) },
             body = { ProblemImagesRow() },
             modifier = Modifier
@@ -274,28 +272,23 @@ fun MainScreenContent(
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             modifier = Modifier
                 .padding(horizontal = 18.dp, vertical = 8.dp)
-                .height(130.dp)
         ) {
             // Fertilizers Calculator Card
             BottomCard(
                 title = R.string.fertilizers_calculator,
                 description = R.string.fertilizers_calculator_description,
-                icon = R.drawable.calculator,
+                icon = R.drawable.fertilizers_calculator,
                 onItemClick = { openScreen(FertilizersCalculatorDestination.route) },
-                modifier = Modifier
-                    .weight(1f)
-                    .fillMaxHeight()
+                modifier = Modifier.weight(1f)
             )
 
             // Ask An Expert Card
             BottomCard(
                 title = R.string.ask_expert,
                 description = R.string.ask_expert_description,
-                icon = R.drawable.ask_expert,
+                icon = R.drawable.ask_an_expert,
                 onItemClick = { openScreen(AskExpertDestination.route) },
-                modifier = Modifier
-                    .weight(1f)
-                    .fillMaxHeight()
+                modifier = Modifier.weight(1f)
             )
         }
     }
@@ -641,22 +634,12 @@ fun BottomCard(
         Column(
             modifier = Modifier.padding(8.dp)
         ) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                // Card Title
-                Text(
-                    text = stringResource(id = title),
-                    style = MaterialTheme.typography.title,
-                    fontSize = 16.sp
-                )
-                Spacer(modifier = Modifier.weight(1f))
-                // Card Icon
-                Icon(
-                    painter = painterResource(id = icon),
-                    contentDescription = null,
-                    tint = greenDark,
-                    modifier = Modifier.size(24.dp)
-                )
-            }
+            // Card Title
+            Text(
+                text = stringResource(id = title),
+                style = MaterialTheme.typography.title,
+                fontSize = 16.sp
+            )
 
             // Card Description
             Text(
@@ -667,6 +650,20 @@ fun BottomCard(
             )
 
             body()
+
+            Row {
+                Spacer(modifier = Modifier.weight(1f))
+
+                // Card Icon
+                Icon(
+                    painter = painterResource(id = icon),
+                    contentDescription = null,
+                    tint = greenDark,
+                    modifier = Modifier
+                        .padding(start = 6.dp)
+                        .size(24.dp)
+                )
+            }
         }
     }
 }
@@ -682,36 +679,38 @@ fun ProblemImagesRow(
             .fillMaxWidth()
             .padding(vertical = 16.dp)
     ) {
-        ProblemImagesRowItem()
+        Icon(
+            painter = painterResource(id = R.drawable.problem_images1),
+            contentDescription = null,
+            tint = greenLight,
+            modifier = Modifier.size(60.dp)
+            )
+        // Arrow Icon
         Icon(
             painter = painterResource(id = R.drawable.baseline_arrow_forward_ios_24),
             contentDescription = null,
-            tint = greenDark,
+            tint = gray,
             modifier = Modifier.padding(12.dp)
         )
-        ProblemImagesRowItem()
+        Icon(
+            painter = painterResource(id = R.drawable.problem_images2),
+            contentDescription = null,
+            tint = greenLight,
+            modifier = Modifier.size(60.dp)
+        )
+        // Arrow Icon
         Icon(
             painter = painterResource(id = R.drawable.baseline_arrow_forward_ios_24),
             contentDescription = null,
-            tint = greenDark,
+            tint = gray,
             modifier = Modifier.padding(12.dp)
         )
-        ProblemImagesRowItem()
-    }
-}
-
-@Composable
-fun ProblemImagesRowItem(
-    modifier: Modifier = Modifier
-) {
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = modifier
-            .size(70.dp)
-            .clip(RoundedCornerShape(16.dp))
-            .background(gray)
-    ) {
-        Text(text = "ico", fontSize = 21.sp, color = white)
+        Icon(
+            painter = painterResource(id = R.drawable.problem_images3),
+            contentDescription = null,
+            tint = greenLight,
+            modifier = Modifier.size(60.dp)
+        )
     }
 }
 

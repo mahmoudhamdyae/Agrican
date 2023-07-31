@@ -1,5 +1,7 @@
 package com.example.agrican.ui.screens.home.agricanservices
 
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -11,15 +13,17 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -96,6 +100,7 @@ fun AgricanServicesContent(
                 Card(
                     title = R.string.default_age,
                     description = R.string.default_age_description,
+                    icon = R.drawable.default_age,
                     modifier = Modifier
                         .weight(1.5f)
                         .fillMaxHeight()
@@ -108,6 +113,7 @@ fun AgricanServicesContent(
                 Card(
                     title = R.string.order,
                     description = R.string.order_description,
+                    icon = R.drawable.order_product,
                     modifier = Modifier
                         .weight(1f)
                         .clickable { openScreen(OrderDestination.route) },
@@ -125,6 +131,7 @@ fun AgricanServicesContent(
                     Card(
                         title = R.string.disease,
                         description = R.string.disease_description,
+                        icon = R.drawable.diseases,
                         modifier = Modifier
                             .weight(1f)
                             .padding(end = 16.dp)
@@ -135,6 +142,7 @@ fun AgricanServicesContent(
                     Card(
                         title = R.string.pests,
                         description = R.string.pests_description,
+                        icon = R.drawable.pests,
                         modifier = Modifier
                             .weight(1.5f)
                             .fillMaxHeight()
@@ -153,6 +161,7 @@ fun AgricanServicesContent(
                     Card(
                         title = R.string.treatment,
                         description = R.string.treatment_description,
+                        icon = R.drawable.treatment,
                         modifier = Modifier
                             .padding(16.dp)
                             .clickable { openScreen(TreatmentDestination.route) }
@@ -165,6 +174,7 @@ fun AgricanServicesContent(
         Card(
             title = R.string.join_as_expert,
             description = R.string.join_as_expert_description,
+            icon = R.drawable.join_as_expert,
             modifier = Modifier
                 .padding(16.dp)
                 .clickable { openScreen(JoinAsExpertDestination.route) }
@@ -174,8 +184,9 @@ fun AgricanServicesContent(
 
 @Composable
 fun Card(
-    title: Int,
-    description: Int,
+    @StringRes title: Int,
+    @StringRes description: Int,
+    @DrawableRes icon: Int,
     modifier: Modifier = Modifier,
     isPrimaryMain: Boolean = false
 ) {
@@ -215,13 +226,11 @@ fun Card(
             // Card Icon
             Row {
                 Spacer(modifier = Modifier.weight(1f))
-                Text(
-                    text = "ico",
-                    color = mainColor,
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(24.dp))
-                        .background(secondaryColor)
-                        .padding(horizontal = 6.dp, vertical = 2.dp)
+                Icon(
+                    painter = painterResource(id = icon),
+                    contentDescription = null,
+                    tint = secondaryColor,
+                    modifier = Modifier.size(36.dp)
                 )
             }
         }
@@ -232,4 +241,14 @@ fun Card(
 @Composable
 fun AgricanServiceScreenPreview() {
     AgricanServicesScreen(openScreen = { }, navigateFromSignOut = { })
+}
+
+@Preview
+@Composable
+fun CardPreview() {
+    Card(
+        title = R.string.join_as_expert,
+        description = R.string.join_as_expert_description,
+        icon = R.drawable.join_as_expert
+    )
 }
