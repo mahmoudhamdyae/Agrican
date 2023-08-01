@@ -1,5 +1,6 @@
 package com.theflankers.agrican.ui.screens.home.main.weather
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -126,7 +127,10 @@ fun WeatherScreenContent(
         Divider(modifier = Modifier.fillMaxWidth(), color = textGray)
 
         // Air Quality
-        WeatherRow(weatherLabel = R.string.air_quality, weatherData = "مقبول")
+        WeatherRow(
+            weatherLabel = R.string.air_quality,
+            weatherData = stringResource(id = weather.airQuality)
+        )
         Divider(modifier = Modifier.fillMaxWidth(), color = textGray)
         // Wind
         WeatherRow(
@@ -178,7 +182,7 @@ fun WeatherScreenContent(
 
 @Composable
 fun WeatherRow(
-    weatherLabel: Int,
+    @StringRes weatherLabel: Int,
     weatherData: String,
     modifier: Modifier = Modifier
 ) {
