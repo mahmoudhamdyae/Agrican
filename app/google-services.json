@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "666478022792",
-    "project_id": "agrican-cf924",
-    "storage_bucket": "agrican-cf924.appspot.com"
+    "project_number": "587976081029",
+    "project_id": "agrican-57daf",
+    "storage_bucket": "agrican-57daf.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:666478022792:android:8409638982b2f6f0d04f3d",
+        "mobilesdk_app_id": "1:587976081029:android:0d0f2cd0540efc4750f3ec",
         "android_client_info": {
-          "package_name": "com.example.agrican"
+          "package_name": "com.theflankers.agrican"
         }
       },
       "oauth_client": [
         {
-          "client_id": "666478022792-26jtb8i3qjvb8v8trfttk86db88a89vt.apps.googleusercontent.com",
+          "client_id": "587976081029-aljuga5d1dmq9kohdadhnhlfhr74qiod.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAjjbmhbyOjVi3nnqton-NZ-o1ZoCH1Ko4"
+          "current_key": "AIzaSyD1Ot7Kg1Pf57nnoGD5vw33rlwGPiVeY5A"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "666478022792-26jtb8i3qjvb8v8trfttk86db88a89vt.apps.googleusercontent.com",
+              "client_id": "587976081029-aljuga5d1dmq9kohdadhnhlfhr74qiod.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

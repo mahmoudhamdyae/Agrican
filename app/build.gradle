@@ -10,11 +10,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.agrican'
+    namespace 'com.theflankers.agrican'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.agrican"
+        applicationId "com.theflankers.agrican"
         minSdk 24
         targetSdk 33
         versionCode 1
