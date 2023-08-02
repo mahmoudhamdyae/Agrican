@@ -12,12 +12,12 @@ class GetCropsUseCase @Inject constructor(
 //        return mainRepository.getCrops()
 
         return listOf(
-            Crop(name = "الأرز"),
-            Crop(name = "نبات الصبار"),
-            Crop(name = "نبات الياسمين"),
-            Crop(name = "الأرز"),
-            Crop(name = "الأرز"),
-            Crop(name = "الأرز"),
+            Crop(cropId = "11", name = "الأرز"),
+            Crop(cropId = "12", name = "نبات الصبار"),
+            Crop(cropId = "13", name = "نبات الياسمين"),
+            Crop(cropId = "14", name = "الأرز"),
+            Crop(cropId = "15", name = "الأرز"),
+            Crop(cropId = "16", name = "الأرز"),
         )
     }
 }

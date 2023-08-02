@@ -21,7 +21,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -48,14 +48,14 @@ fun CropsList(
 ) {
     if (isLoading && crops == null) {
         LazyRow(modifier = modifier) {
-            items(10) {
+            items(count = 10, key = { it }) {
                 CropsListItemLoading(modifier = Modifier.padding(8.dp))
             }
         }
     } else if (crops != null) {
         Box(contentAlignment = Alignment.Center) {
 
-            var selectedCrop: Crop? by rememberSaveable { mutableStateOf(null) }
+            var selectedCrop: Crop? by remember { mutableStateOf(null) }
 
             Box(
                 modifier = Modifier
@@ -65,7 +65,7 @@ fun CropsList(
                     }
             ) {
                 LazyRow(modifier = modifier) {
-                    items(items = crops, key = { it.cropId }) {
+                    items(items = crops) {
                         CropsListItem(
                             crop = it,
                             modifier = Modifier
