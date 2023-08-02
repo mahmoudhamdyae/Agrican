@@ -133,7 +133,7 @@ fun AddCropScreenContent(
                 style = MaterialTheme.typography.title
             )
             DateDropDown(
-                options = DateUtils().days,
+                options = DateUtils().days(uiState.month, uiState.year),
                 onSelect = { if (it != 0) updateDay(it) },
                 selectedOption = uiState.day,
                 modifier = Modifier

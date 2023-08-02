@@ -8,6 +8,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -142,7 +143,7 @@ fun DefaultAgeScreenContent(
             ) {
                 // Days Drop Down
                 DateDropDown(
-                    options = DateUtils().days,
+                    options = DateUtils().days(uiState.month, uiState.year),
                     onSelect = updateDay,
                     selectedOption = uiState.day,
                     modifier = Modifier
@@ -233,6 +234,7 @@ fun DefaultAgeScreenContent(
         Button(
             onClick = getResults,
             colors = ButtonDefaults.buttonColors(containerColor = greenDark),
+            contentPadding = PaddingValues(0.dp),
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
                 .height(38.dp)
@@ -312,7 +314,7 @@ fun CircularProgress(
 
     val animatedProgress by animateFloatAsState(
         targetValue = percent / 100f,
-        animationSpec = ProgressIndicatorDefaults.ProgressAnimationSpec
+        animationSpec = ProgressIndicatorDefaults.ProgressAnimationSpec, label = ""
     )
 
     Box(modifier = modifier) {

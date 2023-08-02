@@ -152,7 +152,7 @@ fun AddFarmScreenContent(
 
             // Days
             DateDropDown(
-                options = DateUtils().days,
+                options = DateUtils().days(uiState.month, uiState.year),
                 onSelect = updateDay,
                 selectedOption = uiState.day,
                 modifier = Modifier
@@ -197,7 +197,7 @@ fun AddFarmScreenContent(
 
             // Days
             DateDropDown(
-                options = DateUtils().days,
+                options = DateUtils().days(uiState.month, uiState.year),
                 onSelect = { if (it != 0) updateDay(it) },
                 selectedOption = uiState.day,
                 modifier = Modifier

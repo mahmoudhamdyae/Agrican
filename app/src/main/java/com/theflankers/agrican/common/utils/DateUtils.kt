@@ -6,7 +6,11 @@ import java.util.Calendar
 
 class DateUtils {
 
-    val days = getIntegers(R.string.day, 31)
+    val days: (Int, Int) -> List<Int> = { month, year ->
+        val noOfDays: Int = if (month == R.string.month || year == R.string.year) 31
+                            else month.getNumberOfDaysInMonth(year)
+        getIntegers(R.string.day, noOfDays)
+    }
     val months = getIntegers(R.string.month, 12)
     private val _years = getIntegers(R.string.year, Calendar.getInstance().get(Calendar.YEAR) - 1990 + 2, firstValue = 1990)
     val years: List<Int> = listOf(_years[0]) + _years.slice(1.._years.length - 2).reversed()
