@@ -109,7 +109,7 @@ fun Days(
             ) {
                 repeat(7) { column ->
                     val currentDay = column + 1 + row * 7
-                    if (currentDay < month.getNumberOfDaysInMonth() + 1) {
+                    if (currentDay < month.getNumberOfDaysInMonth(year) + 1) {
                         DayItem(
                             day = currentDay,
                             selected = selectedDays.contains(LocalDate.of(year, month, currentDay)),

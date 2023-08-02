@@ -2,11 +2,14 @@ package com.theflankers.agrican.ui.screens.home.main
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.IntentSender
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
+import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
 import android.widget.Toast
@@ -67,6 +70,17 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.google.android.gms.common.api.GoogleApiClient
+import com.google.android.gms.common.api.PendingResult
+import com.google.android.gms.common.api.Status
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.LocationSettingsRequest
+import com.google.android.gms.location.LocationSettingsResult
+import com.google.android.gms.location.LocationSettingsStatusCodes
 import com.theflankers.agrican.R
 import com.theflankers.agrican.domain.model.News
 import com.theflankers.agrican.domain.model.weather.Weather
@@ -86,11 +100,6 @@ import com.theflankers.agrican.ui.theme.greenDark
 import com.theflankers.agrican.ui.theme.greenLight
 import com.theflankers.agrican.ui.theme.title
 import com.theflankers.agrican.ui.theme.white
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationCallback
-import com.google.android.gms.location.LocationRequest
-import com.google.android.gms.location.LocationResult
-import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.launch
 
 object MainDestination: NavigationDestination {
@@ -753,15 +762,56 @@ private fun getLastLocation(
                 }
             }
         } else {
-            Toast.makeText(context, R.string.turn_on_location_toast, Toast.LENGTH_LONG).show()
-            val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-            context.startActivity(intent)
+            openLocationDialog(context)
         }
     } else {
         if (activityResultLauncher != null) {
             grantPermission(activityResultLauncher)
         }
     }
+}
+
+private fun openLocationDialog(context: Context) {
+    val REQUESTLOCATION = 199
+    var googleApiClient: GoogleApiClient? = null
+    googleApiClient = GoogleApiClient.Builder(context)
+        .addApi(LocationServices.API)
+        .addConnectionCallbacks(object : GoogleApiClient.ConnectionCallbacks {
+            override fun onConnected(bundle: Bundle?) {}
+            override fun onConnectionSuspended(i: Int) {
+                googleApiClient?.connect()
+            }
+        })
+        .addOnConnectionFailedListener {
+        }.build()
+    googleApiClient.connect()
+    val locationRequest = LocationRequest.create()
+    locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+    locationRequest.interval = 30 * 1000.toLong()
+    locationRequest.fastestInterval = 5 * 1000.toLong()
+    val builder = LocationSettingsRequest.Builder()
+        .addLocationRequest(locationRequest)
+    builder.setAlwaysShow(true)
+    val result: PendingResult<LocationSettingsResult> =
+        LocationServices.SettingsApi.checkLocationSettings(googleApiClient, builder.build())
+    result.setResultCallback { result ->
+        val status: Status = result.status
+        when (status.statusCode) {
+            LocationSettingsStatusCodes.RESOLUTION_REQUIRED -> try {
+                status.startResolutionForResult(
+                    context as Activity,
+                    REQUESTLOCATION
+                )
+            } catch (e: IntentSender.SendIntentException) {
+            }
+        }
+    }
+}
+
+private fun openLocation(context: Context) {
+    Toast.makeText(context, R.string.turn_on_location_toast, Toast.LENGTH_LONG).show()
+    val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+    context.startActivity(intent)
 }
 
 @SuppressLint("MissingPermission")

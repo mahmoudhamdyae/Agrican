@@ -38,10 +38,10 @@ fun Int.toMonth(): Int {
     }
 }
 
-fun Int.getNumberOfDaysInMonth(): Int {
+fun Int.getNumberOfDaysInMonth(year: Int): Int {
     return when(this) {
         1, 3, 5, 7, 8, 10, 12 -> 31
         4, 6, 9, 11 -> 30
-        else -> 28
+        else -> if ((year % 100) % 4 == 0) 29 else 28
     }
 }
