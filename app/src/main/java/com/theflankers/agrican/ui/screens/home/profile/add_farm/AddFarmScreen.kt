@@ -69,6 +69,7 @@ fun AddFarmScreen(
             updateFarmSize = { viewModel.updateUiStates(farmSize = it) },
             updateSizeUnit = { viewModel.updateUiStates(sizeUnit = it) },
             updateCropsType = { viewModel.updateUiStates(cropsType = it) },
+            updateFarmAddress = { viewModel.updateUiStates(farmAddress = it) },
             updateDay = { viewModel.updateUiStates(day = it) },
             updateMonth = { viewModel.updateUiStates(month = it) },
             updateYear = { viewModel.updateUiStates(year = it) },
@@ -85,6 +86,7 @@ fun AddFarmScreenContent(
     updateFarmSize: (String) -> Unit,
     updateSizeUnit: (Int) -> Unit,
     updateCropsType: (String) -> Unit,
+    updateFarmAddress: (String) -> Unit,
     updateDay: (Int) -> Unit,
     updateMonth: (Int) -> Unit,
     updateYear: (Int) -> Unit,
@@ -236,8 +238,8 @@ fun AddFarmScreenContent(
         // Crops Type Text Field
         Box {
             LabelWithTextField(
-                value = uiState.cropsType,
-                onNewValue = updateCropsType,
+                value = uiState.farmAddress,
+                onNewValue = updateFarmAddress,
                 hint = R.string.farm_address,
                 label = R.string.farm_address,
                 focusManager = focusManager,
@@ -276,5 +278,5 @@ fun AddFarmScreenContent(
 @Preview(showBackground = true)
 @Composable
 fun AddFarmScreenPreview() {
-    AddFarmScreenContent(uiState = AddFarmUiState(), { }, { }, { }, { }, { }, { }, { }, { }, { })
+    AddFarmScreenContent(uiState = AddFarmUiState(), { }, { }, { }, { }, { }, { }, { }, { }, { }, { })
 }

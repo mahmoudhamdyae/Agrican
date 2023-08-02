@@ -16,7 +16,8 @@ class AddFarmUseCase @Inject constructor(
         day: Int,
         month: Int,
         year: Int,
-        cropsType: String
+        cropsType: String,
+        farmAddress: String
     ) {
 
         val farm = Farm(name = farmName)

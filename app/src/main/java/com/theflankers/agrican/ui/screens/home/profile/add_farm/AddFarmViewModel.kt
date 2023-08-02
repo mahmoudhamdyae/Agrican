@@ -20,6 +20,7 @@ class AddFarmViewModel @Inject constructor(
         farmSize: String =  _uiState.value.farmSize,
         sizeUnit: Int =  _uiState.value.sizeUnit,
         cropsType: String =  _uiState.value.cropsType,
+        farmAddress: String =  _uiState.value.farmAddress,
         day: Int =  _uiState.value.day,
         month: Int =  _uiState.value.month,
         year: Int =  _uiState.value.year,
@@ -29,6 +30,7 @@ class AddFarmViewModel @Inject constructor(
             farmSize = farmSize,
             sizeUnit = sizeUnit,
             cropsType = cropsType,
+            farmAddress = farmAddress,
             day = day,
             month = month,
             year = year,
@@ -44,7 +46,8 @@ class AddFarmViewModel @Inject constructor(
                 day = _uiState.value.day,
                 month = _uiState.value.month,
                 year = _uiState.value.year,
-                cropsType = _uiState.value.cropsType
+                cropsType = _uiState.value.cropsType,
+                farmAddress = _uiState.value.farmAddress
             )
         }
     }

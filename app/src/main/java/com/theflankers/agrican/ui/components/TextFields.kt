@@ -299,7 +299,8 @@ fun SimpleTextField(
                 modifier = Modifier
                     .fillMaxWidth()
                     .wrapContentHeight()
-                    .padding(8.dp),
+                    .padding(8.dp)
+                    .padding(start = 16.dp),
             contentAlignment = Alignment.Center
             ) {
                 innerTextField()

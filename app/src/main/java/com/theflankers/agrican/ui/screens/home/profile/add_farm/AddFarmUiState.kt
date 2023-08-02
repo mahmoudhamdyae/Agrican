@@ -8,6 +8,7 @@ data class AddFarmUiState(
     val farmSize: String = "",
     val sizeUnit: Int = SizeUnit.SQUARE_KILOMETER.title,
     val cropsType: String = "",
+    val farmAddress: String = "",
     val day: Int = R.string.day,
     val month: Int = R.string.month,
     val year: Int = R.string.year,
