@@ -8,8 +8,13 @@ data class Message(
     val userId: String = "",
     val body: String? = null,
     val image: String? = null,
-    val file: File? = null,
+    val audioFile: AudioFile? = null,
     val messageId: String = UUID.randomUUID().toString(),
+)
+
+data class AudioFile(
+    val file: File? = null,
+    val duration: Int = 0
 )
 
 enum class MessageType {

@@ -7,6 +7,7 @@ import android.os.Handler
 import android.os.Looper
 import com.theflankers.agrican.common.utils.audio.VisualizerData
 import com.theflankers.agrican.common.utils.audio.VisualizerHelper
+import com.theflankers.agrican.domain.model.AudioFile
 import com.theflankers.agrican.domain.model.Message
 import com.theflankers.agrican.domain.model.MessageType
 import com.theflankers.agrican.domain.use_case.BaseUseCase
@@ -121,7 +122,7 @@ class ChatViewModel @Inject constructor(
     private fun pause() {
         _visualizer.stop()
         _player?.pause()
-        _uiState.value = _uiState.value.copy(isPlaying = true)
+        _uiState.value = _uiState.value.copy(isPlaying = false)
     }
 
     private fun seek(position: Float) {
@@ -138,7 +139,7 @@ class ChatViewModel @Inject constructor(
             body = messageBody,
             userId = _uiState.value.currentUser.userId,
             image = image,
-            file = file,
+            audioFile = AudioFile(file),
             type = messageType,
         )
         launchCatching {

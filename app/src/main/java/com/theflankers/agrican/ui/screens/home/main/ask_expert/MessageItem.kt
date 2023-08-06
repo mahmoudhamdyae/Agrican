@@ -37,13 +37,13 @@ import com.theflankers.agrican.R
 import com.theflankers.agrican.common.ext.decodeImage
 import com.theflankers.agrican.common.utils.audio.VisualizerData
 import com.theflankers.agrican.common.utils.millisecondsToTimeString
+import com.theflankers.agrican.domain.model.AudioFile
 import com.theflankers.agrican.domain.model.Message
 import com.theflankers.agrican.domain.model.MessageType
 import com.theflankers.agrican.ui.theme.black
 import com.theflankers.agrican.ui.theme.greenDark
 import com.theflankers.agrican.ui.theme.textGray
 import com.theflankers.agrican.ui.theme.white
-import java.io.File
 
 @Composable
 fun MessageItem(
@@ -129,7 +129,7 @@ fun MessageItemContent(
                     MessageType.IMAGE -> { ImageMessage(image = message.image!!) }
                     MessageType.VOICE -> {
                         VoiceMessage(
-                            audioFile = message.file!!,
+                            audioFile = message.audioFile!!,
                             modifier = Modifier.padding(16.dp),
                             visualizerData = visualizerData,
                             onEvent = onEvent,
@@ -174,7 +174,7 @@ fun ImageMessage(
 
 @Composable
 fun VoiceMessage(
-    audioFile: File,
+    audioFile: AudioFile,
     visualizerData: VisualizerData,
     currentTime: Int,
     isPlaying: Boolean,
@@ -218,7 +218,7 @@ fun VoiceMessage(
             } else {
                 // Init Audio
                 onEvent(AudioPlayerEvent.InitAudio(
-                    audio = audioFile.toUri(),
+                    audio = audioFile.file!!.toUri(),
                     context = context,
                     onAudioInitialized = { onEvent(AudioPlayerEvent.Play) }))
             }
