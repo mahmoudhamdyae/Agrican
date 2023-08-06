@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.theflankers.agrican.R
+import com.theflankers.agrican.common.utils.audio.VisualizerData
 import com.theflankers.agrican.domain.model.Chat
 import com.theflankers.agrican.domain.model.Message
 import com.theflankers.agrican.domain.model.MessageType
@@ -79,7 +80,11 @@ fun ChatScreen(
                     scrollState.animateScrollToItem(uiState.chat.messages.size - 1)
                 }
             },
-            scrollState = scrollState
+            scrollState = scrollState,
+            visualizerData = viewModel.visualizerData.value,
+            onEvent = viewModel::onEvent,
+            currentTime = uiState.currentTime,
+            isPlaying = uiState.isPlaying
         )
     }
 }
@@ -92,6 +97,10 @@ fun ChatScreenContent(
     sendMessage: (String) -> Unit,
     sendImage: (String?) -> Unit,
     sendFile: (File?) -> Unit,
+    visualizerData: VisualizerData,
+    currentTime: Int,
+    isPlaying: Boolean,
+    onEvent: (AudioPlayerEvent) -> Unit,
     modifier: Modifier = Modifier,
     scrollState: LazyListState = rememberLazyListState()
 ) {
@@ -120,7 +129,11 @@ fun ChatScreenContent(
             userId = userId,
             messages = chat.messages,
             modifier = Modifier.weight(1f),
-            scrollState = scrollState
+            scrollState = scrollState,
+            visualizerData = visualizerData,
+            onEvent = onEvent,
+            currentTime = currentTime,
+            isPlaying = isPlaying
         )
 
         BottomView(
@@ -138,6 +151,10 @@ fun ChatScreenContent(
 fun ChatMessages(
     userId: String,
     messages: List<Message>,
+    visualizerData: VisualizerData,
+    currentTime: Int,
+    isPlaying: Boolean,
+    onEvent: (AudioPlayerEvent) -> Unit,
     modifier: Modifier = Modifier,
     scrollState: LazyListState = rememberLazyListState()
 ) {
@@ -149,6 +166,10 @@ fun ChatMessages(
             MessageItem(
                 message = it,
                 isUserMe = it.userId == userId,
+                visualizerData = visualizerData,
+                onEvent = onEvent,
+                currentTime = currentTime,
+                isPlaying = isPlaying
             )
         }
     }

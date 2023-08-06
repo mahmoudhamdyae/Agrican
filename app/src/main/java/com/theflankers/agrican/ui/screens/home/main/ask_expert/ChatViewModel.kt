@@ -1,5 +1,12 @@
 package com.theflankers.agrican.ui.screens.home.main.ask_expert
 
+import android.content.Context
+import android.media.MediaPlayer
+import android.net.Uri
+import android.os.Handler
+import android.os.Looper
+import com.theflankers.agrican.common.utils.audio.VisualizerData
+import com.theflankers.agrican.common.utils.audio.VisualizerHelper
 import com.theflankers.agrican.domain.model.Message
 import com.theflankers.agrican.domain.model.MessageType
 import com.theflankers.agrican.domain.use_case.BaseUseCase
@@ -15,8 +22,16 @@ class ChatViewModel @Inject constructor(
     private val useCase: BaseUseCase
 ): BaseViewModel() {
 
+    private var _player: MediaPlayer? = null
+    private var _visualizer = VisualizerHelper()
+
     private val _uiState = MutableStateFlow(ChatUiState())
     val uiState = _uiState.asStateFlow()
+
+    private val _visualizerData = MutableStateFlow(VisualizerData())
+    val visualizerData = _visualizerData.asStateFlow()
+
+    private val _handler = Handler(Looper.getMainLooper())
 
     init {
         launchCatching {
@@ -27,6 +42,90 @@ class ChatViewModel @Inject constructor(
                 )
             }
         }
+    }
+
+    fun onEvent(event: AudioPlayerEvent) {
+        when (event) {
+
+            is AudioPlayerEvent.InitAudio -> initAudio(
+                audio = event.audio,
+                context = event.context,
+                onAudioInitialized = event.onAudioInitialized
+            )
+
+            is AudioPlayerEvent.Seek -> seek(position = event.position)
+
+            AudioPlayerEvent.Pause -> pause()
+
+            AudioPlayerEvent.Play -> play()
+
+            AudioPlayerEvent.Stop -> stop()
+        }
+    }
+
+    private fun initAudio(audio: Uri, context: Context, onAudioInitialized: () -> Unit) {
+        launchCatching {
+
+            _uiState.value = _uiState.value.copy(audio = audio)
+
+            _player = MediaPlayer().apply {
+                setDataSource(context, audio)
+                prepare()
+            }
+
+            _player?.setOnCompletionListener {
+                pause()
+            }
+
+            _player?.setOnPreparedListener {
+                onAudioInitialized()
+            }
+        }
+    }
+
+    private fun play() {
+        _uiState.value = _uiState.value.copy(isPlaying = true)
+        _player?.start()
+        _player?.run {
+            _visualizer.start(
+                audioSessionId = audioSessionId,
+                onData = { data ->
+                    _visualizerData.value = data
+                }
+            )
+        }
+        _handler.postDelayed(object : Runnable {
+            override fun run() {
+                try {
+                    _uiState.value = _uiState.value.copy(currentTime = _player!!.currentPosition)
+                    _handler.postDelayed(this, 1000)
+                } catch (exp: Exception) {
+                    _uiState.value = _uiState.value.copy(currentTime = 0)
+                }
+            }
+
+        }, 0)
+    }
+
+    private fun stop() {
+        _visualizer.stop()
+        _player?.apply {
+            stop()
+            reset()
+            release()
+        }
+        _player = null
+        _uiState.value = _uiState.value.copy(currentTime = 0, isPlaying = false)
+    }
+
+    private fun pause() {
+        _visualizer.stop()
+        _player?.pause()
+        _uiState.value = _uiState.value.copy(isPlaying = true)
+    }
+
+    private fun seek(position: Float) {
+        _player?.seekTo(position.toInt())
     }
 
     fun sendMessage(

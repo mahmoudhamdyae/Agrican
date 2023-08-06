@@ -22,6 +22,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -33,6 +34,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -123,15 +126,18 @@ fun BottomView(
                 modifier = Modifier.weight(1f)
             ) {
                 BasicTextField(
-                    singleLine = true,
                     value = message,
                     onValueChange = { message = it },
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Text,
+                        imeAction = ImeAction.Default
+                    ),
                     decorationBox = { innerTextField ->
                         Box(
                             modifier = Modifier
                                 .height(35.dp)
                                 .fillMaxWidth()
-                                .padding(start = 10.dp),
+                                .padding(start = 10.dp, top = 10.dp),
                         ) {
                             innerTextField()
                         }
