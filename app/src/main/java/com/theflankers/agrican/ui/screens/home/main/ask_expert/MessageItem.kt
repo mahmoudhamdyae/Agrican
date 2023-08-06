@@ -197,13 +197,13 @@ fun VoiceMessage(
         Text(
             text = if (isPlaying) millisecondsToTimeString(currentTime) else "audioFile",
             color = textGray,
-            fontSize = 16.sp
+            fontSize = 12.sp
         )
 
         StackedBarVisualizer(
             modifier = Modifier
-                .width(100.dp)
-                .height(height = 64.dp)
+                .width(110.dp)
+                .height(height = 32.dp)
                 .padding(vertical = 4.dp, horizontal = 8.dp),
             shape = MaterialTheme.shapes.large,
             barCount = 32,
@@ -240,7 +240,7 @@ fun VoiceMessage(
                 imageVector = if (isPlaying) Icons.Default.Pause else Icons.Default.PlayArrow,
                 contentDescription = null,
                 tint = white,
-                modifier = Modifier.clip(CircleShape).background(greenDark)
+                modifier = Modifier.clip(CircleShape).background(greenDark).padding(4.dp)
             )
         }
     }
