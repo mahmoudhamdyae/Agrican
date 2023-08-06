@@ -1,6 +1,5 @@
 package com.theflankers.agrican.domain.repository
 
-import com.theflankers.agrican.domain.model.Chat
 import com.theflankers.agrican.domain.model.Crop
 import com.theflankers.agrican.domain.model.Disease
 import com.theflankers.agrican.domain.model.Farm
@@ -34,7 +33,7 @@ interface MainRepository {
 
     suspend fun searchProblem(crop: Crop, image1: String?, image2: String?, image3: String?)
     suspend fun calculateFertilize()
-    suspend fun getChat(): Flow<Chat>
+    suspend fun getChat(): Flow<List<Message>>
     suspend fun sendMessage(message: Message)
 
     suspend fun getFarms(): List<Farm>

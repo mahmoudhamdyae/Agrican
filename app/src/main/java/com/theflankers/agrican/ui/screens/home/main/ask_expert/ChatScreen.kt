@@ -51,7 +51,7 @@ fun ChatScreen(
 
     val scope = rememberCoroutineScope()
     val scrollState =
-        rememberLazyListState(initialFirstVisibleItemIndex = uiState.chat.messages.size - 1)
+        rememberLazyListState(initialFirstVisibleItemIndex = uiState.messages.size - 1)
 
     BackButtonTopBar(
         title = ChatDestination.titleRes,
@@ -61,23 +61,23 @@ fun ChatScreen(
         ChatScreenContent(
             navigateUp = navigateUp,
             userId = userId,
-            chat = uiState.chat,
+            messages = uiState.messages,
             sendMessage = {
                 viewModel.sendMessage(messageBody = it, messageType = MessageType.TEXT)
                 scope.launch {
-                    scrollState.animateScrollToItem(uiState.chat.messages.size - 1)
+                    scrollState.animateScrollToItem(uiState.messages.size - 1)
                 }
             },
             sendImage = {
                 viewModel.sendMessage(image = it, messageType = MessageType.IMAGE)
                 scope.launch {
-                    scrollState.animateScrollToItem(uiState.chat.messages.size - 1)
+                    scrollState.animateScrollToItem(uiState.messages.size - 1)
                 }
             },
             sendFile = {
                 viewModel.sendMessage(file = it, messageType = MessageType.VOICE)
                 scope.launch {
-                    scrollState.animateScrollToItem(uiState.chat.messages.size - 1)
+                    scrollState.animateScrollToItem(uiState.messages.size - 1)
                 }
             },
             scrollState = scrollState,
@@ -93,7 +93,7 @@ fun ChatScreen(
 fun ChatScreenContent(
     navigateUp: () -> Unit,
     userId: String,
-    chat: Chat,
+    messages: List<Message>,
     sendMessage: (String) -> Unit,
     sendImage: (String?) -> Unit,
     sendFile: (File?) -> Unit,
@@ -127,7 +127,7 @@ fun ChatScreenContent(
 
         ChatMessages(
             userId = userId,
-            messages = chat.messages,
+            messages = messages,
             modifier = Modifier.weight(1f),
             scrollState = scrollState,
             visualizerData = visualizerData,

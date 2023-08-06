@@ -38,7 +38,7 @@ class ChatViewModel @Inject constructor(
             useCase.getChatUseCase().collect {
                 _uiState.value = _uiState.value.copy(
                     currentUser = useCase.getCurrentUserUseCase(),
-                    chat = it
+                    messages = it
                 )
             }
         }

@@ -1,7 +1,6 @@
 package com.theflankers.agrican.data.repository
 
 import com.theflankers.agrican.data.remote.ApiService
-import com.theflankers.agrican.domain.model.Chat
 import com.theflankers.agrican.domain.model.Crop
 import com.theflankers.agrican.domain.model.Disease
 import com.theflankers.agrican.domain.model.Farm
@@ -98,9 +97,9 @@ class MainRepositoryImpl @Inject constructor(
         apiService.calculateFertilize()
     }
 
-    override suspend fun getChat(): Flow<Chat> {
+    override suspend fun getChat(): Flow<List<Message>> {
 //        return apiService.getChat()
-        return flow { emit(Chat(messages, "2")) }
+        return flow { emit(messages) }
     }
 
     private val messages = mutableListOf(Message(

@@ -1,6 +1,6 @@
 package com.theflankers.agrican.domain.use_case
 
-import com.theflankers.agrican.domain.model.Chat
+import com.theflankers.agrican.domain.model.Message
 import com.theflankers.agrican.domain.repository.MainRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -9,7 +9,7 @@ class GetChatUseCase @Inject constructor(
     private val mainRepository: MainRepository
 ) {
 
-    suspend operator fun invoke(): Flow<Chat> {
+    suspend operator fun invoke(): Flow<List<Message>> {
         return mainRepository.getChat()
 
 //        return flow {
