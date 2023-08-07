@@ -44,6 +44,7 @@ import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import com.theflankers.agrican.R
 import com.theflankers.agrican.common.ext.encodeImage
+import com.theflankers.agrican.domain.model.AudioFile
 import com.theflankers.agrican.ui.screens.home.main.ask_expert.record.AndroidAudioRecorder
 import com.theflankers.agrican.ui.theme.gray
 import com.theflankers.agrican.ui.theme.greenLight
@@ -57,7 +58,7 @@ import java.util.Objects
 fun BottomView(
     sendMessage: (String) -> Unit,
     sendImage: (String?) -> Unit,
-    sendFile: (Uri) -> Unit,
+    sendFile: (AudioFile) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
@@ -158,7 +159,7 @@ fun BottomView(
                         recording = false
                         // Start Tick Sound
                         mediaPlayer.start()
-                        sendFile(audioFile?.toUri() ?: Uri.EMPTY)
+                        sendFile(AudioFile(audioFile?.toUri() ?: Uri.EMPTY, 1))
                     } else {
                         // Check Permission
                         if (checkRecordAudioPermission(context)) {

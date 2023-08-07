@@ -132,14 +132,14 @@ class ChatViewModel @Inject constructor(
     fun sendMessage(
         messageBody: String? = null,
         image: String? = null,
-        file: Uri = Uri.EMPTY,
+        audioFile: AudioFile = AudioFile(),
         messageType: MessageType
     ) {
         val message = Message(
             body = messageBody,
             userId = _uiState.value.currentUser.userId,
             image = image,
-            audioFile = AudioFile(file),
+            audioFile = audioFile,
             type = messageType,
         )
         launchCatching {

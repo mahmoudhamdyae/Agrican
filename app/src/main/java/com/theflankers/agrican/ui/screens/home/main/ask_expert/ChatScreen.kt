@@ -26,6 +26,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.theflankers.agrican.R
 import com.theflankers.agrican.common.utils.audio.VisualizerData
+import com.theflankers.agrican.domain.model.AudioFile
 import com.theflankers.agrican.domain.model.Chat
 import com.theflankers.agrican.domain.model.Message
 import com.theflankers.agrican.domain.model.MessageType
@@ -76,7 +77,7 @@ fun ChatScreen(
                 }
             },
             sendFile = {
-                viewModel.sendMessage(file = it, messageType = MessageType.VOICE)
+                viewModel.sendMessage(audioFile = it, messageType = MessageType.VOICE)
                 scope.launch {
                     scrollState.animateScrollToItem(uiState.messages.size - 1)
                 }
@@ -97,7 +98,7 @@ fun ChatScreenContent(
     messages: List<Message>,
     sendMessage: (String) -> Unit,
     sendImage: (String?) -> Unit,
-    sendFile: (Uri) -> Unit,
+    sendFile: (AudioFile) -> Unit,
     visualizerData: VisualizerData,
     currentTime: Int,
     isPlaying: Boolean,

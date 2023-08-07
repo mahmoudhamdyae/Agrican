@@ -8,7 +8,7 @@ data class Message(
     val userId: String = "",
     val body: String? = null,
     val image: String? = null,
-    val audioFile: AudioFile? = null,
+    val audioFile: AudioFile = AudioFile(),
     val messageId: String = UUID.randomUUID().toString(),
 )
 

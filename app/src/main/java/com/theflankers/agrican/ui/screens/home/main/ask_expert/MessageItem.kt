@@ -188,7 +188,8 @@ fun VoiceMessage(
     ) {
         // Time String
         Text(
-            text = if (isPlaying) millisecondsToTimeString(currentTime) else "audioFile",
+            text = if (isPlaying) millisecondsToTimeString(currentTime)
+                else millisecondsToTimeString(audioFile.duration),
             color = textGray,
             fontSize = 12.sp
         )
