@@ -63,12 +63,11 @@ class ChatViewModel @Inject constructor(
     private fun initAudio(audioFile: AudioFile, context: Context, onAudioInitialized: () -> Unit) {
         launchCatching {
 
-//            _uiState.value = _uiState.value.copy(selectedAudio = AudioFile(audio))
+            _uiState.value = _uiState.value.copy(selectedAudio = audioFile)
 
             _player = MediaPlayer().apply {
                 setDataSource(context, audioFile.file)
                 prepare()
-                _uiState.value = _uiState.value.copy(selectedAudio = audioFile)
             }
 
             _player?.setOnCompletionListener {
