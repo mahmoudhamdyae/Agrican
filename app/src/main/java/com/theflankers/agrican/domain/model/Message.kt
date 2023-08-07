@@ -14,7 +14,8 @@ data class Message(
 
 data class AudioFile(
     val file: Uri = Uri.EMPTY,
-    val duration: Int = 0
+    val duration: Int = 0,
+    val audioId: String = UUID.randomUUID().toString(),
 )
 
 enum class MessageType {

@@ -1,12 +1,12 @@
 package com.theflankers.agrican.ui.screens.home.main.ask_expert
 
 import android.content.Context
-import android.net.Uri
+import com.theflankers.agrican.domain.model.AudioFile
 
 sealed class AudioPlayerEvent{
 
      data class InitAudio(
-         val audio: Uri,
+         val audio: AudioFile,
          val context: Context,
          val onAudioInitialized: () -> Unit
      ): AudioPlayerEvent()

@@ -161,9 +161,11 @@ fun BottomView(
                         // Start Tick Sound
                         mediaPlayer.start()
 
+                        // Get Duration of Recorder Message
                         val mediaMetadataRetriever = MediaMetadataRetriever()
                         mediaMetadataRetriever.setDataSource(audioFile?.absolutePath)
                         val milliseconds = mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)
+                        // Send Voice Message
                         sendFile(AudioFile(audioFile?.toUri() ?: Uri.EMPTY, milliseconds?.toInt() ?: 0))
                     } else {
                         // Check Permission

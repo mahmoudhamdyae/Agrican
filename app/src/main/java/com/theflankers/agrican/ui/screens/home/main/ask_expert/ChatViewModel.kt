@@ -2,7 +2,6 @@ package com.theflankers.agrican.ui.screens.home.main.ask_expert
 
 import android.content.Context
 import android.media.MediaPlayer
-import android.net.Uri
 import android.os.Handler
 import android.os.Looper
 import com.theflankers.agrican.common.utils.audio.VisualizerData
@@ -48,7 +47,7 @@ class ChatViewModel @Inject constructor(
         when (event) {
 
             is AudioPlayerEvent.InitAudio -> initAudio(
-                audio = event.audio,
+                audioFile = event.audio,
                 context = event.context,
                 onAudioInitialized = event.onAudioInitialized
             )
@@ -61,15 +60,15 @@ class ChatViewModel @Inject constructor(
         }
     }
 
-    private fun initAudio(audio: Uri, context: Context, onAudioInitialized: () -> Unit) {
+    private fun initAudio(audioFile: AudioFile, context: Context, onAudioInitialized: () -> Unit) {
         launchCatching {
 
 //            _uiState.value = _uiState.value.copy(selectedAudio = AudioFile(audio))
 
             _player = MediaPlayer().apply {
-                setDataSource(context, audio)
+                setDataSource(context, audioFile.file)
                 prepare()
-                _uiState.value = _uiState.value.copy(selectedAudio = AudioFile(audio, duration))
+                _uiState.value = _uiState.value.copy(selectedAudio = audioFile)
             }
 
             _player?.setOnCompletionListener {

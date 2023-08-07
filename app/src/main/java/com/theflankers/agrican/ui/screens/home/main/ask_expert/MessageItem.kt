@@ -129,7 +129,7 @@ fun MessageItemContent(
                             uiState = uiState,
                             visualizerData = visualizerData,
                             onEvent = onEvent,
-                            isSelected = uiState.selectedAudio.file == message.audioFile.file
+                            isSelected = uiState.selectedAudio.audioId == message.audioFile.audioId
                         )
                     }
                 }
@@ -214,7 +214,7 @@ fun VoiceMessage(
             } else {
                 // Init Audio
                 onEvent(AudioPlayerEvent.InitAudio(
-                    audio = audioFile.file,
+                    audio = audioFile,
                     context = context,
                     onAudioInitialized = { onEvent(AudioPlayerEvent.Play) }))
             }
