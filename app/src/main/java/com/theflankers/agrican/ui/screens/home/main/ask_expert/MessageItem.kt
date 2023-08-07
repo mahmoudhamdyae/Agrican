@@ -204,7 +204,7 @@ fun VoiceMessage(
             ),
             stackBarBackgroundColor = if (isSystemInDarkTheme()) black else
                 MaterialTheme.colorScheme.onSurface.copy(alpha = 0.25f),
-            data = visualizerData
+            data = if (isSelected) visualizerData else VisualizerData()
         )
 
         IconButton(onClick = {
