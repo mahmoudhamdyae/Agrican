@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
+import android.media.MediaMetadataRetriever
 import android.media.MediaPlayer
 import android.net.Uri
 import android.widget.Toast
@@ -159,7 +160,11 @@ fun BottomView(
                         recording = false
                         // Start Tick Sound
                         mediaPlayer.start()
-                        sendFile(AudioFile(audioFile?.toUri() ?: Uri.EMPTY, 1))
+
+                        val mediaMetadataRetriever = MediaMetadataRetriever()
+                        mediaMetadataRetriever.setDataSource(audioFile?.absolutePath)
+                        val milliseconds = mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)
+                        sendFile(AudioFile(audioFile?.toUri() ?: Uri.EMPTY, milliseconds?.toInt() ?: 0))
                     } else {
                         // Check Permission
                         if (checkRecordAudioPermission(context)) {
