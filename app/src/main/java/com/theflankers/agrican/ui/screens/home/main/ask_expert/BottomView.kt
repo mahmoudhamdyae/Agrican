@@ -6,6 +6,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
 import android.media.MediaPlayer
+import android.net.Uri
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
@@ -40,6 +41,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.core.net.toUri
 import com.theflankers.agrican.R
 import com.theflankers.agrican.common.ext.encodeImage
 import com.theflankers.agrican.ui.screens.home.main.ask_expert.record.AndroidAudioRecorder
@@ -55,7 +57,7 @@ import java.util.Objects
 fun BottomView(
     sendMessage: (String) -> Unit,
     sendImage: (String?) -> Unit,
-    sendFile: (File?) -> Unit,
+    sendFile: (Uri) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
@@ -156,7 +158,7 @@ fun BottomView(
                         recording = false
                         // Start Tick Sound
                         mediaPlayer.start()
-                        sendFile(audioFile)
+                        sendFile(audioFile?.toUri() ?: Uri.EMPTY)
                     } else {
                         // Check Permission
                         if (checkRecordAudioPermission(context)) {

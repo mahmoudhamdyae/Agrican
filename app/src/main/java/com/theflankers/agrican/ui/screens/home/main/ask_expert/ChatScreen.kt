@@ -1,5 +1,6 @@
 package com.theflankers.agrican.ui.screens.home.main.ask_expert
 
+import android.net.Uri
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -96,7 +97,7 @@ fun ChatScreenContent(
     messages: List<Message>,
     sendMessage: (String) -> Unit,
     sendImage: (String?) -> Unit,
-    sendFile: (File?) -> Unit,
+    sendFile: (Uri) -> Unit,
     visualizerData: VisualizerData,
     currentTime: Int,
     isPlaying: Boolean,

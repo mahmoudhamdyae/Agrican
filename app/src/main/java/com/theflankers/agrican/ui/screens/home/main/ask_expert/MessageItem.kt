@@ -31,7 +31,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.net.toUri
 import coil.compose.AsyncImage
 import com.theflankers.agrican.R
 import com.theflankers.agrican.common.ext.decodeImage
@@ -218,7 +217,7 @@ fun VoiceMessage(
             } else {
                 // Init Audio
                 onEvent(AudioPlayerEvent.InitAudio(
-                    audio = audioFile.file!!.toUri(),
+                    audio = audioFile.file,
                     context = context,
                     onAudioInitialized = { onEvent(AudioPlayerEvent.Play) }))
             }

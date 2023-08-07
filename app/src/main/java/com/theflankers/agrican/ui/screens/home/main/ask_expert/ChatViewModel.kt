@@ -15,7 +15,6 @@ import com.theflankers.agrican.ui.screens.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
@@ -67,11 +66,12 @@ class ChatViewModel @Inject constructor(
     private fun initAudio(audio: Uri, context: Context, onAudioInitialized: () -> Unit) {
         launchCatching {
 
-            _uiState.value = _uiState.value.copy(audio = audio)
+//            _uiState.value = _uiState.value.copy(selectedAudio = AudioFile(audio))
 
             _player = MediaPlayer().apply {
                 setDataSource(context, audio)
                 prepare()
+                _uiState.value = _uiState.value.copy(selectedAudio = AudioFile(audio, duration))
             }
 
             _player?.setOnCompletionListener {
@@ -132,7 +132,7 @@ class ChatViewModel @Inject constructor(
     fun sendMessage(
         messageBody: String? = null,
         image: String? = null,
-        file: File? = null,
+        file: Uri = Uri.EMPTY,
         messageType: MessageType
     ) {
         val message = Message(

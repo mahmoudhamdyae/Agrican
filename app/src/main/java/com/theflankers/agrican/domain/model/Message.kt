@@ -1,6 +1,6 @@
 package com.theflankers.agrican.domain.model
 
-import java.io.File
+import android.net.Uri
 import java.util.UUID
 
 data class Message(
@@ -13,7 +13,7 @@ data class Message(
 )
 
 data class AudioFile(
-    val file: File? = null,
+    val file: Uri = Uri.EMPTY,
     val duration: Int = 0
 )
 
