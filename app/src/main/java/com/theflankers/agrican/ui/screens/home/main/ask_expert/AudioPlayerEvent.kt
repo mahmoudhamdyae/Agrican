@@ -11,8 +11,6 @@ sealed class AudioPlayerEvent{
          val onAudioInitialized: () -> Unit
      ): AudioPlayerEvent()
 
-    data class Seek(val position: Float): AudioPlayerEvent()
-
     object Play: AudioPlayerEvent()
 
     object Pause: AudioPlayerEvent()

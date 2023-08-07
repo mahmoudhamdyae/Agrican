@@ -53,8 +53,6 @@ class ChatViewModel @Inject constructor(
                 onAudioInitialized = event.onAudioInitialized
             )
 
-            is AudioPlayerEvent.Seek -> seek(position = event.position)
-
             AudioPlayerEvent.Pause -> pause()
 
             AudioPlayerEvent.Play -> play()
@@ -123,10 +121,6 @@ class ChatViewModel @Inject constructor(
         _visualizer.stop()
         _player?.pause()
         _uiState.value = _uiState.value.copy(isPlaying = false)
-    }
-
-    private fun seek(position: Float) {
-        _player?.seekTo(position.toInt())
     }
 
     fun sendMessage(

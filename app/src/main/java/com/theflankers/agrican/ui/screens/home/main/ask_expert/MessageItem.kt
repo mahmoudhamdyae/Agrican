@@ -21,9 +21,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -132,6 +129,7 @@ fun MessageItemContent(
                             uiState = uiState,
                             visualizerData = visualizerData,
                             onEvent = onEvent,
+                            isSelected = uiState.selectedAudio.file == message.audioFile.file
                         )
                     }
                 }
@@ -175,10 +173,10 @@ fun VoiceMessage(
     audioFile: AudioFile,
     visualizerData: VisualizerData,
     onEvent: (AudioPlayerEvent) -> Unit,
+    isSelected: Boolean,
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
-    val isSelected by rememberSaveable { mutableStateOf(uiState.selectedAudio.file == audioFile.file) }
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -222,7 +220,7 @@ fun VoiceMessage(
             }
         }) {
             Icon(
-                imageVector = if (uiState.isPlaying) Icons.Default.Pause else Icons.Default.PlayArrow,
+                imageVector = if (uiState.isPlaying && isSelected) Icons.Default.Pause else Icons.Default.PlayArrow,
                 contentDescription = null,
                 tint = white,
                 modifier = Modifier
