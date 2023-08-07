@@ -85,8 +85,7 @@ fun ChatScreen(
             scrollState = scrollState,
             visualizerData = viewModel.visualizerData.value,
             onEvent = viewModel::onEvent,
-            currentTime = uiState.currentTime,
-            isPlaying = uiState.isPlaying
+            uiState = uiState
         )
     }
 }
@@ -100,8 +99,7 @@ fun ChatScreenContent(
     sendImage: (String?) -> Unit,
     sendFile: (AudioFile) -> Unit,
     visualizerData: VisualizerData,
-    currentTime: Int,
-    isPlaying: Boolean,
+    uiState: ChatUiState,
     onEvent: (AudioPlayerEvent) -> Unit,
     modifier: Modifier = Modifier,
     scrollState: LazyListState = rememberLazyListState()
@@ -134,8 +132,7 @@ fun ChatScreenContent(
             scrollState = scrollState,
             visualizerData = visualizerData,
             onEvent = onEvent,
-            currentTime = currentTime,
-            isPlaying = isPlaying
+            uiState = uiState
         )
 
         BottomView(
@@ -154,8 +151,7 @@ fun ChatMessages(
     userId: String,
     messages: List<Message>,
     visualizerData: VisualizerData,
-    currentTime: Int,
-    isPlaying: Boolean,
+    uiState: ChatUiState,
     onEvent: (AudioPlayerEvent) -> Unit,
     modifier: Modifier = Modifier,
     scrollState: LazyListState = rememberLazyListState()
@@ -170,8 +166,7 @@ fun ChatMessages(
                 isUserMe = it.userId == userId,
                 visualizerData = visualizerData,
                 onEvent = onEvent,
-                currentTime = currentTime,
-                isPlaying = isPlaying
+                uiState = uiState
             )
         }
     }

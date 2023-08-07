@@ -21,6 +21,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -49,8 +52,7 @@ fun MessageItem(
     message: Message,
     isUserMe: Boolean,
     visualizerData: VisualizerData,
-    currentTime: Int,
-    isPlaying: Boolean,
+    uiState: ChatUiState,
     onEvent: (AudioPlayerEvent) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -64,8 +66,7 @@ fun MessageItem(
                 isUserMe = true,
                 visualizerData = visualizerData,
                 onEvent = onEvent,
-                currentTime = currentTime,
-                isPlaying = isPlaying,
+                uiState = uiState,
                 modifier = Modifier.weight(1f)
             )
         }
@@ -75,8 +76,7 @@ fun MessageItem(
                 isUserMe = false,
                 visualizerData = visualizerData,
                 onEvent = onEvent,
-                currentTime = currentTime,
-                isPlaying = isPlaying,
+                uiState = uiState,
                 modifier = Modifier.weight(1f)
             )
             UserImage(
@@ -94,8 +94,7 @@ fun MessageItemContent(
     message: Message,
     isUserMe: Boolean,
     visualizerData: VisualizerData,
-    currentTime: Int,
-    isPlaying: Boolean,
+    uiState: ChatUiState,
     onEvent: (AudioPlayerEvent) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -128,12 +127,11 @@ fun MessageItemContent(
                     MessageType.IMAGE -> { ImageMessage(image = message.image!!) }
                     MessageType.VOICE -> {
                         VoiceMessage(
-                            audioFile = message.audioFile!!,
+                            audioFile = message.audioFile,
                             modifier = Modifier.padding(16.dp),
+                            uiState = uiState,
                             visualizerData = visualizerData,
                             onEvent = onEvent,
-                            currentTime = currentTime,
-                            isPlaying = isPlaying
                         )
                     }
                 }
@@ -173,14 +171,14 @@ fun ImageMessage(
 
 @Composable
 fun VoiceMessage(
+    uiState: ChatUiState,
     audioFile: AudioFile,
     visualizerData: VisualizerData,
-    currentTime: Int,
-    isPlaying: Boolean,
     onEvent: (AudioPlayerEvent) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
+    val isSelected by rememberSaveable { mutableStateOf(uiState.selectedAudio.file == audioFile.file) }
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -188,7 +186,7 @@ fun VoiceMessage(
     ) {
         // Time String
         Text(
-            text = if (isPlaying) millisecondsToTimeString(currentTime)
+            text = if (uiState.isPlaying && isSelected) millisecondsToTimeString(uiState.currentTime)
                 else millisecondsToTimeString(audioFile.duration),
             color = textGray,
             fontSize = 12.sp
@@ -212,7 +210,7 @@ fun VoiceMessage(
         )
 
         IconButton(onClick = {
-            if (isPlaying) {
+            if (uiState.isPlaying) {
                 // Pause Audio
                 onEvent(AudioPlayerEvent.Pause)
             } else {
@@ -224,10 +222,13 @@ fun VoiceMessage(
             }
         }) {
             Icon(
-                imageVector = if (isPlaying) Icons.Default.Pause else Icons.Default.PlayArrow,
+                imageVector = if (uiState.isPlaying) Icons.Default.Pause else Icons.Default.PlayArrow,
                 contentDescription = null,
                 tint = white,
-                modifier = Modifier.clip(CircleShape).background(greenDark).padding(4.dp)
+                modifier = Modifier
+                    .clip(CircleShape)
+                    .background(greenDark)
+                    .padding(4.dp)
             )
         }
     }

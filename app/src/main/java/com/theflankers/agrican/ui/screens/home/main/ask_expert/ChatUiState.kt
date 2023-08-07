@@ -7,7 +7,7 @@ import com.theflankers.agrican.domain.model.User
 data class ChatUiState(
     val currentUser: User = User(),
     val messages: List<Message> = emptyList(),
-    val selectedAudio: AudioFile? = null,
+    val selectedAudio: AudioFile = AudioFile(),
     val isPlaying: Boolean = false,
     val currentTime: Int = 0
 )
