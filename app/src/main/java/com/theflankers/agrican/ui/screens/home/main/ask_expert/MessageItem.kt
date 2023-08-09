@@ -39,7 +39,6 @@ import com.theflankers.agrican.domain.model.Message
 import com.theflankers.agrican.domain.model.MessageType
 import com.theflankers.agrican.ui.theme.black
 import com.theflankers.agrican.ui.theme.greenDark
-import com.theflankers.agrican.ui.theme.greenLight
 import com.theflankers.agrican.ui.theme.textGray
 import com.theflankers.agrican.ui.theme.white
 
@@ -195,9 +194,9 @@ fun VoiceMessage(
                 .height(height = 32.dp)
                 .padding(vertical = 4.dp, horizontal = 8.dp),
             barCount = 32,
-            barColors = listOf(Color(0xFF1BEBE9), greenLight, greenDark),
-//            stackBarBackgroundColor = Color(0xfff2f2f2),
-            stackBarBackgroundColor = textGray,
+            barColors = listOf(greenDark, greenDark, greenDark),
+            stackBarBackgroundColor = Color(0xFFC7C4C4),
+//            stackBarBackgroundColor = textGray,
             data = if (isSelected) visualizerData else VisualizerData()
         )
 

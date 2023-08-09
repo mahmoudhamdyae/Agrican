@@ -49,7 +49,7 @@ fun StackedBarVisualizer(
     barCount: Int,
     modifier: Modifier = Modifier,
     maxStackCount: Int = 32,
-    shape: Shape = RoundedCornerShape(size = 0.dp),
+    shape: Shape = RoundedCornerShape(size = 2.dp),
     barColors: List<Color> = listOf(
         Color.Red, Color.Yellow, Color.Green
     ),
