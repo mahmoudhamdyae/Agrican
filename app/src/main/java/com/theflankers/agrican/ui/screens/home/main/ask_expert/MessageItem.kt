@@ -1,7 +1,6 @@
 package com.theflankers.agrican.ui.screens.home.main.ask_expert
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,7 +16,6 @@ import androidx.compose.material.icons.filled.Pause
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -41,6 +39,7 @@ import com.theflankers.agrican.domain.model.Message
 import com.theflankers.agrican.domain.model.MessageType
 import com.theflankers.agrican.ui.theme.black
 import com.theflankers.agrican.ui.theme.greenDark
+import com.theflankers.agrican.ui.theme.greenLight
 import com.theflankers.agrican.ui.theme.textGray
 import com.theflankers.agrican.ui.theme.white
 
@@ -195,15 +194,9 @@ fun VoiceMessage(
                 .width(110.dp)
                 .height(height = 32.dp)
                 .padding(vertical = 4.dp, horizontal = 8.dp),
-            shape = MaterialTheme.shapes.large,
             barCount = 32,
-            barColors = listOf(
-                Color(0xFF1BEBE9),
-                Color(0xFF39AFEA),
-                Color(0xFF0291D8)
-            ),
-            stackBarBackgroundColor = if (isSystemInDarkTheme()) black else
-                MaterialTheme.colorScheme.onSurface.copy(alpha = 0.25f),
+            barColors = listOf(Color(0xFF1BEBE9), greenLight, greenDark),
+            stackBarBackgroundColor = Color(0xfff2f2f2),
             data = if (isSelected) visualizerData else VisualizerData()
         )
 
