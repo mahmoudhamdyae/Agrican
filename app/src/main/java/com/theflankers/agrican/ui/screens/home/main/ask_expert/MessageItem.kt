@@ -196,7 +196,6 @@ fun VoiceMessage(
             barCount = 32,
             barColors = listOf(greenDark, greenDark, greenDark),
             stackBarBackgroundColor = Color(0xFFC7C4C4),
-//            stackBarBackgroundColor = textGray,
             data = if (isSelected) visualizerData else VisualizerData()
         )
 
