@@ -1,5 +1,6 @@
 package com.theflankers.agrican.ui.screens.home.agricanservices.join_as_expert
 
+import com.theflankers.agrican.domain.repository.LogService
 import com.theflankers.agrican.domain.use_case.BaseUseCase
 import com.theflankers.agrican.ui.screens.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -7,8 +8,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class JoinAsExpertViewModel @Inject constructor(
-    private val useCase: BaseUseCase
-): BaseViewModel() {
+    private val useCase: BaseUseCase,
+    logService: LogService
+): BaseViewModel(logService) {
 
     fun send(
         fullName: String,

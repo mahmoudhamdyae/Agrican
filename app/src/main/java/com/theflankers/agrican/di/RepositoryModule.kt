@@ -1,9 +1,11 @@
 package com.theflankers.agrican.di
 
 import com.theflankers.agrican.data.repository.AccountServiceImpl
+import com.theflankers.agrican.data.repository.LogServiceImpl
 import com.theflankers.agrican.data.repository.MainRepositoryImpl
 import com.theflankers.agrican.data.repository.WeatherRepositoryImpl
 import com.theflankers.agrican.domain.repository.AccountService
+import com.theflankers.agrican.domain.repository.LogService
 import com.theflankers.agrican.domain.repository.MainRepository
 import com.theflankers.agrican.domain.repository.WeatherRepository
 import dagger.Binds
@@ -23,4 +25,7 @@ abstract class RepositoryModule {
 
     @Binds
     abstract fun provideWeatherRepository(impl: WeatherRepositoryImpl): WeatherRepository
+
+    @Binds
+    abstract fun provideLogService(impl: LogServiceImpl): LogService
 }

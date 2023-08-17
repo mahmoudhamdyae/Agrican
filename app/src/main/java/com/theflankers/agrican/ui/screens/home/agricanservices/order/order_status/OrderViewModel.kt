@@ -10,6 +10,7 @@ import com.theflankers.agrican.data.remote.model.paymob.BillingData
 import com.theflankers.agrican.data.remote.model.paymob.OrderModel
 import com.theflankers.agrican.data.remote.model.paymob.PaymentRequest
 import com.theflankers.agrican.domain.model.Order
+import com.theflankers.agrican.domain.repository.LogService
 import com.theflankers.agrican.domain.use_case.BaseUseCase
 import com.theflankers.agrican.ui.screens.BaseViewModel
 import com.theflankers.agrican.ui.screens.home.agricanservices.order.confirm_order.PayActivity
@@ -24,7 +25,8 @@ private const val TAG = "OrderViewModel"
 class OrderViewModel @Inject constructor(
     private val useCase: BaseUseCase,
     private val apiService: PaymobApiService,
-): BaseViewModel() {
+    logService: LogService
+): BaseViewModel(logService) {
 
     private val _uiState = MutableStateFlow(OrderUiState())
     val uiState = _uiState.asStateFlow()

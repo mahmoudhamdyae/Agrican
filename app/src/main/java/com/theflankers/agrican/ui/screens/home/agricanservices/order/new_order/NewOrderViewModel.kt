@@ -1,5 +1,6 @@
 package com.theflankers.agrican.ui.screens.home.agricanservices.order.new_order
 
+import com.theflankers.agrican.domain.repository.LogService
 import com.theflankers.agrican.domain.use_case.BaseUseCase
 import com.theflankers.agrican.ui.screens.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -9,8 +10,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NewOrderViewModel @Inject constructor(
-    private val useCase: BaseUseCase
-): BaseViewModel() {
+    private val useCase: BaseUseCase,
+    logService: LogService
+): BaseViewModel(logService) {
     
     private val _uiState = MutableStateFlow(NewOrderUiState())
     val uiState = _uiState.asStateFlow()

@@ -1,6 +1,7 @@
 package com.theflankers.agrican.ui.screens.home.profile.observe_crop
 
 import androidx.lifecycle.SavedStateHandle
+import com.theflankers.agrican.domain.repository.LogService
 import com.theflankers.agrican.domain.use_case.BaseUseCase
 import com.theflankers.agrican.ui.screens.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,7 +13,8 @@ import javax.inject.Inject
 class ObserveCropViewModel @Inject constructor(
     useCase: BaseUseCase,
     savedStateHandle: SavedStateHandle,
-): BaseViewModel() {
+    logService: LogService
+): BaseViewModel(logService) {
 
     private val _uiState = MutableStateFlow(ObserveCropUiState())
     val uiState = _uiState.asStateFlow()

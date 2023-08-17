@@ -2,6 +2,7 @@ package com.theflankers.agrican.ui.screens.home.agricanservices.pests
 
 import androidx.lifecycle.SavedStateHandle
 import com.theflankers.agrican.domain.model.Pest
+import com.theflankers.agrican.domain.repository.LogService
 import com.theflankers.agrican.domain.use_case.BaseUseCase
 import com.theflankers.agrican.ui.screens.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,7 +14,8 @@ import javax.inject.Inject
 class PestViewModel @Inject constructor(
     private val useCase: BaseUseCase,
     savedStateHandle: SavedStateHandle,
-): BaseViewModel() {
+    logService: LogService
+): BaseViewModel(logService) {
 
     private val _pest = MutableStateFlow(Pest())
     val pest = _pest.asStateFlow()

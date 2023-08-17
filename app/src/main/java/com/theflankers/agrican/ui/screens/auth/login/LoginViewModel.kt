@@ -4,6 +4,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import com.theflankers.agrican.domain.model.UserType
+import com.theflankers.agrican.domain.repository.LogService
 import com.theflankers.agrican.domain.use_case.BaseUseCase
 import com.theflankers.agrican.ui.screens.BaseViewModel
 import com.theflankers.agrican.ui.screens.auth.AuthFormEvent
@@ -20,7 +21,8 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val useCase: BaseUseCase,
-): BaseViewModel() {
+    logService: LogService
+): BaseViewModel(logService) {
 
     var state by mutableStateOf(AuthFormState())
     var accountType = mutableStateOf(UserType.ENGINEER)

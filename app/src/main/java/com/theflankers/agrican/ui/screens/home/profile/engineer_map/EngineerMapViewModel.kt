@@ -1,6 +1,7 @@
 package com.theflankers.agrican.ui.screens.home.profile.engineer_map
 
 import com.theflankers.agrican.domain.model.Farm
+import com.theflankers.agrican.domain.repository.LogService
 import com.theflankers.agrican.domain.use_case.BaseUseCase
 import com.theflankers.agrican.ui.screens.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -10,8 +11,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class EngineerMapViewModel @Inject constructor(
-    private val useCase: BaseUseCase
-): BaseViewModel() {
+    private val useCase: BaseUseCase,
+    logService: LogService
+): BaseViewModel(logService) {
 
     private val _farms = MutableStateFlow(listOf<Farm>())
     val farms = _farms.asStateFlow()

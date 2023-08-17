@@ -2,6 +2,7 @@ package com.theflankers.agrican.ui.screens.splash
 
 import com.theflankers.agrican.data.repository.PreferencesRepository
 import com.theflankers.agrican.domain.repository.AccountService
+import com.theflankers.agrican.domain.repository.LogService
 import com.theflankers.agrican.ui.screens.BaseViewModel
 import com.theflankers.agrican.ui.screens.auth.login.LoginDestination
 import com.theflankers.agrican.ui.screens.home.HomeDestination
@@ -16,8 +17,9 @@ import javax.inject.Inject
 @HiltViewModel
 class SplashViewModel @Inject constructor(
     preferencesRepository: PreferencesRepository,
-    private val accountService: AccountService
-): BaseViewModel() {
+    private val accountService: AccountService,
+    logService: LogService
+): BaseViewModel(logService) {
 
     private val _uiState = MutableStateFlow(SplashUiState())
     val uiState = _uiState.asStateFlow()
